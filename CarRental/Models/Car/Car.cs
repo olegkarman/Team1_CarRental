@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Models;
+namespace CarRental.Models.Car;
+
 internal class Car
 {
+    //THE COMMENT OF O. KARMANSKYI.
     /*VinCode: string
     SerialNumber: string
     TransmissionType: string
@@ -19,4 +21,5 @@ internal class Car
     SendToRepair()
     Refuel()
     RemoveCar()*/
+
 }
