@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Models.Car;
+namespace CarRental.Models;
 
 internal class Car
 {
@@ -21,5 +21,21 @@ internal class Car
     SendToRepair()
     Refuel()
     RemoveCar()*/
+
+    // FIELDS
+
+    const string InvalidCar = "Car has no mark";
+    internal readonly string Year;
+
+    // PROPERTIES
+
+    internal required string Id { get; init; }
+    internal string Mark { get; init; }
+
+    // CONSTRUCTORS
+
+
+    // METHODS
+
 
 }
