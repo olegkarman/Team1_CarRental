@@ -1,4 +1,4 @@
-﻿class CarRentalMain
+﻿class CarRentalPortal
 {
     static void Main(string[] args)
     {
