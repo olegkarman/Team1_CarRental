@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Models;
+namespace CarRental.Models.Car;
 
 internal class Car
 {
@@ -32,23 +32,24 @@ internal class Car
     internal required string SerialNumber { get; init; }
     internal string Model { get; init; }
     internal string Brand { get; init; }
+    internal TransportStatus Status { get; set; } 
 
     // CONSTRUCTORS
 
     public Car()
     {
-        this.Year = 0;
-        this.SerialNumber = _invalidCar;
-        this.Model = _invalidCar;
-        this.Brand = _invalidCar;
+        Year = 0;
+        SerialNumber = _invalidCar;
+        Model = _invalidCar;
+        Brand = _invalidCar;
     }
 
     public Car(int year, string serialNumber, string model, string brand)
     {
-        this.Year = year;
-        this.SerialNumber = serialNumber;
-        this.Model = model;
-        this.Brand = brand;
+        Year = year;
+        SerialNumber = serialNumber;
+        Model = model;
+        Brand = brand;
     }
 
     // METHODS
