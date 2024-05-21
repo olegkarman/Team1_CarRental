@@ -43,9 +43,12 @@ internal class Car
         this.Brand = _invalidCar;
     }
 
-    public Car(int year)
+    public Car(int year, string serialNumber, string model, string brand)
     {
         this.Year = year;
+        this.SerialNumber = serialNumber;
+        this.Model = model;
+        this.Brand = brand;
     }
 
     // METHODS
