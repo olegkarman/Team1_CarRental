@@ -24,7 +24,7 @@ internal class Car
 
     // FIELDS
 
-    private const string _invalidCar = "Car has no mark";
+    private const string _invalidCar = "NO INFO";
     internal readonly int Year;
 
     // PROPERTIES
@@ -34,6 +34,14 @@ internal class Car
     internal string Brand { get; init; }
 
     // CONSTRUCTORS
+
+    public Car()
+    {
+        this.Year = 0;
+        this.SerialNumber = _invalidCar;
+        this.Model = _invalidCar;
+        this.Brand = _invalidCar;
+    }
 
     public Car(int year)
     {
