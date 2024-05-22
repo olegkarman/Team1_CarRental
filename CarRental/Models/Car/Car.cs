@@ -21,6 +21,7 @@ internal class Car
     SendToRepair()
     Refuel()
     RemoveCar()*/
+    // public bool IsFitForUse { get; set; } — NINA BABINETS.
 
     // FIELDS
 
@@ -32,7 +33,8 @@ internal class Car
     internal required string SerialNumber { get; init; }
     internal string Model { get; init; }
     internal string Brand { get; init; }
-    internal TransportStatus Status { get; set; } 
+    internal TransportStatus Status { get; set; }
+    public bool IsFitForUse { get; set; }
 
     // CONSTRUCTORS
 
