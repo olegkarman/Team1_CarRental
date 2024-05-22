@@ -9,4 +9,5 @@ namespace CarRental.Models.Car;
 internal class CarTransmission
 {
     public TypeTransmission type { get; init; }
+    public int SpeedCount { get; init; }
 }
