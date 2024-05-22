@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class Transmission
+internal enum TypeTransmission
 {
-    public TypeTransmission type { get; init; }
+    unknown = 0,
+    manual = 10,
+    semiAutomatic = 11,
+    automatic = 12,
+    continuouslyVariable = 13
 }
