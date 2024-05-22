@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class Engine
+internal class CarEngine
 {
     public FuelEngine fuel { get; init; }
     public TypeEngine type { get; init; }
