@@ -8,6 +8,7 @@ namespace CarRental.Models.Car;
 
 internal enum FuelEngine
 {
+    unknown = 0,
     diselBio = 10,
     diselSynthetic = 20,
     diselPetroleum = 30,
@@ -20,5 +21,6 @@ internal enum FuelEngine
     nitroPlus = 99,
     superPlus = 100,
     marcoPetroli = 101,
-    ultimate = 102
+    ultimate = 102,
+    electricity = 200
 }
