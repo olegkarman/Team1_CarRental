@@ -8,5 +8,7 @@ namespace CarRental.Models.Car;
 
 internal class CarWheels
 {
-
+    public MaterialWheel Material { get; init; }
+    public int Size { get; init; }
+    internal TypeTire { get; set; }
 }
