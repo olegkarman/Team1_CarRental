@@ -8,6 +8,12 @@ namespace CarRental.Models.Car;
 
 internal class CarEngine
 {
+    // FIELDS
+
+    internal required string SerialNumber { get; init; }
+
+    // PROPERTIES
+
     public FuelEngine fuel { get; init; }
     public TypeEngine type { get; init; }
 }

@@ -8,6 +8,12 @@ namespace CarRental.Models.Car;
 
 internal class CarTransmission
 {
+    // FIELDS
+
+    internal required string SerialNumber { get; init; }
+
+    // PROPERTIES
+
     public TypeTransmission type { get; init; }
     public int SpeedCount { get; init; }
 }
