@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace CarRental.Models.Car;
 
@@ -34,6 +35,7 @@ internal class Car
     public CarInterior Interior { get; set; }
     public CarWheels Wheels { get; set; }
     public CarTransmission Transmission { get; set; }
+    public KnownColor Color { get; set; }
 
     internal required string SerialNumber { get; init; }
     internal string Model { get; init; }
