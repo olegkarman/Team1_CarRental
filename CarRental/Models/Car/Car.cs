@@ -35,7 +35,6 @@ internal class Car
     public Wheels WheelsCar { get; set; }
     public Transmission TransmissionCar { get; set; }
 
-
     internal required string SerialNumber { get; init; }
     internal string Model { get; init; }
     internal string Brand { get; init; }

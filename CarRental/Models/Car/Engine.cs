@@ -8,5 +8,6 @@ namespace CarRental.Models.Car;
 
 internal class Engine
 {
+    public FuelEngine fuel { get; init; }
 
 }
