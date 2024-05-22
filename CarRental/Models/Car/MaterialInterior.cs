@@ -12,6 +12,6 @@ internal enum MaterialInterior
     metal = 10,
     plastic = 11,
     leather = 12,
-    carbone = 13,
+    carbon = 13,
     wood = 14
 }

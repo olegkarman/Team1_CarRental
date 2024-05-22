@@ -11,6 +11,6 @@ internal class CarInterior
 {
     // FROM System.Drawing, BASE COLORS ENUM.
     public KnownColor Color { get; set; }
-
+    public MaterialInterior Material { get; init; }
 
 }
