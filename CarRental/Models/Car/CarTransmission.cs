@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarTransmission
+internal class CarTransmission : AbstractTransmission
 {
     // FIELDS
 

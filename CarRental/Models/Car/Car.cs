@@ -31,10 +31,10 @@ internal class Car
 
     // PROPERTIES
 
-    public CarEngine Engine { get; set; }
-    public CarInterior Interior { get; set; }
-    public CarWheels Wheels { get; set; }
-    public CarTransmission Transmission { get; set; }
+    public AbstractEngine Engine { get; set; }
+    public AbstractInterior Interior { get; set; }
+    public AbstractWheels Wheels { get; set; }
+    public AbstractTransmission Transmission { get; set; }
     public KnownColor Color { get; set; }
     public int Price { get; set; }
 
