@@ -9,10 +9,6 @@ namespace CarRental.Models.Car;
 
 internal class CarInterior
 {
-    // FIELDS
-
-    internal required string SerialNumber { get; init; }
-
     // PROPERTIES
 
     // FROM System.Drawing, BASE COLORS ENUM.
