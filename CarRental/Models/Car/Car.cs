@@ -30,6 +30,12 @@ internal class Car
 
     // PROPERTIES
 
+    public Engine EngineCar { get; set; }
+    public Interior InteriorCar { get; set; }
+    public Wheels WheelsCar { get; set; }
+    public Transmission TransmissionCar { get; set; }
+
+
     internal required string SerialNumber { get; init; }
     internal string Model { get; init; }
     internal string Brand { get; init; }
