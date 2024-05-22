@@ -36,6 +36,7 @@ internal class Car
     public CarWheels Wheels { get; set; }
     public CarTransmission Transmission { get; set; }
     public KnownColor Color { get; set; }
+    public int Price { get; set; }
 
     internal required string SerialNumber { get; init; }
     internal string Model { get; init; }
