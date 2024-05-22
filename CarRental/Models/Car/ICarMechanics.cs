@@ -8,5 +8,9 @@ namespace CarRental.Models.Car;
 
 internal interface ICarMechanics
 {
-
+    internal bool TryChangeEngine(CarEngine engine);
+    internal bool TryChangeTransmission(CarTransmission transmission);
+    internal bool TryChangeInterior(CarInterior interior);
+    internal bool TryChangeWheels(CarWheels wheels);
+    internal bool TryChangeTire(TypeTire tire);
 }
