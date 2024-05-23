@@ -128,6 +128,12 @@ internal class CarMechanic : ICarMechanics, IDriveable
         }
     }
 
+    // PAINT A CAR.
+    public void Paint(Car car, KnownColor color)
+    {
+        car.Color = color;
+    }
+
     // CHANGE TIRE OF A CAR.
     public bool TryReplaceComponent(Car car, TypeTire tire)
     {
