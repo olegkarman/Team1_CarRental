@@ -109,12 +109,12 @@ internal class Car
 
     // METHODS
 
-    public void LetsDrive(IDriveable driver)
+    public bool LetsDrive(IDriveable driver)
     {
         // STOP METHOD IF NO FUEL.
         if (this.CurrentFuelCapacity == 0)
         {
-            return;
+            return false;
         }
         else
         {
@@ -126,7 +126,10 @@ internal class Car
                 drivingTime = CurrentFuelCapacity / this.Engine.AverageFuelConsumption;
             }
 
+            // TO INCREASE AVTOPROBIG.
             this._mileage = this._mileage + (averageSpeed * drivingTime);
+
+            return true;
         }
     }
 }
