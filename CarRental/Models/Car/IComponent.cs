@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarWheels : AbstractWheels, IComponent
+public interface IComponent
 {
-    // PROPERTIES
-
-    public MaterialWheel Material { get; init; }
-    public int Size { get; init; }
-    internal TypeTire Tire { get; set; }
     public ComponentStatus Status { get; set; }
 }

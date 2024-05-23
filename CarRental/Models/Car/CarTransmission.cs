@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarTransmission : AbstractTransmission
+internal class CarTransmission : AbstractTransmission, IComponent
 {
     // FIELDS
 
@@ -15,4 +15,5 @@ internal class CarTransmission : AbstractTransmission
     internal override required string SerialNumber { get; init; }
     public TypeTransmission type { get; init; }
     public int SpeedCount { get; init; }
+    public ComponentStatus Status { get; set; }
 }

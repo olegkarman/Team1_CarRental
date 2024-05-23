@@ -7,12 +7,13 @@ using System.Drawing;
 
 namespace CarRental.Models.Car;
 
-internal class CarInterior : AbstractInterior
+internal class CarInterior : AbstractInterior, IComponent
 {
     // PROPERTIES
 
     // FROM System.Drawing, BASE COLORS ENUM.
     public KnownColor Color { get; set; }
     public MaterialInterior Material { get; init; }
+    public ComponentStatus Status { get; set; }
 
 }

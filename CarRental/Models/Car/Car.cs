@@ -24,6 +24,34 @@ internal class Car
     RemoveCar()*/
     // public bool IsFitForUse { get; set; } — NINA BABINETS.
 
+    // O. KARMANSKYI
+    /*
+        Car:
+        Can be rented by a Customer
+        Can be purchased by a Customer
+        Can be sent to repair by an Inspector
+        Can be inspected by an Inspector
+        Can be part of a Deal
+        Customer:
+        Can rent a Car
+        Can purchase a Car
+        Can return a rented Car
+        Can pay money for a rented or purchased Car
+        Can be a party to a Deal
+        Inspector:
+        Can inspect a Car
+        Can record the results of an inspection
+        Can remove a Car from the system if it is deemed unfit for use
+        Inspection:
+        Is performed by an Inspector
+        Is associated with a specific Car
+        Has a result that indicates whether the Car is fit for use
+        Deal:
+        Is created between a Company and a Customer
+        Involves a specific Car
+        Has a type (purchase or rental)
+        Has a price*/
+
     // FIELDS
 
     private const string _invalidCar = "NO INFO";

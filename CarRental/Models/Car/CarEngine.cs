@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarEngine : AbstractEngine
+internal class CarEngine : AbstractEngine, IComponent
 {
     // FIELDS
 
@@ -17,4 +17,5 @@ internal class CarEngine : AbstractEngine
     public override required FuelEngine Fuel { get; init; }
     public override required TypeEngine Type { get; init; }
     internal override required int Power { get; set; }
+    public ComponentStatus Status { get; set; }
 }
