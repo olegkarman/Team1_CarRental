@@ -10,10 +10,10 @@ internal class CarEngine : AbstractEngine
 {
     // PROPERTIES
 
-    internal override required string SerialNumber { get; init; }
+    internal override string SerialNumber { get; init; }
     internal override required int AverageFuelConsumption { get; set; }
-    public override required FuelEngine Fuel { get; init; }
-    public override required TypeEngine Type { get; init; }
+    public override FuelEngine Fuel { get; init; }
+    public override TypeEngine Type { get; init; }
     internal override required int Power { get; set; }
-    public override ComponentStatus Status { get; set; }
+    public override required ComponentStatus Status { get; set; }
 }

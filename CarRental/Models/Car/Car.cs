@@ -87,6 +87,8 @@ internal class Car
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
+    public AbstractLights Lights { get; set; }
+    public AbstractSignal Signal { get; set; }
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
@@ -147,6 +149,8 @@ internal class Car
 
     #endregion
 
+    #region CONSTRUCTORS
+
     // CONSTRUCTORS
 
     public Car()
@@ -164,6 +168,10 @@ internal class Car
         Model = model;
         Brand = brand;
     }
+
+    #endregion
+
+    #region METHODS
 
     // METHODS
 
@@ -194,4 +202,6 @@ internal class Car
     {
         MaxSpeed = this.Engine.Power * this.SpeedCoeficient;
     }
+
+    #endregion
 }

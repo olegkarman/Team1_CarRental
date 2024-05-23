@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace CarRental.Models.Car;
 
-internal class CarInterior : AbstractInterior
+internal class CarLights : AbstractLights
 {
     // PROPERTIES
 
-    public override required KnownColor Color { get; set; } // FROM System.Drawing, BASE COLORS ENUM.
-    public override MaterialInterior Material { get; init; }
+    public override KnownColor Color { get; init; }
+    public override PowerComponent Power { get; init; }
     public override required ComponentStatus Status { get; set; }
 }

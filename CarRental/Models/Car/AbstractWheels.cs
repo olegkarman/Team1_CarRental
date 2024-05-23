@@ -10,8 +10,8 @@ internal abstract class AbstractWheels : IComponent
 {
     // PROPERTIES
 
-    public abstract required MaterialWheel Material { get; init; }
-    public abstract required int Size { get; init; }
-    public abstract TypeTire Tire { get; set; }
-    public abstract ComponentStatus Status { get; set; }
+    public abstract MaterialWheel Material { get; init; }
+    public abstract int Size { get; init; }
+    public abstract required TypeTire Tire { get; set; }
+    public abstract required ComponentStatus Status { get; set; }
 }

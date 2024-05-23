@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace CarRental.Models.Car;
 
-internal abstract class AbstractTransmission : IComponent
+internal abstract class AbstractLights : IComponent
 {
     // PROPERTIES
 
-    internal abstract required string SerialNumber { get; init; }
-    public abstract required TypeTransmission Type { get; init; }
+    public abstract PowerComponent Power { get; init; }
+    public abstract KnownColor Color { get; init; }
     public abstract required ComponentStatus Status { get; set; }
 }
