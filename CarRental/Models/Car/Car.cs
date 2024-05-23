@@ -28,7 +28,7 @@ internal class Car
 
     private const string _invalidCar = "NO INFO";
     internal readonly int Year;
-    private int _mileage;
+    private int _mileage;   // AVTOPROBIG.
 
     // PROPERTIES
 
@@ -66,7 +66,7 @@ internal class Car
 
     // METHODS
 
-    // IT IS A 'SETTER' FOR _mileage PRIVATE FIELD. NEED A DRIVER.
+    // IT IS A 'SETTER' FOR _mileage PRIVATE FIELD. IT REQUIRES A DRIVER.
     public void LetsDrive(IDriveable driver)
     {
         driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
