@@ -13,7 +13,7 @@ internal class CarTransmission : AbstractTransmission, IComponent
     // PROPERTIES
 
     internal override required string SerialNumber { get; init; }
-    public TypeTransmission type { get; init; }
+    public override required TypeTransmission Type { get; init; }
     public int SpeedCount { get; init; }
     public ComponentStatus Status { get; set; }
 }

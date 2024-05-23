@@ -11,4 +11,5 @@ internal abstract class AbstractTransmission
     // PROPERTIES
 
     internal abstract required string SerialNumber { get; init; }
+    public abstract required TypeTransmission Type { get; init; }
 }

@@ -8,10 +8,10 @@ namespace CarRental.Models.Car;
 
 public interface ICarMechanics
 {
-    internal bool TryChangeEngine(CarEngine engine);
-    internal bool TryChangeTransmission(CarTransmission transmission);
-    internal bool TryChangeInterior(CarInterior interior);
-    internal bool TryChangeWheels(CarWheels wheels);
-    internal bool TryChangeTire(TypeTire tire);
+    internal bool TryReplaceComponent(Car car, CarEngine engine);
+    internal bool TryReplaceComponent(Car car, CarTransmission transmission);
+    internal bool TryReplaceComponent(Car car, CarInterior interior);
+    internal bool TryReplaceComponent(Car car, CarWheels wheels);
+    internal bool TryReplaceComponent(Car car, TypeTire tire);
     public bool TryFixComponent(IComponent component);
 }

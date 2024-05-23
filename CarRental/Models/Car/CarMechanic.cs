@@ -42,4 +42,31 @@ internal class CarMechanic : ICarMechanics, IDriveable
             return false;
         }
     }
+
+    // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
+    internal bool TryReplaceComponent (Car car, CarEngine engine)
+    {
+        if (car.Engine.Type.Equals(engine.Type))
+        {
+            car.Engine = engine;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    internal bool TryReplaceComponent(Car car, CarTransmission transmission)
+    {
+        if (car.Transmission.Type.Equals(transmission.Type))
+        {
+            car.Transmission = transmission;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
