@@ -92,5 +92,10 @@ internal class CarMechanic : ICarMechanics, IDriveable
         }
     }
 
-
+    // CHANGE TIRE OF A CAR.
+    public bool TryReplaceComponent(Car car, TypeTire tire)
+    {
+        car.Wheels.Tire = tire;
+        return true;
+    }
 }
