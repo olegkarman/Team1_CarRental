@@ -9,6 +9,9 @@ namespace CarRental.Models.Car;
 
 internal class Car
 {
+
+    #region COMMENTARY OF O. KARMANSKYI
+
     //THE COMMENT OF O. KARMANSKYI.
     /*VinCode: string
     SerialNumber: string
@@ -51,6 +54,8 @@ internal class Car
         Involves a specific Car
         Has a type (purchase or rental)
         Has a price*/
+        
+        #endregion
 
     // FIELDS
 
@@ -64,7 +69,7 @@ internal class Car
     public AbstractInterior Interior { get; set; }
     public AbstractWheels Wheels { get; set; }
     public AbstractTransmission Transmission { get; set; }
-    public ICarControllable DriverCabin { get; set; }
+    public required ICarControllable DriverCabin { get; set; }
 
     public required int SpeedCoeficient { get; set; }   // RE-WORK PLEASE.
 
@@ -131,6 +136,7 @@ internal class Car
         VinCode = _invalidCar;
         Model = _invalidCar;
         Brand = _invalidCar;
+        DriverCabin = new DriverCabin();
     }
 
     public Car(int year, string serialNumber, string model, string brand)
