@@ -36,11 +36,34 @@ internal class Car
     public AbstractInterior Interior { get; set; }
     public AbstractWheels Wheels { get; set; }
     public AbstractTransmission Transmission { get; set; }
+
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
 
     internal required string SerialNumber { get; init; }
+
+    internal required int MaxFuelCapacity
+    {
+        get
+        {
+            return MaxFuelCapacity;
+        }
+
+        // THE MAX FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
+        init
+        {
+            if (value < 0)
+            {
+                MaxFuelCapacity = 0;
+            }
+            else
+            {
+                MaxFuelCapacity = value;
+            }
+        }
+    }
+
     internal string Model { get; init; }
     internal string Brand { get; init; }
     internal TransportStatus Status { get; set; }
