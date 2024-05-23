@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarWheels : AbstractWheels, IComponent
+internal class CarWheels : AbstractWheels
 {
     // PROPERTIES
 

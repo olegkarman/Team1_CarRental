@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace CarRental.Models.Car;
 
-internal class CarInterior : AbstractInterior, IComponent
+internal class CarInterior : AbstractInterior
 {
     // PROPERTIES
 

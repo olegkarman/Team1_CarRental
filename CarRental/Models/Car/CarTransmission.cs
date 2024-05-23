@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarTransmission : AbstractTransmission, IComponent
+internal class CarTransmission : AbstractTransmission
 {
-    // FIELDS
-
     // PROPERTIES
 
     internal override required string SerialNumber { get; init; }

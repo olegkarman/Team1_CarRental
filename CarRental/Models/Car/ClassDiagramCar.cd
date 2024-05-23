@@ -6,7 +6,6 @@
       <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAEAAAABAwABAAAAAAA=</HashCode>
       <FileName>Models\Car\CarEngine.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="CarRental.Models.Car.AbstractEngine" Collapsed="true">
     <Position X="3.5" Y="0.5" Width="1.5" />
@@ -46,7 +45,6 @@
       <HashCode>AEAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\Car\CarInterior.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="CarRental.Models.Car.CarTransmission" Collapsed="true">
     <Position X="7" Y="2.25" Width="1.5" />
@@ -54,7 +52,6 @@
       <HashCode>AAAAAAAEAAAAAAAAAAAAABAAAAEAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Models\Car\CarTransmission.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="CarRental.Models.Car.CarWheels" Collapsed="true">
     <Position X="8.75" Y="2.25" Width="1.5" />
@@ -62,7 +59,6 @@
       <HashCode>AEAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
       <FileName>Models\Car\CarWheels.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
