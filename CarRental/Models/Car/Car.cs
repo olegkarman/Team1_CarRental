@@ -28,6 +28,7 @@ internal class Car
 
     private const string _invalidCar = "NO INFO";
     internal readonly int Year;
+    private int _mileage;
 
     // PROPERTIES
 
@@ -36,6 +37,7 @@ internal class Car
     public AbstractWheels Wheels { get; set; }
     public AbstractTransmission Transmission { get; set; }
     public KnownColor Color { get; set; }
+    public int MaxSpeed { get; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
 
     internal required string SerialNumber { get; init; }
@@ -64,5 +66,10 @@ internal class Car
 
     // METHODS
 
-
+    // IT IS A 'SETTER' FOR _mileage PRIVATE FIELD. NEED A DRIVER.
+    public void LetsDrive(IDriveable driver)
+    {
+        driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
+        this._mileage = this._mileage + (averageSpeed * drivingTime); 
+    }
 }
