@@ -17,5 +17,5 @@ internal class CarEngine : AbstractEngine, IComponent
     public override required FuelEngine Fuel { get; init; }
     public override required TypeEngine Type { get; init; }
     internal override required int Power { get; set; }
-    public ComponentStatus Status { get; set; }
+    public override ComponentStatus Status { get; set; }
 }

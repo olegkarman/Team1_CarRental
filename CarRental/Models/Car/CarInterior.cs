@@ -13,6 +13,6 @@ internal class CarInterior : AbstractInterior, IComponent
 
     public override required KnownColor Color { get; set; } // FROM System.Drawing, BASE COLORS ENUM.
     public override required MaterialInterior Material { get; init; }
-    public ComponentStatus Status { get; set; }
+    public override ComponentStatus Status { get; set; }
 
 }

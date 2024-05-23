@@ -28,6 +28,29 @@ internal class CarMechanic : ICarMechanics, IDriveable
         drivingTime = _random.Next(0, 101);
     }
 
+    // TO CHECK IF A COMPONENT OF A CAR IS NEED TO BE FIXED.
+    public ComponentStatus CheckComponent(IComponent component)
+    {
+        return component.Status;
+    }
+
+    // CHECK A WHOLE CAR. COMPONENT BY COMPONENT.
+    public TransportStatus CheckCar(Car car)
+    {
+        bool isNeedToBeFixed = ((car.Engine.Status == ComponentStatus.fixIsNeed) || (car.Engine.Status == ComponentStatus.broken)) || ((car.Transmission.Status == ComponentStatus.fixIsNeed) || (car.Transmission.Status == ComponentStatus.broken)) || ((car.Wheels.Status == ComponentStatus.fixIsNeed) || (car.Wheels.Status == ComponentStatus.broken));
+
+        // IF A CAR IS NEED A REPAIR, CHANGE ITS STATUS AND RETURN ONE.
+        if (isNeedToBeFixed)
+        {
+            car.Status = TransportStatus.repair;
+            return car.Status;
+        }
+        else
+        {
+            return car.Status;
+        }
+    }
+
     // METHOD TO FIX COMPONENTS.
     public bool TryFixComponent(IComponent component)
     {

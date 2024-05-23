@@ -13,5 +13,5 @@ internal class CarWheels : AbstractWheels, IComponent
     public override required MaterialWheel Material { get; init; }
     public override required int Size { get; init; }
     public override TypeTire Tire { get; set; }
-    public ComponentStatus Status { get; set; }
+    public override ComponentStatus Status { get; set; }
 }
