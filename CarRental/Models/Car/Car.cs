@@ -61,7 +61,7 @@ internal class Car
 
     private const string _noInfo = "NO INFO";
     internal readonly int Year;
-    private int _mileage;   // AVTOPROBIG.
+    private float _mileage;   // AVTOPROBIG.
 
     #region PROPERTIES
 
@@ -76,12 +76,10 @@ internal class Car
 
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
-
-    // CANNOT SET THIS FROM THE OUTSIDE.
-
     public int Price { get; set; }
-
     internal required string VinCode { get; init; }
+
+    public IDriveable LastDriver { get; set; }
 
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
@@ -104,7 +102,7 @@ internal class Car
         }
     }
 
-    internal int CurrentFuel
+    internal float CurrentFuel
     {
         get
         {
@@ -156,33 +154,30 @@ internal class Car
 
     // METHODS
 
-    public bool LetsDrive(IDriveable driver)
+    public bool Drive(IDriveable driver, float averageSpeed, int drivingTime)
     {
-        this.SetMaxSpeed();  // SET MAX SPEED BASED ON ENGINE AND SPEED COEFICIENT.
+        this.LastDriver = driver;
 
         // STOP METHOD IF NO FUEL.
-        if (CurrentFuel == 0)
+        if ((this.CurrentFuel == 0) || (drivingTime <= 0))
+        {
+            return false;
+        }
+        else if (this.CurrentFuel < (this.Engine.AverageFuelConsumption * averageSpeed * drivingTime))
         {
             return false;
         }
         else
         {
-            driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
-
-            // A CAR CANNOT DRIVE WITHOUT REFILLING THE FUEL STOCK.
-            if (drivingTime > this.CurrentFuel / this.Engine.AverageFuelConsumption)
-            {
-                drivingTime = this.CurrentFuel / this.Engine.AverageFuelConsumption;
-            }
-
-            // TO INCREASE AVTOPROBIG.
+            // TO INCREASE AVTOPROBIG AND DECREASE FUEL LEVEL.
             this._mileage = this._mileage + (averageSpeed * drivingTime);
+            this.CurrentFuel = this.CurrentFuel - (this.Engine.AverageFuelConsumption * averageSpeed * drivingTime);
 
             return true;
         }
     }
 
-    private void SetMaxSpeed()
+    internal void SetMaxSpeed()
     {
         MaxSpeed = this.Engine.Power * this.SpeedCoeficient;
     }

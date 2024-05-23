@@ -8,5 +8,5 @@ namespace CarRental.Models.Car;
 
 public interface IDriveable
 {
-    public void Drive(int maxSpeed, out int averageSpeed, out int drivingTime);
+    internal bool LetsDrive(Car car);
 }

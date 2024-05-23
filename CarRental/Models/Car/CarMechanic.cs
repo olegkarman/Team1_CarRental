@@ -22,7 +22,7 @@ internal class CarMechanic : ICarMechanics, IDriveable
 
     // METHODS
 
-    public int CheckFuel(Car car)
+    public float CheckFuel(Car car)
     {
         return car.CurrentFuel;
     }
@@ -32,10 +32,15 @@ internal class CarMechanic : ICarMechanics, IDriveable
         car.CurrentFuel = amountFuel;
     }
 
-    public void Drive(int maxSpeed, out int averageSpeed, out int drivingTime)
+    public bool LetsDrive(Car car)
     {
-        averageSpeed = maxSpeed / 2;
-        drivingTime = _random.Next(0, 101);
+        car.SetMaxSpeed();
+
+        float averageSpeed = (float)(car.MaxSpeed / 2);
+        int drivingTime = _random.Next(0, 101);
+
+        // THROW ITSELF AS ARGUMENT.
+        return car.Drive(this, averageSpeed, drivingTime);
     }
 
     // TO CHECK IF A COMPONENT OF A CAR IS NEED TO BE FIXED.
