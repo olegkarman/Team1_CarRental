@@ -16,4 +16,6 @@ internal class Deal
     Methods:
     CreateDeal(Customer customer, Car car, string dealType, double price)
     CancelDeal(int dealId)*/
+
+    //I'll do it on saturday
 }
