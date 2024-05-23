@@ -43,6 +43,7 @@ internal class Car
 
     internal required string SerialNumber { get; init; }
 
+    // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
     {
         get
@@ -50,7 +51,6 @@ internal class Car
             return MaxFuelCapacity;
         }
 
-        // THE MAX FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
         init
         {
             if (value < 0)
@@ -60,6 +60,26 @@ internal class Car
             else
             {
                 MaxFuelCapacity = value;
+            }
+        }
+    }
+
+    internal int CurrentFuelCapacity
+    {
+        get
+        {
+            return CurrentFuelCapacity;
+        }
+
+        set
+        {
+            if (value < 0)
+            {
+                CurrentFuelCapacity = 0;
+            }
+            else
+            {
+                CurrentFuelCapacity = value;
             }
         }
     }
