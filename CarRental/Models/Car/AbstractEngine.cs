@@ -14,4 +14,5 @@ internal abstract class AbstractEngine
     public abstract required FuelEngine Fuel { get; init; }
     public abstract required TypeEngine Type { get; init; }
     internal abstract required int AverageFuelConsumption { get; set; }
+    internal abstract required int Power { get; set; }
 }
