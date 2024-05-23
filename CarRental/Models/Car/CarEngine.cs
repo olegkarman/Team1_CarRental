@@ -12,7 +12,8 @@ internal class CarEngine : AbstractEngine
 
     // PROPERTIES
 
-    internal override required string SerialNumber { get; init; }   // METHOD POLYMORPHYSM.
-    public FuelEngine fuel { get; init; }
-    public TypeEngine type { get; init; }
+    internal override required string SerialNumber { get; init; }
+    internal override required int AverageFuelConsumption { get; set; }
+    public override required FuelEngine Fuel { get; init; }
+    public override required TypeEngine Type { get; init; }
 }

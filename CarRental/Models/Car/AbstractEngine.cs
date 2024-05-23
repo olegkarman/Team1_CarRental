@@ -11,4 +11,7 @@ internal abstract class AbstractEngine
     // PROPERTIES
 
     internal abstract required string SerialNumber { get; init; }
+    public abstract required FuelEngine Fuel { get; init; }
+    public abstract required TypeEngine Type { get; init; }
+    internal abstract required int AverageFuelConsumption { get; set; }
 }

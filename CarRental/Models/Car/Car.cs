@@ -109,10 +109,24 @@ internal class Car
 
     // METHODS
 
-    // IT IS A 'SETTER' FOR _mileage PRIVATE FIELD. IT REQUIRES A DRIVER.
     public void LetsDrive(IDriveable driver)
     {
-        driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
-        this._mileage = this._mileage + (averageSpeed * drivingTime); 
+        // STOP METHOD IF NO FUEL.
+        if (this.CurrentFuelCapacity == 0)
+        {
+            return;
+        }
+        else
+        {
+            driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
+
+            // A CAR CANNOT DRIVE WITHOUT REFILLING THE FUEL STOCK.
+            if (drivingTime > CurrentFuelCapacity / this.Engine.AverageFuelConsumption)
+            {
+                drivingTime = CurrentFuelCapacity / this.Engine.AverageFuelConsumption;
+            }
+
+            this._mileage = this._mileage + (averageSpeed * drivingTime);
+        }
     }
 }

@@ -15,6 +15,6 @@ internal class CarMechanic : ICarMechanics, IDriveable
         Random random = new Random();   // RANDOMNESS.
 
         averageSpeed = maxSpeed / 2;
-        drivingTime = random.Next(0, 20);
+        drivingTime = random.Next(0, 100);
     }
 }
