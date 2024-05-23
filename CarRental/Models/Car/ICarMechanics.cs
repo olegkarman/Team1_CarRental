@@ -13,6 +13,10 @@ public interface ICarMechanics
     internal bool TryReplaceComponent(Car car, CarInterior interior);
     internal bool TryReplaceComponent(Car car, CarWheels wheels);
     internal bool TryReplaceComponent(Car car, TypeTire tire);
+
     public ComponentStatus CheckComponent(IComponent component);
     public bool TryFixComponent(IComponent component);
+
+    internal int CheckFuel(Car car);
+    internal void Refill(Car car, int amountFuel);
 }

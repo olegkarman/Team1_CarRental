@@ -22,6 +22,16 @@ internal class CarMechanic : ICarMechanics, IDriveable
 
     // METHODS
 
+    public int CheckFuel(Car car)
+    {
+        return car.CurrentFuel;
+    }
+
+    public void Refill(Car car, int amountFuel)
+    {
+        car.CurrentFuel = amountFuel;
+    }
+
     public void Drive(int maxSpeed, out int averageSpeed, out int drivingTime)
     {
         averageSpeed = maxSpeed / 2;

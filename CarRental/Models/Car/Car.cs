@@ -63,12 +63,14 @@ internal class Car
     internal readonly int Year;
     private int _mileage;   // AVTOPROBIG.
 
+    #region PROPERTIES
+
     // PROPERTIES
 
-    public AbstractEngine Engine { get; set; }
-    public AbstractInterior Interior { get; set; }
-    public AbstractWheels Wheels { get; set; }
-    public AbstractTransmission Transmission { get; set; }
+    public required AbstractEngine Engine { get; set; }
+    public required AbstractInterior Interior { get; set; }
+    public required AbstractWheels Wheels { get; set; }
+    public required AbstractTransmission Transmission { get; set; }
 
     public required int SpeedCoeficient { get; set; }   // RE-WORK PLEASE.
 
@@ -102,22 +104,27 @@ internal class Car
         }
     }
 
-    internal int CurrentFuelCapacity
+    internal int CurrentFuel
     {
         get
         {
-            return CurrentFuelCapacity;
+            return CurrentFuel;
         }
 
         set
         {
             if (value < 0)
             {
-                CurrentFuelCapacity = 0;
+                CurrentFuel = 0;
+            }
+            // IT CANNOT BE LARGER THAN MAX FUEL.
+            else if (value >= this.MaxFuelCapacity)
+            {
+                CurrentFuel = MaxFuelCapacity;
             }
             else
             {
-                CurrentFuelCapacity = value;
+                CurrentFuel = value;
             }
         }
     }
@@ -126,6 +133,8 @@ internal class Car
     internal string Brand { get; init; }
     internal TransportStatus Status { get; set; }
     public bool IsFitForUse { get; set; }
+
+    #endregion
 
     // CONSTRUCTORS
 
@@ -152,7 +161,7 @@ internal class Car
         this.SetMaxSpeed();  // SET MAX SPEED BASED ON ENGINE AND SPEED COEFICIENT.
 
         // STOP METHOD IF NO FUEL.
-        if (CurrentFuelCapacity == 0)
+        if (CurrentFuel == 0)
         {
             return false;
         }
@@ -161,9 +170,9 @@ internal class Car
             driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
 
             // A CAR CANNOT DRIVE WITHOUT REFILLING THE FUEL STOCK.
-            if (drivingTime > this.CurrentFuelCapacity / this.Engine.AverageFuelConsumption)
+            if (drivingTime > this.CurrentFuel / this.Engine.AverageFuelConsumption)
             {
-                drivingTime = this.CurrentFuelCapacity / this.Engine.AverageFuelConsumption;
+                drivingTime = this.CurrentFuel / this.Engine.AverageFuelConsumption;
             }
 
             // TO INCREASE AVTOPROBIG.
