@@ -77,4 +77,20 @@ internal class CarMechanic : ICarMechanics, IDriveable
             car.Interior = interior;
             return true;
     }
+
+    // CHECK SIZE, IF EQUAL, REPLACE.
+    public bool TryReplaceComponent(Car car, CarWheels wheels)
+    {
+        if (car.Wheels.Size.Equals(wheels.Size))
+        {
+            car.Wheels = wheels;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
 }
