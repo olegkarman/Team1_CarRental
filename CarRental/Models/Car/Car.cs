@@ -37,8 +37,13 @@ internal class Car
     public AbstractWheels Wheels { get; set; }
     public AbstractTransmission Transmission { get; set; }
 
+    public required int SpeedCoeficient { get; set; }   // RE-WORK PLEASE.
+
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
+
+    // CANNOT SET THIS FROM THE OUTSIDE.
+
     public int Price { get; set; }
 
     internal required string SerialNumber { get; init; }
