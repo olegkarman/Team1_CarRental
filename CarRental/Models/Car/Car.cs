@@ -59,7 +59,7 @@ internal class Car
 
     // FIELDS
 
-    private const string _invalidCar = "NO INFO";
+    private const string _noInfo = "NO INFO";
     internal readonly int Year;
     private int _mileage;   // AVTOPROBIG.
 
