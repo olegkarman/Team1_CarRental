@@ -67,12 +67,25 @@ internal class Car
 
     // PROPERTIES
 
-    public required AbstractEngine Engine { get; set; }
+    public required AbstractEngine Engine
+    {
+        get
+        {
+            return Engine;
+        }
+
+        set
+        {
+            Engine = value;
+            // AFTER EVERY ENGINE SET UPDATE MAX SPEED.
+            this.SetMaxSpeed();
+        }
+    }
     public required AbstractInterior Interior { get; set; }
     public required AbstractWheels Wheels { get; set; }
     public required AbstractTransmission Transmission { get; set; }
 
-    public required int SpeedCoeficient { get; set; }   // RE-WORK PLEASE.
+    public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
@@ -177,7 +190,7 @@ internal class Car
         }
     }
 
-    internal void SetMaxSpeed()
+    private void SetMaxSpeed()
     {
         MaxSpeed = this.Engine.Power * this.SpeedCoeficient;
     }

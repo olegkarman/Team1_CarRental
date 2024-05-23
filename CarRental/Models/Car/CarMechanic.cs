@@ -34,8 +34,6 @@ internal class CarMechanic : ICarMechanics, IDriveable
 
     public bool LetsDrive(Car car)
     {
-        car.SetMaxSpeed();
-
         float averageSpeed = (float)(car.MaxSpeed / 2);
         int drivingTime = _random.Next(0, 101);
 
