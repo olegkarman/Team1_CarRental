@@ -10,10 +10,9 @@ internal class CarEngine : AbstractEngine
 {
     // FIELDS
 
-    internal required string SerialNumber { get; init; }
-
     // PROPERTIES
 
+    internal override required string SerialNumber { get; init; }   // METHOD POLYMORPHYSM.
     public FuelEngine fuel { get; init; }
     public TypeEngine type { get; init; }
 }

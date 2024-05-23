@@ -8,5 +8,7 @@ namespace CarRental.Models.Car;
 
 internal abstract class AbstractTransmission
 {
+    // PROPERTIES
 
+    internal abstract required string SerialNumber { get; init; }
 }

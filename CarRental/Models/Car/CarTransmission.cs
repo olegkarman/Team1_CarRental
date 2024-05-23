@@ -10,10 +10,9 @@ internal class CarTransmission : AbstractTransmission
 {
     // FIELDS
 
-    internal required string SerialNumber { get; init; }
-
     // PROPERTIES
 
+    internal override required string SerialNumber { get; init; }
     public TypeTransmission type { get; init; }
     public int SpeedCount { get; init; }
 }
