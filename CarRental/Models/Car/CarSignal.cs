@@ -8,6 +8,8 @@ namespace CarRental.Models.Car;
 
 internal class CarSignal : AbstractSignal
 {
+    // PROPERTIES
+
     public override PitchComponent Pitch { get; init; }
-    public override ComponentStatus Status { get; set; }
+    public override required ComponentStatus Status { get; set; }
 }
