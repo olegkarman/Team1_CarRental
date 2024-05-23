@@ -40,7 +40,7 @@ internal class Car
     public required int SpeedCoeficient { get; set; }   // RE-WORK PLEASE.
 
     public KnownColor Color { get; set; }
-    public int MaxSpeed { get; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
+    public int MaxSpeed { get; set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
 
     // CANNOT SET THIS FROM THE OUTSIDE.
 
@@ -114,8 +114,15 @@ internal class Car
 
     // METHODS
 
+    private void SetMaxSpeed()
+    {
+        MaxSpeed = this.Engine.Power * SpeedCoeficient;
+    }
+
     public bool LetsDrive(IDriveable driver)
     {
+        SetMaxSpeed();  // SET MAX SPEED BASED ON ENGINE AND SPEED COEFICIENT.
+        
         // STOP METHOD IF NO FUEL.
         if (this.CurrentFuelCapacity == 0)
         {
