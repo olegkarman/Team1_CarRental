@@ -75,7 +75,7 @@ internal class Car
 
     public int Price { get; set; }
 
-    internal required string SerialNumber { get; init; }
+    internal required string VinCode { get; init; }
 
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
@@ -128,7 +128,7 @@ internal class Car
     public Car()
     {
         Year = 0;
-        SerialNumber = _invalidCar;
+        VinCode = _invalidCar;
         Model = _invalidCar;
         Brand = _invalidCar;
     }
@@ -136,7 +136,7 @@ internal class Car
     public Car(int year, string serialNumber, string model, string brand)
     {
         Year = year;
-        SerialNumber = serialNumber;
+        VinCode = serialNumber;
         Model = model;
         Brand = brand;
     }
