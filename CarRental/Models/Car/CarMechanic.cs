@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace CarRental.Models.Car;
 
@@ -44,7 +45,7 @@ internal class CarMechanic : ICarMechanics, IDriveable
     }
 
     // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
-    internal bool TryReplaceComponent (Car car, CarEngine engine)
+    public bool TryReplaceComponent (Car car, CarEngine engine)
     {
         if (car.Engine.Type.Equals(engine.Type))
         {
@@ -57,7 +58,7 @@ internal class CarMechanic : ICarMechanics, IDriveable
         }
     }
 
-    internal bool TryReplaceComponent(Car car, CarTransmission transmission)
+    public bool TryReplaceComponent(Car car, CarTransmission transmission)
     {
         if (car.Transmission.Type.Equals(transmission.Type))
         {
@@ -68,5 +69,12 @@ internal class CarMechanic : ICarMechanics, IDriveable
         {
             return false;
         }
+    }
+
+    // TO CHANGE INTERIOR IS ALWAYS AVAILABLE.
+    public bool TryReplaceComponent(Car car, CarInterior interior)
+    {
+            car.Interior = interior;
+            return true;
     }
 }
