@@ -64,6 +64,7 @@ internal class Car
     public AbstractInterior Interior { get; set; }
     public AbstractWheels Wheels { get; set; }
     public AbstractTransmission Transmission { get; set; }
+    public ICarControllable DriverCabin { get; set; }
 
     public required int SpeedCoeficient { get; set; }   // RE-WORK PLEASE.
 
@@ -147,29 +148,5 @@ internal class Car
         MaxSpeed = this.Engine.Power * SpeedCoeficient;
     }
 
-    public bool LetsDrive(IDriveable driver)
-    {
-        SetMaxSpeed();  // SET MAX SPEED BASED ON ENGINE AND SPEED COEFICIENT.
-        
-        // STOP METHOD IF NO FUEL.
-        if (this.CurrentFuelCapacity == 0)
-        {
-            return false;
-        }
-        else
-        {
-            driver.Drive(this.MaxSpeed, out int averageSpeed, out int drivingTime);
 
-            // A CAR CANNOT DRIVE WITHOUT REFILLING THE FUEL STOCK.
-            if (drivingTime > CurrentFuelCapacity / this.Engine.AverageFuelConsumption)
-            {
-                drivingTime = CurrentFuelCapacity / this.Engine.AverageFuelConsumption;
-            }
-
-            // TO INCREASE AVTOPROBIG.
-            this._mileage = this._mileage + (averageSpeed * drivingTime);
-
-            return true;
-        }
-    }
 }

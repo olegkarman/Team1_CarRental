@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-public interface IDriveable
+public interface ICarControllable
 {
-    public void Drive(int maxSpeed, out int averageSpeed, out int drivingTime);
+    public bool LetsDrive(IDriveable driver);
 }
