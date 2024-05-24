@@ -27,6 +27,8 @@ internal class CarLights : AbstractLights
         this.Status = 0;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public CarLights(KnownColor color, PowerComponent power, ComponentStatus status)
     {
         this.Color = color;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models.Car;
 
@@ -169,15 +170,159 @@ internal class Car
         this.Price = 0;
         this.SpeedCoeficient = 0;
         this._mileage = 0;
+        this.MaxFuelCapacity = 0;
+        this.CurrentFuel = 0;
 
     }
 
-    public Car(int year, string serialNumber, string model, string brand)
+
+    public Car
+    (
+    int year,
+    string serialNumber,
+    string model,
+    string brand,
+    KnownColor color,
+    int price,
+    int maxFuelCapacity,
+    int currentFuel,
+    int speedCoeficient,
+    TransportStatus status,
+    bool isFitForUse,
+    AbstractEngine engine,
+    AbstractTransmission transmission,
+    AbstractInterior interior,
+    AbstractWheels wheels,
+    AbstractLights lights,
+    AbstractSignal signal
+    )
     {
-        Year = year;
-        VinCode = serialNumber;
-        Model = model;
-        Brand = brand;
+        this.Year = year;
+        this.VinCode = serialNumber;
+        this.Model = model;
+        this.Brand = brand;
+        this.Color = color;
+        this.Price = price;
+        this.MaxFuelCapacity = maxFuelCapacity;
+        this.CurrentFuel = currentFuel;
+        this.SpeedCoeficient = speedCoeficient;
+        this.Status = status;
+        this.IsFitForUse = isFitForUse;
+        this.Engine = engine;
+        this.Transmission = transmission;
+        this.Interior = interior;
+        this.Wheels = wheels;
+        this.Lights = lights;
+        this.Signal = signal;
+    }
+
+    public Car
+    (
+        // CAR ARGUMENTS.
+        int year,
+        string serialNumber,
+        string model,
+        string brand,
+        KnownColor color,
+        int price,
+        int maxFuelCapacity,
+        int currentFuel,
+        int speedCoeficient,
+        TransportStatus status,
+        bool isFitForUse,
+
+        // ENGINE ARGUMENTS.
+        string serialNumberEngine,
+        int averageFuelConsumption,
+        FuelEngine fuel,
+        TypeEngine typeEngine,
+        int powerEngine,
+        ComponentStatus statusEngine,
+
+        // TRANSMISSION ARGUMENTS.
+        string serialNumberTransmission,
+        TypeTransmission typeTransmission,
+        int speedCount,
+        ComponentStatus statusTransmission,
+
+        // INTERIOR ARGUMENTS.
+        KnownColor colorInterior,
+        MaterialInterior materialInterior,
+        ComponentStatus statusInterior,
+
+        // WHEELS ARGUMENTS.
+        MaterialWheel materialWheels,
+        int sizeWheels,
+        TypeTire tire,
+        ComponentStatus statusWheels,
+
+        //LIGHTS ARGUMENTS.
+        KnownColor colorLights,
+        PowerComponent powerLights,
+        ComponentStatus statusLights,
+
+        // SIGNAL ARGUMENTS.
+        PitchComponent pitch,
+        ComponentStatus statusSignal
+    )
+    {
+        this.Year = year;
+        this.VinCode = serialNumber;
+        this.Model = model;
+        this.Brand = brand;
+        this.Color = color;
+        this.Price = price;
+        this.MaxFuelCapacity = maxFuelCapacity;
+        this.CurrentFuel = currentFuel;
+        this.SpeedCoeficient = speedCoeficient;
+        this.Status = status;
+        this.IsFitForUse = isFitForUse;
+
+        this.Engine = new CarEngine
+        (
+            serialNumberEngine,
+            averageFuelConsumption,
+            fuel,
+            typeEngine,
+            powerEngine,
+            statusEngine
+        );
+
+        this.Transmission = new CarTransmission
+        (
+            serialNumberTransmission,
+            typeTransmission,
+            speedCount,
+            statusTransmission
+        );
+
+        this.Interior = new CarInterior
+        (
+            colorInterior,
+            materialInterior,
+            statusInterior
+        );
+
+        this.Wheels = new CarWheels
+        (
+            materialWheels,
+            sizeWheels,
+            tire,
+            statusWheels
+        );
+
+        this.Lights = new CarLights
+        (
+            colorLights,
+            powerLights,
+            statusLights
+        );
+
+        this.Signal = new CarSignal
+        (
+            pitch,
+            statusSignal
+        );
     }
 
     #endregion

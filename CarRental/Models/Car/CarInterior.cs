@@ -27,6 +27,8 @@ internal class CarInterior : AbstractInterior
         this.Status = 0;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public CarInterior(KnownColor color, MaterialInterior material, ComponentStatus status)
     {
         this.Color = color;

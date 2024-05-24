@@ -32,6 +32,8 @@ internal class CarTransmission : AbstractTransmission
         this.Status = 0;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public CarTransmission(string serialNumber, TypeTransmission type, int speedCount, ComponentStatus status)
     {
         this.SerialNumber = serialNumber;

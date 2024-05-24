@@ -24,6 +24,8 @@ internal class CarSignal : AbstractSignal
         this.Status = 0;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public CarSignal(PitchComponent pitch, ComponentStatus status)
     {
         this.Pitch = pitch;

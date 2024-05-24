@@ -36,6 +36,8 @@ internal class CarEngine : AbstractEngine
         this.Status = 0;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public CarEngine(string serialNumber, int averageFuelConsumption, FuelEngine fuel, TypeEngine type, int power, ComponentStatus status)
     {
         this.SerialNumber = serialNumber;

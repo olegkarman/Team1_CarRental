@@ -28,6 +28,8 @@ internal class CarWheels : AbstractWheels
         this.Status = 0;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public CarWheels(MaterialWheel material, int size, TypeTire tire, ComponentStatus status)
     {
         this.Material = material;
