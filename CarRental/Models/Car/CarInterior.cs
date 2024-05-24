@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models.Car;
 
@@ -16,6 +17,8 @@ internal class CarInterior : AbstractInterior
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
+
+    [SetsRequiredMembersAttribute]
 
     public CarInterior()
     {

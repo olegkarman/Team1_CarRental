@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ internal class CarSignal : AbstractSignal
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
+
+    [SetsRequiredMembersAttribute]
 
     public CarSignal()
     {

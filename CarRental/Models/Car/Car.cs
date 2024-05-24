@@ -159,6 +159,12 @@ internal class Car
         this.VinCode = _noInfo;
         this.Model = _noInfo;
         this.Brand = _noInfo;
+        this.Engine = new CarEngine();
+        this.Transmission = new CarTransmission();
+        this.Wheels = new CarWheels();
+        this.Interior = new CarInterior();
+        this.Lights = new CarLights();
+        this.Signal = new CarSignal();
 
     }
 

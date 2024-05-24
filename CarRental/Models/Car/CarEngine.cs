@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models.Car;
 
@@ -23,7 +24,9 @@ internal class CarEngine : AbstractEngine
 
     // CONSTRUCTORS
 
-    public CarEngine()
+    [SetsRequiredMembersAttribute]
+
+    internal CarEngine()
     {
         this.SerialNumber = _noInfo;
         this.AverageFuelConsumption = int.MaxValue; // SHOULD BE IMPOSSIBLE TO DRIVE.
