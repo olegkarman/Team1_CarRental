@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-public enum PitchComponent
+internal record class NissanRecord
 {
-    unknown = 0,
-    low = 11,
-    moderate = 12,
-    high = 13,
-    extremelyHigh = 14
+    public string brandName = "Nissan";
 }
