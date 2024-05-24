@@ -37,7 +37,7 @@ public class WYCDepot
 
         tempRandom = _random.Next(0, _records.Length);
         string brand = _records[tempRandom].BrandName;
-        string model = _records[tempRandom].Models[_random.Next(0, 4)]; // CHANGE AFTER FILL RECORDS.
+        string model = _records[tempRandom].Models[_random.Next(0, _records[tempRandom].Models.Length)]; // CHANGE AFTER FILL RECORDS.
 
         KnownColor color = (KnownColor)_random.Next(85, 118);
 
