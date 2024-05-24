@@ -9,4 +9,5 @@ namespace CarRental.Models.Car;
 internal record class ZaporoghetsRecord
 {
     public string brandName = "Zaporoghets";
+    public string[] models = ["Zap1", "Zap2", "Zap3"];
 }

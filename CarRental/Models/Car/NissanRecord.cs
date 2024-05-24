@@ -9,4 +9,5 @@ namespace CarRental.Models.Car;
 internal record class NissanRecord
 {
     public string brandName = "Nissan";
+    public string[] models = ["Nis1", "Nis2", "Nis3"];
 }

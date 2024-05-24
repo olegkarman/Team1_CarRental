@@ -9,4 +9,5 @@ namespace CarRental.Models.Car;
 internal record class JeepRecord
 {
     public string brandName = "Jeep";
+    public string[] models = ["Dakar", "Rubicon", "Malibu", "Wide-Trac", "Cherokee", "Creep", "Cowboy", "Freedom", "Wrangler", "Ecco"];
 }

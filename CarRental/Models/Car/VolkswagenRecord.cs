@@ -9,4 +9,5 @@ namespace CarRental.Models.Car;
 internal record class VolkswagenRecord
 {
     public string brandName = "Volkswagen";
+    public string[] models = ["Wag1", "Wag2", "Wag3"];
 }

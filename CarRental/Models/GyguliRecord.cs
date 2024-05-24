@@ -9,4 +9,5 @@ namespace CarRental.Models;
 internal record class GyguliRecord
 {
     public string brandName = "Gyguli";
+
 }

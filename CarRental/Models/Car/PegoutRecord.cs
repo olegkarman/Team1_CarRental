@@ -9,4 +9,5 @@ namespace CarRental.Models.Car;
 internal record class PegoutRecord
 {
     public string name = "Pegout";
+    public string[] models = ["Peg1", "Peg2", "Peg3"];
 }
