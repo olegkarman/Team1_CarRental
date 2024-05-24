@@ -35,4 +35,11 @@ internal class CarInterior : AbstractInterior
         this.Material = material;
         this.Status = status;
     }
+
+    // METHODS
+
+    public override string ToString()
+    {
+        return $"MATERIAL ~ {Material} // STATUS ~ {Status}";
+    }
 }

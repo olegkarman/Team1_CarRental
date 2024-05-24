@@ -41,4 +41,11 @@ internal class CarTransmission : AbstractTransmission
         this.SpeedCount = speedCount;
         this.Status = status;
     }
+
+    // METHODS
+
+    public override string ToString()
+    {
+        return $"{Type} // {SpeedCount} ~ SPEEDS // STATUS ~ {Status}";
+    }
 }
