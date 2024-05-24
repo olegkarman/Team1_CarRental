@@ -47,4 +47,11 @@ internal class CarEngine : AbstractEngine
         this.Power = power;
         this.Status = status;
     }
+
+    // METHODS
+
+    public override string ToString()
+    {
+        return $"{Type} // {Power} H. P. // {Fuel} // {AverageFuelConsumption} // STATUS: {Status}";
+    }
 }
