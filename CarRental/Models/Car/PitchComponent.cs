@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal enum PitchComponent
+public enum PitchComponent
 {
     unknown = 0,
     low = 11,
