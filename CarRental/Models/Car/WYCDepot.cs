@@ -14,6 +14,7 @@ public class WYCDepot
 
     private StringBuilder snStringBuilder = new StringBuilder();
     private Random _random = new Random();
+    // AN ARRAY OF CHARACTERS TO GENERATE PSEUDO-RANDOM STRINGS AND AN ARRAY OF RECORDS.
     private readonly ICarRecordable[] _records = [ new ZaporoghetsRecord(), new VolkswagenRecord(), new PegoutRecord(), new NissanRecord(), new JeepRecord() ];
     private readonly char[] _charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
@@ -23,7 +24,7 @@ public class WYCDepot
     {
         int tempRandom;
 
-        // CAR INSTANCE ARUGEMNTS
+        // CAR INSTANCE ARGUMENTS
 
         int year = _random.Next(1960, 2025);
 
@@ -43,7 +44,7 @@ public class WYCDepot
 
         int price = _random.Next(5000, 150001);
 
-        int maxFuelCapacity = _random.Next(100, 201);
+        int maxFuelCapacity = _random.Next(20, 50);
 
         int currentFuel = _random.Next(0, (maxFuelCapacity + 1));
 

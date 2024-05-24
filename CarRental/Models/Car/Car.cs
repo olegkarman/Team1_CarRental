@@ -100,47 +100,47 @@ internal class Car
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
     {
-        get
-        {
-            return MaxFuelCapacity;
-        }
+        get;
+        //{
+        //    return MaxFuelCapacity;
+        //}
 
-        init
-        {
-            if (value < 0)
-            {
-                MaxFuelCapacity = 0;
-            }
-            else
-            {
-                MaxFuelCapacity = value;
-            }
-        }
+        init;
+        //{
+        //    if (value < 0)
+        //    {
+        //        MaxFuelCapacity = 0;
+        //    }
+        //    else
+        //    {
+        //        MaxFuelCapacity = value;
+        //    }
+        //}
     }
 
     internal float CurrentFuel
     {
-        get
-        {
-            return CurrentFuel;
-        }
+        get;
+        //{
+        //    return CurrentFuel;
+        //}
 
-        set
-        {
-            if (value < 0)
-            {
-                CurrentFuel = 0;
-            }
-            // IT CANNOT BE LARGER THAN MAX FUEL.
-            else if (value >= this.MaxFuelCapacity)
-            {
-                CurrentFuel = MaxFuelCapacity;
-            }
-            else
-            {
-                CurrentFuel = value;
-            }
-        }
+        set;
+        //{
+        //    if (value < 0)
+        //    {
+        //        CurrentFuel = 0;
+        //    }
+        //    // IT CANNOT BE LARGER THAN MAX FUEL.
+        //    else if (value >= this.MaxFuelCapacity)
+        //    {
+        //        CurrentFuel = MaxFuelCapacity;
+        //    }
+        //    else
+        //    {
+        //        CurrentFuel = value;
+        //    }
+        //}
     }
 
     internal string Model { get; init; }
