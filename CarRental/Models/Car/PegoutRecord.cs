@@ -8,6 +8,6 @@ namespace CarRental.Models.Car;
 
 internal record class PegoutRecord : ICarRecordable
 {
-    public string name = "Pegout";
-    public string[] models = ["Peg1", "Peg2", "Peg3"];
+    public string BrandName { get; } = "Pegout";
+    public string[] Models { get; } = ["Peg1", "Peg2", "Peg3"];
 }

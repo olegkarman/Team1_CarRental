@@ -8,6 +8,6 @@ namespace CarRental.Models.Car;
 
 internal record class ZaporoghetsRecord : ICarRecordable
 {
-    public string brandName = "Zaporoghets";
-    public string[] models = ["Zap1", "Zap2", "Zap3"];
+    public string BrandName { get; } = "Zaporoghets";
+    public string[] Models { get; } = ["Zap1", "Zap2", "Zap3"];
 }

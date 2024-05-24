@@ -154,6 +154,8 @@ internal class Car
 
     // CONSTRUCTORS
 
+    [SetsRequiredMembersAttribute]
+
     public Car()
     {
         this.Year = 0;
@@ -175,13 +177,14 @@ internal class Car
 
     }
 
+    [SetsRequiredMembersAttribute]
 
     public Car
     (
     int year,
     string serialNumber,
-    string model,
     string brand,
+    string model,
     KnownColor color,
     int price,
     int maxFuelCapacity,
@@ -199,8 +202,8 @@ internal class Car
     {
         this.Year = year;
         this.VinCode = serialNumber;
-        this.Model = model;
         this.Brand = brand;
+        this.Model = model;
         this.Color = color;
         this.Price = price;
         this.MaxFuelCapacity = maxFuelCapacity;
@@ -216,13 +219,15 @@ internal class Car
         this.Signal = signal;
     }
 
+    [SetsRequiredMembersAttribute]
+
     public Car
     (
         // CAR ARGUMENTS.
         int year,
         string serialNumber,
-        string model,
         string brand,
+        string model,
         KnownColor color,
         int price,
         int maxFuelCapacity,
@@ -268,8 +273,8 @@ internal class Car
     {
         this.Year = year;
         this.VinCode = serialNumber;
-        this.Model = model;
         this.Brand = brand;
+        this.Model = model;
         this.Color = color;
         this.Price = price;
         this.MaxFuelCapacity = maxFuelCapacity;

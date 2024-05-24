@@ -8,6 +8,6 @@ namespace CarRental.Models.Car;
 
 internal record class VolkswagenRecord : ICarRecordable
 {
-    public string brandName = "Volkswagen";
-    public string[] models = ["Wag1", "Wag2", "Wag3"];
+    public string BrandName { get; } = "Volkswagen";
+    public string[] Models { get; } = ["Wag1", "Wag2", "Wag3"];
 }

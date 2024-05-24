@@ -8,5 +8,6 @@ namespace CarRental.Models.Car;
 
 public interface ICarRecordable
 {
-
+    public string BrandName { get; }
+    public string[] Models { get; }
 }
