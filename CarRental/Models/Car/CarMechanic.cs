@@ -11,12 +11,24 @@ internal class CarMechanic : ICarMechanics, IDriveable
 {
     // FIELDS
 
+    private const string _noInfo = "NO INFO";
+    public readonly string firstName;
+    public readonly string lastName;
     private Random _random;
 
     // CONSTRUCTORS
 
     internal CarMechanic()
     {
+        this.firstName = _noInfo;
+        this.lastName = _noInfo;
+        _random = new Random();
+    }
+
+    internal CarMechanic(string firstN, string lastN)
+    {
+        this.firstName = firstN;
+        this.lastName = lastN;
         _random = new Random();
     }
 
