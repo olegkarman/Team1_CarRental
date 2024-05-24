@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal record class VolkswagenRecord
+internal record class VolkswagenRecord : ICarRecordable
 {
     public string brandName = "Volkswagen";
     public string[] models = ["Wag1", "Wag2", "Wag3"];

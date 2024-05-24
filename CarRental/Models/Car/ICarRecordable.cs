@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal record class CarRecord
+public interface ICarRecordable
 {
-    
+
 }

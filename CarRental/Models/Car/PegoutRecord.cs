@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal record class PegoutRecord
+internal record class PegoutRecord : ICarRecordable
 {
     public string name = "Pegout";
     public string[] models = ["Peg1", "Peg2", "Peg3"];
