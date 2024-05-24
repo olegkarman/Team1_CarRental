@@ -165,6 +165,10 @@ internal class Car
         this.Interior = new CarInterior();
         this.Lights = new CarLights();
         this.Signal = new CarSignal();
+        this.Color = 0;
+        this.Price = 0;
+        this.SpeedCoeficient = 0;
+        this._mileage = 0;
 
     }
 
