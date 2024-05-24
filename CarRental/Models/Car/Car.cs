@@ -155,10 +155,11 @@ internal class Car
 
     public Car()
     {
-        Year = 0;
-        VinCode = _noInfo;
-        Model = _noInfo;
-        Brand = _noInfo;
+        this.Year = 0;
+        this.VinCode = _noInfo;
+        this.Model = _noInfo;
+        this.Brand = _noInfo;
+
     }
 
     public Car(int year, string serialNumber, string model, string brand)

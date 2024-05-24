@@ -8,6 +8,7 @@ namespace CarRental.Models.Car;
 
 internal enum TypeEngine
 {
+    unknwon = 0,
     inline = 10,
     vTwo = 12,
     vThree = 13,
