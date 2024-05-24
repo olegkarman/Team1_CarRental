@@ -17,8 +17,25 @@ internal class Deal
     CreateDeal(Customer customer, Car car, string dealType, double price)
     CancelDeal(int dealId)*/
 
-    /*internal DateTime DealDate
+    internal DateTime DealDate {  get; set; }
+    internal int CompanyId { get; set; }
+    internal int CustomerId { get; set; }
+    internal int CarId { get; set; }
+    internal double Price { get; set; }
+
+    internal enum DealType
     {
-        get { return DealDate; }
-    }*/
+        purchase,
+        rental
+    }
+
+    internal void CreateDeal(Customer customer, Car car, string dealType, double price)
+    {
+
+    }
+
+    internal void CancelDeal(int dealId)
+    {
+
+    }
 }
