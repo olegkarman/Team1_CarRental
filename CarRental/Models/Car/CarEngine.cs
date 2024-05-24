@@ -32,4 +32,14 @@ internal class CarEngine : AbstractEngine
         this.Power = 0;
         this.Status = 0;
     }
+
+    public CarEngine(string serialNumber, int averageFuelConsumption, FuelEngine fuel, TypeEngine type, int power, ComponentStatus status)
+    {
+        this.SerialNumber = serialNumber;
+        this.AverageFuelConsumption = averageFuelConsumption; // SHOULD BE IMPOSSIBLE TO DRIVE.
+        this.Fuel = fuel;
+        this.Type = type;
+        this.Power = power;
+        this.Status = status;
+    }
 }
