@@ -52,6 +52,7 @@ public class WYCDepot
 
         TransportStatus status = (TransportStatus)_random.Next(1, 5);
 
+        // ADD SOME RANDOMNESS FOR BIT-USE.
         bool isFitForUse;
         if (_random.Next(0, 2) == 1)
         {

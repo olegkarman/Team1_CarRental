@@ -70,17 +70,17 @@ internal class Car
 
     public required AbstractEngine Engine
     {
-        get
-        {
-            return Engine;
-        }
+        get;
+        //{
+        //    return Engine;
+        //}
 
-        set
-        {
-            Engine = value;
-            // AFTER EVERY ENGINE SET UPDATE MAX SPEED.
-            this.SetMaxSpeed();
-        }
+        set;
+        //{
+        //    Engine = value;
+        //    // AFTER EVERY ENGINE SET UPDATE MAX SPEED.
+        //    this.SetMaxSpeed();
+        //}
     }
     public required AbstractInterior Interior { get; set; }
     public required AbstractWheels Wheels { get; set; }
@@ -335,6 +335,11 @@ internal class Car
     #region METHODS
 
     // METHODS
+
+    public override string ToString()
+    {
+        return $"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n{Brand} {Model}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nENGINE: {Engine}\nTRANSMISSION: {Transmission}\nINTERIOR: {Interior}\nWHEELS: {Wheels}\nFUEL: {(CurrentFuel / MaxFuelCapacity) * 100}%\nLAST DRIVER: {LastDriver}\nVIN CODE: {VinCode}\nSTATUS: {Status}\nREADY FOR USE: {IsFitForUse}";
+    }
 
     public bool Drive(IDriveable driver, float averageSpeed, int drivingTime)
     {
