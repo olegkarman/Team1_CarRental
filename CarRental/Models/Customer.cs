@@ -6,19 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarRental.Models;
-internal class Customer
+internal class Customer : User
 {
     public const float BasicDiscount = 0.5f;
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+
     public readonly string IdNumber;
     public required string DrivingLicenseNumber { get; set; }
 
     [SetsRequiredMembers]
-    public Customer(string? firstName, string? lastName, string idNumber, string drivingLicenseNumber)
+    public Customer(string? firstName, string? lastName, string idNumber, string drivingLicenseNumber, DateTime dateOfBirth) : base(firstName, lastName, dateOfBirth)
     {
-        FirstName = firstName;
-        LastName = lastName;
         IdNumber = idNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
     }
