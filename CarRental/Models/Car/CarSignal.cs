@@ -12,4 +12,18 @@ internal class CarSignal : AbstractSignal
 
     public override PitchComponent Pitch { get; init; }
     public override required ComponentStatus Status { get; set; }
+
+    // CONSTRUCTORS
+
+    public CarSignal()
+    {
+        this.Pitch = 0;
+        this.Status = 0;
+    }
+
+    public CarSignal(PitchComponent pitch, ComponentStatus status)
+    {
+        this.Pitch = pitch;
+        this.Status = status;
+    }
 }
