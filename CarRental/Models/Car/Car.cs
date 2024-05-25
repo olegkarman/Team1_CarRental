@@ -338,7 +338,7 @@ internal class Car
 
     public override string ToString()
     {
-        return $"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n{Brand} {Model}\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nENGINE: {Engine}\nTRANSMISSION: {Transmission}\nINTERIOR: {Interior}\nWHEELS: {Wheels}\nFUEL: {(CurrentFuel / MaxFuelCapacity) * 100}%\nLAST DRIVER: {LastDriver}\nVIN CODE: {VinCode}\nSTATUS: {Status}\nREADY FOR USE: {IsFitForUse}";
+        return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} }}";
     }
 
     public bool Drive(IDriveable driver, float averageSpeed, int drivingTime)
