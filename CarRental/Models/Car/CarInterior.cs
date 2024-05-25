@@ -40,6 +40,6 @@ internal class CarInterior : AbstractInterior
 
     public override string ToString()
     {
-        return $"MATERIAL ~ {Material} // STATUS ~ {Status}";
+        return $"{{ {nameof(this.Material)} = {Material} | {nameof(this.Color)} = {Color} | {nameof(this.Status)} = {Status} }}";
     }
 }

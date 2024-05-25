@@ -37,4 +37,12 @@ internal class CarWheels : AbstractWheels
         this.Tire = tire;
         this.Status = status;
     }
+
+    // METHODS
+
+    public override string ToString()
+    {
+
+        return $"{{ {nameof(this.Material)} = {Material} | {nameof(this.Size)} = {Size} | {nameof(this.Tire)} = {Tire} | {nameof(this.Status)} = {Status} }}";
+    }
 }

@@ -35,4 +35,11 @@ internal class CarLights : AbstractLights
         this.Power = power;
         this.Status = status;
     }
+
+    // METHODS
+
+    public override string ToString()
+    {
+        return $"{{ {nameof(this.Color)} = {Color} | {nameof(this.Power)} = {Power} | {nameof(this.Status)} = {Status} }}";
+    }
 }

@@ -46,6 +46,6 @@ internal class CarTransmission : AbstractTransmission
 
     public override string ToString()
     {
-        return $"{Type} // {SpeedCount} ~ SPEEDS // STATUS ~ {Status}";
+        return $"{{ {nameof(this.Type)} = {Type} | {nameof(this.SpeedCount)} = {SpeedCount} | {nameof(this.Status)} = {Status} }}";
     }
 }

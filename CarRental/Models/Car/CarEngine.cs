@@ -52,6 +52,6 @@ internal class CarEngine : AbstractEngine
 
     public override string ToString()
     {
-        return $"{Type} // {Power} ~ H. P. // {Fuel} ~ FUEL // {AverageFuelConsumption} ~ GAL/KM // STATUS ~ {Status}";
+        return $"{{ {nameof(this.Type)} = {Type} | {nameof(Power)} = {Power} | {nameof(this.Fuel)} = {Fuel} | {nameof(this.AverageFuelConsumption)} = {AverageFuelConsumption} | {nameof(this.Status)} = {Status} }}";
     }
 }
