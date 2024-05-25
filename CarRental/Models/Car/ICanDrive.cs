@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-public interface IDriveable
+public interface ICanDrive
 {
-    // WHAT RETURN TYPE TO CHOOSE?
-    public bool Drive(ICanDrive driver, IDrivingPattern pattern);
+    internal bool LetsDrive(Car car);
 }

@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace CarRental.Models.Car;
 
-internal class CarMechanic : ICarMechanics, IDriveable
+internal class CarMechanic : ICarMechanics, ICanDrive
 {
     // FIELDS
 

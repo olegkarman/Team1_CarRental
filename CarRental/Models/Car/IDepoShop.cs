@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-public interface IDriveable
+internal interface IDepoShop : IDrivingPattern
 {
-    // WHAT RETURN TYPE TO CHOOSE?
-    public bool Drive(ICanDrive driver, IDrivingPattern pattern);
+    // START POINT AND DESTINATION IS DEPO AND SHOP.
 }

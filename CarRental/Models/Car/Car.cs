@@ -95,7 +95,7 @@ internal class Car
     public int Price { get; set; }
     internal required string VinCode { get; init; }
 
-    public IDriveable LastDriver { get; set; }
+    public ICanDrive LastDriver { get; set; }
 
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
@@ -341,7 +341,7 @@ internal class Car
         return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} }}";
     }
 
-    public bool Drive(IDriveable driver, float averageSpeed, int drivingTime)
+    public bool Drive(ICanDrive driver, float averageSpeed, int drivingTime)
     {
         this.LastDriver = driver;
 
