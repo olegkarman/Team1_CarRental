@@ -36,6 +36,6 @@ internal class Deal
 
     internal void CancelDeal(int dealId)
     {
-
+        Console.WriteLine($"\{fvbye");
     }
 }
