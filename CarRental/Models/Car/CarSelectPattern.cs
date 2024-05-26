@@ -73,51 +73,74 @@ internal class CarSelectPattern : ICarSelectivePattern
     (
         string name,
 
-        int statusInitial,
-        int statusEnd,
+        //int statusInitial,
+        //int statusEnd,
 
-        int statusEngineInitial,
-        int statusEngineEnd,
+        //int statusEngineInitial,
+        //int statusEngineEnd,
 
-        int statusTransmissionInitial,
-        int statusTransmissionEnd,
+        //int statusTransmissionInitial,
+        //int statusTransmissionEnd,
 
-        int statusInteriorInitial,
-        int statusInteriorEnd,
+        //int statusInteriorInitial,
+        //int statusInteriorEnd,
 
-        int statusWheelsInitial,
-        int statusWheelsEnd,
+        //int statusWheelsInitial,
+        //int statusWheelsEnd,
 
-        int statusLightsInitial,
-        int statusLightsEnd,
+        //int statusLightsInitial,
+        //int statusLightsEnd,
 
-        int statusSignalInitial,
-        int statusSignalEnd
+        //int statusSignalInitial,
+        //int statusSignalEnd
+
+        params int[] indexes
     )
     {
         this.charMap = _charMapDefault;
         this.PatternName = name;
 
-        this.StatusInitialIndex = statusInitial;
-        this.StatusEndIndex = statusEnd;
+        //this.StatusInitialIndex = statusInitial;
+        //this.StatusEndIndex = statusEnd;
 
-        this.EngineStatusInitialIndex = statusEngineInitial;
-        this.EngineStatusEndIndex = statusEngineEnd;
+        //this.EngineStatusInitialIndex = statusEngineInitial;
+        //this.EngineStatusEndIndex = statusEngineEnd;
 
-        this.TransmissionStatusInitialIndex = statusTransmissionInitial;
-        this.TransmissionStatusEndIndex = statusTransmissionEnd;
+        //this.TransmissionStatusInitialIndex = statusTransmissionInitial;
+        //this.TransmissionStatusEndIndex = statusTransmissionEnd;
 
-        this.InteriorStatusInitialIndex = statusInteriorInitial;
-        this.InteriorStatusEndIndex = statusInteriorEnd;
+        //this.InteriorStatusInitialIndex = statusInteriorInitial;
+        //this.InteriorStatusEndIndex = statusInteriorEnd;
 
-        this.WheelsStatusInitialIndex = statusWheelsInitial;
-        this.WheelsStatusEndIndex = statusWheelsEnd;
+        //this.WheelsStatusInitialIndex = statusWheelsInitial;
+        //this.WheelsStatusEndIndex = statusWheelsEnd;
 
-        this.LightsStatusInitialIndex = statusLightsInitial;
-        this.LightsStatusEndIndex = statusLightsEnd;
+        //this.LightsStatusInitialIndex = statusLightsInitial;
+        //this.LightsStatusEndIndex = statusLightsEnd;
 
-        this.SignalStatusInitialIndex = statusSignalInitial;
-        this.SignalStatusEndIndex = statusSignalEnd;
+        //this.SignalStatusInitialIndex = statusSignalInitial;
+        //this.SignalStatusEndIndex = statusSignalEnd;
+
+        this.StatusInitialIndex = indexes[0];
+        this.StatusEndIndex = indexes[1];
+
+        this.EngineStatusInitialIndex = indexes[2];
+        this.EngineStatusEndIndex = indexes[3];
+
+        this.TransmissionStatusInitialIndex = indexes[4];
+        this.TransmissionStatusEndIndex = indexes[5];
+
+        this.InteriorStatusInitialIndex = indexes[6];
+        this.InteriorStatusEndIndex = indexes[7];
+
+        this.WheelsStatusInitialIndex = indexes[8];
+        this.WheelsStatusEndIndex = indexes[9];
+
+        this.LightsStatusInitialIndex = indexes[10];
+        this.LightsStatusEndIndex = indexes[11];
+
+        this.SignalStatusInitialIndex = indexes[12];
+        this.SignalStatusEndIndex = indexes[13];
     }
 
     public CarSelectPattern
@@ -126,50 +149,73 @@ internal class CarSelectPattern : ICarSelectivePattern
 
         string name,
 
-        int statusInitial,
-        int statusEnd,
+        //int statusInitial,
+        //int statusEnd,
 
-        int statusEngineInitial,
-        int statusEngineEnd,
+        //int statusEngineInitial,
+        //int statusEngineEnd,
 
-        int statusTransmissionInitial,
-        int statusTransmissionEnd,
+        //int statusTransmissionInitial,
+        //int statusTransmissionEnd,
 
-        int statusInteriorInitial,
-        int statusInteriorEnd,
+        //int statusInteriorInitial,
+        //int statusInteriorEnd,
 
-        int statusWheelsInitial,
-        int statusWheelsEnd,
+        //int statusWheelsInitial,
+        //int statusWheelsEnd,
 
-        int statusLightsInitial,
-        int statusLightsEnd,
+        //int statusLightsInitial,
+        //int statusLightsEnd,
 
-        int statusSignalInitial,
-        int statusSignalEnd
+        //int statusSignalInitial,
+        //int statusSignalEnd
+
+        params int[] indexes
     )
     {
         this.charMap = chMap;
         this.PatternName = name;
 
-        this.StatusInitialIndex = statusInitial;
-        this.StatusEndIndex = statusEnd;
+        //this.StatusInitialIndex = statusInitial;
+        //this.StatusEndIndex = statusEnd;
 
-        this.EngineStatusInitialIndex = statusEngineInitial;
-        this.EngineStatusEndIndex = statusEngineEnd;
+        //this.EngineStatusInitialIndex = statusEngineInitial;
+        //this.EngineStatusEndIndex = statusEngineEnd;
 
-        this.TransmissionStatusInitialIndex = statusTransmissionInitial;
-        this.TransmissionStatusEndIndex = statusTransmissionEnd;
+        //this.TransmissionStatusInitialIndex = statusTransmissionInitial;
+        //this.TransmissionStatusEndIndex = statusTransmissionEnd;
 
-        this.InteriorStatusInitialIndex = statusInteriorInitial;
-        this.InteriorStatusEndIndex = statusInteriorEnd;
+        //this.InteriorStatusInitialIndex = statusInteriorInitial;
+        //this.InteriorStatusEndIndex = statusInteriorEnd;
 
-        this.WheelsStatusInitialIndex = statusWheelsInitial;
-        this.WheelsStatusEndIndex = statusWheelsEnd;
+        //this.WheelsStatusInitialIndex = statusWheelsInitial;
+        //this.WheelsStatusEndIndex = statusWheelsEnd;
 
-        this.LightsStatusInitialIndex = statusLightsInitial;
-        this.LightsStatusEndIndex = statusLightsEnd;
+        //this.LightsStatusInitialIndex = statusLightsInitial;
+        //this.LightsStatusEndIndex = statusLightsEnd;
 
-        this.SignalStatusInitialIndex = statusSignalInitial;
-        this.SignalStatusEndIndex = statusSignalEnd;
+        //this.SignalStatusInitialIndex = statusSignalInitial;
+        //this.SignalStatusEndIndex = statusSignalEnd;
+
+        this.StatusInitialIndex = indexes[0];
+        this.StatusEndIndex = indexes[1];
+
+        this.EngineStatusInitialIndex = indexes[2];
+        this.EngineStatusEndIndex = indexes[3];
+
+        this.TransmissionStatusInitialIndex = indexes[4];
+        this.TransmissionStatusEndIndex = indexes[5];
+
+        this.InteriorStatusInitialIndex = indexes[6];
+        this.InteriorStatusEndIndex = indexes[7];
+
+        this.WheelsStatusInitialIndex = indexes[8];
+        this.WheelsStatusEndIndex = indexes[9];
+
+        this.LightsStatusInitialIndex = indexes[10];
+        this.LightsStatusEndIndex = indexes[11];
+
+        this.SignalStatusInitialIndex = indexes[12];
+        this.SignalStatusEndIndex = indexes[13];
     }
 }
