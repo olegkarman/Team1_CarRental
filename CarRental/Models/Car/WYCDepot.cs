@@ -120,7 +120,27 @@ public class WYCDepot
             )
         ];
 
-        this._patterns = [new CarSelectPattern("simpleReadyComponents"), new CarSelectPattern("simpleAllReadyStatus"), new CarSelectPattern("allRandomDefault")];
+        this._patterns =
+        [
+            new CarSelectPattern
+            (
+                "simpleReadyComponents",
+                1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+            ),
+
+            new CarSelectPattern
+            (
+                "simpleAllReadyStatus",
+                1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+
+            ),
+
+            new CarSelectPattern
+            (
+                "allRandomDefault",
+                1, 5, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13
+            )
+        ];
 
         this.defaultPattern = _patterns[1];
     }
@@ -168,7 +188,7 @@ public class WYCDepot
 
         // ENGINE COMPONENT ARGUMENTS
 
-        string serialNumberEngine = ;
+        string serialNumberEngine = GetSerialNumber(pattern);
 
         int averageFuelConsumption = _random.Next(1, 10);
 
