@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-public record class BrandRecord : IBrandRecordable
+public class BrandRecord : IBrandRecordable
 {
     // FIELDS
 

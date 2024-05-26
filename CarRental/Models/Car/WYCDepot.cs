@@ -15,6 +15,8 @@ public class WYCDepot
 
     // FIELDS
 
+    private BrandModelsNamesDataSheet _brandModelData;
+
     // LET ASSUME IT IS OUR DATA FROM ~DATA BASE~, AND WE NEED TO INSTANTINIZE CLASS-DATA-HOLDER FROM IT.
 
     private string[] _brandNames = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"];
@@ -54,69 +56,73 @@ public class WYCDepot
 
     public WYCDepot()
     {
+        // DATA PROCESSING
+        
+        _brandModelData = new BrandModelsNamesDataSheet();
+
         this._records =
         [
             // ZAPOROZHETS
             new BrandRecord
             (
                 // ID
-                (DateTime.Now.ToString() + _brandNames[0].ToUpper()),
+                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[0].ToUpper()),
 
                 // ZAPOROZHETS
-                _brandNames[0],
+                _brandModelData.BrandNamesData[0],
 
                 // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
-                _modelNames[0..2]
+                _brandModelData.ModelNamesData[0..2]
             ),
 
             // PEUGEOT
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandNames[1].ToUpper()),
+                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[1].ToUpper()),
 
-                _brandNames[1],
+                _brandModelData.BrandNamesData[1],
 
-                _modelNames[3..13]
+                _brandModelData.ModelNamesData[3..13]
             ),
 
             // VOLKSWAGEN
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandNames[2].ToUpper()),
+                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[2].ToUpper()),
 
-                _brandNames[2],
+                _brandModelData.BrandNamesData[2],
 
-                _modelNames[14..24]
+                _brandModelData.ModelNamesData[14..24]
             ),
 
             // NISSAN
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandNames[3].ToUpper()),
+                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[3].ToUpper()),
 
-                _brandNames[3],
+                _brandModelData.BrandNamesData[3],
 
-                _modelNames[25..35]
+                _brandModelData.ModelNamesData[25..35]
             ),
 
             // GYGULI
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandNames[4].ToUpper()),
+                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[4].ToUpper()),
 
-                _brandNames[4],
+                _brandModelData.BrandNamesData[4],
 
-                _modelNames[26..42]
+                _brandModelData.ModelNamesData[36..42]
             ),
 
             // JEEP
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandNames[5].ToUpper()),
+                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[5].ToUpper()),
 
-                _brandNames[5],
+                _brandModelData.BrandNamesData[5],
 
-                _modelNames[43..52]
+                _brandModelData.ModelNamesData[36..42]
             )
         ];
 
