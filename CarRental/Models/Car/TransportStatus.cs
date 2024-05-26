@@ -12,6 +12,6 @@ public enum TransportStatus : byte
     available = 1,
     rented = 2,
     sold = 3,
-    repair = 4,
+    inRepair = 4,
     unavailable = 200
 }

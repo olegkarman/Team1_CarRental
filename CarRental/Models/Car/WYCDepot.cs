@@ -46,8 +46,9 @@ public class WYCDepot
     private Random _random = new Random();
     // AN ARRAY OF CHARACTERS TO GENERATE PSEUDO-RANDOM STRINGS AND AN ARRAY OF RECORDS.
     private readonly IBrandRecordable[] _records;
-    private readonly ICarSelectivePattern _pattern;
-    private readonly char[] _charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    private readonly ICarSelectivePattern[] _patterns;
+    private readonly ICarSelectivePattern defaultPattern;
+    //private readonly char[] _charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     // CONSTRUCTORS
 
@@ -118,29 +119,29 @@ public class WYCDepot
                 _modelNames[43..52]
             )
         ];
+
+        this._patterns = [new CarSelectPattern("simpleReadyComponents"), new CarSelectPattern("simpleAllReadyStatus"), new CarSelectPattern("allRandomDefault")];
+
+        this.defaultPattern = _patterns[1];
     }
 
     // MEHODS
 
     internal Car GetNewCar()
     {
+        ICarSelectivePattern pattern = this.defaultPattern;
+
         int tempRandom;
 
         // CAR INSTANCE ARGUMENTS
 
         int year = _random.Next(1960, 2025);
 
-        // GENERATE 32TH SIGN SERIAL NUMBER.
-        for (int index = 0; index < 33; index = index + 1)
-        {
-            snStringBuilder.Append(_charMap[_random.Next(0, _charMap.Length)]);
-        }
-
-        string serialNumber = snStringBuilder.ToString();
+        string serialNumber = GetSerialNumber(pattern);
 
         tempRandom = _random.Next(0, _records.Length);
         string brand = _records[tempRandom].BrandName;
-        string model = _records[tempRandom].Models[_random.Next(0, _records[tempRandom].Models.Length)]; // CHANGE AFTER FILL RECORDS.
+        string model = _records[tempRandom].Models[_random.Next(0, _records[tempRandom].Models.Length)];
 
         KnownColor color = (KnownColor)_random.Next(85, 118);
 
@@ -152,7 +153,7 @@ public class WYCDepot
 
         int speedCoeficient = _random.Next(2, 11);
 
-        TransportStatus status = (TransportStatus)_random.Next(1, 5);
+        TransportStatus status = (TransportStatus)_random.Next(pattern.StatusInitialIndex, pattern.StatusEndIndex);
 
         // ADD SOME RANDOMNESS FOR BIT-USE.
         bool isFitForUse;
@@ -167,14 +168,7 @@ public class WYCDepot
 
         // ENGINE COMPONENT ARGUMENTS
 
-        snStringBuilder.Clear();    // TO CLEAR PREVIOUS SN.
-
-        for (int index = 0; index < 33; index = index + 1)
-        {
-            snStringBuilder.Append(_charMap[_random.Next(0, _charMap.Length)]);
-        }
-
-        string serialNumberEngine = snStringBuilder.ToString();
+        string serialNumberEngine = ;
 
         int averageFuelConsumption = _random.Next(1, 10);
 
@@ -188,14 +182,7 @@ public class WYCDepot
 
         // TRANSMISSION COMPONENT ARGUMENTS
 
-        snStringBuilder.Clear();
-
-        for (int index = 0; index < 33; index = index + 1)
-        {
-            snStringBuilder.Append(_charMap[_random.Next(0, _charMap.Length)]);
-        }
-
-        string serialNumberTransmission = snStringBuilder.ToString();
+        string serialNumberTransmission = GetSerialNumber(pattern);
 
         TypeTransmission typeTransmission = (TypeTransmission)_random.Next(10, 14);
 
@@ -273,5 +260,18 @@ public class WYCDepot
         );
 
         return car;
+    }
+
+    // TO GENERATE RANDOM NUMBER FROM CHAR-MAP OF A PATTERN.
+    private string GetSerialNumber(ICarSelectivePattern pattern)
+    {
+        snStringBuilder.Clear();    // TO CLEAR PREVIOUS SN.
+
+        for (int index = 0; index < 33; index = index + 1)
+        {
+            snStringBuilder.Append(pattern.charMap[_random.Next(0, pattern.charMap.Length)]);
+        }
+
+        return snStringBuilder.ToString();
     }
 }

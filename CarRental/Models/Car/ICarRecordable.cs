@@ -8,7 +8,7 @@ namespace CarRental.Models.Car;
 
 public interface ICarRecordable : IRecordable
 {
-    public string RecordId { get; init; }
+    //public string RecordId { get; init; }
     public string BrandName { get; init; }
     public string ModelName { get; init; }
     public string VinCode { get; init; }
