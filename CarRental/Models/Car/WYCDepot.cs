@@ -46,6 +46,7 @@ public class WYCDepot
     private Random _random = new Random();
     // AN ARRAY OF CHARACTERS TO GENERATE PSEUDO-RANDOM STRINGS AND AN ARRAY OF RECORDS.
     private readonly IBrandRecordable[] _records;
+    private readonly ICarSelectivePattern _pattern;
     private readonly char[] _charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     // CONSTRUCTORS
