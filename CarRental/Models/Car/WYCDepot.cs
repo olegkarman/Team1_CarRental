@@ -198,7 +198,7 @@ public class WYCDepot
 
         int powerEngine = _random.Next(10, 21);
 
-        ComponentStatus statusEngine = (ComponentStatus)_random.Next(10, 13);
+        ComponentStatus statusEngine = (ComponentStatus)_random.Next(pattern.EngineStatusInitialIndex, pattern.EngineStatusEndIndex);
 
         // TRANSMISSION COMPONENT ARGUMENTS
 
@@ -208,7 +208,7 @@ public class WYCDepot
 
         int speedCount = _random.Next(2, 7);
 
-        ComponentStatus statusTransmission = (ComponentStatus)_random.Next(10, 13);
+        ComponentStatus statusTransmission = (ComponentStatus)_random.Next(pattern.TransmissionStatusInitialIndex, pattern.TransmissionStatusEndIndex);
 
         // INTERIOR COMPONENT ARGUMENTS
 
@@ -216,7 +216,7 @@ public class WYCDepot
 
         MaterialInterior materialInterior = (MaterialInterior)_random.Next(10, 16);
 
-        ComponentStatus statusInterior = (ComponentStatus)_random.Next(10, 13);
+        ComponentStatus statusInterior = (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex);
 
         // WHEELS COMPONENT ARGUMENTS
 
@@ -226,7 +226,7 @@ public class WYCDepot
 
         TypeTire tire = (TypeTire)_random.Next(10, 18);
 
-        ComponentStatus statusWheels = (ComponentStatus)_random.Next(10, 13);
+        ComponentStatus statusWheels = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex);
 
         // LIGHTS COMPONENT ARGUMENTS
 
@@ -234,13 +234,13 @@ public class WYCDepot
 
         PowerComponent powerLights = (PowerComponent)_random.Next(10, 14);
 
-        ComponentStatus statusLights = (ComponentStatus)_random.Next(10, 13);
+        ComponentStatus statusLights = (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex);
 
         // SIGNAL COMPONENT ARGUMENTS
 
         PitchComponent pitch = (PitchComponent)_random.Next(11, 15);
 
-        ComponentStatus statusSignal = (ComponentStatus)_random.Next(10, 13);
+        ComponentStatus statusSignal = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex);
 
         Car car = new Car
         (
