@@ -143,6 +143,8 @@ internal class Car
         //}
     }
 
+    internal ICarRecordable Record;
+
     internal string Model { get; init; }
     internal string Brand { get; init; }
     internal TransportStatus Status { get; set; }

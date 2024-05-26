@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-internal class CarRecord
+internal class CarRecord : ICarRecordable
 {
     // ID OF RECORD.
     // CAR VIN CODE.

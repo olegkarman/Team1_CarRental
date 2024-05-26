@@ -11,15 +11,113 @@ namespace CarRental.Models.Car;
 public class WYCDepot
 {
     // CLASS RESPONSIBILITY:
-    //          TO CREATE A CAR BASED ON PRE-DEFINED PATTERN
+    // TO CREATE A CAR BASED ON PRE-DEFINED PATTERN
 
     // FIELDS
 
+    // LET ASSUME IT IS OUR DATA FROM ~DATA BASE~, AND WE NEED TO INSTANTINIZE CLASS-DATA-HOLDER FROM IT.
+
+    private string[] _brandNames = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"];
+    private string[] _modelNames =
+    [
+        // 0 — ZAP [0, 2]
+        "ZAZ-966V", "ZAZ-965", "ZAZ-968",
+
+        // 1 — PEG [3, 13]
+        "Peugeot-204", "Peugeot-J7", "Peugeot-305", "Peugeot-J9", "Peugeot-P4", "Peugeot-406", "Peugeot-6007", "Peugeot-107", "Peugeot-908", "Bipper", "Peugeot-108",
+
+        // 2 — VOL [14, 24]
+        "Golf", "Passat", "Polo", "Jetta", "Multivan", "Bora", "Touareg", "Touran", "Caddy Life", "Lamando", "ID.3",
+
+        // 3 — NIS [25, 35]
+        "Patrol", "Skyline", "GT-R", "Serena", "Altima", "V-Drive", "Elgrand", "Sylphy", "X-Trail", "Murano", "Qashqai",
+
+        // 4 — GYG [26, 42]
+        "VAZ-2101", "VAZ-2102", "VAZ-2103", "VAZ-2106", "VAZ-2105", "VAZ-2107", "VAZ-2104",
+
+        // 5 — JEP [43, 52]
+        "Dakar", "Rubicon", "Malibu", "Wide-Trac", "Cherokee", "Creep", "Cowboy", "Freedom", "Wrangler", "Ecco"
+    ];
+
+    // FIELDS
+
+    //private DateTime _dateTime;
     private StringBuilder snStringBuilder = new StringBuilder();
     private Random _random = new Random();
     // AN ARRAY OF CHARACTERS TO GENERATE PSEUDO-RANDOM STRINGS AND AN ARRAY OF RECORDS.
-    private readonly ICarRecordable[] _records = [ new ZaporozhetsRecord(), new VolkswagenRecord(), new PeugeotRecord(), new NissanRecord(), new JeepRecord() ];
+    private readonly IBrandRecordable[] _records;
     private readonly char[] _charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+    // CONSTRUCTORS
+
+    public WYCDepot()
+    {
+        this._records =
+        [
+            // ZAPOROZHETS
+            new BrandRecord
+            (
+                // ID
+                (DateTime.Now.ToString() + _brandNames[0].ToUpper()),
+
+                // ZAPOROZHETS
+                _brandNames[0],
+
+                // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
+                _modelNames[0..2]
+            ),
+
+            // PEUGEOT
+            new BrandRecord
+            (
+                (DateTime.Now.ToString() + _brandNames[1].ToUpper()),
+
+                _brandNames[1],
+
+                _modelNames[3..13]
+            ),
+
+            // VOLKSWAGEN
+            new BrandRecord
+            (
+                (DateTime.Now.ToString() + _brandNames[2].ToUpper()),
+
+                _brandNames[2],
+
+                _modelNames[14..24]
+            ),
+
+            // NISSAN
+            new BrandRecord
+            (
+                (DateTime.Now.ToString() + _brandNames[3].ToUpper()),
+
+                _brandNames[3],
+
+                _modelNames[25..35]
+            ),
+
+            // GYGULI
+            new BrandRecord
+            (
+                (DateTime.Now.ToString() + _brandNames[4].ToUpper()),
+
+                _brandNames[4],
+
+                _modelNames[26..42]
+            ),
+
+            // JEEP
+            new BrandRecord
+            (
+                (DateTime.Now.ToString() + _brandNames[5].ToUpper()),
+
+                _brandNames[5],
+
+                _modelNames[43..52]
+            )
+        ];
+    }
 
     // MEHODS
 

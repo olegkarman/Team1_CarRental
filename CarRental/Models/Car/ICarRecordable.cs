@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car;
 
-public interface ICarRecordable
+public interface ICarRecordable : IRecordable
 {
-    public string BrandName { get; }
-    public string[] Models { get; }
+    public string RecordId { get; init; }
+    public string BrandName { get; init; }
+    public string ModelName { get; init; }
+    public string VinCode { get; init; }
+    public string CurrentCarNumber { get; set; }
+    public int Year { get; init; }
+    public DateTime RecordCreationDate { get; init; }
+    public string Insurance { get; set; }
+    public int Price { get; set; }
+    public bool IsFitForUse {get; set; }
+    //public List<Inspection> Inspection { get; set; }
+    //public List<Repair> Repairs { get; set; }
 }
