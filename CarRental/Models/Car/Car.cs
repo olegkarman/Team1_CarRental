@@ -86,6 +86,8 @@ internal class Car
     public required AbstractWheels Wheels { get; set; }
     public required AbstractTransmission Transmission { get; set; }
 
+    public required ICarRecordable Record { get; set; }
+
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
     public AbstractLights Lights { get; set; }
@@ -143,8 +145,6 @@ internal class Car
         //}
     }
 
-    internal ICarRecordable Record;
-
     internal string Model { get; init; }
     internal string Brand { get; init; }
     internal TransportStatus Status { get; set; }
@@ -176,6 +176,7 @@ internal class Car
         this._mileage = 0;
         this.MaxFuelCapacity = 0;
         this.CurrentFuel = 0;
+        this.Record = new CarRecord();
 
     }
 
@@ -183,23 +184,24 @@ internal class Car
 
     public Car
     (
-    int year,
-    string serialNumber,
-    string brand,
-    string model,
-    KnownColor color,
-    int price,
-    int maxFuelCapacity,
-    int currentFuel,
-    int speedCoeficient,
-    TransportStatus status,
-    bool isFitForUse,
-    AbstractEngine engine,
-    AbstractTransmission transmission,
-    AbstractInterior interior,
-    AbstractWheels wheels,
-    AbstractLights lights,
-    AbstractSignal signal
+        int year,
+        string serialNumber,
+        string brand,
+        string model,
+        KnownColor color,
+        int price,
+        int maxFuelCapacity,
+        int currentFuel,
+        int speedCoeficient,
+        TransportStatus status,
+        bool isFitForUse,
+        AbstractEngine engine,
+        AbstractTransmission transmission,
+        AbstractInterior interior,
+        AbstractWheels wheels,
+        AbstractLights lights,
+        AbstractSignal signal,
+        ICarRecordable record
     )
     {
         this.Year = year;
@@ -219,6 +221,7 @@ internal class Car
         this.Wheels = wheels;
         this.Lights = lights;
         this.Signal = signal;
+        this.Record = record;
     }
 
     [SetsRequiredMembersAttribute]
@@ -270,7 +273,13 @@ internal class Car
 
         // SIGNAL ARGUMENTS.
         PitchComponent pitch,
-        ComponentStatus statusSignal
+        ComponentStatus statusSignal,
+
+        // RECORD ARGUMENTS.
+        string recordId,
+        string numberPlate,
+        string recordCreationDate,
+        string technicalInfo
     )
     {
         this.Year = year;
@@ -329,6 +338,20 @@ internal class Car
         (
             pitch,
             statusSignal
+        );
+
+        this.Record = new CarRecord
+        (
+            recordId,
+            serialNumber,
+            brand,
+            model,
+            numberPlate,
+            recordCreationDate,
+            year,
+            price,
+            isFitForUse,
+            technicalInfo
         );
     }
 

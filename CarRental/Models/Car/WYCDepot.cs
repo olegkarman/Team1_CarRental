@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace CarRental.Models.Car;
 
@@ -229,6 +231,16 @@ public class WYCDepot
 
         ComponentStatus statusSignal = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex);
 
+        // RECORD ARGUMENTS
+
+        string recordId = DateTime.Now.ToString() + brand.ToUpper() + model.ToUpper();
+
+        string numberPlate = serialNumber.Substring(10, 8).Insert(2, "-").Insert(7, "-");
+
+        string recordCreationDate = DateTime.Now.Date.ToString();
+
+        string technicalInfo = $"Brand = {brand} |\nModel = {model} |\nEngine = {typeEngine} HP {powerEngine} fuel {fuel}({averageFuelConsumption}/hour) |\nTransmmission = {typeTransmission} {speedCount} speeds |\nWheels = {sizeWheels} inch {materialWheels} tire {tire} |\nInterior = {materialInterior} {colorInterior} | Color = {color} | VinCode = {serialNumber} | Preice = {price} | Is fit for use? = {isFitForUse} | Status = {status} }}";
+
         Car car = new Car
         (
             year,
@@ -263,7 +275,11 @@ public class WYCDepot
             powerLights,
             statusLights,
             pitch,
-            statusSignal
+            statusSignal,
+            recordId,
+            numberPlate,
+            recordCreationDate,
+            technicalInfo
         );
 
         return car;
