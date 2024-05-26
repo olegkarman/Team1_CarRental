@@ -15,37 +15,16 @@ public class WYCDepot
 
     // FIELDS
 
+    // DATA SOURCE
     private BrandModelsNamesDataSheet _brandModelData;
-
-    // LET ASSUME IT IS OUR DATA FROM ~DATA BASE~, AND WE NEED TO INSTANTINIZE CLASS-DATA-HOLDER FROM IT.
-
-    private string[] _brandNames = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"];
-    private string[] _modelNames =
-    [
-        // 0 — ZAP [0, 2]
-        "ZAZ-966V", "ZAZ-965", "ZAZ-968",
-
-        // 1 — PEG [3, 13]
-        "Peugeot-204", "Peugeot-J7", "Peugeot-305", "Peugeot-J9", "Peugeot-P4", "Peugeot-406", "Peugeot-6007", "Peugeot-107", "Peugeot-908", "Bipper", "Peugeot-108",
-
-        // 2 — VOL [14, 24]
-        "Golf", "Passat", "Polo", "Jetta", "Multivan", "Bora", "Touareg", "Touran", "Caddy Life", "Lamando", "ID.3",
-
-        // 3 — NIS [25, 35]
-        "Patrol", "Skyline", "GT-R", "Serena", "Altima", "V-Drive", "Elgrand", "Sylphy", "X-Trail", "Murano", "Qashqai",
-
-        // 4 — GYG [26, 42]
-        "VAZ-2101", "VAZ-2102", "VAZ-2103", "VAZ-2106", "VAZ-2105", "VAZ-2107", "VAZ-2104",
-
-        // 5 — JEP [43, 52]
-        "Dakar", "Rubicon", "Malibu", "Wide-Trac", "Cherokee", "Creep", "Cowboy", "Freedom", "Wrangler", "Ecco"
-    ];
 
     // FIELDS
 
     private StringBuilder snStringBuilder = new StringBuilder();
     private Random _random = new Random();
     private readonly IBrandRecordable[] _records;
+
+    // PATTERN SOURCE
     private readonly ICarSelectivePattern[] _patterns;
     private readonly ICarSelectivePattern defaultPattern;
 
