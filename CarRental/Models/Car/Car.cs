@@ -63,6 +63,8 @@ internal class Car
     private const string _noInfo = "NO INFO";
     internal readonly int Year;
     private float _mileage;   // AVTOPROBIG.
+    private float _currentFuel;
+    private int _maxFuelCapacity;
 
     #region PROPERTIES
 
@@ -77,7 +79,7 @@ internal class Car
 
         set;
         //{
-        //    Engine = value;
+        //    _current = value;
         //    // AFTER EVERY ENGINE SET UPDATE MAX SPEED.
         //    this.SetMaxSpeed();
         //}
@@ -93,7 +95,7 @@ internal class Car
     public AbstractLights Lights { get; set; }
     public AbstractSignal Signal { get; set; }
     public KnownColor Color { get; set; }
-    public int MaxSpeed { get; set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
+    public int MaxSpeed { get; private set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
     internal required string VinCode { get; init; }
 
@@ -102,47 +104,55 @@ internal class Car
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
     {
-        get;
-        //{
-        //    return MaxFuelCapacity;
-        //}
+        get
+        {
+            return _maxFuelCapacity;
+        }
 
-        init;
-        //{
-        //    if (value < 0)
-        //    {
-        //        MaxFuelCapacity = 0;
-        //    }
-        //    else
-        //    {
-        //        MaxFuelCapacity = value;
-        //    }
-        //}
+        init
+        {
+            if (value < 0)
+            {
+                _maxFuelCapacity = 0;
+            }
+            else
+            {
+                _maxFuelCapacity = value;
+            }
+        }
     }
 
+    // A SMALL AUTO-VALIDATION.
     internal float CurrentFuel
     {
-        get;
-        //{
-        //    return CurrentFuel;
-        //}
+        get
+        {
+            return _currentFuel;
+        }
 
-        set;
-        //{
-        //    if (value < 0)
-        //    {
-        //        CurrentFuel = 0;
-        //    }
-        //    // IT CANNOT BE LARGER THAN MAX FUEL.
-        //    else if (value >= this.MaxFuelCapacity)
-        //    {
-        //        CurrentFuel = MaxFuelCapacity;
-        //    }
-        //    else
-        //    {
-        //        CurrentFuel = value;
-        //    }
-        //}
+        set
+        {
+            if (value < 0)
+            {
+                _currentFuel = _currentFuel - value;
+
+                // IT CANNOT BE LESS THAN ZERO.
+                if (_currentFuel < 0)
+                {
+                    _currentFuel = 0;
+                }
+            }
+
+            // IT CANNOT BE LARGER THAN THE MAX FUEL.
+            else if (value >= this.MaxFuelCapacity)
+            {
+                _currentFuel = _maxFuelCapacity;
+            }
+            else
+            {
+                _currentFuel = value;
+            }
+        }
     }
 
     internal string Model { get; init; }
@@ -156,203 +166,23 @@ internal class Car
 
     // CONSTRUCTORS
 
-    [SetsRequiredMembersAttribute]
-
-    public Car()
+    public Car
+    (
+        int year,
+        string serialNumber,
+        string brand,
+        string model,
+        int maxFuelCapacity
+    )
     {
-        this.Year = 0;
-        this.VinCode = _noInfo;
-        this.Model = _noInfo;
-        this.Brand = _noInfo;
-        this.Engine = new CarEngine();
-        this.Transmission = new CarTransmission();
-        this.Wheels = new CarWheels();
-        this.Interior = new CarInterior();
-        this.Lights = new CarLights();
-        this.Signal = new CarSignal();
-        this.Color = 0;
-        this.Price = 0;
-        this.SpeedCoeficient = 0;
-        this._mileage = 0;
-        this.MaxFuelCapacity = 0;
-        this.CurrentFuel = 0;
+        this.Year = year;
+        this.VinCode = serialNumber;
+        this.Brand = brand;
+        this.Model = model;
+        this._maxFuelCapacity = maxFuelCapacity;
+
+        // THE CAR RECORD HAS NO MEANING WHOUT A CAR. DECISION — COMPOSITION RELATIONSHIP.
         this.Record = new CarRecord();
-
-    }
-
-    [SetsRequiredMembersAttribute]
-
-    public Car
-    (
-        int year,
-        string serialNumber,
-        string brand,
-        string model,
-        KnownColor color,
-        int price,
-        int maxFuelCapacity,
-        int currentFuel,
-        int speedCoeficient,
-        TransportStatus status,
-        bool isFitForUse,
-        AbstractEngine engine,
-        AbstractTransmission transmission,
-        AbstractInterior interior,
-        AbstractWheels wheels,
-        AbstractLights lights,
-        AbstractSignal signal,
-        ICarRecordable record
-    )
-    {
-        this.Year = year;
-        this.VinCode = serialNumber;
-        this.Brand = brand;
-        this.Model = model;
-        this.Color = color;
-        this.Price = price;
-        this.MaxFuelCapacity = maxFuelCapacity;
-        this.CurrentFuel = currentFuel;
-        this.SpeedCoeficient = speedCoeficient;
-        this.Status = status;
-        this.IsFitForUse = isFitForUse;
-        this.Engine = engine;
-        this.Transmission = transmission;
-        this.Interior = interior;
-        this.Wheels = wheels;
-        this.Lights = lights;
-        this.Signal = signal;
-        this.Record = record;
-    }
-
-    [SetsRequiredMembersAttribute]
-
-    public Car
-    (
-        // CAR ARGUMENTS.
-        int year,
-        string serialNumber,
-        string brand,
-        string model,
-        KnownColor color,
-        int price,
-        int maxFuelCapacity,
-        int currentFuel,
-        int speedCoeficient,
-        TransportStatus status,
-        bool isFitForUse,
-
-        // ENGINE ARGUMENTS.
-        string serialNumberEngine,
-        int averageFuelConsumption,
-        FuelEngine fuel,
-        TypeEngine typeEngine,
-        int powerEngine,
-        ComponentStatus statusEngine,
-
-        // TRANSMISSION ARGUMENTS.
-        string serialNumberTransmission,
-        TypeTransmission typeTransmission,
-        int speedCount,
-        ComponentStatus statusTransmission,
-
-        // INTERIOR ARGUMENTS.
-        KnownColor colorInterior,
-        MaterialInterior materialInterior,
-        ComponentStatus statusInterior,
-
-        // WHEELS ARGUMENTS.
-        MaterialWheel materialWheels,
-        int sizeWheels,
-        TypeTire tire,
-        ComponentStatus statusWheels,
-
-        //LIGHTS ARGUMENTS.
-        KnownColor colorLights,
-        PowerComponent powerLights,
-        ComponentStatus statusLights,
-
-        // SIGNAL ARGUMENTS.
-        PitchComponent pitch,
-        ComponentStatus statusSignal,
-
-        // RECORD ARGUMENTS.
-        string recordId,
-        string numberPlate,
-        string recordCreationDate,
-        string technicalInfo
-    )
-    {
-        this.Year = year;
-        this.VinCode = serialNumber;
-        this.Brand = brand;
-        this.Model = model;
-        this.Color = color;
-        this.Price = price;
-        this.MaxFuelCapacity = maxFuelCapacity;
-        this.CurrentFuel = currentFuel;
-        this.SpeedCoeficient = speedCoeficient;
-        this.Status = status;
-        this.IsFitForUse = isFitForUse;
-
-        this.Engine = new CarEngine
-        (
-            serialNumberEngine,
-            averageFuelConsumption,
-            fuel,
-            typeEngine,
-            powerEngine,
-            statusEngine
-        );
-
-        this.Transmission = new CarTransmission
-        (
-            serialNumberTransmission,
-            typeTransmission,
-            speedCount,
-            statusTransmission
-        );
-
-        this.Interior = new CarInterior
-        (
-            colorInterior,
-            materialInterior,
-            statusInterior
-        );
-
-        this.Wheels = new CarWheels
-        (
-            materialWheels,
-            sizeWheels,
-            tire,
-            statusWheels
-        );
-
-        this.Lights = new CarLights
-        (
-            colorLights,
-            powerLights,
-            statusLights
-        );
-
-        this.Signal = new CarSignal
-        (
-            pitch,
-            statusSignal
-        );
-
-        this.Record = new CarRecord
-        (
-            recordId,
-            serialNumber,
-            brand,
-            model,
-            numberPlate,
-            recordCreationDate,
-            year,
-            price,
-            isFitForUse,
-            technicalInfo
-        );
     }
 
     #endregion
