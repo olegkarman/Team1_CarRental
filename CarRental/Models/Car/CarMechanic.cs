@@ -67,7 +67,7 @@ internal class CarMechanic : ICarMechanics, ICanDrive
         // IF A CAR IS NEED A REPAIR, CHANGE ITS STATUS AND RETURN ONE.
         if (isNeedToBeFixed)
         {
-            car.Status = TransportStatus.repair;
+            car.Status = TransportStatus.inRepair;
             return car.Status;
         }
         else

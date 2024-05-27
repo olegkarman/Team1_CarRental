@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics;
-using System.Reflection;
+//using System.Diagnostics;
+//using System.Reflection;
 
 namespace CarRental.Models.Car;
 
@@ -36,7 +36,7 @@ public class WYCDepot
     {
         // DATA PROCESSING
         
-        _brandModelData = new BrandModelsNamesDataSheet();
+        this._brandModelData = new BrandModelsNamesDataSheet();
 
         this._records =
         [
@@ -101,7 +101,7 @@ public class WYCDepot
 
                 _brandModelData.BrandNamesData[5],
 
-                _brandModelData.ModelNamesData[36..42]
+                _brandModelData.ModelNamesData[43..52]
             )
         ];
 
@@ -109,6 +109,11 @@ public class WYCDepot
 
         this._patterns =
         [
+            new CarSelectPattern
+            (
+                "currentModelPatpern",
+
+            )
             new CarSelectPattern
             (
                 "simpleReadyComponents",
@@ -284,6 +289,16 @@ public class WYCDepot
 
         return car;
     }
+
+    //internal Car GetNewCar(int brandIndex, int modelIndex)
+    //{
+    //    string brand = _records[brandIndex].BrandName;
+    //    string model = _records[brandIndex].Models[modelIndex];
+
+    //    ICarSelectivePattern pattern = 
+
+    //    return car;
+    //}
 
     // TO GENERATE RANDOM NUMBER FROM CHAR-MAP OF A PATTERN.
     private string GetSerialNumber(ICarSelectivePattern pattern)
