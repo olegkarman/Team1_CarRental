@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Models.Car;
+namespace CarRental.Interfaces;
 
 public interface ICarRecordable : IRecordable
 {
@@ -15,6 +15,6 @@ public interface ICarRecordable : IRecordable
     public int Year { get; init; }
     public string RecordCreationDate { get; init; }
     public int Price { get; set; }
-    public bool IsFitForUse {get; set; }
+    public bool IsFitForUse { get; set; }
     public string TechnicalInfo { get; set; }
 }

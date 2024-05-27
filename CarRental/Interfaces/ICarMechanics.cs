@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using CarRental.Enumerables;
+using CarRental.Models.Car;
 
-namespace CarRental.Models.Car;
+namespace CarRental.Interfaces;
 
 public interface ICarMechanics
 {

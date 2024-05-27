@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Enumerables;
+using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
