@@ -180,9 +180,6 @@ internal class Car
         this.Brand = brand;
         this.Model = model;
         this._maxFuelCapacity = maxFuelCapacity;
-
-        // THE CAR RECORD HAS NO MEANING WHOUT A CAR. DECISION — COMPOSITION RELATIONSHIP.
-        this.Record = new CarRecord();
     }
 
     #endregion

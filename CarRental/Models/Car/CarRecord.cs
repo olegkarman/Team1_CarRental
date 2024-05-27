@@ -48,43 +48,21 @@ internal class CarRecord : ICarRecordable
 
     // CONSTRUCTORS
 
-    public CarRecord()
-    {
-        this.RecordId = _noInfo;
-        this.VinCode = _noInfo;
-        this.BrandName = _noInfo;
-        this.ModelName = _noInfo;
-        this.NumberPlate = _noInfo;
-        this.RecordCreationDate = DateTime.Now.ToString();
-        this.Year = 0;
-        this.Price = 0;
-        this.IsFitForUse = false;
-        this.TechnicalInfo = _noInfo;
-    }
-
     public CarRecord
     (
         string recordId,
         string vinCode,
         string brandName,
         string modelName,
-        string numberPlate,
         string recordCreationDate,
-        int year,
-        int price,
-        bool isFitForUse,
-        string technicalInfo
+        int year
     )
     {
         this.RecordId = recordId;
         this.VinCode = vinCode;
         this.BrandName = brandName;
         this.ModelName = modelName;
-        this.NumberPlate = numberPlate;
         this.RecordCreationDate = recordCreationDate;
         this.Year = year;
-        this.Price = price;
-        this.IsFitForUse = isFitForUse;
-        this.TechnicalInfo = technicalInfo;
     }
 }
