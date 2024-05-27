@@ -14,7 +14,5 @@ internal class PatternInitializator
 
     // METHODS
 
-    public 
-
 
 }

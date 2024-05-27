@@ -109,11 +109,11 @@ public class WYCDepot
 
         this._patterns =
         [
-            new CarSelectPattern
-            (
-                "currentModelPatpern",
+            //new CarSelectPattern
+            //(
+            //    "currentModelPatpern",
 
-            )
+            //)
             new CarSelectPattern
             (
                 "simpleReadyComponents",
