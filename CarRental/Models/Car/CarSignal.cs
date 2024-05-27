@@ -17,16 +17,6 @@ internal class CarSignal : AbstractSignal
 
     // CONSTRUCTORS
 
-    [SetsRequiredMembersAttribute]
-
-    public CarSignal()
-    {
-        this.Pitch = 0;
-        this.Status = 0;
-    }
-
-    [SetsRequiredMembersAttribute]
-
     public CarSignal(PitchComponent pitch, ComponentStatus status)
     {
         this.Pitch = pitch;
