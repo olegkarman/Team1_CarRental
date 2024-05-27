@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models.Car;
 
-internal class Car
+internal class Car : Interfaces.ICar
 {
 
     #region COMMENTARY OF O. KARMANSKYI
