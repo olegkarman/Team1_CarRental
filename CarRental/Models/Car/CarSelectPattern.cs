@@ -284,6 +284,8 @@ internal class CarSelectPattern : ICarSelectivePattern
 
        string brandName,
 
+       string modelName,
+
        //int statusInitial,
        //int statusEnd,
 
