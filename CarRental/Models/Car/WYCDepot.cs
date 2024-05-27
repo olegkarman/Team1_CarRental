@@ -40,27 +40,6 @@ public class WYCDepot
         this._brandModelData = new BrandModelsNamesDataSheet();
         this._patternInit = new PatternInitializator(_brandModelData);
 
-        Dictionary<string, ICarSelectivePattern> zaporozhetss = new Dictionary<string, ICarSelectivePattern>();
-
-        for (int i = 0; i < 3; i = i + 1)
-        {
-            zaporozhetss.Add(_brandModelData.ModelNamesData[i], _patternInit.GeneratePatternForModel($"{_brandModelData.BrandNamesData[0]}BASIC", _brandModelData.BrandNamesData[0], _brandModelData.ModelNamesData[i]));    
-        }
-
-        Dictionary<string, ICarSelectivePattern> peugeots = new Dictionary<string, ICarSelectivePattern>();
-
-        for (int i = 3; i < 14; i = i + 1)
-        {
-            zaporozhetss.Add(_brandModelData.ModelNamesData[i], _patternInit.GeneratePatternForModel($"{_brandModelData.BrandNamesData[1]}BASIC", _brandModelData.BrandNamesData[1], _brandModelData.ModelNamesData[i]));
-        }
-
-        Dictionary<string, ICarSelectivePattern> volkswagens = new Dictionary<string, ICarSelectivePattern>();
-
-        for (int i = 14; i < 25; i = i + 1)
-        {
-            zaporozhetss.Add(_brandModelData.ModelNamesData[i], _patternInit.GeneratePatternForModel($"{_brandModelData.BrandNamesData[1]}BASIC", _brandModelData.BrandNamesData[1], _brandModelData.ModelNamesData[i]));
-        }
-
         this._records =
         [
             // ZAPOROZHETS
