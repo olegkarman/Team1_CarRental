@@ -12,5 +12,5 @@ internal abstract class AbstractTransmission : IComponent
 
     internal abstract required string SerialNumber { get; init; }
     public abstract required TypeTransmission Type { get; init; }
-    public abstract required ComponentStatus Status { get; set; }
+    public abstract ComponentStatus Status { get; set; }
 }
