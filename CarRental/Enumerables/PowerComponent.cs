@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Models.Car;
+namespace CarRental.Enumerables;
 
-public enum PitchComponent
+internal enum PowerComponent
 {
     unknown = 0,
-    low = 11,
-    moderate = 12,
-    high = 13,
-    extremelyHigh = 14
+    weak = 10,
+    moderate = 11,
+    powerful = 12,
+    extreme = 13
 }
