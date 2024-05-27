@@ -18,17 +18,6 @@ internal class CarLights : AbstractLights
 
     // CONSTRUCTORS
 
-    [SetsRequiredMembersAttribute]
-
-    public CarLights()
-    {
-        this.Color = 0;
-        this.Power = 0;
-        this.Status = 0;
-    }
-
-    [SetsRequiredMembersAttribute]
-
     public CarLights(KnownColor color, PowerComponent power, ComponentStatus status)
     {
         this.Color = color;
