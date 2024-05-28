@@ -68,7 +68,7 @@ internal class PatternInitializator
     //    }
     //}
 
-    public CarSelectPattern GeneratePatternForModel (BrandModelsNamesDataSheet dataWarehouse, string name, string brand, string model)
+    public CarSelectPattern GeneratePatternForModel (string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
     {
         CarSelectPattern pattern = new CarSelectPattern
         (
