@@ -14,82 +14,83 @@ public class WeylandYutaniCarRepairShopPortal
 
         WYCDepot depot = new CarRental.Models.Car.WYCDepot();
         // /**/
-        // BrandModelsNamesDataSheet dataSheet = new BrandModelsNamesDataSheet();
         // CarServiceManager serviceManager = new CarServiceManager();
 
-        /*internal void SetBrandRecords(BrandModelsNamesDataSheet brandModelsNamesDataSheet)
-    {
         // DATA INITIALIZATION
-        
-        //this._brandModelData = new BrandModelsNamesDataSheet();
-        //this._patternInit = new PatternInitializator(_brandModelData);
 
-        this._records =
+        BrandModelsNamesDataSheet dataSheet = new BrandModelsNamesDataSheet();
+
+        /**/
+
+        /*internal void SetBrandRecords(BrandModelsNamesDataSheet brandModelsNamesDataSheet)*/
+
+
+        BrandRecord[] brandRecords =
         [
             // ZAPOROZHETS
             new BrandRecord
             (
                 // ID
-                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[0].ToUpper()),
+                (DateTime.Now.ToString() + dataSheet.BrandNamesData[0].ToUpper()),
 
                 // ZAPOROZHETS
-                _brandModelData.BrandNamesData[0],
+                dataSheet.BrandNamesData[0],
 
                 // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
 
-                _brandModelData.ModelNamesData[0..2]
+                dataSheet.ModelNamesData[0..2]
             ),
 
             // PEUGEOT
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[1].ToUpper()),
+                (DateTime.Now.ToString() + dataSheet.BrandNamesData[1].ToUpper()),
 
-                _brandModelData.BrandNamesData[1],
+                dataSheet.BrandNamesData[1],
 
-                _brandModelData.ModelNamesData[3..13]
+                dataSheet.ModelNamesData[3..13]
             ),
 
             // VOLKSWAGEN
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[2].ToUpper()),
+                (DateTime.Now.ToString() + dataSheet.BrandNamesData[2].ToUpper()),
 
-                _brandModelData.BrandNamesData[2],
+                dataSheet.BrandNamesData[2],
 
-                _brandModelData.ModelNamesData[14..24]
+                dataSheet.ModelNamesData[14..24]
             ),
 
             // NISSAN
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[3].ToUpper()),
+                (DateTime.Now.ToString() + dataSheet.BrandNamesData[3].ToUpper()),
 
-                _brandModelData.BrandNamesData[3],
+                dataSheet.BrandNamesData[3],
 
-                _brandModelData.ModelNamesData[25..35]
+                dataSheet.ModelNamesData[25..35]
             ),
 
             // GYGULI
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[4].ToUpper()),
+                (DateTime.Now.ToString() + dataSheet.BrandNamesData[4].ToUpper()),
 
-                _brandModelData.BrandNamesData[4],
+                dataSheet.BrandNamesData[4],
 
-                _brandModelData.ModelNamesData[36..42]
+                dataSheet.ModelNamesData[36..42]
             ),
 
             // JEEP
             new BrandRecord
             (
-                (DateTime.Now.ToString() + _brandModelData.BrandNamesData[5].ToUpper()),
+                (DateTime.Now.ToString() + dataSheet.BrandNamesData[5].ToUpper()),
 
-                _brandModelData.BrandNamesData[5],
+                dataSheet.BrandNamesData[5],
 
-                _brandModelData.ModelNamesData[43..52]
+                dataSheet.ModelNamesData[43..52]
             )
-        ];*/
+        ];
 
 
         Console.WriteLine(depot.GetNewCar());
