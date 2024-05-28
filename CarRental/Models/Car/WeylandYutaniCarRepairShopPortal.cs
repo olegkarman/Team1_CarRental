@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,41 +13,25 @@ public class WeylandYutaniCarRepairShopPortal
     {
         Console.WriteLine("        .\r\n       ,O,\r\n      ,OOO,\r\n'oooooOOOOOooooo'\r\n  `OOOOOOOOOOO`\r\n    `OOOOOOO`\r\n    OOOO'OOOO\r\n   OOO'   'OOO\r\n  O'         'O\n\u2606☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\nWE PROUD TO WELCOME YOU IN WEYLAND-YUTANI CAR REPAIR SHOP!!!\n☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
 
-        Initialize();
+        WYCDepot depo = InitializeDepot();
+        BrandModelsNamesDataSheet data = InitializeData();
+        BrandRecord[] brandRecords = InitializeBrandRecords(data);
     }
 
-    public WYCDepot InitializeDepo()
+    static public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
     {
-        return new CarRental.Models.Car.WYCDepot();
-    }
-
-    public static void Initialize()
-    {
-        //WYCDepot depot = new CarRental.Models.Car.WYCDepot();
-        // /**/
-        // CarServiceManager serviceManager = new CarServiceManager();
-
-        // DATA INITIALIZATION
-
-        BrandModelsNamesDataSheet dataSheet = new BrandModelsNamesDataSheet();
-
-        /**/
-
-        /*internal void SetBrandRecords(BrandModelsNamesDataSheet brandModelsNamesDataSheet)*/
-
-
-        BrandRecord[] brandRecords =
+        BrandRecord[] records =
         [
             // ZAPOROZHETS
             new BrandRecord
             (
-                // ID
+            // ID
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[0].ToUpper()),
 
-                // ZAPOROZHETS
+            // ZAPOROZHETS
                 dataSheet.BrandNamesData[0],
 
-                // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
+            // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
 
                 dataSheet.ModelNamesData[0..2]
             ),
@@ -102,6 +87,32 @@ public class WeylandYutaniCarRepairShopPortal
             )
         ];
 
+        return records;
+    }
+
+    static public BrandModelsNamesDataSheet InitializeData()
+    {
+        return new BrandModelsNamesDataSheet();
+    }
+
+    static public WYCDepot InitializeDepot()
+    {
+        return new CarRental.Models.Car.WYCDepot();
+    }
+
+    public static void Initialize()
+    {
+        //WYCDepot depot = new CarRental.Models.Car.WYCDepot();
+        // /**/
+        // CarServiceManager serviceManager = new CarServiceManager();
+
+        // DATA INITIALIZATION
+
+        BrandModelsNamesDataSheet dataSheet = new BrandModelsNamesDataSheet();
+
+        /**/
+
+        /*internal void SetBrandRecords(BrandModelsNamesDataSheet brandModelsNamesDataSheet)*/
 
         //Console.WriteLine(depot.GetNewCar());
 
