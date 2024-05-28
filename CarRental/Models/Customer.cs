@@ -14,7 +14,7 @@ internal class Customer : User
     public required string DrivingLicenseNumber { get; set; }
 
     [SetsRequiredMembers]
-    public Customer(string? firstName, string? lastName, string idNumber, string drivingLicenseNumber, DateTime dateOfBirth) : base(firstName, lastName, dateOfBirth)
+    public Customer(string? firstName, string? lastName, string idNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password , userName)
     {
         IdNumber = idNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
