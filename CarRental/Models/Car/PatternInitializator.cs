@@ -12,26 +12,16 @@ internal class PatternInitializator
 {
     // FIELDS
 
-    private BrandModelsNamesDataSheet _dataWarehouse;
-
-    // CONSTRUCTORS
-
-    internal PatternInitializator(BrandModelsNamesDataSheet dataWarehouse)
-    {
-        this._dataWarehouse = dataWarehouse;
-        //ModelPatternDataDictionary =
-    }
-
     // METHODS
 
-    public CarSelectPattern GeneratePatternForModel (string name, string brand, string model)
+    public CarSelectPattern GeneratePatternForModel (BrandModelsNamesDataSheet dataWarehouse, string name, string brand, string model)
     {
         CarSelectPattern pattern = new CarSelectPattern
         (
             name,
             brand,
             model,
-            _dataWarehouse.ModelPatternDataDictionary[model]
+            dataWarehouse.ModelPatternDataDictionary[model]
         );
 
         return pattern;
