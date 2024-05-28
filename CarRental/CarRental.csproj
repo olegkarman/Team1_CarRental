@@ -7,8 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="C:\Users\ninad\OneDrive\Рабочий стол\Nine\C Pro\new\Car.cs" Link="Car.cs" />
-  </ItemGroup>
-
 </Project>
