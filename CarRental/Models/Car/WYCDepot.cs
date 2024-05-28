@@ -27,7 +27,7 @@ public class WYCDepot
 
     private StringBuilder snStringBuilder = new StringBuilder();
     private Random _random = new Random();
-    private readonly IBrandRecordable[] _records;
+    private IBrandRecordable[] _records;
 
     // PATTERN SOURCE
     private readonly ICarSelectivePattern[] _patterns;
@@ -35,12 +35,12 @@ public class WYCDepot
 
     // CONSTRUCTORS
 
-    public WYCDepot()
+    internal void SetBrandRecords(BrandModelsNamesDataSheet brandModelsNamesDataSheet)
     {
         // DATA INITIALIZATION
         
-        this._brandModelData = new BrandModelsNamesDataSheet();
-        this._patternInit = new PatternInitializator(_brandModelData);
+        //this._brandModelData = new BrandModelsNamesDataSheet();
+        //this._patternInit = new PatternInitializator(_brandModelData);
 
         this._records =
         [
@@ -111,36 +111,36 @@ public class WYCDepot
 
         // TO CREATE PATTERNS AND ASSIGN
 
-        this._patterns =
-        [
-            //new CarSelectPattern
-            //(
-            //    "currentModelPatpern",
+        //this._patterns =
+        //[
+        //    //new CarSelectPattern
+        //    //(
+        //    //    "currentModelPatpern",
 
-            //)
-            new CarSelectPattern
-            (
-                "simpleReadyComponents",
-                1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
-            ),
+        //    //)
+        //    new CarSelectPattern
+        //    (
+        //        "simpleReadyComponents",
+        //        1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        //    ),
 
-            new CarSelectPattern
-            (
-                "simpleAllReadyStatus",
-                1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
+        //    new CarSelectPattern
+        //    (
+        //        "simpleAllReadyStatus",
+        //        1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
 
-            ),
+        //    ),
 
-            new CarSelectPattern
-            (
-                "allRandomDefault",
-                1, 5, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13
-            )
-        ];
+        //    new CarSelectPattern
+        //    (
+        //        "allRandomDefault",
+        //        1, 5, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13
+        //    )
+        //];
 
         // TO ASSIGN DEFAULT PATTERN FOR NO-OVERLOAD METHOD.
 
-        this.defaultPattern = _patterns[0];
+        //this.defaultPattern = _patterns[0];
     }
 
     // MEHODS
@@ -256,39 +256,7 @@ public class WYCDepot
             serialNumber,
             brand,
             model,
-            color,
-            price,
-            maxFuelCapacity,
-            currentFuel,
-            speedCoeficient,
-            status,
-            isFitForUse,
-            serialNumberEngine,
-            averageFuelConsumption,
-            fuel,
-            typeEngine,
-            powerEngine,
-            statusEngine,
-            serialNumberTransmission,
-            typeTransmission,
-            speedCount,
-            statusTransmission,
-            colorInterior,
-            materialInterior,
-            statusInterior,
-            materialWheels,
-            sizeWheels,
-            tire,
-            statusWheels,
-            colorLights,
-            powerLights,
-            statusLights,
-            pitch,
-            statusSignal,
-            recordId,
-            numberPlate,
-            recordCreationDate,
-            technicalInfo
+            maxFuelCapacity
         );
 
         return car;
