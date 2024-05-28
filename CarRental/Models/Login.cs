@@ -1,4 +1,17 @@
 ﻿namespace CarRental.Models;
+
+internal class User
+{
+    public string Username { get; set; }
+    public string Password { get; set; }
+
+    public User(string username, string password)
+    {
+        Username = username;
+        Password = password;
+    }
+}
+
 internal class Login
 {
     private string _fileName;
@@ -7,7 +20,7 @@ internal class Login
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
         Directory.SetCurrentDirectory(projectDirectory);
-        _fileName = Path.Combine(Directory.GetCurrentDirectory(), "users.txt");
+        _fileName = Path.Combine(Directory.GetCurrentDirectory(), "users.json");
 
         if (!File.Exists(_fileName))
         {
@@ -49,14 +62,15 @@ internal class Login
         Console.Write("Enter a password: ");
         string password = Console.ReadLine();
 
-        var data = File.ReadAllLines(_fileName);
-        if (data.Any(line => line.Split(',')[0] == username))
+        var users = Serializer.DeserializeFromFile<User>(_fileName);
+        if (users.Any(user => user.Username == username))
         {
             Console.WriteLine("Username already exists.");
             return;
         }
 
-        File.AppendAllText(_fileName, $"{username},{password}\n");
+        users.Add(new User(username, password));
+        Serializer.SerializeToFile(_fileName, users);
         Console.WriteLine("Registration successful.");
     }
 
@@ -67,8 +81,8 @@ internal class Login
         Console.Write("Enter your password: ");
         string password = Console.ReadLine();
 
-        var data = File.ReadAllLines(_fileName);
-        if (data.Any(line => line == $"{username},{password}"))
+        var users = Serializer.DeserializeFromFile<User>(_fileName);
+        if (users.Any(user => user.Username == username && user.Password == password))
         {
             Console.WriteLine("Login successful.");
             return true;
