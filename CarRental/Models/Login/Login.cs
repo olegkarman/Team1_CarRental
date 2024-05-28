@@ -1,16 +1,4 @@
-﻿namespace CarRental.Models;
-
-internal class User
-{
-    public string Username { get; set; }
-    public string Password { get; set; }
-
-    public User(string username, string password)
-    {
-        Username = username;
-        Password = password;
-    }
-}
+﻿namespace CarRental.Models.Login;
 
 internal class Login
 {
@@ -63,13 +51,13 @@ internal class Login
         string password = Console.ReadLine();
 
         var users = Serializer.DeserializeFromFile<User>(_fileName);
-        if (users.Any(user => user.Username == username))
+        if (users.Any(user => user.ValidateCredentials(username)))
         {
             Console.WriteLine("Username already exists.");
             return;
         }
 
-        users.Add(new User(username, password));
+        /*users.Add(new User(username, password));*/
         Serializer.SerializeToFile(_fileName, users);
         Console.WriteLine("Registration successful.");
     }
@@ -82,7 +70,7 @@ internal class Login
         string password = Console.ReadLine();
 
         var users = Serializer.DeserializeFromFile<User>(_fileName);
-        if (users.Any(user => user.Username == username && user.Password == password))
+        if (users.Any(user => user.ValidateCredentials(username, password)))
         {
             Console.WriteLine("Login successful.");
             return true;
