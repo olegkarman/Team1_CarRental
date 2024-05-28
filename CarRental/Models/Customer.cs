@@ -10,13 +10,13 @@ internal class Customer : User
 {
     public const float BasicDiscount = 0.5f;
 
-    public readonly string IdNumber;
+    public readonly string PassportNumber;
     public required string DrivingLicenseNumber { get; set; }
 
     [SetsRequiredMembers]
-    public Customer(string? firstName, string? lastName, string idNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password , userName)
+    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password , userName)
     {
-        IdNumber = idNumber;
+        PassportNumber = passportNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
     }
 
