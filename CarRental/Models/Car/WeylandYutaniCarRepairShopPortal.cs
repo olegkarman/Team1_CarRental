@@ -93,7 +93,7 @@ public class WeylandYutaniCarRepairShopPortal
         ];
 
 
-        Console.WriteLine(depot.GetNewCar());
+        //Console.WriteLine(depot.GetNewCar());
 
         // VIEW CAR TECHNICAL INFO.
         // VIEW CAR RECORD.

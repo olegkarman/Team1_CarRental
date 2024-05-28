@@ -18,22 +18,15 @@ public class BrandRecord : IBrandRecordable
     public string RecordId { get; init; }
     public string BrandName { get; init; }
     public string[] Models { get; init; }
-    public Dictionary<string, ICarSelectivePattern> ModelPattern { get; set; }
+    /*public Dictionary<string, ICarSelectivePattern> ModelPattern { get; set; }*/
 
     // CONSTRUCTORS
 
-    public BrandRecord ()
-    {
-        this.RecordId = _noInfo;
-        this.BrandName = _noInfo;
-        this.Models = [_noInfo];
-    }
-
-    public BrandRecord(string recordId, string brandName, string[] models, Dictionary<string, ICarSelectivePattern> dictionaryModelPattern)
+    public BrandRecord(string recordId, string brandName, string[] models/*, Dictionary<string, ICarSelectivePattern> dictionaryModelPattern*/)
     {
         this.RecordId = recordId;
         this.BrandName = brandName;
         this.Models = models;
-        this.ModelPattern = dictionaryModelPattern;
+        //this.ModelPattern = dictionaryModelPattern;
     }
 }
