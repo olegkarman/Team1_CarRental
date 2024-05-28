@@ -29,4 +29,12 @@ public abstract class User
         return false;
     }
 
+    public bool ValidateCredentials(string login)
+    {
+        if (login == UserName)
+        {
+            return true;
+        }
+        return false;
+    }
 }
