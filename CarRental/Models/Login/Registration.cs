@@ -13,7 +13,7 @@ internal static class Registration
         Regex regex = new Regex(@"^[A-Za-z]+$");
         return !string.IsNullOrWhiteSpace(name) && regex.IsMatch(name);
     }
-    static void RegisterCustomer(string login, string password)
+    public static Customer RegisterCustomer(string login, string password)
     {
         Random rand = new Random();
 
@@ -24,6 +24,7 @@ internal static class Registration
 
         while (true)
         {
+            firstName = Console.ReadLine();
             if (IsValidName(firstName))
             {
                 break;
@@ -37,6 +38,7 @@ internal static class Registration
         Console.WriteLine("Enter the last name of the user:");
         while (true)
         {
+            lastName = Console.ReadLine();
             if (IsValidName(lastName))
             {
                 break;
@@ -55,5 +57,18 @@ internal static class Registration
         /* Driving licence number */
         int number = rand.Next(0, 1000000); // Generate a random number between 0 and 999999
         string drivingLicenseNumber = number.ToString("D6");
+
+        /* Driving licence number */
+        // Generate two random letters
+        char letter1 = (char)rand.Next('A', 'Z' + 1);
+        char letter2 = (char)rand.Next('A', 'Z' + 1);
+
+        // Generate six random digits
+        int pasportNumberToUse = rand.Next(0, 1000000); // Generate a random number between 0 and 999999
+
+        // Combine the letters and the number into a string
+        string pasportNumber = $"{letter1}{letter2}{pasportNumberToUse:D6}";
+
+        return new Customer(firstName, lastName, pasportNumber, drivingLicenseNumber, dob, password, login);
     }
 }

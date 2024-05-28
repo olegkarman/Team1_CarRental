@@ -2,43 +2,60 @@
 
 internal class Login
 {
-    private string _fileName;
+    private string _customersFileName;
+    private string _inspectorsFileName;
+
+    public void CheckIfFileExists(string fileName)
+    {
+        if (!File.Exists(fileName))
+        {
+            File.Create(fileName).Close();
+        }
+    }
 
     public Login()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
         Directory.SetCurrentDirectory(projectDirectory);
-        _fileName = Path.Combine(Directory.GetCurrentDirectory(), "users.json");
+        _customersFileName = Path.Combine(Directory.GetCurrentDirectory(), "customers.json");
 
-        if (!File.Exists(_fileName))
-        {
-            File.Create(_fileName).Close();
-        }
+        CheckIfFileExists(_customersFileName);
+
+        _inspectorsFileName = Path.Combine(Directory.GetCurrentDirectory(), "inspectors.json");
+
+        CheckIfFileExists(_inspectorsFileName);
     }
 
-    public void StartLogin()
+    public Customer StartLogin()
     {
+        Customer customer = null;
         while (true)
         {
             Console.WriteLine("1. Register");
             Console.WriteLine("2. Login");
+            Console.WriteLine("3. Exit");
             Console.Write("Choose an option: ");
             string option = Console.ReadLine();
 
-            if (option == "1")
+            switch (option)
             {
-                RegisterUser();
-            }
-            else if (option == "2")
-            {
-                if (LoginUser())
-                {
+                case "1":
+                    RegisterUser();
                     break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Please, select a valid option");
+                case "2":
+                    customer = LoginUser();
+                    if (customer != null)
+                    {
+                        return customer;
+                    }
+                    break;
+                case "3":
+                    Console.WriteLine("Program stopped");
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Please, select a valid option");
+                    break;
             }
         }
     }
@@ -50,35 +67,36 @@ internal class Login
         Console.Write("Enter a password: ");
         string password = Console.ReadLine();
 
-        var users = Serializer.DeserializeFromFile<User>(_fileName);
+        var users = Serializer.DeserializeFromFile<Customer>(_customersFileName);
         if (users.Any(user => user.ValidateCredentials(username)))
         {
             Console.WriteLine("Username already exists.");
             return;
         }
 
-        /*users.Add(new User(username, password));*/
-        Serializer.SerializeToFile(_fileName, users);
+        var customer = Registration.RegisterCustomer(username, password);
+        users.Add(customer);
+        Serializer.SerializeToFile(_customersFileName, users);
         Console.WriteLine("Registration successful.");
     }
 
-    private bool LoginUser()
+    private Customer? LoginUser()
     {
         Console.Write("Enter your username: ");
         string username = Console.ReadLine();
         Console.Write("Enter your password: ");
         string password = Console.ReadLine();
 
-        var users = Serializer.DeserializeFromFile<User>(_fileName);
+        var users = Serializer.DeserializeFromFile<Customer>(_customersFileName);
         if (users.Any(user => user.ValidateCredentials(username, password)))
         {
             Console.WriteLine("Login successful.");
-            return true;
+            return users.Find(user => user.ValidateCredentials(username, password));
         }
         else
         {
             Console.WriteLine("Invalid username or password.");
-            return false;
+            return null;
         }
     }
 }

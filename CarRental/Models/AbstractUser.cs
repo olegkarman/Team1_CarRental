@@ -10,10 +10,9 @@ public abstract class User
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
-    private string Password { get; init; }
-    private string UserName { get; init; }
-
-    public readonly Guid IdNumber;
+    public string Password { get; init; }
+    public string UserName { get; init; }
+    public string IdNumber { get; init; }
     protected User(string firstName, string lastName, DateTime dateOfBirth, string password, string userName)
     {
         FirstName = firstName;
@@ -21,7 +20,7 @@ public abstract class User
         DateOfBirth = dateOfBirth;
         Password = password;
         UserName = userName;
-        IdNumber = Guid.NewGuid();
+        IdNumber = Guid.NewGuid().ToString();
     }
     public bool ValidateCredentials(string login, string password)
     {

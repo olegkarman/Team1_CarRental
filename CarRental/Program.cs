@@ -1,4 +1,5 @@
-﻿using CarRental.Models;
+﻿using CarRental.Models.Login;
+using CarRental.Models.Portal;
 
 class CarRentalPortal
 {
@@ -6,6 +7,7 @@ class CarRentalPortal
     {
         // Starting point. Show menu, etc.
         var login = new Login();
-        login.StartLogin();
+        var user = login.StartLogin();
+        var portal = new Portal();
     }
 }
