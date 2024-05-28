@@ -12,12 +12,6 @@ internal record class BrandModelsNamesDataSheet
 
     internal string[] BrandNamesData { get; init; }
     internal string[] ModelNamesData { get; init; }
-    internal Dictionary<string, string> ModelsZaporozhets { get; init; }
-    internal Dictionary<string, string> ModelsPeugeot { get; init; }
-    internal Dictionary<string, string> ModelsVolkswagen { get; init; }
-    internal Dictionary<string, string> ModelsNissan { get; init; }
-    internal Dictionary<string, string> ModelsGyguli { get; init; }
-    internal Dictionary<string, string> ModelsJeep { get; init; }
     internal Dictionary<string, int[]> ModelPatternDataDictionary { get; init; }
 
     // CONSTRUCTORS

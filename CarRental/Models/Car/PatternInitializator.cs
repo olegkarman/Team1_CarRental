@@ -12,6 +12,15 @@ internal class PatternInitializator
 {
     // FIELDS
 
+    // PROPERTIES
+
+    //internal Dictionary<string, string> ModelsZaporozhets { get; init; }
+    //internal Dictionary<string, string> ModelsPeugeot { get; init; }
+    //internal Dictionary<string, string> ModelsVolkswagen { get; init; }
+    //internal Dictionary<string, string> ModelsNissan { get; init; }
+    //internal Dictionary<string, string> ModelsGyguli { get; init; }
+    //internal Dictionary<string, string> ModelsJeep { get; init; }
+
     // METHODS
 
     //public void InitializeDictionaries(BrandModelsNamesDataSheet brandModelsNamseData)
