@@ -56,44 +56,44 @@ public class CarSelectPattern : ICarSelectivePattern
     public int SpeedCoeficientEnd { get; init; }
 
     // ENGINE SECTION INDEXES
-    int AverageFuelConsumptionInitial { get; init; }
-    int AverageFuelConsumptionEnd { get; init; }
-    int FuelInitial { get; init; }
-    int FuelEnd { get; init; }
-    int TypeEngineInitial { get; init; }
-    int TypeEngineEnd { get; init; }
-    int powerEngineInitial { get; init; }
-    int powerEngineEnd { get; init; }
+    public int AverageFuelConsumptionInitial { get; init; }
+    public int AverageFuelConsumptionEnd { get; init; }
+    public int FuelInitial { get; init; }
+    public int FuelEnd { get; init; }
+    public int TypeEngineInitial { get; init; }
+    public int TypeEngineEnd { get; init; }
+    public int powerEngineInitial { get; init; }
+    public int powerEngineEnd { get; init; }
 
     // TRANSMISSION SECTION
-    int TypeTransmissionInitial { get; init; }
-    int TypeTransmissionEnd { get; init; }
-    int SpeedCountInitial { get; init; }
-    int SpeedCountEnd { get; init; }
+    public int TypeTransmissionInitial { get; init; }
+    public int TypeTransmissionEnd { get; init; }
+    public int SpeedCountInitial { get; init; }
+    public int SpeedCountEnd { get; init; }
 
     // INTERIOR SECTION
-    int ColorInteriorInitial { get; init; }
-    int ColorInteriorEnd { get; init; }
-    int MaterialInteriorInitial { get; init; }
-    int MaterialInteriorEnd { get; init; }
+    public int ColorInteriorInitial { get; init; }
+    public int ColorInteriorEnd { get; init; }
+    public int MaterialInteriorInitial { get; init; }
+    public int MaterialInteriorEnd { get; init; }
 
     // WHEELS SECTION
-    int MaterialWheelsInitial { get; init; }
-    int MaterialWheelsEnd { get; init; }
-    int SizeWheelsInitial { get; init; }
-    int SizeWheelsEnd { get; init; }
-    int TireInitial { get; init; }
-    int TireEnd { get; init; }
+    public int MaterialWheelsInitial { get; init; }
+    public int MaterialWheelsEnd { get; init; }
+    public int SizeWheelsInitial { get; init; }
+    public int SizeWheelsEnd { get; init; }
+    public int TireInitial { get; init; }
+    public int TireEnd { get; init; }
 
     // LIGHTS SECTION
-    int ColorLightsInitial { get; init; }
-    int ColorLightsEnd { get; init; }
-    int PowerLightsInitial { get; init; }
-    int PowerLightsEnd { get; init; }
+    public int ColorLightsInitial { get; init; }
+    public int ColorLightsEnd { get; init; }
+    public int PowerLightsInitial { get; init; }
+    public int PowerLightsEnd { get; init; }
 
     // SIGNAL SECTION
-    int PitchInitial { get; init; }
-    int PitchEnd { get; init; }
+    public int PitchInitial { get; init; }
+    public int PitchEnd { get; init; }
 
     // CAR-RECORD SECTION
 
@@ -111,13 +111,6 @@ public class CarSelectPattern : ICarSelectivePattern
         this.Name = _noInfo;
         this.Brand = _noInfo;
         this.Model = _noInfo;
-    }
-
-    public CarSelectPattern(string name, string brand, string model)
-    {
-        this.Name = name;
-        this.Brand = brand;
-        this.Model = model;
     }
 
     //public CarSelectPattern()
