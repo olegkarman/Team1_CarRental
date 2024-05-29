@@ -5,12 +5,11 @@ using CarHubTest;
 namespace CarRental.Models;
 internal class Inspection : IInspection
 {
-    private static int s_lastId;
     private const string InspectionNumber = "Inspection ID ";
     private readonly DateTime _inspectionDate = DateTime.Now;
 
     // properties
-    public int InspectionId { get; }
+    public Guid InspectionId { get; }
     public DateTime InspectionDate => _inspectionDate;
     public string? InspectorName { get; init; }
     public required int CarId { get; init; }
@@ -18,8 +17,7 @@ internal class Inspection : IInspection
 
     public Inspection()
     {
-        // Auto-increment identifier
-        InspectionId = ++s_lastId;
+        InspectionId = Guid.NewGuid();
     }
     [SetsRequiredMembers]
     public Inspection(string inspectorName, int carId, InspectionStatusType result) : this()
@@ -29,7 +27,7 @@ internal class Inspection : IInspection
         Result = result;
     }
 
-    public bool IsInspectionSuccessfully(int inspectionId)
+    public bool IsInspectionSuccessfully(Guid inspectionId)
     {
         return (InspectionId == inspectionId) && (Result == InspectionStatusType.Successfully);
     }

@@ -9,14 +9,14 @@ namespace CarHubTest
     internal interface IInspection
     {
         // Properties
-        int InspectionId { get; }
+        Guid InspectionId { get; }
         DateTime InspectionDate { get; }
         string? InspectorName { get; }
         int CarId { get; }
         InspectionStatusType Result { get; }
 
         // Methods
-        bool IsInspectionSuccessfully(int inspectionId);
+        bool IsInspectionSuccessfully(Guid inspectionId);
         bool IsInspectionSuccessfully(string inspectorName);
     }
 }
