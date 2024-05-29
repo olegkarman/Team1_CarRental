@@ -15,79 +15,19 @@ public class WeylandYutaniCarRepairShopPortal
 
         WYCDepot depo = InitializeDepot();
         BrandModelsNamesDataSheet data = InitializeData();
-        BrandRecord[] brandRecords = InitializeBrandRecords(data);
+        PatternInitializator patternInit = InitializePatternInitializator();
+        BrandRecord[] brandRecords = InitializeBrandRecords(patternInit, data);
+        
     }
 
-    static public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
+    static public BrandRecord[] InitializeBrandRecords(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
     {
-        BrandRecord[] records =
-        [
-            // ZAPOROZHETS
-            new BrandRecord
-            (
-            // ID
-                (DateTime.Now.ToString() + dataSheet.BrandNamesData[0].ToUpper()),
+        return patternInitializator.InitializeBrandRecords(data);
+    }
 
-            // ZAPOROZHETS
-                dataSheet.BrandNamesData[0],
-
-            // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
-
-                dataSheet.ModelNamesData[0..2]
-            ),
-
-            // PEUGEOT
-            new BrandRecord
-            (
-                (DateTime.Now.ToString() + dataSheet.BrandNamesData[1].ToUpper()),
-
-                dataSheet.BrandNamesData[1],
-
-                dataSheet.ModelNamesData[3..13]
-            ),
-
-            // VOLKSWAGEN
-            new BrandRecord
-            (
-                (DateTime.Now.ToString() + dataSheet.BrandNamesData[2].ToUpper()),
-
-                dataSheet.BrandNamesData[2],
-
-                dataSheet.ModelNamesData[14..24]
-            ),
-
-            // NISSAN
-            new BrandRecord
-            (
-                (DateTime.Now.ToString() + dataSheet.BrandNamesData[3].ToUpper()),
-
-                dataSheet.BrandNamesData[3],
-
-                dataSheet.ModelNamesData[25..35]
-            ),
-
-            // GYGULI
-            new BrandRecord
-            (
-                (DateTime.Now.ToString() + dataSheet.BrandNamesData[4].ToUpper()),
-
-                dataSheet.BrandNamesData[4],
-
-                dataSheet.ModelNamesData[36..42]
-            ),
-
-            // JEEP
-            new BrandRecord
-            (
-                (DateTime.Now.ToString() + dataSheet.BrandNamesData[5].ToUpper()),
-
-                dataSheet.BrandNamesData[5],
-
-                dataSheet.ModelNamesData[43..52]
-            )
-        ];
-
-        return records;
+    static public PatternInitializator InitializePatternInitializator()
+    {
+        return new PatternInitializator();
     }
 
     static public BrandModelsNamesDataSheet InitializeData()
@@ -108,7 +48,7 @@ public class WeylandYutaniCarRepairShopPortal
 
         // DATA INITIALIZATION
 
-        BrandModelsNamesDataSheet dataSheet = new BrandModelsNamesDataSheet();
+        //BrandModelsNamesDataSheet dataSheet = new BrandModelsNamesDataSheet();
 
         /**/
 
