@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace CarRental.Models.Car;
 
-internal class PatternInitializator
+public class PatternInitializator
 {
     // FIELDS
 
@@ -25,7 +25,7 @@ internal class PatternInitializator
 
     // CONSTRUCTORS
 
-    internal PatternInitializator()
+    public PatternInitializator()
     {
         this._nameBuilder = new StringBuilder();
     }

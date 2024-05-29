@@ -8,7 +8,7 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
-internal class CarSelectPattern : ICarSelectivePattern
+public class CarSelectPattern : ICarSelectivePattern
 {
     // FIELDS
 
