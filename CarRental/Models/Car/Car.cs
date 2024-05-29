@@ -57,13 +57,13 @@ internal class Car : Interfaces.ICar
         Involves a specific Car
         Has a type (purchase or rental)
         Has a price*/
-        
-        #endregion
+
+    #endregion
 
     // FIELDS
 
     private const string _noInfo = "NO INFO";
-    internal readonly int Year;
+    internal readonly int year;
     private float _mileage;   // AVTOPROBIG.
     private float _currentFuel;
     private int _maxFuelCapacity;
@@ -102,6 +102,33 @@ internal class Car : Interfaces.ICar
     internal required string VinCode { get; init; }
 
     public ICanDrive LastDriver { get; set; }
+
+    internal int Year
+    {
+        get
+        {
+            return year;
+        }
+
+        // init-only SETTER FOR READONLY VALUE.
+        init
+        {
+            year = value;
+        }
+    }
+
+    internal required float Mileage
+    {
+        get
+        {
+            return _mileage;
+        }
+
+        set
+        {
+            _mileage = value;
+        }
+    }
 
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     internal required int MaxFuelCapacity
@@ -168,21 +195,21 @@ internal class Car : Interfaces.ICar
 
     // CONSTRUCTORS
 
-    public Car
-    (
-        int year,
-        string serialNumber,
-        string brand,
-        string model,
-        int maxFuelCapacity
-    )
-    {
-        this.Year = year;
-        this.VinCode = serialNumber;
-        this.Brand = brand;
-        this.Model = model;
-        this._maxFuelCapacity = maxFuelCapacity;
-    }
+    //public Car
+    //(
+    //    int year,
+    //    string serialNumber,
+    //    string brand,
+    //    string model,
+    //    int maxFuelCapacity
+    //)
+    //{
+    //    this.Year = year;
+    //    this.VinCode = serialNumber;
+    //    this.Brand = brand;
+    //    this.Model = model;
+    //    this._maxFuelCapacity = maxFuelCapacity;
+    //}
 
     #endregion
 

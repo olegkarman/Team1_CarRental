@@ -19,12 +19,12 @@ internal class CarLights : AbstractLights
 
     // CONSTRUCTORS
 
-    public CarLights(KnownColor color, PowerComponent power, ComponentStatus status)
-    {
-        this.Color = color;
-        this.Power = power;
-        this.Status = status;
-    }
+    //public CarLights(KnownColor color, PowerComponent power, ComponentStatus status)
+    //{
+    //    this.Color = color;
+    //    this.Power = power;
+    //    this.Status = status;
+    //}
 
     // METHODS
 

@@ -23,17 +23,17 @@ internal class CarTransmission : AbstractTransmission
 
     // CONSTRUCTORS
 
-    public CarTransmission
-    (
-        string serialNumber,
-        TypeTransmission type,
-        int speedCount
-    )
-    {
-        this.SerialNumber = serialNumber;
-        this.Type = type;
-        this.SpeedCount = speedCount;
-    }
+    //public CarTransmission
+    //(
+    //    string serialNumber,
+    //    TypeTransmission type,
+    //    int speedCount
+    //)
+    //{
+    //    this.SerialNumber = serialNumber;
+    //    this.Type = type;
+    //    this.SpeedCount = speedCount;
+    //}
 
     // METHODS
 

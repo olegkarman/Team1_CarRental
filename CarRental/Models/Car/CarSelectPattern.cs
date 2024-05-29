@@ -13,7 +13,7 @@ public class CarSelectPattern : ICarSelectivePattern
     // FIELDS
 
     // FOR DEFAULT CHARACTER MAP.
-    private readonly char[] _charMapDefault = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    //private readonly char[] _charMapDefault = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
     private const string _noInfo = "NO INFO"; 
 
@@ -62,8 +62,8 @@ public class CarSelectPattern : ICarSelectivePattern
     public int FuelEnd { get; init; }
     public int TypeEngineInitial { get; init; }
     public int TypeEngineEnd { get; init; }
-    public int powerEngineInitial { get; init; }
-    public int powerEngineEnd { get; init; }
+    public int PowerEngineInitial { get; init; }
+    public int PowerEngineEnd { get; init; }
 
     // TRANSMISSION SECTION
     public int TypeTransmissionInitial { get; init; }
@@ -108,9 +108,7 @@ public class CarSelectPattern : ICarSelectivePattern
 
     public CarSelectPattern()
     {
-        this.Name = _noInfo;
-        this.Brand = _noInfo;
-        this.Model = _noInfo;
+        this.charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     }
 
     //public CarSelectPattern()

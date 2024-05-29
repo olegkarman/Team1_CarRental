@@ -49,21 +49,28 @@ internal class CarRecord : ICarRecordable
 
     // CONSTRUCTORS
 
-    public CarRecord
-    (
-        string recordId,
-        string vinCode,
-        string brandName,
-        string modelName,
-        string recordCreationDate,
-        int year
-    )
-    {
-        this.RecordId = recordId;
-        this.VinCode = vinCode;
-        this.BrandName = brandName;
-        this.ModelName = modelName;
-        this.RecordCreationDate = recordCreationDate;
-        this.Year = year;
-    }
+    //public CarRecord
+    //(
+    //    string recordId,
+    //    string vinCode,
+    //    string brandName,
+    //    string modelName,
+    //    string recordCreationDate,
+    //    int year
+    //)
+    //{
+    //    this.RecordId = recordId;
+    //    this.VinCode = vinCode;
+    //    this.BrandName = brandName;
+    //    this.ModelName = modelName;
+    //    this.RecordCreationDate = recordCreationDate;
+    //    this.Year = year;
+    //}
+
+    // METHODS
+
+    //public override string ToString()
+    //{
+    //    return $"Brand = {BrandName} |\nModel = {ModelName} |\nEngine = {typeEngine} HP {powerEngine} fuel {fuel}({averageFuelConsumption}/hour) |\nTransmmission = {typeTransmission} {speedCount} speeds |\nWheels = {sizeWheels} inch {materialWheels} tire {tire} |\nInterior = {materialInterior} {colorInterior} | Color = {color} | VinCode = {serialNumber} | Preice = {price} | Is fit for use? = {isFitForUse} | Status = {status} }}";
+    //}
 }

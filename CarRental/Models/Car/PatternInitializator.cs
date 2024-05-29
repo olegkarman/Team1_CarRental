@@ -196,8 +196,8 @@ public class PatternInitializator
             FuelEnd = dataWarehouse.ModelPatternDataDictionary[model][27],
             TypeEngineInitial = dataWarehouse.ModelPatternDataDictionary[model][28],
             TypeEngineEnd = dataWarehouse.ModelPatternDataDictionary[model][29],
-            powerEngineInitial = dataWarehouse.ModelPatternDataDictionary[model][30],
-            powerEngineEnd = dataWarehouse.ModelPatternDataDictionary[model][31],
+            PowerEngineInitial = dataWarehouse.ModelPatternDataDictionary[model][30],
+            PowerEngineEnd = dataWarehouse.ModelPatternDataDictionary[model][31],
 
             TypeTransmissionInitial = dataWarehouse.ModelPatternDataDictionary[model][32],
             TypeTransmissionEnd = dataWarehouse.ModelPatternDataDictionary[model][33],
@@ -236,7 +236,7 @@ public class PatternInitializator
         {
             foreach (string model in record.Models)
             {
-                dictionary.Add(model, ChoosePatternForModel($"{model.ToUpper()} + {DateTime.Now}", record.Name, model, dataWarehouse));
+                dictionary.Add(model, ChoosePatternForModel($"{model.ToUpper()} + {DateTime.Now}", record.BrandName, model, dataWarehouse));
             }
         }
 

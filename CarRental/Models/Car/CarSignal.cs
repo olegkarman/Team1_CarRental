@@ -18,11 +18,11 @@ internal class CarSignal : AbstractSignal
 
     // CONSTRUCTORS
 
-    public CarSignal(PitchComponent pitch, ComponentStatus status)
-    {
-        this.Pitch = pitch;
-        this.Status = status;
-    }
+    //public CarSignal(PitchComponent pitch, ComponentStatus status)
+    //{
+    //    this.Pitch = pitch;
+    //    this.Status = status;
+    //}
 
     // METHODS
 

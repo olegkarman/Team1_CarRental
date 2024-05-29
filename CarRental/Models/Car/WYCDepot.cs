@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Enumerables;
 using CarRental.Interfaces;
+//using System.Reflection;
 //using System.Diagnostics;
 //using System.Reflection;
 
@@ -20,18 +21,18 @@ public class WYCDepot
     // FIELDS
 
     // DATA SOURCE
-    private BrandModelsNamesDataSheet _brandModelData;
-    private PatternInitializator _patternInit;
+    //private BrandModelsNamesDataSheet _brandModelData;
+    //private PatternInitializator _patternInit;
 
     // FIELDS
 
-    private StringBuilder snStringBuilder = new StringBuilder();
-    private Random _random = new Random();
-    private IBrandRecordable[] _records;
+    private StringBuilder _snStringBuilder;
+    private Random _random;
+    //private IBrandRecordable[] _records;
 
     // PATTERN SOURCE
-    private readonly ICarSelectivePattern[] _patterns;
-    private readonly ICarSelectivePattern defaultPattern;
+    //private readonly ICarSelectivePattern[] _patterns;
+    //private readonly ICarSelectivePattern defaultPattern;
 
     // CONSTRUCTORS
 
@@ -69,41 +70,45 @@ public class WYCDepot
         // TO ASSIGN DEFAULT PATTERN FOR NO-OVERLOAD METHOD.
 
         //this.defaultPattern = _patterns[0];
+    //}
+
+    public WYCDepot()
+    {
+        this._random = new Random();
+        this._snStringBuilder = new StringBuilder();
     }
 
     // MEHODS
 
-    internal Car GetNewCar()
+    // TO SELECT A PATTERN ON WHICH CAR-INSTANCE GENERATES.
+    public CarSelectPattern SelectCarComplectationPattern(Dictionary<string, CarSelectPattern> patterns)
     {
-        ICarSelectivePattern pattern = this.defaultPattern;
+        string[] models = patterns.Keys.ToArray();
 
-        int tempRandom;
+        // SELECTS AT PSEUDO-RANDOM A MODEL.
+        string model = models[_random.Next(0, models.Length)];
 
-        // CAR INSTANCE ARGUMENTS
+        CarSelectPattern pattern = patterns[model];
+        
+        return pattern;
+    }
 
-        int year = _random.Next(1960, 2025);
+    // SELECT PATTERN FROM A SPECIFIC MODEL.
+    public CarSelectPattern SelectCarComplectationPattern(Dictionary<string, CarSelectPattern> patterns, string model)
+    {
+        CarSelectPattern pattern = patterns[model];
 
-        string serialNumber = GetSerialNumber(pattern);
+        return pattern;
+    }
 
-        tempRandom = _random.Next(0, _records.Length);
-        string brand = _records[tempRandom].BrandName;
-        string model = _records[tempRandom].Models[_random.Next(0, _records[tempRandom].Models.Length)];
-
-        KnownColor color = (KnownColor)_random.Next(85, 118);
-
-        int price = _random.Next(5000, 150001);
-
-        int maxFuelCapacity = _random.Next(20, 50);
-
-        int currentFuel = _random.Next(0, (maxFuelCapacity + 1));
-
-        int speedCoeficient = _random.Next(2, 11);
-
-        TransportStatus status = (TransportStatus)_random.Next(pattern.StatusInitialIndex, pattern.StatusEndIndex);
-
-        // ADD SOME RANDOMNESS FOR BIT-USE.
+    internal Car GetNewCar(CarSelectPattern pattern)
+    {
+        string carCode = GetSerialNumber(pattern);
+        int yearToSet = _random.Next(1960, 2025);
+        int price = _random.Next(pattern.PriceCarInitial, pattern.PriceCarEnd);
         bool isFitForUse;
-        if (_random.Next(0, 2) == 1)
+        //IS FIT FOR USE. NOT ALL CARS ARE READY TO USE.
+        if (_random.Next(1, 11) > 4)
         {
             isFitForUse = true;
         }
@@ -112,80 +117,96 @@ public class WYCDepot
             isFitForUse = false;
         }
 
-        // ENGINE COMPONENT ARGUMENTS
-
-        string serialNumberEngine = GetSerialNumber(pattern);
-
-        int averageFuelConsumption = _random.Next(1, 10);
-
-        FuelEngine fuel = (FuelEngine)_random.Next(11, 25);
-
-        TypeEngine typeEngine = (TypeEngine)_random.Next(11, 22);
-
-        int powerEngine = _random.Next(10, 21);
-
-        ComponentStatus statusEngine = (ComponentStatus)_random.Next(pattern.EngineStatusInitialIndex, pattern.EngineStatusEndIndex);
-
-        // TRANSMISSION COMPONENT ARGUMENTS
-
-        string serialNumberTransmission = GetSerialNumber(pattern);
-
-        TypeTransmission typeTransmission = (TypeTransmission)_random.Next(10, 14);
-
-        int speedCount = _random.Next(2, 7);
-
-        ComponentStatus statusTransmission = (ComponentStatus)_random.Next(pattern.TransmissionStatusInitialIndex, pattern.TransmissionStatusEndIndex);
-
-        // INTERIOR COMPONENT ARGUMENTS
-
-        KnownColor colorInterior = (KnownColor)_random.Next(118, 145);
-
-        MaterialInterior materialInterior = (MaterialInterior)_random.Next(10, 16);
-
-        ComponentStatus statusInterior = (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex);
-
-        // WHEELS COMPONENT ARGUMENTS
-
-        MaterialWheel materialWheels = (MaterialWheel)_random.Next(10, 19);
-
-        int sizeWheels = _random.Next(8, 33);
-
-        TypeTire tire = (TypeTire)_random.Next(10, 18);
-
-        ComponentStatus statusWheels = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex);
-
-        // LIGHTS COMPONENT ARGUMENTS
-
-        KnownColor colorLights = (KnownColor)_random.Next(30, 41);
-
-        PowerComponent powerLights = (PowerComponent)_random.Next(10, 14);
-
-        ComponentStatus statusLights = (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex);
-
-        // SIGNAL COMPONENT ARGUMENTS
-
-        PitchComponent pitch = (PitchComponent)_random.Next(11, 15);
-
-        ComponentStatus statusSignal = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex);
-
-        // RECORD ARGUMENTS
-
-        string recordId = DateTime.Now.ToString() + brand.ToUpper() + model.ToUpper();
-
-        string numberPlate = serialNumber.Substring(10, 8).Insert(2, "-").Insert(7, "-");
-
-        string recordCreationDate = DateTime.Now.Date.ToString();
-
-        string technicalInfo = $"Brand = {brand} |\nModel = {model} |\nEngine = {typeEngine} HP {powerEngine} fuel {fuel}({averageFuelConsumption}/hour) |\nTransmmission = {typeTransmission} {speedCount} speeds |\nWheels = {sizeWheels} inch {materialWheels} tire {tire} |\nInterior = {materialInterior} {colorInterior} | Color = {color} | VinCode = {serialNumber} | Preice = {price} | Is fit for use? = {isFitForUse} | Status = {status} }}";
-
         Car car = new Car
-        (
-            year,
-            serialNumber,
-            brand,
-            model,
-            maxFuelCapacity
-        );
+        {
+            //ICarSelectivePattern pattern = this.defaultPattern;
+
+            // CAR INSTANCE ARGUMENTS
+
+            Year = yearToSet,
+
+            VinCode = carCode,
+
+            Mileage = 100,   // AVTOPROBIG FOR NEW CARS.
+            CurrentFuel = _random.Next(pattern.CurrentFuelInitial, pattern.CurrentFuelEnd),
+            MaxFuelCapacity = _random.Next(pattern.MaxFuelCapacityInitial, pattern.MaxFuelCapacityEnd),
+            SpeedCoeficient = _random.Next(pattern.SpeedCoeficientInitial, pattern.SpeedCoeficientEnd),
+            Color = (KnownColor)_random.Next(pattern.ColorCarInitial, pattern.ColorCarEnd),
+            Price = price,
+            Model = pattern.Model,
+            Brand = pattern.Brand,
+            Status = (TransportStatus)_random.Next(pattern.StatusInitialIndex, pattern.StatusEndIndex),
+            IsFitForUse = isFitForUse,
+
+            // ENGINE
+            Engine = new CarEngine
+            {
+                SerialNumber = GetSerialNumber(pattern),
+                AverageFuelConsumption = _random.Next(pattern.AverageFuelConsumptionInitial, pattern.AverageFuelConsumptionEnd),
+                Fuel = (FuelEngine)_random.Next(pattern.FuelInitial, pattern.FuelEnd),
+                Type = (TypeEngine)_random.Next(pattern.TypeEngineInitial, pattern.TypeEngineEnd),
+                Power = _random.Next(pattern.PowerEngineInitial, pattern.PowerEngineEnd),
+                Status = (ComponentStatus)_random.Next(pattern.EngineStatusInitialIndex, pattern.EngineStatusEndIndex)
+            },
+
+            // TRANSMISSION
+            Transmission = new CarTransmission
+            {
+                SerialNumber = GetSerialNumber(pattern),
+                Type = (TypeTransmission)_random.Next(pattern.TypeTransmissionInitial, pattern.TypeTransmissionEnd),
+                SpeedCount = _random.Next(pattern.SpeedCountInitial, pattern.SpeedCountEnd),
+                Status = (ComponentStatus)_random.Next(pattern.TransmissionStatusInitialIndex, pattern.TransmissionStatusEndIndex)
+            },
+
+            // INTERIOR
+            Interior = new CarInterior
+            {
+                Color = (KnownColor)_random.Next(pattern.ColorInteriorInitial, pattern.ColorInteriorEnd),
+                Material = (MaterialInterior)_random.Next(pattern.MaterialInteriorInitial, pattern.MaterialInteriorEnd),
+                Status = (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex)
+            },
+
+            // WHEELS
+            Wheels = new CarWheels
+            {
+                Material = (MaterialWheel)_random.Next(pattern.MaterialWheelsInitial, pattern.MaterialWheelsEnd),
+                Size = _random.Next(pattern.SizeWheelsInitial, pattern.SizeWheelsEnd),
+                Tire = (TypeTire)_random.Next(pattern.TireInitial, pattern.TireEnd),
+                Status = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex),
+            },
+
+            // LIGHTS
+            Lights = new CarLights
+            {
+                Color = (KnownColor)_random.Next(pattern.ColorLightsInitial, pattern.ColorLightsEnd),
+                Power = (PowerComponent)_random.Next(pattern.PowerLightsInitial, pattern.PowerLightsEnd),
+                Status = (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex)
+            },
+
+            // SIGNAL
+            Signal = new CarSignal
+            {
+                Pitch = (PitchComponent)_random.Next(pattern.PitchInitial, pattern.PitchEnd),
+                Status = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
+            },
+
+            Record = new CarRecord
+            {
+                RecordId = GetSerialNumber(pattern),
+                VinCode = carCode,
+                BrandName = pattern.Brand,
+                ModelName = pattern.Name,
+                Year = yearToSet,
+                NumberPlate = GetSerialNumber(pattern).Substring(0, 9),
+                RecordCreationDate = DateTime.Now.ToString(),
+                Price = price,
+            }
+
+        };
+
+        //string technicalInfo = $"Brand = {brand} |\nModel = {model} |\nEngine = {typeEngine} HP {powerEngine} fuel {fuel}({averageFuelConsumption}/hour) |\nTransmmission = {typeTransmission} {speedCount} speeds |\nWheels = {sizeWheels} inch {materialWheels} tire {tire} |\nInterior = {materialInterior} {colorInterior} | Color = {color} | VinCode = {serialNumber} | Preice = {price} | Is fit for use? = {isFitForUse} | Status = {status} }}";
+
+        car.Record.TechnicalInfo = car.ToString();
 
         return car;
     }
@@ -203,13 +224,13 @@ public class WYCDepot
     // TO GENERATE RANDOM NUMBER FROM CHAR-MAP OF A PATTERN.
     private string GetSerialNumber(ICarSelectivePattern pattern)
     {
-        snStringBuilder.Clear();    // TO CLEAR PREVIOUS SN.
+        _snStringBuilder.Clear();    // TO CLEAR PREVIOUS SN.
 
         for (int index = 0; index < 33; index = index + 1)
         {
-            snStringBuilder.Append(pattern.charMap[_random.Next(0, pattern.charMap.Length)]);
+            _snStringBuilder.Append(pattern.charMap[_random.Next(0, pattern.charMap.Length)]);
         }
 
-        return snStringBuilder.ToString();
+        return _snStringBuilder.ToString();
     }
 }

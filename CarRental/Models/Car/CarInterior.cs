@@ -19,12 +19,12 @@ internal class CarInterior : AbstractInterior
 
     // CONSTRUCTORS
 
-    public CarInterior(KnownColor color, MaterialInterior material, ComponentStatus status)
-    {
-        this.Color = color;
-        this.Material = material;
-        this.Status = status;
-    }
+    //public CarInterior(KnownColor color, MaterialInterior material, ComponentStatus status)
+    //{
+    //    this.Color = color;
+    //    this.Material = material;
+    //    this.Status = status;
+    //}
 
     // METHODS
 

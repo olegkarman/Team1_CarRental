@@ -27,23 +27,23 @@ internal class CarEngine : AbstractEngine
 
     //[SetsRequiredMembersAttribute]
 
-    public CarEngine
-    (
-        string serialNumber,
-        int averageFuelConsumption,
-        FuelEngine fuel,
-        TypeEngine type,
-        int power,
-        ComponentStatus status
-    )
-    {
-        this.SerialNumber = serialNumber;
-        this.AverageFuelConsumption = averageFuelConsumption; // REQUIRED FOR
-        this.Fuel = fuel;
-        this.Type = type;
-        this.Power = power;
-        this.Status = status;
-    }
+    //public CarEngine
+    //(
+    //    string serialNumber,
+    //    int averageFuelConsumption,
+    //    FuelEngine fuel,
+    //    TypeEngine type,
+    //    int power,
+    //    ComponentStatus status
+    //)
+    //{
+    //    this.SerialNumber = serialNumber;
+    //    this.AverageFuelConsumption = averageFuelConsumption; // REQUIRED FOR
+    //    this.Fuel = fuel;
+    //    this.Type = type;
+    //    this.Power = power;
+    //    this.Status = status;
+    //}
 
     // METHODS
 
