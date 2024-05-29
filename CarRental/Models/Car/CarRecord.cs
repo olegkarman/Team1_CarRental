@@ -69,8 +69,8 @@ internal class CarRecord : ICarRecordable
 
     // METHODS
 
-    //public override string ToString()
-    //{
-    //    return $"Brand = {BrandName} |\nModel = {ModelName} |\nEngine = {typeEngine} HP {powerEngine} fuel {fuel}({averageFuelConsumption}/hour) |\nTransmmission = {typeTransmission} {speedCount} speeds |\nWheels = {sizeWheels} inch {materialWheels} tire {tire} |\nInterior = {materialInterior} {colorInterior} | Color = {color} | VinCode = {serialNumber} | Preice = {price} | Is fit for use? = {isFitForUse} | Status = {status} }}";
-    //}
+    public override string ToString()
+    {
+        return $"{nameof(this.RecordId)} = {RecordId} | {nameof(this.RecordCreationDate)} = {RecordCreationDate} | {nameof(this.BrandName)} = {BrandName} | {nameof(this.ModelName)} = {ModelName} | {nameof(this.Year)} = {Year} | {nameof(this.NumberPlate)} = {NumberPlate} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.TechnicalInfo)} = {TechnicalInfo} | }}";
+    }
 }
