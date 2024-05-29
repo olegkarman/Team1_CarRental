@@ -19,13 +19,6 @@ internal class CarWheels : AbstractWheels
 
     // CONSTRUCTORS
 
-    //public CarWheels(MaterialWheel material, int size, TypeTire tire)
-    //{
-    //    this.Material = material;
-    //    this.Size = size;
-    //    this.Tire = tire;
-    //}
-
     // METHODS
 
     public override string ToString()

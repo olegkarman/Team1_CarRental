@@ -9,6 +9,9 @@ namespace CarRental.Models.Car;
 
 public class BrandRecord : IBrandRecordable
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A CLASS TO HOLD INFO ABOUT BRANDS OF CARS.
+    
     // FIELDS
 
     private const string _noInfo = "NO INFO";

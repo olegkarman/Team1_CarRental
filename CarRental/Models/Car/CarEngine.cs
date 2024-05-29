@@ -10,6 +10,9 @@ namespace CarRental.Models.Car;
 
 internal class CarEngine : AbstractEngine
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A COMPONENT OF A CAR.
+
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -24,26 +27,6 @@ internal class CarEngine : AbstractEngine
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
-
-    //[SetsRequiredMembersAttribute]
-
-    //public CarEngine
-    //(
-    //    string serialNumber,
-    //    int averageFuelConsumption,
-    //    FuelEngine fuel,
-    //    TypeEngine type,
-    //    int power,
-    //    ComponentStatus status
-    //)
-    //{
-    //    this.SerialNumber = serialNumber;
-    //    this.AverageFuelConsumption = averageFuelConsumption; // REQUIRED FOR
-    //    this.Fuel = fuel;
-    //    this.Type = type;
-    //    this.Power = power;
-    //    this.Status = status;
-    //}
 
     // METHODS
 

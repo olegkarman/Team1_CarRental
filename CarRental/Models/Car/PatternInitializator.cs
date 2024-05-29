@@ -10,18 +10,12 @@ namespace CarRental.Models.Car;
 
 public class PatternInitializator
 {
+    // THE PURPOSE OF THE CLASS:
+    // // TO INITIALIZE A PATTERN-CLAS INSTANCE AND COLLECTION OF PATTERN CLASS INSTANCES.
+
     // FIELDS
 
     private StringBuilder _nameBuilder;
-
-    // PROPERTIES
-
-    //internal Dictionary<string, string> ModelsZaporozhets { get; init; }
-    //internal Dictionary<string, string> ModelsPeugeot { get; init; }
-    //internal Dictionary<string, string> ModelsVolkswagen { get; init; }
-    //internal Dictionary<string, string> ModelsNissan { get; init; }
-    //internal Dictionary<string, string> ModelsGyguli { get; init; }
-    //internal Dictionary<string, string> ModelsJeep { get; init; }
 
     // CONSTRUCTORS
 
@@ -31,51 +25,6 @@ public class PatternInitializator
     }
 
     // METHODS
-
-    //public void InitializeDictionaries(BrandModelsNamesDataSheet brandModelsNamseData)
-    //{
-    //    this.ModelsZaporozhets = new Dictionary<string, string>();
-
-    //    for (int index = 0; index < 3; index = index + index)
-    //    {
-    //        this.ModelsZaporozhets.Add(this.ModelNamesData[index], this.BrandNamesData[0]);
-    //    }
-
-    //    this.ModelsPeugeot = new Dictionary<string, string>();
-
-    //    for (int index = 3; index < 14; index = index + index)
-    //    {
-    //        this.ModelsPeugeot.Add(this.ModelNamesData[index], this.BrandNamesData[1]);
-    //    }
-
-    //    this.ModelsVolkswagen = new Dictionary<string, string>();
-
-    //    for (int index = 14; index < 24; index = index + index)
-    //    {
-    //        this.ModelsVolkswagen.Add(this.ModelNamesData[index], this.BrandNamesData[2]);
-    //    }
-
-    //    this.ModelsNissan = new Dictionary<string, string>();
-
-    //    for (int index = 25; index < 35; index = index + index)
-    //    {
-    //        this.ModelsNissan.Add(this.ModelNamesData[index], this.BrandNamesData[3]);
-    //    }
-
-    //    this.ModelsGyguli = new Dictionary<string, string>();
-
-    //    for (int index = 36; index < 42; index = index + index)
-    //    {
-    //        this.ModelsGyguli.Add(this.ModelNamesData[index], this.BrandNamesData[4]);
-    //    }
-
-    //    this.ModelsJeep = new Dictionary<string, string>();
-
-    //    for (int index = 43; index < 52; index = index + index)
-    //    {
-    //        this.ModelsJeep.Add(this.ModelNamesData[index], this.BrandNamesData[5]);
-    //    }
-    //}
 
     // TO CREATE THE ARRAY OF BRAND-RECORDS INSTANCES WITH KNWLEDGE OF DATA USED.
     public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)

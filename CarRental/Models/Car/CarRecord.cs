@@ -9,6 +9,9 @@ namespace CarRental.Models.Car;
 
 internal class CarRecord : ICarRecordable
 {
+    // THE PURPOSE OF THE CLASS:
+    // // THE ADDITIONAL INFORMATION ABOUT A SPECIFIC CAR.
+
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -48,24 +51,6 @@ internal class CarRecord : ICarRecordable
     // INSURANCE.
 
     // CONSTRUCTORS
-
-    //public CarRecord
-    //(
-    //    string recordId,
-    //    string vinCode,
-    //    string brandName,
-    //    string modelName,
-    //    string recordCreationDate,
-    //    int year
-    //)
-    //{
-    //    this.RecordId = recordId;
-    //    this.VinCode = vinCode;
-    //    this.BrandName = brandName;
-    //    this.ModelName = modelName;
-    //    this.RecordCreationDate = recordCreationDate;
-    //    this.Year = year;
-    //}
 
     // METHODS
 

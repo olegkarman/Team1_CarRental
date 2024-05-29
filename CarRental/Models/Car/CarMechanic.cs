@@ -11,6 +11,9 @@ namespace CarRental.Models.Car;
 
 internal class CarMechanic : ICarMechanics, ICanDrive
 {
+    // THE PURPOSE OF THE CLASS:
+    // // TO PERFORM SPECIAL MANIPULATIONS ON A CAR.
+
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -19,13 +22,6 @@ internal class CarMechanic : ICarMechanics, ICanDrive
     private Random _random;
 
     // CONSTRUCTORS
-
-    internal CarMechanic()
-    {
-        this.firstName = _noInfo;
-        this.lastName = _noInfo;
-        _random = new Random();
-    }
 
     internal CarMechanic(string firstN, string lastN)
     {

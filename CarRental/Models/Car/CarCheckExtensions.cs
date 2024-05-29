@@ -9,6 +9,9 @@ namespace CarRental.Models.Car;
 
 internal static class CarCheckExtensions
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A HOLDER OF ADDITIONAL METHODS TO CHECK A CAR STATUS.
+
     // METHODS
 
     public static PitchComponent Signal(this Car car)

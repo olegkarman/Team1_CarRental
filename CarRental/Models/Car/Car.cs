@@ -12,6 +12,8 @@ namespace CarRental.Models.Car;
 
 internal class Car : Interfaces.ICar
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A MAIN TYPE CLASS THAT DEFINES THE BEHAVIOR OF A CAR ABSTRACTION.
 
     #region COMMENTARY OF O. KARMANSKYI
 

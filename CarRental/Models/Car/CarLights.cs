@@ -11,6 +11,9 @@ namespace CarRental.Models.Car;
 
 internal class CarLights : AbstractLights
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A COMPONENT OF A CAR.
+
     // PROPERTIES
 
     public override KnownColor Color { get; init; }
@@ -18,13 +21,6 @@ internal class CarLights : AbstractLights
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
-
-    //public CarLights(KnownColor color, PowerComponent power, ComponentStatus status)
-    //{
-    //    this.Color = color;
-    //    this.Power = power;
-    //    this.Status = status;
-    //}
 
     // METHODS
 

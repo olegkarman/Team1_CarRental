@@ -8,6 +8,9 @@ namespace CarRental.Models.Car;
 
 public record class BrandModelsNamesDataSheet
 {
+    // THE PURPOSE OF THE CLASS:
+    // // IT IS A MAIN DATA HOLDER CLASS.
+
     // PROPERTIES
 
     internal string[] BrandNamesData { get; init; }

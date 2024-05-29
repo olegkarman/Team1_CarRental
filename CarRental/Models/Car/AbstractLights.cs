@@ -11,6 +11,9 @@ namespace CarRental.Models.Car;
 
 internal abstract class AbstractLights : IComponent
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A CAR'S COMPONENT ABSTRACTION.
+
     // PROPERTIES
 
     public abstract PowerComponent Power { get; init; }

@@ -10,6 +10,9 @@ namespace CarRental.Models.Car;
 
 internal abstract class AbstractTransmission : IComponent
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A CAR'S COMPONENT ABSTRACTION.
+
     // PROPERTIES
 
     internal abstract required string SerialNumber { get; init; }

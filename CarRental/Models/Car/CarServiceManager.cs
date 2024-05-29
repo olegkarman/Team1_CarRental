@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Models.Car;
 
 namespace CarRental.Models.Car;
 
@@ -17,6 +18,7 @@ public class CarServiceManager
 
     private StringBuilder _carsInfo;
     private Random _random;
+    private ServiceManagerSupplements _supplementData;
     
     // PROPERTTES
 
@@ -34,41 +36,22 @@ public class CarServiceManager
 
     // METHODS
 
-    public void InitializeManagment()
+    // TO GET SPECIFIC CAR BY A MODEL.
+
+    internal Car ObtainNewCar(string model)
     {
-        // INIT OF INSTANCE OF BASIC CAR COMPLECTATION DATA.
-        BrandModelsNamesDataSheet _brandModelsDataSheet = InitializeData();
-
-        // INIT OF SERVICE INSTANCE WHICH CREATES CAR INSTANCES.
-        Depot depot = InitializeDepot();
-
-        // INIT OF AN INSTANCE OF THE CLASS WHIC RESPONSIBLE FOR PATTERN INITIALIZATION
-        PatternInitializator patternInitializator = InitializePatternInitializator();
-
-        // A DICTIONARY OF MODEL-PATTERNS
-        Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(patternInitializator, brandRecords, data);
-
-        // AN ARRAY OF BRAND - MODEL RECORS
-        BrandRecord[] brandRecords = InitializeBrandRecords(patternInitializator, data);
-
-    }
-
-    // TO GET SPECIFIC CAR BY A PATTERN
-
-    internal Car ObtainNewCar(Depot depot, CarSelectPattern pattern)
-    {
-        return depot.GetNewCar(pattern);
+        return _supplementData.DepotService.GetNewCar(_supplementData.ModelsPatterns[model]);
     }
 
     // TO GET RANDOM CAR
 
-    internal Car ObtainNewCar(Depot depot, Dictionary<string, CarSelectPattern> patterns)
+    internal Car ObtainNewCar()
     {
         // KEYS OF THE DICTIONARY INTO ARRAY.
-        string[] models = patterns.Keys.ToArray();
+        string[] models = _supplementData.ModelsPatterns.Keys.ToArray();
 
         // TO SELECT A RANDOM PATTERN FROM THE DICTIONARY.
-        return depot.GetNewCar(patterns[models[_random.Next(0, models.Length)]]);
+        return _supplementData.DepotService.GetNewCar(_supplementData.ModelsPatterns[models[_random.Next(0, models.Length)]]);
     }
 
     // TO GENERATE A LIST OF CARS
@@ -80,7 +63,7 @@ public class CarServiceManager
 
         for(int index = 0; index < 15; index = index + 1)
         {
-            CurrentCars.Add(ObtainNewCar(depot, patterns));
+            CurrentCars.Add(ObtainNewCar());
         }
     }
 
@@ -209,37 +192,26 @@ public class CarServiceManager
     }
 
     // METHODS
-    // // INITIALIZERS
+    // // INITIALIZATION
 
-    public Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    internal void InitializeManagment()
     {
-        return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
+        // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
+        SupplementDataInitializator dataInit = new SupplementDataInitializator();
+
+        PatternInitializator patternInit = new PatternInitializator();
+
+        // TO ASSIG REFERENE BELOW IN THE OBJECT-INITILIZER.
+        BrandModelsNamesDataSheet brandModelsData = dataInit.InitializeDataSheet();
+
+        BrandRecord[] brandRecords = dataInit.InitializeBrandRecordsArray(patternInit, brandModelsData);
+
+        this._supplementData = new ServiceManagerSupplements
+        {
+            BrandModelsDataSheet = brandModelsData,
+            DepotService = dataInit.InitializeDepot(),
+            BrandRecords = brandRecords,
+            ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData)
+        };  
     }
-
-    public BrandRecord[] InitializeBrandRecords(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
-    {
-        return patternInitializator.InitializeBrandRecords(data);
-    }
-
-    PatternInitializator InitializePatternInitializator()
-    {
-        return new PatternInitializator();
-    }
-
-    public BrandModelsNamesDataSheet InitializeData()
-    {
-        return new BrandModelsNamesDataSheet();
-    }
-
-    public Depot InitializeDepot()
-    {
-        return new CarRental.Models.Car.Depot();
-    }
-
-
-
-    // GET NEW CAR
-    // GENERATE CAR LIST
-    // DELETE CAR FROM LIST
-    // GET CAR INFO
 }

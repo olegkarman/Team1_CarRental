@@ -11,6 +11,9 @@ namespace CarRental.Models.Car;
 
 internal class CarInterior : AbstractInterior
 {
+    // THE PURPOSE OF THE CLASS:
+    // // A COMPONENT OF A CAR.
+
     // PROPERTIES
 
     public override required KnownColor Color { get; set; } // FROM System.Drawing, BASE COLORS ENUM.
@@ -18,13 +21,6 @@ internal class CarInterior : AbstractInterior
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
-
-    //public CarInterior(KnownColor color, MaterialInterior material, ComponentStatus status)
-    //{
-    //    this.Color = color;
-    //    this.Material = material;
-    //    this.Status = status;
-    //}
 
     // METHODS
 
