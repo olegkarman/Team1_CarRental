@@ -8,5 +8,5 @@ namespace CarRental.Interfaces;
 
 public interface IPatternable
 {
-    public string PatternName { get; init; }
+    public string Name { get; init; }
 }
