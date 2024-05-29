@@ -9,18 +9,52 @@ namespace CarRental.Models.Car;
 
 public class CarServiceManager
 {
+    // THE PURPOSE OF THE CLAS:
+    //      TO BE A CONNECTION LINK BETWEEN MENU AND HIDDEN MECHANISM OF CAR-INSTANCE GENERATION.
+    //      TO HOLD A LIST OF CARS AND TO OPERATE WITH IT.
+
     // FIELDS
+
     private StringBuilder _carsInfo;
     private Random _random;
     
     // PROPERTTES
 
-    internal List<Car> CurrentCars { get; set; }
-    internal Car SelectedCar { get; set; }
+    internal List<Car> CurrentCars { get; private set; }    // O. KARMANSKYI
+    internal Car SelectedCar { get; private set; }
+
+    // CONSTRUCTORS
+
+    public CarServiceManager()
+    {
+        this._random = new Random();
+        this._carsInfo = new StringBuilder();
+        this.CurrentCars = new List<Car>();
+    }
 
     // METHODS
 
-    // TO GET SPECIFIC CAR
+    public void InitializeManagment()
+    {
+        // INIT OF INSTANCE OF BASIC CAR COMPLECTATION DATA.
+        BrandModelsNamesDataSheet _brandModelsDataSheet = InitializeData();
+
+        // INIT OF SERVICE INSTANCE WHICH CREATES CAR INSTANCES.
+        Depot depot = InitializeDepot();
+
+        // INIT OF AN INSTANCE OF THE CLASS WHIC RESPONSIBLE FOR PATTERN INITIALIZATION
+        PatternInitializator patternInitializator = InitializePatternInitializator();
+
+        // A DICTIONARY OF MODEL-PATTERNS
+        Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(patternInitializator, brandRecords, data);
+
+        // AN ARRAY OF BRAND - MODEL RECORS
+        BrandRecord[] brandRecords = InitializeBrandRecords(patternInitializator, data);
+
+    }
+
+    // TO GET SPECIFIC CAR BY A PATTERN
+
     internal Car ObtainNewCar(Depot depot, CarSelectPattern pattern)
     {
         return depot.GetNewCar(pattern);
@@ -37,11 +71,24 @@ public class CarServiceManager
         return depot.GetNewCar(patterns[models[_random.Next(0, models.Length)]]);
     }
 
+    // TO GENERATE A LIST OF CARS
+
+    public void MakeNewListOf15Cars(Depot depot, Dictionary<string, CarSelectPattern> patterns)
+    {
+        // TO ERASE ALL ELEMENTS.
+        CurrentCars.Clear();
+
+        for(int index = 0; index < 15; index = index + 1)
+        {
+            CurrentCars.Add(ObtainNewCar(depot, patterns));
+        }
+    }
+
     // TO SELECT A SPECIFIC CAR FROM THE LIST
 
     internal bool TrySelectCar(int index)
     {
-        // VALIDATION TO AVOID ARGUMENT OUT OF RANGE EXCEPTION.
+        // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
         if ((index <= 0) || (index > CurrentCars.Count))
         {
             return false;
@@ -54,7 +101,8 @@ public class CarServiceManager
         }
     }
 
-    // TRY TO FIND CAR BY MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
+    // TRY TO FIND CAR BY ITS MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
+
     internal bool TrySelectCar(string model)
     {
         Car car;
@@ -69,6 +117,25 @@ public class CarServiceManager
         SelectedCar = car;
 
         return true;
+    }
+
+    // TO DELETE THE CAR FROM A LIST
+
+    public void DeleteCarFromList(int index)
+    {
+        CurrentCars.RemoveAt(index);
+    }
+
+    public void DeleteCarFromList(string model)
+    {
+        CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
+    }
+
+    // TO DELETE ALL CARS FROM THE LIST
+
+    public void DeleteAllCarsFromList()
+    {
+        CurrentCars.Clear();
     }
 
     // TO TAKE OFF A CAR FROM THE LIST
@@ -119,7 +186,7 @@ public class CarServiceManager
         return CurrentCars[index].ToString();
     }
 
-    // TO DISPLAY INFO OF SPECIFIC BY ITS MODEL CAR FROM THE LIST 
+    // TO DISPLAY INFO OF A SPECIFIC BY ITS MODEL CAR FROM THE LIST 
 
     public string DisplayCar(string model)
     {
@@ -127,7 +194,7 @@ public class CarServiceManager
         return CurrentCars.Find(x => x.Model.Contains(model)).ToString();
     }
 
-    // TO DISPLAY LIST OF CARS.
+    // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
 
     public string DisplayCurrentCars()
     {
@@ -141,13 +208,35 @@ public class CarServiceManager
         return _carsInfo.ToString();
     }
 
-    // CONSTRUCTORS
+    // METHODS
+    // // INITIALIZERS
 
-    public CarServiceManager()
+    public Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
-        this._random = new Random();
-        this._carsInfo = new StringBuilder();
+        return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
     }
+
+    public BrandRecord[] InitializeBrandRecords(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
+    {
+        return patternInitializator.InitializeBrandRecords(data);
+    }
+
+    PatternInitializator InitializePatternInitializator()
+    {
+        return new PatternInitializator();
+    }
+
+    public BrandModelsNamesDataSheet InitializeData()
+    {
+        return new BrandModelsNamesDataSheet();
+    }
+
+    public Depot InitializeDepot()
+    {
+        return new CarRental.Models.Car.Depot();
+    }
+
+
 
     // GET NEW CAR
     // GENERATE CAR LIST
