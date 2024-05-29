@@ -1,9 +1,12 @@
-﻿namespace CarRental.Models.Login;
+﻿using CarRental.Models.Serialiser;
+using System.Text.Json;
+
+namespace CarRental.Models.Login;
 
 internal class Login
 {
-    private string _customersFileName;
-    private string _inspectorsFileName;
+    private string _usersFileName;
+    private JsonSerializerOptions _options;
 
     public void CheckIfFileExists(string fileName)
     {
@@ -17,18 +20,17 @@ internal class Login
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
         Directory.SetCurrentDirectory(projectDirectory);
-        _customersFileName = Path.Combine(Directory.GetCurrentDirectory(), "customers.json");
+        _usersFileName = Path.Combine(Directory.GetCurrentDirectory(), "users.json");
 
-        CheckIfFileExists(_customersFileName);
+        CheckIfFileExists(_usersFileName);
 
-        _inspectorsFileName = Path.Combine(Directory.GetCurrentDirectory(), "inspectors.json");
-
-        CheckIfFileExists(_inspectorsFileName);
+        _options = new JsonSerializerOptions();
+        _options.Converters.Add(new UserJsonConverter());
     }
 
-    public Customer StartLogin()
+    public User StartLogin()
     {
-        Customer customer = null;
+        User customer = null;
         while (true)
         {
             Console.WriteLine("1. Register");
@@ -67,8 +69,8 @@ internal class Login
         Console.Write("Enter a password: ");
         string password = Console.ReadLine();
 
-        var users = Serializer.DeserializeFromFile<Customer>(_customersFileName);
-        if (users.Any(user => user.ValidateCredentials(username)))
+        var users = Serializer.DeserializeFromFile<User>(_usersFileName);
+        if (users.OfType<Customer>().Any(user => user.ValidateCredentials(username)))
         {
             Console.WriteLine("Username already exists.");
             return;
@@ -76,22 +78,30 @@ internal class Login
 
         var customer = Registration.RegisterCustomer(username, password);
         users.Add(customer);
-        Serializer.SerializeToFile(_customersFileName, users);
+        Serializer.SerializeToFile(_usersFileName, users);
         Console.WriteLine("Registration successful.");
     }
 
-    private Customer? LoginUser()
+    private User? LoginUser()
     {
         Console.Write("Enter your username: ");
         string username = Console.ReadLine();
         Console.Write("Enter your password: ");
         string password = Console.ReadLine();
 
-        var users = Serializer.DeserializeFromFile<Customer>(_customersFileName);
-        if (users.Any(user => user.ValidateCredentials(username, password)))
+        var users = Serializer.DeserializeFromFile<User>(_usersFileName);
+        var customer = users.OfType<Customer>().FirstOrDefault(user => user.ValidateCredentials(username, password));
+        var inspector = users.OfType<Inspector>().FirstOrDefault(user => user.ValidateCredentials(username, password));
+
+        if (customer != null)
         {
-            Console.WriteLine("Login successful.");
-            return users.Find(user => user.ValidateCredentials(username, password));
+            Console.WriteLine("Login successful as Customer.");
+            return customer;
+        }
+        else if (inspector != null)
+        {
+            Console.WriteLine("Login successful as Inspector.");
+            return inspector;
         }
         else
         {

@@ -5,14 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarRental.Models;
-internal class Inspector
+public class Inspector : User
 {
-    /*FirstName: string
-    LastName: string
-    IdNumber: string
-    EmploymentDate: DateTime
-    Methods:
-    InspectCar(Car car)
-    RecordInspectionResult(Inspection inspection)
-    RemoveCar(Car car)*/
+    public Inspector(string firstName, string lastName, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
+    {
+    }
+
+    public string InspectorId { get; set; }
 }

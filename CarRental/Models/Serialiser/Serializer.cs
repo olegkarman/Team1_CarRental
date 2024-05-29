@@ -1,10 +1,19 @@
 ﻿using System.Text.Json;
+using CarRental.Models;
+using System.Text.Json.Serialization;
+using CarRental.Models.Serialiser;
 
 public static class Serializer
 {
+    private static JsonSerializerOptions options = new JsonSerializerOptions
+    {
+        AllowTrailingCommas = true,
+        IncludeFields = true,
+        Converters = { new UserJsonConverter() }
+    };
     public static void SerializeToFile<T>(string filePath, T objectToSerialize)
     {
-        var jsonString = JsonSerializer.Serialize(objectToSerialize);
+        var jsonString = JsonSerializer.Serialize(objectToSerialize, options);
         File.WriteAllText(filePath, jsonString);
     }
 
@@ -22,7 +31,7 @@ public static class Serializer
             return new List<T>();
         }
 
-        var data = JsonSerializer.Deserialize<List<T>>(jsonString);
+        var data = JsonSerializer.Deserialize<List<T>>(jsonString, options);
 
         return data;
     }

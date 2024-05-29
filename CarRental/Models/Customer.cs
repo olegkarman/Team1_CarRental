@@ -10,7 +10,7 @@ internal class Customer : User
 {
     public const float BasicDiscount = 0.5f;
 
-    public readonly string PassportNumber;
+    public string PassportNumber { get; init; }
     public required string DrivingLicenseNumber { get; set; }
 
     [SetsRequiredMembers]
