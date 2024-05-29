@@ -21,14 +21,14 @@ public class CarServiceManager
     // METHODS
 
     // TO GET SPECIFIC CAR
-    internal Car OntainNewCar(Depot depot, CarSelectPattern pattern)
+    internal Car ObtainNewCar(Depot depot, CarSelectPattern pattern)
     {
         return depot.GetNewCar(pattern);
     }
 
     // TO GET RANDOM CAR
 
-    internal Car OntainNewCar(Depot depot, Dictionary<string, CarSelectPattern> patterns)
+    internal Car ObtainNewCar(Depot depot, Dictionary<string, CarSelectPattern> patterns)
     {
         // KEYS OF THE DICTIONARY INTO ARRAY.
         string[] models = patterns.Keys.ToArray();
@@ -54,6 +54,23 @@ public class CarServiceManager
         }
     }
 
+    // TRY TO FIND CAR BY MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
+    internal bool TrySelectCar(string model)
+    {
+        Car car;
+
+        car = CurrentCars.Find(x => x.Model.Contains(model));
+
+        if (car == null)
+        {
+            return false;
+        }
+
+        SelectedCar = car;
+
+        return true;
+    }
+
     // TO TAKE OFF A CAR FROM THE LIST
 
     internal bool TryTakeCar(int index)
@@ -70,11 +87,44 @@ public class CarServiceManager
         }
     }
 
-    // DISPLAY SELECTED CAR INFO
+    internal bool TryTakeCar(string model)
+    {
+        Car car;
+
+        car = CurrentCars.Find(x => x.Model.Contains(model));
+
+        if (car == null)
+        {
+            return false;
+        }
+
+        SelectedCar = car;
+
+        CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
+
+        return true;
+    }
+
+    // TO DISPLAY INFO OF A SELECTED CAR
 
     public string DisplayCurrentCar()
     {
         return this.SelectedCar.ToString();    // MAKE BETTER FORMATTING PLS.
+    }
+
+    // TO DISPLAY INFO A SPECIFIC BY INDEX CAR FROM THE LIST
+
+    public string DisplayCar(int index)
+    {
+        return CurrentCars[index].ToString();
+    }
+
+    // TO DISPLAY INFO OF SPECIFIC BY ITS MODEL CAR FROM THE LIST 
+
+    public string DisplayCar(string model)
+    {
+        // THE EMPTY LINE CAN APPEAR.
+        return CurrentCars.Find(x => x.Model.Contains(model)).ToString();
     }
 
     // TO DISPLAY LIST OF CARS.
