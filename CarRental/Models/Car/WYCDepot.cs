@@ -20,57 +20,8 @@ public class WYCDepot
 
     // FIELDS
 
-    // DATA SOURCE
-    //private BrandModelsNamesDataSheet _brandModelData;
-    //private PatternInitializator _patternInit;
-
-    // FIELDS
-
     private StringBuilder _snStringBuilder;
     private Random _random;
-    //private IBrandRecordable[] _records;
-
-    // PATTERN SOURCE
-    //private readonly ICarSelectivePattern[] _patterns;
-    //private readonly ICarSelectivePattern defaultPattern;
-
-    // CONSTRUCTORS
-
-    
-
-        // TO CREATE PATTERNS AND ASSIGN
-
-        //this._patterns =
-        //[
-        //    //new CarSelectPattern
-        //    //(
-        //    //    "currentModelPatpern",
-
-        //    //)
-        //    new CarSelectPattern
-        //    (
-        //        "simpleReadyComponents",
-        //        1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
-        //    ),
-
-        //    new CarSelectPattern
-        //    (
-        //        "simpleAllReadyStatus",
-        //        1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10
-
-        //    ),
-
-        //    new CarSelectPattern
-        //    (
-        //        "allRandomDefault",
-        //        1, 5, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13, 10, 13
-        //    )
-        //];
-
-        // TO ASSIGN DEFAULT PATTERN FOR NO-OVERLOAD METHOD.
-
-        //this.defaultPattern = _patterns[0];
-    //}
 
     public WYCDepot()
     {
@@ -197,29 +148,17 @@ public class WYCDepot
                 BrandName = pattern.Brand,
                 ModelName = pattern.Name,
                 Year = yearToSet,
-                NumberPlate = GetSerialNumber(pattern).Substring(0, 9),
+                NumberPlate = GetSerialNumber(pattern).Substring(0, 9).Insert(2, "-").Insert(8, "-"),
                 RecordCreationDate = DateTime.Now.ToString(),
                 Price = price,
             }
 
         };
 
-        //string technicalInfo = $"Brand = {brand} |\nModel = {model} |\nEngine = {typeEngine} HP {powerEngine} fuel {fuel}({averageFuelConsumption}/hour) |\nTransmmission = {typeTransmission} {speedCount} speeds |\nWheels = {sizeWheels} inch {materialWheels} tire {tire} |\nInterior = {materialInterior} {colorInterior} | Color = {color} | VinCode = {serialNumber} | Preice = {price} | Is fit for use? = {isFitForUse} | Status = {status} }}";
-
         car.Record.TechnicalInfo = car.ToString();
 
         return car;
     }
-
-    //internal Car GetNewCar(int brandIndex, int modelIndex)
-    //{
-    //    string brand = _records[brandIndex].BrandName;
-    //    string model = _records[brandIndex].Models[modelIndex];
-
-    //    ICarSelectivePattern pattern = 
-
-    //    return car;
-    //}
 
     // TO GENERATE RANDOM NUMBER FROM CHAR-MAP OF A PATTERN.
     private string GetSerialNumber(ICarSelectivePattern pattern)
