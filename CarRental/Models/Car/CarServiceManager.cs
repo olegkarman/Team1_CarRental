@@ -15,6 +15,7 @@ public class CarServiceManager
     // PROPERTTES
 
     internal List<Car> CurrentCars { get; set; }
+    internal Car SelectedCar { get; set; }
 
     // METHODS
 
@@ -24,7 +25,8 @@ public class CarServiceManager
         return depot.GetNewCar(pattern);
     }
 
-    // GET RANDOM CAR.
+    // TO GET RANDOM CAR
+
     internal Car OntainNewCar(Depot depot, Dictionary<string, CarSelectPattern> patterns)
     {
         // KEYS OF THE DICTIONARY INTO ARRAY.
@@ -32,6 +34,30 @@ public class CarServiceManager
 
         // TO SELECT A RANDOM PATTERN FROM THE DICTIONARY.
         return depot.GetNewCar(patterns[models[_random.Next(0, models.Length)]]);
+    }
+
+    // TO SELECT A SPECIFIC CAR FROM THE LIST
+
+    internal bool TrySelectCar(int index)
+    {
+        // VALIDATION TO AVOID ARGUMENT OUT OF RANGE EXCEPTION.
+        if ((index <= 0) || (index > CurrentCars.Count))
+        {
+            return false;
+        }
+        else
+        {
+            SelectedCar = CurrentCars[index];
+
+            return true;
+        }
+    }
+
+    // DISPLAY SELECTED CAR INFO
+
+    public string DisplayCurrentCar()
+    {
+        return this.SelectedCar.ToString();    // MAKE BETTER FORMATTING PLS.
     }
 
     // TO DISPLAY LIST OF CARS.
@@ -42,7 +68,7 @@ public class CarServiceManager
 
         foreach (Car car in CurrentCars)
         {
-            _carsInfo.Append($"~~|{car.Brand} -- {car.Model} -- YEAR: {car.year} -- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~");    
+            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~|{car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");    
         }
 
         return _carsInfo.ToString();
