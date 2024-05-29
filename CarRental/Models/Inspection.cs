@@ -1,15 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics.CodeAnalysis;
+using CarHubTest;
 
 namespace CarRental.Models;
-internal class Inspection
+internal class Inspection : IInspection
 {
-    /*InspectionId: int
-    InspectionDate: DateTime
-    Inspector: Inspector
-    InspectionResult: string
-    CarId: int*/
+    private static int s_lastId;
+    private const string InspectionNumber = "Inspection ID ";
+    private readonly DateTime _inspectionDate = DateTime.Now;
+
+    // properties
+    public int InspectionId { get; }
+    public DateTime InspectionDate => _inspectionDate;
+    public string? InspectorName { get; init; }
+    public required int CarId { get; init; }
+    public InspectionStatusType Result { get; set; }
+
+    public Inspection()
+    {
+        // Auto-increment identifier
+        InspectionId = ++s_lastId;
+    }
+    [SetsRequiredMembers]
+    public Inspection(string inspectorName, int carId, InspectionStatusType result) : this()
+    {
+        InspectorName = inspectorName;
+        CarId = carId;
+        Result = result;
+    }
+
+    public bool IsInspectionSuccessfully(int inspectionId)
+    {
+        return (InspectionId == inspectionId) && (Result == InspectionStatusType.Successfully);
+    }
+
+    public bool IsInspectionSuccessfully(string inspectorName)
+    {
+        if (String.IsNullOrWhiteSpace(inspectorName))
+        {
+            throw new ArgumentException("InspectorName cannot be empty, or whitespace.", nameof(inspectorName));
+        }
+        else
+        {
+            return string.Equals(InspectorName, inspectorName, StringComparison.OrdinalIgnoreCase) && (Result == InspectionStatusType.Successfully); ;
+        }
+    }
+
+    public override string ToString()
+    {
+        return $"{InspectionNumber}: {InspectionId}\n" +
+               $"Inspector Name: {InspectorName}\n" +
+               $"Car ID: {CarId}\n" +
+               $"Inspection Date: {InspectionDate.ToShortDateString()}\n" +
+               $"Result: {Result}\n";
+    }
 }
