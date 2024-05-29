@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using CarRental.Models.Validation;
 
 namespace CarRental.Models.Login;
 internal static class Registration
 {
-    public static bool IsValidName(string name = "")
-    {
-        Regex regex = new Regex(@"^[A-Za-z]+$");
-        return !string.IsNullOrWhiteSpace(name) && regex.IsMatch(name);
-    }
     public static Customer RegisterCustomer(string login, string password)
     {
         Random rand = new Random();
@@ -25,7 +15,7 @@ internal static class Registration
         while (true)
         {
             firstName = Console.ReadLine();
-            if (IsValidName(firstName))
+            if (Validator.IsValidName(firstName))
             {
                 break;
             }
@@ -39,7 +29,7 @@ internal static class Registration
         while (true)
         {
             lastName = Console.ReadLine();
-            if (IsValidName(lastName))
+            if (Validator.IsValidName(firstName))
             {
                 break;
             }

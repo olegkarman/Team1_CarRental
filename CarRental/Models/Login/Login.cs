@@ -28,14 +28,18 @@ internal class Login
         _options.Converters.Add(new UserJsonConverter());
     }
 
-    public User StartLogin()
+    public (User?, bool) StartLogin()
     {
-        User customer = null;
         while (true)
         {
+            Console.WriteLine("Welcome to Car portal");
+            Console.WriteLine();
+            Console.WriteLine("Select your next move");
+            Console.WriteLine();
             Console.WriteLine("1. Register");
             Console.WriteLine("2. Login");
             Console.WriteLine("3. Exit");
+            Console.WriteLine();
             Console.Write("Choose an option: ");
             string option = Console.ReadLine();
 
@@ -45,8 +49,8 @@ internal class Login
                     RegisterUser();
                     break;
                 case "2":
-                    customer = LoginUser();
-                    if (customer != null)
+                    var customer = LoginUser();
+                    if (customer.Item1 != null)
                     {
                         return customer;
                     }
@@ -82,7 +86,7 @@ internal class Login
         Console.WriteLine("Registration successful.");
     }
 
-    private User? LoginUser()
+    private (User?, bool) LoginUser()
     {
         Console.Write("Enter your username: ");
         string username = Console.ReadLine();
@@ -96,17 +100,17 @@ internal class Login
         if (customer != null)
         {
             Console.WriteLine("Login successful as Customer.");
-            return customer;
+            return (customer, true);
         }
         else if (inspector != null)
         {
             Console.WriteLine("Login successful as Inspector.");
-            return inspector;
+            return (inspector, false);
         }
         else
         {
             Console.WriteLine("Invalid username or password.");
-            return null;
+            return (null, false);
         }
     }
 }
