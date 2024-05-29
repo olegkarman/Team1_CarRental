@@ -77,6 +77,7 @@ public class PatternInitializator
     //    }
     //}
 
+    // TO CREATE THE ARRAY OF BRAND-RECORDS INSTANCES WITH KNWLEDGE OF DATA USED.
     public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
     {
         BrandRecord[] records =
@@ -148,8 +149,10 @@ public class PatternInitializator
         return records;
     }
 
+    // TO CREATE INSTANCE OF PATTERN-CLASS.
     public CarSelectPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
     {
+        // USE INITIALIZATOR INSTEAD OF EXTENSIVE CONSTRUCTORS.
         CarSelectPattern pattern = new CarSelectPattern
         {
             Name = name,
@@ -225,7 +228,7 @@ public class PatternInitializator
         return pattern;
     }
 
-    // TO CREATE DICTIONARY OF MODEL-GENERATION PATTERN, A BASIC COMPLECTATION LOGIC.
+    // OVERLOAD OF THE METHOD TO CREATE DICTIONARY OF MODEL-GENERATION PATTERN, A BASIC COMPLECTATION LOGIC.
     public Dictionary<string, CarSelectPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         Dictionary<string, CarSelectPattern> dictionary = new Dictionary<string, CarSelectPattern>();

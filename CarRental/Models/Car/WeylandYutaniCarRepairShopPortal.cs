@@ -17,7 +17,14 @@ public class WeylandYutaniCarRepairShopPortal
         BrandModelsNamesDataSheet data = InitializeData();
         PatternInitializator patternInit = InitializePatternInitializator();
         BrandRecord[] brandRecords = InitializeBrandRecords(patternInit, data);
-        
+        Dictionary<string, CarSelectPattern> patterns = InitializeDictionaryModelPattern(patternInit, brandRecords, data);
+
+
+    }
+
+    static public Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    {
+        return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
     }
 
     static public BrandRecord[] InitializeBrandRecords(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
