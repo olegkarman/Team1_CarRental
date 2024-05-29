@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,6 +50,22 @@ public class CarServiceManager
         {
             SelectedCar = CurrentCars[index];
 
+            return true;
+        }
+    }
+
+    // TO TAKE OFF A CAR FROM THE LIST
+
+    internal bool TryTakeCar(int index)
+    {
+        if ((index <= 0) || (index > CurrentCars.Count))
+        {
+            return false;
+        }
+        else
+        {
+            SelectedCar = CurrentCars[index];
+            CurrentCars.RemoveAt(index);
             return true;
         }
     }
