@@ -18,15 +18,19 @@ public class WeylandYutaniCarRepairShopPortal
 
         // INITIALIZATION
 
-        BrandModelsNamesDataSheet data = InitializeData();
-        Depot depo = InitializeDepot();
-        PatternInitializator patternInit = InitializePatternInitializator();
-        BrandRecord[] brandRecords = InitializeBrandRecords(patternInit, data);
-        CarServiceManager manager = InitializeManager();
-        Dictionary<string, CarSelectPattern> patterns = InitializeDictionaryModelPattern(patternInit, brandRecords, data);
+        //BrandModelsNamesDataSheet data = InitializeData();
+        //Depot depo = InitializeDepot();
+        //PatternInitializator patternInit = InitializePatternInitializator();
+        //BrandRecord[] brandRecords = InitializeBrandRecords(patternInit, data);
+        //CarServiceManager manager = InitializeManager();
+        //Dictionary<string, CarSelectPattern> patterns = InitializeDictionaryModelPattern(patternInit, brandRecords, data);
+
+        CarServiceManager serviceManager = new CarServiceManager();
+
+        serviceManager.InitializeManagment();
 
         // TEST
-        Car car = depo.GetNewCar(patterns["Dakar"]);
+        Car car = serviceManager.GetNewCar("Фикфцвцдадаr");
         Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
         Console.WriteLine(car);
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

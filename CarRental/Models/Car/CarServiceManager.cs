@@ -38,9 +38,9 @@ public class CarServiceManager
 
     // TO GET SPECIFIC CAR BY A MODEL.
 
-    internal Car ObtainNewCar(string model)
+    internal Car GetNewCar(string model)
     {
-        return _supplementData.DepotService.GetNewCar(_supplementData.ModelsPatterns[model]);
+        return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[model]);
     }
 
     // TO GET RANDOM CAR
@@ -51,7 +51,7 @@ public class CarServiceManager
         string[] models = _supplementData.ModelsPatterns.Keys.ToArray();
 
         // TO SELECT A RANDOM PATTERN FROM THE DICTIONARY.
-        return _supplementData.DepotService.GetNewCar(_supplementData.ModelsPatterns[models[_random.Next(0, models.Length)]]);
+        return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[models[_random.Next(0, models.Length)]]);
     }
 
     // TO GENERATE A LIST OF CARS
