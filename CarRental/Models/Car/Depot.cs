@@ -13,7 +13,7 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
-public class WYCDepot
+public class Depot
 {
     // CLASS RESPONSIBILITY:
     // TO CREATE A CAR BASED ON PRE-DEFINED PATTERN
@@ -23,7 +23,7 @@ public class WYCDepot
     private StringBuilder _snStringBuilder;
     private Random _random;
 
-    public WYCDepot()
+    public Depot()
     {
         this._random = new Random();
         this._snStringBuilder = new StringBuilder();

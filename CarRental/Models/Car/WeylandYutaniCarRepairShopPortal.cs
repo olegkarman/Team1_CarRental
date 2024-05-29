@@ -16,7 +16,7 @@ public class WeylandYutaniCarRepairShopPortal
         // INITIALIZATION
 
         BrandModelsNamesDataSheet data = InitializeData();
-        WYCDepot depo = InitializeDepot();
+        Depot depo = InitializeDepot();
         PatternInitializator patternInit = InitializePatternInitializator();
         BrandRecord[] brandRecords = InitializeBrandRecords(patternInit, data);
         Dictionary<string, CarSelectPattern> patterns = InitializeDictionaryModelPattern(patternInit, brandRecords, data);
@@ -49,9 +49,9 @@ public class WeylandYutaniCarRepairShopPortal
         return new BrandModelsNamesDataSheet();
     }
 
-    static public WYCDepot InitializeDepot()
+    static public Depot InitializeDepot()
     {
-        return new CarRental.Models.Car.WYCDepot();
+        return new CarRental.Models.Car.Depot();
     }
 
     public static void Initialize()
