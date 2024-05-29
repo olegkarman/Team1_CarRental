@@ -19,6 +19,7 @@ public class WeylandYutaniCarRepairShopPortal
         Depot depo = InitializeDepot();
         PatternInitializator patternInit = InitializePatternInitializator();
         BrandRecord[] brandRecords = InitializeBrandRecords(patternInit, data);
+        CarServiceManager manager = InitializeManager();
         Dictionary<string, CarSelectPattern> patterns = InitializeDictionaryModelPattern(patternInit, brandRecords, data);
 
         // TEST
@@ -27,6 +28,11 @@ public class WeylandYutaniCarRepairShopPortal
         Console.WriteLine(car);
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         Console.WriteLine(car.Record);
+    }
+
+    static public CarServiceManager InitializeManager()
+    {
+        return new CarServiceManager();
     }
 
     static public Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)

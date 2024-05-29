@@ -17,6 +17,8 @@ public class Depot
 {
     // CLASS RESPONSIBILITY:
     // TO CREATE A CAR BASED ON PRE-DEFINED PATTERN
+    //
+    // OBJECT INITIALIZER USED INSTEAD OF CONSTRUCTORS DUE TO LARGE AMMOUNT OF init-setter PROPERTIES AND AN ADVICE OF THE TEACHER ABOUT DO NOT USE LARGE CONSTRUCTORS.
 
     // FIELDS
 
@@ -123,7 +125,7 @@ public class Depot
                 Material = (MaterialWheel)_random.Next(pattern.MaterialWheelsInitial, pattern.MaterialWheelsEnd),
                 Size = _random.Next(pattern.SizeWheelsInitial, pattern.SizeWheelsEnd),
                 Tire = (TypeTire)_random.Next(pattern.TireInitial, pattern.TireEnd),
-                Status = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex),
+                Status = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex)
             },
 
             // LIGHTS
@@ -150,7 +152,7 @@ public class Depot
                 Year = yearToSet,
                 NumberPlate = GetSerialNumber(pattern).Substring(0, 9).Insert(2, "-").Insert(8, "-"),
                 RecordCreationDate = DateTime.Now.ToString(),
-                Price = price,
+                Price = price
             }
 
         };
