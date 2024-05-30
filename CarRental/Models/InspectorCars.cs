@@ -41,11 +41,14 @@ internal class InspectorCars
         }
     }
     internal void InspectCar(Car car, Inspection inspection) //Інспектувати по пробігу, даті,стану кузова
+        
     {
         if (car.Mileage < 200000 && car.ReleaseDate >= 2015 && car.ExteriorCondition >= 1)
         {
+            var inspection = new Inspection(InspectorName: "Max", cardId: 1, result: InspectionStatusType.Successfully)
             Console.WriteLine($"Car {car.Brand} {car.Model} is fit for use.");
             RecordInspectionResult(car, InspectionStatusType.Successfully);
+            inspectionManager.AddInspection(inspection);
         }
         else if (car.Mileage >= 200000 || car.ReleaseDate < 2015 || car.ExteriorCondition < 1)
         {
