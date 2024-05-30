@@ -14,8 +14,11 @@ internal class ServiceManagerSupplements
 
     // FIELDS
 
+    // PROPERTIES
+
     internal BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
     internal Depot DepotService { get; init; }
     internal Dictionary<string, CarSelectPattern> ModelsPatterns { get; init; }
-    internal BrandRecord[] BrandRecords;
+    internal BrandRecord[] BrandRecords { get; init; }
+    internal CarMechanic Mechanic { get; init; }
 }

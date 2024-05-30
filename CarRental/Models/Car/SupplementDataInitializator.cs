@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Enumerables;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CarRental.Models.Car;
@@ -16,7 +17,20 @@ internal class SupplementDataInitializator
 
     public CarMechanic InitializeMechanic()
     {
-        
+        try
+        {
+            Random random = new Random();
+
+            return new CarMechanic($"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18));
+        }
+        catch(InvalidCastException exception)
+        {
+            throw exception;
+        }
+        catch
+        {
+            throw new Exception();
+        }
     }
 
     public Dictionary<string, CarSelectPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)

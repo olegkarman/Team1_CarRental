@@ -310,7 +310,8 @@ public class CarServiceManager
                 BrandModelsDataSheet = brandModelsData,
                 DepotService = dataInit.InitializeDepot(),
                 BrandRecords = brandRecords,
-                ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData)
+                ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData),
+                Mechanic = dataInit.InitializeMechanic()
             };
         }
         catch (NullReferenceException exception)
