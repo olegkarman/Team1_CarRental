@@ -3,17 +3,19 @@ public class Portal
 {
     public User UserData { get; set; }
     public bool IsCustomer { get; set; }
+    private DealManager _dealManager;
 
     public Portal(User userData, bool isCustomer) {
         UserData = userData;
         IsCustomer = isCustomer;
+        _dealManager = new DealManager();
     }
 
     public void ShowMainMenu()
     {
         while (true)
         {
-            Console.WriteLine($"Welcome {(IsCustomer ? "Customer" : "Inspector")}");
+            Console.WriteLine($"Welcome {UserData.FirstName}");
             Console.WriteLine();
             Console.WriteLine("Select your next move");
             Console.WriteLine();
@@ -35,6 +37,7 @@ public class Portal
 
             string option = Console.ReadLine();
             Console.WriteLine();
+
             break;
         }
     }

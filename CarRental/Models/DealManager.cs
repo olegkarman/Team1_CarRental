@@ -6,8 +6,15 @@ using System.Diagnostics;
 namespace CarRental.Models;
 public class DealManager
 {
-    private const string fileName = "dealInfo.json";
+    private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+    public DealManager()
+    {
+        string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
+        Directory.SetCurrentDirectory(projectDirectory);
+        fileName = Path.Combine(Directory.GetCurrentDirectory(), "dealInfo.json");
+    }
 
     public string ConvertToJson(Dictionary<int, Tuple<int, int, string, float, DateTime>> dealDictionary)
     {
@@ -40,7 +47,8 @@ public class DealManager
 
         if (File.Exists(filePath))
         {
-            var allDealsDict = Deserialize(GetDealInfoJson());
+            string jsonData = File.ReadAllText(fileName);
+            var allDealsDict = Deserialize(jsonData);
             allDealsDict = allDealsDict.Concat(newDeal).ToDictionary(x => x.Key, x => x.Value);
             string jsonString = ConvertToJson(allDealsDict);
 
