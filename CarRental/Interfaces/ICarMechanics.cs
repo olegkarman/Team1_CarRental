@@ -21,7 +21,7 @@ public interface ICarMechanics
     internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Transmission transmission);
     internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Interior interior);
     internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Wheels wheels);
-    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.TypeTire tire);
+    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Enumerables.TypeTire tire);
     internal void Paint(CarRental.Models.Car.Car car, KnownColor color);
 
     public ComponentStatus CheckComponent(CarRental.Interfaces.IComponent component);

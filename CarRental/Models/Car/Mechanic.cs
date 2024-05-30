@@ -169,7 +169,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
     }
 
     //CHANGE TIRE OF A CAR.
-    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.TypeTire tire)
+    public bool TryReplaceComponent(Models.Car.Car car, CarRental.Enumerables.TypeTire tire)
     {
         car.Wheels.Tire = tire;
         return true;

@@ -15,9 +15,9 @@ namespace CarRental.Interfaces;
 
 public interface ICar
 {
-    public Models.Car.AbstractEngine Engine { get; set; }
-    public Models.Car.AbstractInterior Interior { get; set; }
-    public Models.Car.AbstractWheels Wheels { get; set; }
-    public Models.Car.AbstractTransmission Transmission { get; set; }
-    public bool Drive(ICanDrive driver, float averageSpeed, int drivingTime);
+    internal Models.Car.AbstractEngine Engine { get; set; }
+    internal Models.Car.AbstractInterior Interior { get; set; }
+    internal Models.Car.AbstractWheels Wheels { get; set; }
+    internal Models.Car.AbstractTransmission Transmission { get; set; }
+    internal bool Drive(ICanDrive driver, float averageSpeed, int drivingTime);
 }
