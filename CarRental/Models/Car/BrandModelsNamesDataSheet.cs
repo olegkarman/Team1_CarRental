@@ -52,11 +52,11 @@ public record class BrandModelsNamesDataSheet
             },
 
             {
-                "ZAZ-965", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5500, 5500, /*MAX FUEL*/ 70, 70, /*CURRENT FUEL*/ 70, 70, /*SPPED COEF*/ 3, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 12, 12, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 118, 118, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 10, 10, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
+                "ZAZ-965", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5500, 5500, /*MAX FUEL*/ 70, 70, /*CURRENT FUEL*/ 70, 70, /*SPPED COEF*/ 2, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 12, 12, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 118, 118, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 10, 10, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
             },
 
             {
-                "ZAZ-968", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5500, 5500, /*MAX FUEL*/ 100, 100, /*CURRENT FUEL*/ 100, 100, /*SPPED COEF*/ 3, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 11, 11, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 119, 119, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 11, 11, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
+                "ZAZ-968", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5500, 5500, /*MAX FUEL*/ 100, 100, /*CURRENT FUEL*/ 100, 100, /*SPPED COEF*/ 2, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 11, 11, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 119, 119, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 11, 11, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
             },
 
             // PEG
