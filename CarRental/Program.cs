@@ -18,6 +18,6 @@ class CarRentalPortal
         var (user, isCustomer) = login.StartLogin();
         var portal = new Portal(user, isCustomer);
         ConsoleHelper.ClearConsoleWithDelay(2);
-        portal.ShowMainMenu();
+        portal.StartMainMenu();
     }
 }
