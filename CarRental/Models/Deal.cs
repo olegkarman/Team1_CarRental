@@ -44,19 +44,5 @@ namespace CarRental.Models
             DealManager dealManager = new DealManager();
             dealManager.SaveDealInfo(dealInfo);
         }
-
-        internal string GetAllDealsJson()
-        {
-            DealManager dealManager = new DealManager();
-            return dealManager.GetDealInfoJson();
-        }
-
-        internal
-            Dictionary<int, Tuple<int, int, string, float, DateTime>>
-            GetAllDealsDict()
-        {
-            DealManager dealManager = new DealManager();
-            return dealManager.GetDealInfoDict();
-        }
     }
 }
