@@ -31,6 +31,8 @@ public class PatternInitializator
 
     // METHODS
 
+    #region METHODS
+
     // TO CREATE THE ARRAY OF BRAND-RECORDS INSTANCES WITH KNWLEDGE OF DATA USED.
     public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
     {
@@ -196,4 +198,6 @@ public class PatternInitializator
 
         return dictionary;
     }
+
+    #endregion
 }

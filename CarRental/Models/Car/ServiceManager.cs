@@ -42,6 +42,8 @@ public class ServiceManager
 
     // METHODS
 
+    #region METHODS
+
     // TO GET RANDOM CAR
 
     internal Car GetNewCar()
@@ -400,4 +402,6 @@ public class ServiceManager
             throw new Exception();
         }
     }
+
+    #endregion
 }

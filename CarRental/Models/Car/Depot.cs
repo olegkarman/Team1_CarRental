@@ -38,6 +38,8 @@ public class Depot
 
     // MEHODS
 
+    #region METHODS
+
     // TO SELECT A PATTERN ON WHICH CAR-INSTANCE GENERATES.
     public SelectPattern SelectCarComplectationPattern(Dictionary<string, SelectPattern> patterns)
     {
@@ -180,4 +182,6 @@ public class Depot
 
         return _snStringBuilder.ToString();
     }
+
+    #endregion
 }

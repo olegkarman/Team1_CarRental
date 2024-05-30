@@ -45,6 +45,7 @@ public class WeylandYutaniCarRepairShopPortal
         Console.WriteLine(serviceManager.CheckFuelSelectedCar());
         Console.WriteLine(serviceManager.DisplayCurrentCars());
         Console.WriteLine(serviceManager.DisplayAllModels());
+        Console.WriteLine(serviceManager.CheckSignal());
         // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\
 
         //Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
