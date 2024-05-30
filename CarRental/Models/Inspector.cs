@@ -3,41 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace CarRental.Models;
-internal class Inspector : User
+internal class Inspector
 {
-    private readonly DateTime EmploymentDate; //Додати readonly поле (string Year)
-
-    public Inspector(string? firstName, string? lastName, DateTime dateOfBirth, DateTime employmentDate, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
-    {
-        EmploymentDate = employmentDate;
-    }
-    public Inspector(string firstName, string lastName, DateTime dateOfBirth, string password, string userName)
-          : this(firstName, lastName, dateOfBirth, DateTime.Now, password, userName)
-    {
-        Console.WriteLine("Inspector object created with default employment date."); // Додати на нього оверлоадінг overloading. 
-    }
-    public string GetInspectorInfo() //Додати метод (string GetCarInfo() який виводить Id, Year та Mark)
-    {
-        return $"Inspector: {FirstName} {LastName}, ID: {IdNumber}, Employment Date: {EmploymentDate.ToShortDateString()}";
-    }
-    public void ChangeToInspector()
-    {
-        DateTime employmentDate = new DateTime(2020, 1, 1);
-        Inspector[] inspectors = new Inspector[]      // Створення трьох інспекторів і додавання їх до масиву
-      {
-            new Inspector("Adam", "Smith", new DateTime(1990, 1, 1), employmentDate, "password1", "username1"),
-            new Inspector("Eva", "Smith", new DateTime(1991, 1, 2), employmentDate.AddYears(1), "password2", "username2"),
-            new Inspector("Mike", "Smith", new DateTime(1992, 1, 3), employmentDate.AddYears(2), "password3", "username3")
-        };
-
-        Random random = new Random();
-        int index = random.Next(0, inspectors.Length); // Випадковий вибір інспектора
-
-        Inspector selectedInspector = inspectors[index];
-
-        Console.WriteLine($"Selected Inspector: {selectedInspector.FirstName} {selectedInspector.LastName}, ID: {selectedInspector.IdNumber}");
-    }
+    /*FirstName: string
+    LastName: string
+    IdNumber: string
+    EmploymentDate: DateTime
+    Methods:
+    InspectCar(Car car)
+    RecordInspectionResult(Inspection inspection)
+    RemoveCar(Car car)*/
 }
