@@ -30,7 +30,7 @@ public class WeylandYutaniCarRepairShopPortal
         serviceManager.InitializeManagment();
 
         // TEST
-        Car car = serviceManager.GetNewCar("Фикфцвцдадаr");
+        Car car = serviceManager.GetNewCar();
         Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
         Console.WriteLine(car);
         Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");

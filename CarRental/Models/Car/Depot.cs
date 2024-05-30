@@ -143,6 +143,7 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
             },
 
+            // THE RECORD
             Record = new CarRecord
             {
                 RecordId = GetSerialNumber(pattern),

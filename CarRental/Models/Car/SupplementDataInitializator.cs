@@ -14,6 +14,11 @@ internal class SupplementDataInitializator
 
     // METHODS
 
+    public CarMechanic InitializeMechanic()
+    {
+        
+    }
+
     public Dictionary<string, CarSelectPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);

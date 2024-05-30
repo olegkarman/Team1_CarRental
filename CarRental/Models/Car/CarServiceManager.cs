@@ -19,7 +19,7 @@ public class CarServiceManager
     private StringBuilder _carsInfo;
     private Random _random;
     private ServiceManagerSupplements _supplementData;
-    
+
     // PROPERTTES
 
     internal List<Car> CurrentCars { get; private set; }    // O. KARMANSKYI
@@ -36,22 +36,30 @@ public class CarServiceManager
 
     // METHODS
 
-    // TO GET SPECIFIC CAR BY A MODEL.
-
-    internal Car GetNewCar(string model)
-    {
-        return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[model]);
-    }
-
     // TO GET RANDOM CAR
 
-    internal Car ObtainNewCar()
+    internal Car GetNewCar()
     {
         // KEYS OF THE DICTIONARY INTO ARRAY.
         string[] models = _supplementData.ModelsPatterns.Keys.ToArray();
 
         // TO SELECT A RANDOM PATTERN FROM THE DICTIONARY.
         return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[models[_random.Next(0, models.Length)]]);
+    }
+
+    // TO GET SPECIFIC CAR BY A MODEL.
+
+    internal Car GetNewCar(string model)
+    {
+        try
+        {
+            return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[model]);
+        }
+        catch (KeyNotFoundException exception)
+        {
+            // THROW AN EXCEPTION UPWARD.
+            throw exception;
+        }
     }
 
     // TO GENERATE A LIST OF CARS
@@ -63,7 +71,7 @@ public class CarServiceManager
 
         for(int index = 0; index < 15; index = index + 1)
         {
-            CurrentCars.Add(ObtainNewCar());
+            CurrentCars.Add(GetNewCar());
         }
     }
 
@@ -71,16 +79,31 @@ public class CarServiceManager
 
     internal bool TrySelectCar(int index)
     {
-        // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
-        if ((index <= 0) || (index > CurrentCars.Count))
+        try
         {
-            return false;
-        }
-        else
-        {
-            SelectedCar = CurrentCars[index];
+            // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
+            if ((index <= 0) || (index > CurrentCars.Count))
+            {
+                return false;
+            }
+            else
+            {
+                SelectedCar = CurrentCars[index];
 
-            return true;
+                return true;
+            }
+        }
+        catch(IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
+        catch
+        {
+            throw new Exception();
         }
     }
 
@@ -90,28 +113,58 @@ public class CarServiceManager
     {
         Car car;
 
-        car = CurrentCars.Find(x => x.Model.Contains(model));
-
-        if (car == null)
+        try
         {
-            return false;
+
+            car = CurrentCars.Find(x => x.Model.Contains(model));
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            SelectedCar = car;
+
+            return true;
         }
-
-        SelectedCar = car;
-
-        return true;
+        catch(FormatException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DELETE THE CAR FROM A LIST
 
     public void DeleteCarFromList(int index)
     {
-        CurrentCars.RemoveAt(index);
+        try
+        {
+            CurrentCars.RemoveAt(index);
+        }
+        catch(IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
     }
 
     public void DeleteCarFromList(string model)
     {
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
+        try
+        {
+            CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
+        }
+        catch(KeyNotFoundException exception)
+        {
+            throw exception;
+        }
+        catch(IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch(FormatException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DELETE ALL CARS FROM THE LIST
@@ -125,34 +178,56 @@ public class CarServiceManager
 
     internal bool TryTakeCar(int index)
     {
-        if ((index <= 0) || (index > CurrentCars.Count))
+        try
         {
-            return false;
+            if ((index <= 0) || (index > CurrentCars.Count))
+            {
+                return false;
+            }
+            else
+            {
+                SelectedCar = CurrentCars[index];
+                CurrentCars.RemoveAt(index);
+                return true;
+            }
         }
-        else
+        catch(IndexOutOfRangeException exception)
         {
-            SelectedCar = CurrentCars[index];
-            CurrentCars.RemoveAt(index);
-            return true;
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
         }
     }
 
     internal bool TryTakeCar(string model)
     {
-        Car car;
-
-        car = CurrentCars.Find(x => x.Model.Contains(model));
-
-        if (car == null)
+        try
         {
-            return false;
+            Car car;
+
+            car = CurrentCars.Find(x => x.Model.Contains(model));
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            SelectedCar = car;
+
+            CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
+
+            return true;
         }
-
-        SelectedCar = car;
-
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
-
-        return true;
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DISPLAY INFO OF A SELECTED CAR
@@ -166,15 +241,37 @@ public class CarServiceManager
 
     public string DisplayCar(int index)
     {
-        return CurrentCars[index].ToString();
+        try
+        {
+            return CurrentCars[index].ToString();
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DISPLAY INFO OF A SPECIFIC BY ITS MODEL CAR FROM THE LIST 
 
     public string DisplayCar(string model)
     {
-        // THE EMPTY LINE CAN APPEAR.
-        return CurrentCars.Find(x => x.Model.Contains(model)).ToString();
+        try
+        {
+            // THE EMPTY LINE CAN APPEAR.
+            return CurrentCars.Find(x => x.Model.Contains(model)).ToString();
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
@@ -196,22 +293,34 @@ public class CarServiceManager
 
     internal void InitializeManagment()
     {
-        // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
-        SupplementDataInitializator dataInit = new SupplementDataInitializator();
-
-        PatternInitializator patternInit = new PatternInitializator();
-
-        // TO ASSIG REFERENE BELOW IN THE OBJECT-INITILIZER.
-        BrandModelsNamesDataSheet brandModelsData = dataInit.InitializeDataSheet();
-
-        BrandRecord[] brandRecords = dataInit.InitializeBrandRecordsArray(patternInit, brandModelsData);
-
-        this._supplementData = new ServiceManagerSupplements
+        try
         {
-            BrandModelsDataSheet = brandModelsData,
-            DepotService = dataInit.InitializeDepot(),
-            BrandRecords = brandRecords,
-            ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData)
-        };  
+            // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
+            SupplementDataInitializator dataInit = new SupplementDataInitializator();
+
+            PatternInitializator patternInit = new PatternInitializator();
+
+            // TO ASSIG REFERENE BELOW IN THE OBJECT-INITILIZER.
+            BrandModelsNamesDataSheet brandModelsData = dataInit.InitializeDataSheet();
+
+            BrandRecord[] brandRecords = dataInit.InitializeBrandRecordsArray(patternInit, brandModelsData);
+
+            this._supplementData = new ServiceManagerSupplements
+            {
+                BrandModelsDataSheet = brandModelsData,
+                DepotService = dataInit.InitializeDepot(),
+                BrandRecords = brandRecords,
+                ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData)
+            };
+        }
+        catch (NullReferenceException exception)
+        {
+            throw exception;
+        }
+        catch
+        {
+            // THORW SOME EXCEPTION UPWARD.
+            throw new Exception();
+        }
     }
 }

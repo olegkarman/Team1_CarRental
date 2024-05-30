@@ -17,16 +17,16 @@ internal class CarMechanic : ICarMechanics, ICanDrive
     // FIELDS
 
     private const string _noInfo = "NO INFO";
-    public readonly string firstName;
-    public readonly string lastName;
+    public string FirstName { get; init; }
+    public string LastName { get; init; }
     private Random _random;
 
     // CONSTRUCTORS
 
     internal CarMechanic(string firstN, string lastN)
     {
-        this.firstName = firstN;
-        this.lastName = lastN;
+        this.FirstName = firstN;
+        this.LastName = lastN;
         _random = new Random();
     }
 
