@@ -42,6 +42,7 @@ internal class Login
             Console.WriteLine();
             Console.Write("Choose an option: ");
             string option = Console.ReadLine();
+            Console.WriteLine();
 
             switch (option)
             {
@@ -99,12 +100,12 @@ internal class Login
 
         if (customer != null)
         {
-            Console.WriteLine("Login successful as Customer.");
+            Console.WriteLine($"Login successful as Customer. Hello, {customer.FirstName}");
             return (customer, true);
         }
         else if (inspector != null)
         {
-            Console.WriteLine("Login successful as Inspector.");
+            Console.WriteLine($"Login successful as Inspector. Hello, {inspector.FirstName}");
             return (inspector, false);
         }
         else

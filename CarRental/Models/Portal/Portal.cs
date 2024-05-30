@@ -34,6 +34,7 @@ public class Portal
             Console.Write("Choose an option: ");
 
             string option = Console.ReadLine();
+            Console.WriteLine();
             break;
         }
     }
