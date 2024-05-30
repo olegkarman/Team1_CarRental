@@ -246,7 +246,14 @@ public class ServiceManager
 
     public string DisplayCurrentCar()
     {
-        return this.SelectedCar.ToString();    // MAKE BETTER FORMATTING PLS.
+        try
+        {
+            return this.SelectedCar.ToString();    // MAKE BETTER FORMATTING PLS.
+        }
+        catch(ArgumentNullException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DISPLAY INFO A SPECIFIC BY INDEX CAR FROM THE LIST
@@ -342,6 +349,20 @@ public class ServiceManager
     {
         _supplementData.Mechanic.Refill(SelectedCar);
     }
+
+    // CHECK SIGNAL
+
+    public string CheckSignal()
+    {
+        return SelectedCar.Signal.ToString();
+    }
+
+    // CHECK LIGHT
+
+    //public string CheckLights()
+    //{
+    //    return SelectedCar.Light.ToString();
+    //}
 
     // METHODS
     // // INITIALIZATION
