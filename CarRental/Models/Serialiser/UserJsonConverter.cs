@@ -9,7 +9,7 @@ public class UserJsonConverter : JsonConverter<User>
     {
         var jsonObject = JsonDocument.ParseValue(ref reader).RootElement;
 
-        if (jsonObject.GetProperty("DrivingLicenseNumber").GetString() != null)
+        if (jsonObject.TryGetProperty("DrivingLicenseNumber", out JsonElement drivingLicenseNumberElement) && drivingLicenseNumberElement.GetString() != null)
         {
             return JsonSerializer.Deserialize<Customer>(jsonObject.GetRawText());
         }
