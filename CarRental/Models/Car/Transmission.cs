@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CarRental.Enumerables;
+
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 3. Methods, properties"
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 30-MAY-2024
+
+namespace CarRental.Models.Car;
+
+internal class Transmission : AbstractTransmission
+{
+    // FIELDS
+
+    private const string _noInfo = "NO INFO";
+
+    // PROPERTIES
+
+    internal override required string SerialNumber { get; init; }
+    public override required TypeTransmission Type { get; init; }
+    public int SpeedCount { get; init; }
+    public override ComponentStatus Status { get; set; }
+
+    // CONSTRUCTORS
+
+    // METHODS
+
+    public override string ToString()
+    {
+        return $"{{ {nameof(this.Type)} = {Type} | {nameof(this.SpeedCount)} = {SpeedCount} | {nameof(this.Status)} = {Status} }}";
+    }
+}

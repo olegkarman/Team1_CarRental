@@ -9,12 +9,11 @@ namespace CarRental.Models;
 internal class Customer : User
 {
     public const float BasicDiscount = 0.5f;
-
-    public readonly string PassportNumber;
+    public string PassportNumber { get; init; }
     public required string DrivingLicenseNumber { get; set; }
 
     [SetsRequiredMembers]
-    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password , userName)
+    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
     {
         PassportNumber = passportNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
@@ -23,18 +22,5 @@ internal class Customer : User
 
 
 
-    /*FirstName: string
-    LastName: string
-    IdNumber: string
-    PassportNumber: string
-    DrivingLicenseNumber: string
-    DateOfBirth: DateTime
-    RentalDate: DateTime(if rented)
-    PurchaseDate: DateTime(if purchased)
-    Gender: string
-    Methods:
-    RentCar(Car car)
-    BuyCar(Car car)
-    ReturnCar(Car car)
-    PayMoney(double amount)*/
+
 }
