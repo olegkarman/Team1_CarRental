@@ -26,7 +26,7 @@ namespace CarRental.Models
             }
         }
 
-        internal void CreateDeal(int customerId, int carId, string type, float price)
+        internal Deal(int customerId, int carId, string type, float price)
         {
             this.dealType = type;
             this.price = price;
