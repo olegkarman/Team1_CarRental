@@ -55,7 +55,8 @@ public class Portal
                 case "1":
                     DisplayCars();
                     Console.ReadLine();
-                    Console.WriteLine("Press any key to continue");
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to continue...");
                     break;
                 case "2":
                     if (IsCustomer)
@@ -82,7 +83,8 @@ public class Portal
                     {
                         (UserData as Customer).ShowMyDeals();
                         Console.ReadLine();
-                        Console.WriteLine("Press any key to continue");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to continue...");
                     }
                     else
                     {
