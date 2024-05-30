@@ -3,20 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Enumerables;
 
 namespace CarRental.Models;
 internal class Car
 {
-    /*VinCode: string
-    SerialNumber: string
-    TransmissionType: string
-    Model: string
-    Brand: string
-    Year: int
-    Status: string (available, rented, sold, in repair, etc.)
-    Methods:
-    TakeCarFromParking()
-    SendToRepair()
-    Refuel()
-    RemoveCar()*/
+    public string Status { get; set; }
+    public string Brand { get; set; }
+    public string Model { get; set; }
+    public string SerialNumber { get; set; }
 }

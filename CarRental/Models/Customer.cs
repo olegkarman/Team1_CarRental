@@ -13,7 +13,7 @@ internal class Customer : User
     public required string DrivingLicenseNumber { get; set; }
 
     [SetsRequiredMembers]
-    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password , userName)
+    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
     {
         PassportNumber = passportNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
@@ -22,5 +22,5 @@ internal class Customer : User
 
 
 
-    
+
 }
