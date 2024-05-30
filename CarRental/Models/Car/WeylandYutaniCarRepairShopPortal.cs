@@ -31,10 +31,14 @@ public class WeylandYutaniCarRepairShopPortal
 
         // TEST
         Car car = serviceManager.GetNewCar();
-        Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
-        Console.WriteLine(car);
-        Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        Console.WriteLine(car.Record);
+        serviceManager.MakeNewListOf15Cars();
+        serviceManager.TrySelectCar(3);
+        Console.WriteLine(serviceManager.CheckFuelSelectedCar());
+
+        //Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
+        //Console.WriteLine(car);
+        //Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //Console.WriteLine(car.Record);
     }
 
     static public CarServiceManager InitializeManager()

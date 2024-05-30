@@ -17,10 +17,14 @@ internal class CarMechanic : ICarMechanics, ICanDrive
     // FIELDS
 
     private const string _noInfo = "NO INFO";
+    private Random _random;
+    
+    // PROPERTIES
+
     public NamesSurenames FirstName { get; init; }
     public string Id { get; init; }
     public NamesSurenames LastName { get; init; }
-    private Random _random;
+    
 
     // CONSTRUCTORS
 
@@ -34,10 +38,14 @@ internal class CarMechanic : ICarMechanics, ICanDrive
 
     // METHODS
 
+    // TO CHECK THE FUEK OF A CAR
+
     public float CheckFuel(Car car)
     {
         return car.CurrentFuel;
     }
+
+    // TO REFILL
 
     public void Refill(Car car, int amountFuel)
     {
@@ -91,6 +99,8 @@ internal class CarMechanic : ICarMechanics, ICanDrive
             return false;
         }
     }
+
+    // TO CHANGE COMPONENTS
 
     // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
     public bool TryReplaceComponent (Car car, CarEngine engine)

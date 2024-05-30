@@ -52,11 +52,11 @@ public record class BrandModelsNamesDataSheet
             },
 
             {
-                "ZAZ-965", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5000, 5500, /*MAX FUEL*/ 70, 70, /*CURRENT FUEL*/ 70, 70, /*SPPED COEF*/ 3, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 12, 12, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 118, 118, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 10, 10, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
+                "ZAZ-965", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5500, 5500, /*MAX FUEL*/ 70, 70, /*CURRENT FUEL*/ 70, 70, /*SPPED COEF*/ 3, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 12, 12, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 118, 118, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 10, 10, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
             },
 
             {
-                "ZAZ-968", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5000, 5500, /*MAX FUEL*/ 100, 100, /*CURRENT FUEL*/ 100, 100, /*SPPED COEF*/ 3, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 11, 11, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 119, 119, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 11, 11, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
+                "ZAZ-968", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 85, 85, /*PRICE*/ 5500, 5500, /*MAX FUEL*/ 100, 100, /*CURRENT FUEL*/ 100, 100, /*SPPED COEF*/ 3, 2, /*AVG FUEL CONS*/ 1, 1, /*FUEL ENGI*/ 11, 11, /*TYPE ENGI*/ 11, 11, /*POW ENGI*/ 10, 10, /*TYPE TRANSM*/ 11, 11, /*SPEED COUNT*/ 2, 2, /*COLOR INTE*/ 119, 119, /*MATERIAL INTE*/ 10, 10, /*MATERIAL WHEEL*/ 10, 10, /*SIZE WHEEL*/ 8, 8, /*TIRE*/ 11, 11, /*COLOUR LIGHTS*/ 30, 30, /*POWER LIGHTS*/ 10, 10, /*PITCH*/ 11, 11}
             },
 
             // PEG
@@ -250,7 +250,7 @@ public record class BrandModelsNamesDataSheet
             },
 
             {
-                "Creep", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 130, 130, /*PRICE*/ 105000,    104000, /*MAX FUEL*/ 360, 360, /*CURRENT FUEL*/ 360, 360, /*SPPED COEF*/ 13, 13, /*AVG FUEL CONS*/ 18, 18, /*FUEL ENGI*/ 14, 14, /*TYPE ENGI*/ 18, 18, /*POW ENGI*/ 27, 27, /*TYPE TRANSM*/ 12, 12, /*SPEED COUNT*/ 7, 7, /*COLOR INTE*/ 116, 116, /*MATERIAL INTE*/ 13, 13, /*MATERIAL WHEEL*/ 13, 13, /*SIZE WHEEL*/ 18, 18, /*TIRE*/ 16, 16, /*COLOUR LIGHTS*/ 35, 35, /*POWER LIGHTS*/ 12, 12, /*PITCH*/ 12, 12}
+                "Creep", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 130, 130, /*PRICE*/ 105000,    105000, /*MAX FUEL*/ 360, 360, /*CURRENT FUEL*/ 360, 360, /*SPPED COEF*/ 13, 13, /*AVG FUEL CONS*/ 18, 18, /*FUEL ENGI*/ 14, 14, /*TYPE ENGI*/ 18, 18, /*POW ENGI*/ 27, 27, /*TYPE TRANSM*/ 12, 12, /*SPEED COUNT*/ 7, 7, /*COLOR INTE*/ 116, 116, /*MATERIAL INTE*/ 13, 13, /*MATERIAL WHEEL*/ 13, 13, /*SIZE WHEEL*/ 18, 18, /*TIRE*/ 16, 16, /*COLOUR LIGHTS*/ 35, 35, /*POWER LIGHTS*/ 12, 12, /*PITCH*/ 12, 12}
             },
 
             {
@@ -262,11 +262,11 @@ public record class BrandModelsNamesDataSheet
             },
 
             {
-                "Wrangler", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 132, 132, /*PRICE*/ 156000,    156000, /*MAX FUEL*/ 300, 300, /*CURRENT FUEL*/ 300, 300, /*SPPED COEF*/ 17, 17, /*AVG FUEL CONS*/ 14, 14, /*FUEL ENGI*/ 15, 15, /*TYPE ENGI*/ 13, 13, /*POW ENGI*/ 25, 25, /*TYPE TRANSM*/ 12, 12, /*SPEED COUNT*/ 6, 6, /*COLOR INTE*/ 116, 116, /*MATERIAL INTE*/ 13, 13, /*MATERIAL WHEEL*/ 13, 13, /*SIZE WHEEL*/ 18, 18, /*TIRE*/ 16, 16, /*COLOUR LIGHTS*/ 34, 34, /*POWER LIGHTS*/ 12, 12, /*PITCH*/ 11, 11}
+                "Wrangler", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 132, 132, /*PRICE*/ 122000,    122000, /*MAX FUEL*/ 300, 300, /*CURRENT FUEL*/ 300, 300, /*SPPED COEF*/ 17, 17, /*AVG FUEL CONS*/ 14, 14, /*FUEL ENGI*/ 15, 15, /*TYPE ENGI*/ 13, 13, /*POW ENGI*/ 25, 25, /*TYPE TRANSM*/ 12, 12, /*SPEED COUNT*/ 6, 6, /*COLOR INTE*/ 116, 116, /*MATERIAL INTE*/ 13, 13, /*MATERIAL WHEEL*/ 13, 13, /*SIZE WHEEL*/ 18, 18, /*TIRE*/ 16, 16, /*COLOUR LIGHTS*/ 34, 34, /*POWER LIGHTS*/ 12, 12, /*PITCH*/ 11, 11}
             },
 
             {
-                "Ecco", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 132, 132, /*PRICE*/ 156000,    156000, /*MAX FUEL*/ 300, 300, /*CURRENT FUEL*/ 300, 300, /*SPPED COEF*/ 17, 17, /*AVG FUEL CONS*/ 12, 12, /*FUEL ENGI*/ 14, 14, /*TYPE ENGI*/ 14, 14, /*POW ENGI*/ 26, 26, /*TYPE TRANSM*/ 12, 12, /*SPEED COUNT*/ 6, 6, /*COLOR INTE*/ 116, 116, /*MATERIAL INTE*/ 13, 13, /*MATERIAL WHEEL*/ 13, 13, /*SIZE WHEEL*/ 18, 18, /*TIRE*/ 16, 16, /*COLOUR LIGHTS*/ 35, 35, /*POWER LIGHTS*/ 12, 12, /*PITCH*/ 11, 11}
+                "Ecco", new int[] { 1, 5, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, /*COLOUR*/ 132, 132, /*PRICE*/ 150000,    150000, /*MAX FUEL*/ 300, 300, /*CURRENT FUEL*/ 300, 300, /*SPPED COEF*/ 17, 17, /*AVG FUEL CONS*/ 12, 12, /*FUEL ENGI*/ 14, 14, /*TYPE ENGI*/ 14, 14, /*POW ENGI*/ 26, 26, /*TYPE TRANSM*/ 12, 12, /*SPEED COUNT*/ 6, 6, /*COLOR INTE*/ 116, 116, /*MATERIAL INTE*/ 13, 13, /*MATERIAL WHEEL*/ 13, 13, /*SIZE WHEEL*/ 18, 18, /*TIRE*/ 16, 16, /*COLOUR LIGHTS*/ 35, 35, /*POWER LIGHTS*/ 12, 12, /*PITCH*/ 11, 11}
             },
         };
     }

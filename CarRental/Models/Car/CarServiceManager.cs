@@ -16,6 +16,7 @@ public class CarServiceManager
 
     // FIELDS
 
+    private const string _noInfo = "NO INFO";
     private StringBuilder _carsInfo;
     private Random _random;
     private ServiceManagerSupplements _supplementData;
@@ -64,14 +65,20 @@ public class CarServiceManager
 
     // TO GENERATE A LIST OF CARS
 
-    public void MakeNewListOf15Cars(Depot depot, Dictionary<string, CarSelectPattern> patterns)
+    public void MakeNewListOf15Cars()
     {
         // TO ERASE ALL ELEMENTS.
         CurrentCars.Clear();
-
-        for(int index = 0; index < 15; index = index + 1)
+        try
         {
-            CurrentCars.Add(GetNewCar());
+            for (int index = 0; index < 15; index = index + 1)
+            {
+                CurrentCars.Add(GetNewCar());
+            }
+        }
+        catch(IndexOutOfRangeException exception)
+        {
+            throw exception;
         }
     }
 
@@ -284,6 +291,21 @@ public class CarServiceManager
         {
             _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~|{car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");    
         }
+
+        return _carsInfo.ToString();
+    }
+
+    // TO CHECK THE FUEL OF SELECTED CAR
+
+    public string CheckFuelSelectedCar()
+    {
+        _carsInfo.Clear();
+
+        float division = (float)_supplementData.Mechanic.CheckFuel(SelectedCar) / SelectedCar.MaxFuelCapacity;
+
+        division = (float)division * 100;
+        
+        _carsInfo.Append($"{(int)division}%");
 
         return _carsInfo.ToString();
     }
