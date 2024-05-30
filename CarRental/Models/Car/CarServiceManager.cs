@@ -281,6 +281,20 @@ public class CarServiceManager
         }
     }
 
+    // TO DISPLAY AVAILABLE CAR MODELS.
+
+    public string DisplayAllModels()
+    {
+        _carsInfo.Clear();
+
+        foreach(KeyValuePair<string, CarSelectPattern> pair in _supplementData.ModelsPatterns)
+        {
+            _carsInfo.Append(pair.Key + " | ");
+        }
+
+        return _carsInfo.ToString();
+    }
+
     // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
 
     public string DisplayCurrentCars()
@@ -289,7 +303,7 @@ public class CarServiceManager
 
         foreach (Car car in CurrentCars)
         {
-            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~|{car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");    
+            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");    
         }
 
         return _carsInfo.ToString();
@@ -308,6 +322,13 @@ public class CarServiceManager
         _carsInfo.Append($"{(int)division}%");
 
         return _carsInfo.ToString();
+    }
+
+    // TO REFILL THE SELECTED CAR
+
+    public void RefillSelectedCar()
+    {
+        _supplementData.Mechanic.Refill(SelectedCar);
     }
 
     // METHODS

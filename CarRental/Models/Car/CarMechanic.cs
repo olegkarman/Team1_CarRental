@@ -47,9 +47,9 @@ internal class CarMechanic : ICarMechanics, ICanDrive
 
     // TO REFILL
 
-    public void Refill(Car car, int amountFuel)
+    public void Refill(Car car)
     {
-        car.CurrentFuel = amountFuel;
+        car.CurrentFuel = car.MaxFuelCapacity;
     }
 
     public bool LetsDrive(Car car)
@@ -57,7 +57,7 @@ internal class CarMechanic : ICarMechanics, ICanDrive
         float averageSpeed = (float)(car.MaxSpeed / 2);
         int drivingTime = _random.Next(0, 101);
 
-        // THROW ITSELF AS ARGUMENT.
+        // THROW ITSELF AS AN ARGUMENT.
         return car.Drive(this, averageSpeed, drivingTime);
     }
 

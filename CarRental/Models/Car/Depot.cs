@@ -81,7 +81,7 @@ public class Depot
             VinCode = carCode,
 
             Mileage = 100,   // AVTOPROBIG FOR NEW CARS.
-            CurrentFuel = _random.Next(pattern.CurrentFuelInitial, pattern.CurrentFuelEnd),
+            CurrentFuel = _random.Next(pattern.CurrentFuelInitial/2, pattern.CurrentFuelEnd),
             MaxFuelCapacity = _random.Next(pattern.MaxFuelCapacityInitial, pattern.MaxFuelCapacityEnd),
             SpeedCoeficient = _random.Next(pattern.SpeedCoeficientInitial, pattern.SpeedCoeficientEnd),
             Color = (KnownColor)_random.Next(pattern.ColorCarInitial, pattern.ColorCarEnd),

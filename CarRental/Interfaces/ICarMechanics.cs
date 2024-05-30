@@ -22,5 +22,5 @@ public interface ICarMechanics
     public bool TryFixComponent(IComponent component);
 
     internal float CheckFuel(Car car);
-    internal void Refill(Car car, int amountFuel);
+    internal void Refill(Car car);
 }

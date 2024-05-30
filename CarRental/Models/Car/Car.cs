@@ -142,14 +142,16 @@ internal class Car : Interfaces.ICar
 
         init
         {
-            if (value < 0)
-            {
-                _maxFuelCapacity = 0;
-            }
-            else
-            {
-                _maxFuelCapacity = value;
-            }
+            //    //if (value < 0)
+            //    //{
+            //    //    _maxFuelCapacity = 0;
+            //    //}
+            //    //else
+            //    //{
+            //    //    _maxFuelCapacity = value;
+            //    //}
+
+            _maxFuelCapacity = value;
         }
     }
 
@@ -163,26 +165,27 @@ internal class Car : Interfaces.ICar
 
         set
         {
-            if (value < 0)
-            {
-                _currentFuel = _currentFuel - value;
+            //if (value < 0)
+            //{
+            //    _currentFuel = _currentFuel - value;
 
-                // IT CANNOT BE LESS THAN ZERO.
-                if (_currentFuel < 0)
-                {
-                    _currentFuel = 0;
-                }
-            }
+            //    // IT CANNOT BE LESS THAN ZERO.
+            //    if (_currentFuel < 0)
+            //    {
+            //        _currentFuel = 0;
+            //    }
+            //}
+            //// IT CANNOT BE LARGER THAN THE MAX FUEL.
+            //else if (value >= this.MaxFuelCapacity)
+            //{
+            //    _currentFuel = _maxFuelCapacity;
+            //}
+            //else
+            //{
+            //    _currentFuel = value;
+            //}
 
-            // IT CANNOT BE LARGER THAN THE MAX FUEL.
-            else if (value >= this.MaxFuelCapacity)
-            {
-                _currentFuel = _maxFuelCapacity;
-            }
-            else
-            {
-                _currentFuel = value;
-            }
+            _currentFuel = value;
         }
     }
 
