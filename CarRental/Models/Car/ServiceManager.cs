@@ -83,7 +83,7 @@ public class ServiceManager
                 CurrentCars.Add(GetNewCar());
             }
         }
-        catch(IndexOutOfRangeException exception)
+        catch (IndexOutOfRangeException exception)
         {
             throw exception;
         }
@@ -107,7 +107,7 @@ public class ServiceManager
                 return true;
             }
         }
-        catch(IndexOutOfRangeException exception)
+        catch (IndexOutOfRangeException exception)
         {
             throw exception;
         }
@@ -141,7 +141,7 @@ public class ServiceManager
 
             return true;
         }
-        catch(FormatException exception)
+        catch (FormatException exception)
         {
             throw exception;
         }
@@ -155,7 +155,7 @@ public class ServiceManager
         {
             CurrentCars.RemoveAt(index);
         }
-        catch(IndexOutOfRangeException exception)
+        catch (IndexOutOfRangeException exception)
         {
             throw exception;
         }
@@ -167,15 +167,15 @@ public class ServiceManager
         {
             CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
         }
-        catch(KeyNotFoundException exception)
+        catch (KeyNotFoundException exception)
         {
             throw exception;
         }
-        catch(IndexOutOfRangeException exception)
+        catch (IndexOutOfRangeException exception)
         {
             throw exception;
         }
-        catch(FormatException exception)
+        catch (FormatException exception)
         {
             throw exception;
         }
@@ -186,6 +186,30 @@ public class ServiceManager
     public void DeleteAllCarsFromList()
     {
         CurrentCars.Clear();
+    }
+
+    // GET CAR BY INDEX
+    internal Car? GetCar(int index)
+    {
+        try
+        {
+            if ((index <= 0) || (index > CurrentCars.Count))
+            {
+                return null;
+            }
+            else
+            {
+                return CurrentCars[index];
+            }
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO TAKE OFF A CAR FROM THE LIST
@@ -205,7 +229,7 @@ public class ServiceManager
                 return true;
             }
         }
-        catch(IndexOutOfRangeException exception)
+        catch (IndexOutOfRangeException exception)
         {
             throw exception;
         }
@@ -252,7 +276,7 @@ public class ServiceManager
         {
             return this.SelectedCar.ToString();    // MAKE BETTER FORMATTING PLS.
         }
-        catch(ArgumentNullException exception)
+        catch (ArgumentNullException exception)
         {
             throw exception;
         }
@@ -301,12 +325,29 @@ public class ServiceManager
     {
         _carsInfo.Clear();
 
-        foreach(KeyValuePair<string, SelectPattern> pair in _supplementData.ModelsPatterns)
+        foreach (KeyValuePair<string, SelectPattern> pair in _supplementData.ModelsPatterns)
         {
             _carsInfo.Append(pair.Key + " | ");
         }
 
         return _carsInfo.ToString();
+    }
+
+    // TO DISPLAY LIST OF CARS IN TABLE
+
+    public void DisplayCarsInTable()
+    {
+        string line = new string('-', 110); // adjust the number to fit your table
+        string format = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10} | {5,-10} | {6,-10} | {7,-10} | {8,-20}";
+
+        Console.WriteLine(format, "Index", "Brand", "Model", "Year", "Price", "Status", "FitForUse", "PlateNumber", "VinCode");
+        Console.WriteLine(line);
+
+        for (int i = 0; i < CurrentCars.Count; i++)
+        {
+            var car = CurrentCars[i];
+            Console.WriteLine(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Record.NumberPlate, car.VinCode);
+        }
     }
 
     // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
@@ -317,7 +358,7 @@ public class ServiceManager
 
         foreach (Car car in CurrentCars)
         {
-            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");    
+            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
         }
 
         return _carsInfo.ToString();
@@ -332,7 +373,7 @@ public class ServiceManager
         float division = (float)_supplementData.Mechanic.CheckFuel(SelectedCar) / SelectedCar.MaxFuelCapacity;
 
         division = (float)division * 100;
-        
+
         _carsInfo.Append($"{(int)division}%");
 
         return _carsInfo.ToString();

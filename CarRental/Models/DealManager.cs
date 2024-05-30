@@ -16,7 +16,7 @@ public class DealManager
         fileName = Path.Combine(Directory.GetCurrentDirectory(), "dealInfo.json");
     }
 
-    public string ConvertToJson(Dictionary<int, Tuple<int, int, string, float, DateTime>> dealDictionary)
+    public string ConvertToJson(Dictionary<int, Tuple<string, string, string, float, DateTime>> dealDictionary)
     {
         string jsonString = JsonSerializer.Serialize(dealDictionary, new JsonSerializerOptions
         {
@@ -26,7 +26,7 @@ public class DealManager
     }
 
     public
-        Dictionary<int, Tuple<int, int, string, float, DateTime>>
+        Dictionary<int, Tuple<string, string, string, float, DateTime>>
         Deserialize(string jsonString)
     {
         if (jsonString == "")
@@ -36,12 +36,12 @@ public class DealManager
 
         var dealDictionary =
             JsonSerializer.Deserialize
-            <Dictionary<int, Tuple<int, int, string, float, DateTime>>>(jsonString);
+            <Dictionary<int, Tuple<string, string, string, float, DateTime>>>(jsonString);
 
         return dealDictionary;
     }
 
-    public void SaveDealInfo(Dictionary<int, Tuple<int, int, string, float, DateTime>> newDeal)
+    public void SaveDealInfo(Dictionary<int, Tuple<string, string, string, float, DateTime>> newDeal)
     {
         string filePath = Path.Combine(currentDirectory, fileName);
 
@@ -94,7 +94,7 @@ public class DealManager
     }
 
     public
-        Dictionary<int, Tuple<int, int, string, float, DateTime>>
+        Dictionary<int, Tuple<string, string, string, float, DateTime>>
         GetAllDealsDict()
     {
         try
@@ -105,8 +105,8 @@ public class DealManager
         }
         catch (System.IO.FileNotFoundException)
         {
-            return new Dictionary<int, Tuple<int, int, string, float, DateTime>>();
+            return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
         }
-        
+
     }
 }
