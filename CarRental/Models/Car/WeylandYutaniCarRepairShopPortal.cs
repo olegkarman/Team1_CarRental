@@ -38,14 +38,16 @@ public class WeylandYutaniCarRepairShopPortal
         // \\ // \\ // \\ // \\// \\ // \\ // \\ // \\ // \\ // \\
         Car car = serviceManager.GetNewCar();
         serviceManager.MakeNewListOf15Cars();
-        serviceManager.TrySelectCar(3);
-        Console.WriteLine(serviceManager.CheckFuelSelectedCar());
-        serviceManager.RefillSelectedCar();
-        Console.WriteLine(serviceManager.ShowMileageSelected());
-        Console.WriteLine(serviceManager.CheckFuelSelectedCar());
-        Console.WriteLine(serviceManager.DisplayCurrentCars());
-        Console.WriteLine(serviceManager.DisplayAllModels());
-        Console.WriteLine(serviceManager.CheckSignal());
+        //serviceManager.TrySelectCar(5);
+        //serviceManager.DisplayCurrentCar();
+        serviceManager.DisplayCar(5);
+        //Console.WriteLine(serviceManager.CheckFuelSelectedCar());
+        //serviceManager.RefillSelectedCar();
+        //Console.WriteLine(serviceManager.ShowMileageSelected());
+        //Console.WriteLine(serviceManager.CheckFuelSelectedCar());
+        //Console.WriteLine(serviceManager.DisplayCurrentCars());
+        //Console.WriteLine(serviceManager.DisplayAllModels());
+        //Console.WriteLine(serviceManager.CheckSignal());
         // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\
 
         //Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
@@ -54,35 +56,35 @@ public class WeylandYutaniCarRepairShopPortal
         //Console.WriteLine(car.Record);
     }
 
-    static public ServiceManager InitializeManager()
-    {
-        return new ServiceManager();
-    }
+    //static public ServiceManager InitializeManager()
+    //{
+    //    return new ServiceManager();
+    //}
 
-    static public Dictionary<string, SelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
-    {
-        return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
-    }
+    //static public Dictionary<string, SelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    //{
+    //    return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
+    //}
 
-    static public BrandRecord[] InitializeBrandRecords(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
-    {
-        return patternInitializator.InitializeBrandRecords(data);
-    }
+    //static public BrandRecord[] InitializeBrandRecords(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
+    //{
+    //    return patternInitializator.InitializeBrandRecords(data);
+    //}
 
-    static public PatternInitializator InitializePatternInitializator()
-    {
-        return new PatternInitializator();
-    }
+    //static public PatternInitializator InitializePatternInitializator()
+    //{
+    //    return new PatternInitializator();
+    //}
 
-    static public BrandModelsNamesDataSheet InitializeData()
-    {
-        return new BrandModelsNamesDataSheet();
-    }
+    //static public BrandModelsNamesDataSheet InitializeData()
+    //{
+    //    return new BrandModelsNamesDataSheet();
+    //}
 
-    static public Depot InitializeDepot()
-    {
-        return new CarRental.Models.Car.Depot();
-    }
+    //static public Depot InitializeDepot()
+    //{
+    //    return new CarRental.Models.Car.Depot();
+    //}
 
     public static void Initialize()
     {

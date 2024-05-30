@@ -44,7 +44,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
 
     // METHODS
 
-    // TO CHECK THE FUEK OF A CAR
+    // TO CHECK THE FUEL OF A CAR
 
     public float CheckFuel(Models.Car.Car car)
     {
@@ -115,7 +115,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
     // TO CHANGE COMPONENTS
 
     // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
-    public bool TryReplaceComponent (Models.Car.Car car, Models.Car.Engine engine)
+    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Engine engine)
     {
         if (car.Engine.Type.Equals(engine.Type))
         {
@@ -144,8 +144,8 @@ internal class Mechanic : ICarMechanics, ICanDrive
     // TO CHANGE INTERIOR IS ALWAYS AVAILABLE.
     public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Interior interior)
     {
-            car.Interior = interior;
-            return true;
+        car.Interior = interior;
+        return true;
     }
 
     // CHECK SIZE, IF EQUAL, REPLACE.
@@ -168,7 +168,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
         car.Color = color;
     }
 
-    // CHANGE TIRE OF A CAR.
+    //CHANGE TIRE OF A CAR.
     public bool TryReplaceComponent(Models.Car.Car car, Models.Car.TypeTire tire)
     {
         car.Wheels.Tire = tire;
