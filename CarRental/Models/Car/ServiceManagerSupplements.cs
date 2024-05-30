@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 3. Methods, properties"
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 30-MAY-2024
+
 namespace CarRental.Models.Car;
 
 internal class ServiceManagerSupplements

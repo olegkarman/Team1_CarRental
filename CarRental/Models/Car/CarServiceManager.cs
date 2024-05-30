@@ -6,6 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Models.Car;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 3. Methods, properties"
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 30-MAY-2024
+
 namespace CarRental.Models.Car;
 
 public class CarServiceManager
@@ -322,6 +327,13 @@ public class CarServiceManager
         _carsInfo.Append($"{(int)division}%");
 
         return _carsInfo.ToString();
+    }
+
+    // TO CHECK THE MILEAGE
+
+    public string ShowMileageSelected()
+    {
+        return SelectedCar.Mileage.ToString();
     }
 
     // TO REFILL THE SELECTED CAR

@@ -8,6 +8,11 @@ using System.Diagnostics.CodeAnalysis;
 using CarRental.Enumerables;
 using CarRental.Interfaces;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 3. Methods, properties"
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 30-MAY-2024
+
 namespace CarRental.Models.Car;
 
 internal class Car : Interfaces.ICar

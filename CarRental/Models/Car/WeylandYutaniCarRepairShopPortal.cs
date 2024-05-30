@@ -5,6 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 3. Methods, properties"
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 30-MAY-2024
+
 namespace CarRental.Models.Car;
 
 public class WeylandYutaniCarRepairShopPortal
@@ -30,14 +35,17 @@ public class WeylandYutaniCarRepairShopPortal
         serviceManager.InitializeManagment();
 
         // TEST
+        // \\ // \\ // \\ // \\// \\ // \\ // \\ // \\ // \\ // \\
         Car car = serviceManager.GetNewCar();
         serviceManager.MakeNewListOf15Cars();
         serviceManager.TrySelectCar(3);
         Console.WriteLine(serviceManager.CheckFuelSelectedCar());
         serviceManager.RefillSelectedCar();
+        Console.WriteLine(serviceManager.ShowMileageSelected());
         Console.WriteLine(serviceManager.CheckFuelSelectedCar());
         Console.WriteLine(serviceManager.DisplayCurrentCars());
         Console.WriteLine(serviceManager.DisplayAllModels());
+        // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\
 
         //Console.WriteLine("I WANTED TO SELECT: JEEP DAKAR\nI SELECTED:");
         //Console.WriteLine(car);
