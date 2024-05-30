@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Enumerables;
 using CarRental.Interfaces;
+using CarRental.Models.Car;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -15,7 +16,7 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
-internal class Car : Interfaces.ICar
+internal class Car : ICar
 {
     // THE PURPOSE OF THE CLASS:
     // // A MAIN TYPE CLASS THAT DEFINES THE BEHAVIOR OF A CAR ABSTRACTION.
@@ -79,25 +80,17 @@ internal class Car : Interfaces.ICar
 
     // PROPERTIES
 
-    public required AbstractEngine Engine
+    public required Models.Car.AbstractEngine Engine
     {
         get;
-        //{
-        //    return Engine;
-        //}
-
         set;
-        //{
-        //    _current = value;
-        //    // AFTER EVERY ENGINE SET UPDATE MAX SPEED.
-        //    this.SetMaxSpeed();
-        //}
     }
-    public required AbstractInterior Interior { get; set; }
-    public required AbstractWheels Wheels { get; set; }
-    public required AbstractTransmission Transmission { get; set; }
 
-    public required ICarRecordable Record { get; set; }
+    public required Models.Car.AbstractInterior Interior { get; set; }
+    public required Models.Car.AbstractWheels Wheels { get; set; }
+    public required Models.Car.AbstractTransmission Transmission { get; set; }
+
+    public ICarRecordable Record { get; set; }
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
@@ -147,15 +140,6 @@ internal class Car : Interfaces.ICar
 
         init
         {
-            //    //if (value < 0)
-            //    //{
-            //    //    _maxFuelCapacity = 0;
-            //    //}
-            //    //else
-            //    //{
-            //    //    _maxFuelCapacity = value;
-            //    //}
-
             _maxFuelCapacity = value;
         }
     }
@@ -170,26 +154,6 @@ internal class Car : Interfaces.ICar
 
         set
         {
-            //if (value < 0)
-            //{
-            //    _currentFuel = _currentFuel - value;
-
-            //    // IT CANNOT BE LESS THAN ZERO.
-            //    if (_currentFuel < 0)
-            //    {
-            //        _currentFuel = 0;
-            //    }
-            //}
-            //// IT CANNOT BE LARGER THAN THE MAX FUEL.
-            //else if (value >= this.MaxFuelCapacity)
-            //{
-            //    _currentFuel = _maxFuelCapacity;
-            //}
-            //else
-            //{
-            //    _currentFuel = value;
-            //}
-
             _currentFuel = value;
         }
     }

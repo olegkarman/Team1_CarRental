@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Models.Car;
+using CarRental.Models;
+
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -14,5 +15,5 @@ namespace CarRental.Interfaces;
 
 public interface ICanDrive
 {
-    internal bool LetsDrive(Car car);
+    public bool LetsDrive();
 }

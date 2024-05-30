@@ -7,6 +7,7 @@ using System.Drawing;
 using CarRental.Enumerables;
 using CarRental.Models.Car;
 
+
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
 // STUDENT: PARKHOMENKO YAROSLAV
@@ -16,16 +17,16 @@ namespace CarRental.Interfaces;
 
 public interface ICarMechanics
 {
-    internal bool TryReplaceComponent(Car car, Engine engine);
-    internal bool TryReplaceComponent(Car car, Transmission transmission);
-    internal bool TryReplaceComponent(Car car, Interior interior);
-    internal bool TryReplaceComponent(Car car, Wheels wheels);
-    internal bool TryReplaceComponent(Car car, TypeTire tire);
-    internal void Paint(Car car, KnownColor color);
+    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Engine engine);
+    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Transmission transmission);
+    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Interior interior);
+    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.Wheels wheels);
+    internal bool TryReplaceComponent(CarRental.Models.Car.Car car, CarRental.Models.Car.TypeTire tire);
+    internal void Paint(CarRental.Models.Car.Car car, KnownColor color);
 
-    public ComponentStatus CheckComponent(IComponent component);
-    public bool TryFixComponent(IComponent component);
+    public ComponentStatus CheckComponent(CarRental.Interfaces.IComponent component);
+    public bool TryFixComponent(CarRental.Interfaces.IComponent component);
 
-    internal float CheckFuel(Car car);
-    internal void Refill(Car car);
+    internal float CheckFuel(CarRental.Models.Car.Car car);
+    internal void Refill(CarRental.Models.Car.Car car);
 }

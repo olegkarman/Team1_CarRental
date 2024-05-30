@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using CarRental.Enumerables;
 using CarRental.Interfaces;
+using CarRental.Models.Car;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -23,13 +24,13 @@ internal class Mechanic : ICarMechanics, ICanDrive
 
     private const string _noInfo = "NO INFO";
     private Random _random;
-    
+
     // PROPERTIES
 
     public NamesSurenames FirstName { get; init; }
     public string Id { get; init; }
     public NamesSurenames LastName { get; init; }
-    
+
 
     // CONSTRUCTORS
 
@@ -45,25 +46,31 @@ internal class Mechanic : ICarMechanics, ICanDrive
 
     // TO CHECK THE FUEK OF A CAR
 
-    public float CheckFuel(Car car)
+    public float CheckFuel(Models.Car.Car car)
     {
         return car.CurrentFuel;
     }
 
     // TO REFILL
 
-    public void Refill(Car car)
+    public void Refill(Models.Car.Car car)
     {
         car.CurrentFuel = car.MaxFuelCapacity;
     }
 
-    public bool LetsDrive(Car car)
-    {
-        float averageSpeed = (float)(car.MaxSpeed / 2);
-        int drivingTime = _random.Next(0, 101);
+    // ЗКОМЕНТУВАВ, ЧЕРЕЗ ТЕ ЩО ПІСЛЯ НЕВДАЛОГО ЛОКАЛЬНОГО МЕРЖУ, ЧОМУСЬ ПЕРЕСТАЛИ ПІДКЛЮЧАТИСЯ ІНТЕРФЕЙСИ.
 
-        // THROW ITSELF AS AN ARGUMENT.
-        return car.Drive(this, averageSpeed, drivingTime);
+    //internal bool LetsDrive(CarRental.Models.Car.Car car)
+    //{
+    //    float averageSpeed = (float)(car.MaxSpeed / 2);
+    //    int drivingTime = _random.Next(0, 101);
+
+    //    // THROW ITSELF AS AN ARGUMENT.
+    //    return car.Drive(this, averageSpeed, drivingTime);
+    //}
+    public bool LetsDrive()
+    {
+        return true;
     }
 
     // TO CHECK IF A COMPONENT OF A CAR IS NEED TO BE FIXED.
@@ -73,7 +80,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
     }
 
     // CHECK A WHOLE CAR. COMPONENT BY COMPONENT.
-    public TransportStatus CheckCar(Car car)
+    public TransportStatus CheckCar(Models.Car.Car car)
     {
         bool isNeedToBeFixed = ((car.Engine.Status == ComponentStatus.fixIsNeed) || (car.Engine.Status == ComponentStatus.broken)) || ((car.Transmission.Status == ComponentStatus.fixIsNeed) || (car.Transmission.Status == ComponentStatus.broken)) || ((car.Wheels.Status == ComponentStatus.fixIsNeed) || (car.Wheels.Status == ComponentStatus.broken));
 
@@ -108,7 +115,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
     // TO CHANGE COMPONENTS
 
     // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
-    public bool TryReplaceComponent (Car car, Engine engine)
+    public bool TryReplaceComponent (Models.Car.Car car, Models.Car.Engine engine)
     {
         if (car.Engine.Type.Equals(engine.Type))
         {
@@ -121,7 +128,7 @@ internal class Mechanic : ICarMechanics, ICanDrive
         }
     }
 
-    public bool TryReplaceComponent(Car car, Transmission transmission)
+    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Transmission transmission)
     {
         if (car.Transmission.Type.Equals(transmission.Type))
         {
@@ -135,14 +142,14 @@ internal class Mechanic : ICarMechanics, ICanDrive
     }
 
     // TO CHANGE INTERIOR IS ALWAYS AVAILABLE.
-    public bool TryReplaceComponent(Car car, Interior interior)
+    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Interior interior)
     {
             car.Interior = interior;
             return true;
     }
 
     // CHECK SIZE, IF EQUAL, REPLACE.
-    public bool TryReplaceComponent(Car car, Wheels wheels)
+    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Wheels wheels)
     {
         if (car.Wheels.Size.Equals(wheels.Size))
         {
@@ -156,13 +163,13 @@ internal class Mechanic : ICarMechanics, ICanDrive
     }
 
     // PAINT A CAR.
-    public void Paint(Car car, KnownColor color)
+    public void Paint(Models.Car.Car car, KnownColor color)
     {
         car.Color = color;
     }
 
     // CHANGE TIRE OF A CAR.
-    public bool TryReplaceComponent(Car car, TypeTire tire)
+    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.TypeTire tire)
     {
         car.Wheels.Tire = tire;
         return true;

@@ -329,7 +329,7 @@ public class ServiceManager
     {
         _carsInfo.Clear();
 
-        float division = (float)_supplementData.Mechanic.CheckFuel(SelectedCar) / SelectedCar.MaxFuelCapacity;
+        float division = (float)_supplementData.Mechanic.CheckFuel(CarRental.Models.Car.SelectedCar) / SelectedCar.MaxFuelCapacity;
 
         division = (float)division * 100;
         
@@ -342,14 +342,14 @@ public class ServiceManager
 
     public string ShowMileageSelected()
     {
-        return SelectedCar.Mileage.ToString();
+        return CarRental.Models.Car.SelectedCar.Mileage.ToString();
     }
 
     // TO REFILL THE SELECTED CAR
 
     public void RefillSelectedCar()
     {
-        _supplementData.Mechanic.Refill(SelectedCar);
+        _supplementData.Mechanic.Refill(CarRental.Models.Car.SelectedCar);
     }
 
     // CHECK SIGNAL
