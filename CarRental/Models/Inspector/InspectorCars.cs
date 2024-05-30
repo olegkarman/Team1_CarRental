@@ -40,8 +40,9 @@ internal class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    internal void InspectCar(Car car) //Інспектувати по пробігу, даті,стану кузова
+    internal void InspectCar(Car car, Inspection inspection) //Інспектувати по пробігу, даті,стану кузова
     {
+
 
         if (Mileage < 200000 && ReleaseDate >= 2015 && ExteriorCondition >= 1)
         {
@@ -53,20 +54,20 @@ internal class InspectorCars
         }
     }
 
-    public void RecordInspectionResult(Car car, TransportStatus inspectionResult)
+    public void RecordInspectionResult(Car car, InspectionStatusType inspectionResult)
     {
         if (car != null)
         {
             switch (inspectionResult)
             {
-                case TransportStatus.available:
+                case InspectionStatusType.Successfully:
                     car.Status = "Ready";
                     break;
-                case TransportStatus.inRepair:
+                case InspectionStatusType.Repair:
                     car.Status = "Repair";
                     RemoveCarIfUnfit(car);
                     break;
-                case TransportStatus.unavailable:
+                case InspectionStatusType.Unusable:
                     car.Status = "Broken";
                     RemoveCarIfUnfit(car);
                     break;

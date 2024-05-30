@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models;
 internal class Inspector : User
 {
-    private readonly DateTime EmploymentDate; //Додати readonly поле (string Year)
+    public DateTime EmploymentDate { get; init; } //Додати readonly поле (string Year)
 
+    [SetsRequiredMembers]
     public Inspector(string? firstName, string? lastName, DateTime dateOfBirth, DateTime employmentDate, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
     {
         EmploymentDate = employmentDate;
-    }
-    public Inspector(string firstName, string lastName, DateTime dateOfBirth, string password, string userName)
-          : this(firstName, lastName, dateOfBirth, DateTime.Now, password, userName)
-    {
-        Console.WriteLine("Inspector object created with default employment date."); // Додати на нього оверлоадінг overloading. 
     }
     public string GetInspectorInfo() //Додати метод (string GetCarInfo() який виводить Id, Year та Mark)
     {
