@@ -53,23 +53,25 @@ internal class InspectorCars
         if (car.Mileage < 200000 && car.ReleaseDate >= 2015 && car.ExteriorCondition >= 1)
         {
             var chosenInspector = inspectors[0];
-            var inspection = new Inspection(chosenInspector.FirstName, 1, InspectionStatusType.Successfully);
+            var inspection = new Inspection(chosenInspector.FirstName, carId, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
             InspectionManager.AddInspection(inspection);
         }
         else if (car.Mileage >= 200000 || car.ReleaseDate < 2015 || car.ExteriorCondition < 1)
         {
             var chosenInspector = inspectors[0];
-            var inspection = new Inspection(chosenInspector.FirstName, 1, InspectionStatusType.Repair);
+            var inspection = new Inspection(chosenInspector.FirstName, carId, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
+            InspectionManager.AddInspection(inspection);
         }
         else
         {
             var chosenInspector = inspectors[0];
-            var inspection = new Inspection(chosenInspector.FirstName, 1, InspectionStatusType.Unusable);
+            var inspection = new Inspection(chosenInspector.FirstName, carId, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
+            InspectionManager.AddInspection(inspection);
         }
     }
 
