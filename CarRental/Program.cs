@@ -6,6 +6,13 @@ class CarRentalPortal
 {
     static void Main(string[] args)
     {
+        //
+        // YPARKHOMENKO, TEST...
+        //// Starting point. Show menu, etc.
+        //Console.WriteLine("Showing menu");
+        //CarRental.Models.Car.WeylandYutaniCarRepairShopPortal.DisplayMenu();
+        //
+
         ConsoleHelper.ApplyConsoleStyles();
         var login = new Login();
         var (user, isCustomer) = login.StartLogin();
