@@ -39,27 +39,27 @@ public class Depot
     // MEHODS
 
     // TO SELECT A PATTERN ON WHICH CAR-INSTANCE GENERATES.
-    public CarSelectPattern SelectCarComplectationPattern(Dictionary<string, CarSelectPattern> patterns)
+    public SelectPattern SelectCarComplectationPattern(Dictionary<string, SelectPattern> patterns)
     {
         string[] models = patterns.Keys.ToArray();
 
         // SELECTS AT PSEUDO-RANDOM A MODEL.
         string model = models[_random.Next(0, models.Length)];
 
-        CarSelectPattern pattern = patterns[model];
+        SelectPattern pattern = patterns[model];
         
         return pattern;
     }
 
     // SELECT PATTERN FROM A SPECIFIC MODEL.
-    public CarSelectPattern SelectCarComplectationPattern(Dictionary<string, CarSelectPattern> patterns, string model)
+    public SelectPattern SelectCarComplectationPattern(Dictionary<string, SelectPattern> patterns, string model)
     {
-        CarSelectPattern pattern = patterns[model];
+        SelectPattern pattern = patterns[model];
 
         return pattern;
     }
 
-    internal Car ObtainNewCar(CarSelectPattern pattern)
+    internal Car ObtainNewCar(SelectPattern pattern)
     {
         string carCode = GetSerialNumber(pattern);
         int yearToSet = _random.Next(1960, 2025);
@@ -97,7 +97,7 @@ public class Depot
             IsFitForUse = isFitForUse,
 
             // ENGINE
-            Engine = new CarEngine
+            Engine = new Engine
             {
                 SerialNumber = GetSerialNumber(pattern),
                 AverageFuelConsumption = _random.Next(pattern.AverageFuelConsumptionInitial, pattern.AverageFuelConsumptionEnd),
@@ -108,7 +108,7 @@ public class Depot
             },
 
             // TRANSMISSION
-            Transmission = new CarTransmission
+            Transmission = new Transmission
             {
                 SerialNumber = GetSerialNumber(pattern),
                 Type = (TypeTransmission)_random.Next(pattern.TypeTransmissionInitial, pattern.TypeTransmissionEnd),
@@ -117,7 +117,7 @@ public class Depot
             },
 
             // INTERIOR
-            Interior = new CarInterior
+            Interior = new Interior
             {
                 Color = (KnownColor)_random.Next(pattern.ColorInteriorInitial, pattern.ColorInteriorEnd),
                 Material = (MaterialInterior)_random.Next(pattern.MaterialInteriorInitial, pattern.MaterialInteriorEnd),
@@ -125,7 +125,7 @@ public class Depot
             },
 
             // WHEELS
-            Wheels = new CarWheels
+            Wheels = new Wheels
             {
                 Material = (MaterialWheel)_random.Next(pattern.MaterialWheelsInitial, pattern.MaterialWheelsEnd),
                 Size = _random.Next(pattern.SizeWheelsInitial, pattern.SizeWheelsEnd),
@@ -134,7 +134,7 @@ public class Depot
             },
 
             // LIGHTS
-            Lights = new CarLights
+            Lights = new Lights
             {
                 Color = (KnownColor)_random.Next(pattern.ColorLightsInitial, pattern.ColorLightsEnd),
                 Power = (PowerComponent)_random.Next(pattern.PowerLightsInitial, pattern.PowerLightsEnd),
@@ -142,14 +142,14 @@ public class Depot
             },
 
             // SIGNAL
-            Signal = new CarSignal
+            Signal = new Signal
             {
                 Pitch = (PitchComponent)_random.Next(pattern.PitchInitial, pattern.PitchEnd),
                 Status = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
             },
 
             // THE RECORD
-            Record = new CarRecord
+            Record = new Record
             {
                 RecordId = GetSerialNumber(pattern),
                 VinCode = carCode,

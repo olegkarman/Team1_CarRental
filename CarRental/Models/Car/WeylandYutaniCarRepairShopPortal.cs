@@ -30,7 +30,7 @@ public class WeylandYutaniCarRepairShopPortal
         //CarServiceManager manager = InitializeManager();
         //Dictionary<string, CarSelectPattern> patterns = InitializeDictionaryModelPattern(patternInit, brandRecords, data);
 
-        CarServiceManager serviceManager = new CarServiceManager();
+        ServiceManager serviceManager = new ServiceManager();
 
         serviceManager.InitializeManagment();
 
@@ -53,12 +53,12 @@ public class WeylandYutaniCarRepairShopPortal
         //Console.WriteLine(car.Record);
     }
 
-    static public CarServiceManager InitializeManager()
+    static public ServiceManager InitializeManager()
     {
-        return new CarServiceManager();
+        return new ServiceManager();
     }
 
-    static public Dictionary<string, CarSelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    static public Dictionary<string, SelectPattern> InitializeDictionaryModelPattern(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
     }

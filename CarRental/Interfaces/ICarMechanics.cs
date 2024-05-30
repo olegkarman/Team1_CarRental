@@ -16,10 +16,10 @@ namespace CarRental.Interfaces;
 
 public interface ICarMechanics
 {
-    internal bool TryReplaceComponent(Car car, CarEngine engine);
-    internal bool TryReplaceComponent(Car car, CarTransmission transmission);
-    internal bool TryReplaceComponent(Car car, CarInterior interior);
-    internal bool TryReplaceComponent(Car car, CarWheels wheels);
+    internal bool TryReplaceComponent(Car car, Engine engine);
+    internal bool TryReplaceComponent(Car car, Transmission transmission);
+    internal bool TryReplaceComponent(Car car, Interior interior);
+    internal bool TryReplaceComponent(Car car, Wheels wheels);
     internal bool TryReplaceComponent(Car car, TypeTire tire);
     internal void Paint(Car car, KnownColor color);
 

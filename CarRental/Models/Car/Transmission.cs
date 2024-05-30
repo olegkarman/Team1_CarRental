@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,16 +13,18 @@ using CarRental.Enumerables;
 
 namespace CarRental.Models.Car;
 
-internal class CarLights : AbstractLights
+internal class Transmission : AbstractTransmission
 {
-    // THE PURPOSE OF THE CLASS:
-    // // A COMPONENT OF A CAR.
+    // FIELDS
+
+    private const string _noInfo = "NO INFO";
 
     // PROPERTIES
 
-    public override KnownColor Color { get; init; }
-    public override PowerComponent Power { get; init; }
-    public override required ComponentStatus Status { get; set; }
+    internal override required string SerialNumber { get; init; }
+    public override required TypeTransmission Type { get; init; }
+    public int SpeedCount { get; init; }
+    public override ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 
@@ -31,6 +32,6 @@ internal class CarLights : AbstractLights
 
     public override string ToString()
     {
-        return $"{{ {nameof(this.Color)} = {Color} | {nameof(this.Power)} = {Power} | {nameof(this.Status)} = {Status} }}";
+        return $"{{ {nameof(this.Type)} = {Type} | {nameof(this.SpeedCount)} = {SpeedCount} | {nameof(this.Status)} = {Status} }}";
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,14 +14,12 @@ using CarRental.Enumerables;
 
 namespace CarRental.Models.Car;
 
-internal class CarWheels : AbstractWheels
+internal class Signal : AbstractSignal
 {
     // PROPERTIES
 
-    public override required MaterialWheel Material { get; init; }
-    public override required int Size { get; init; }
-    public override required TypeTire Tire { get; set; }
-    public override ComponentStatus Status { get; set; }
+    public override PitchComponent Pitch { get; init; }
+    public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 
@@ -28,7 +27,6 @@ internal class CarWheels : AbstractWheels
 
     public override string ToString()
     {
-
-        return $"{{ {nameof(this.Material)} = {Material} | {nameof(this.Size)} = {Size} | {nameof(this.Tire)} = {Tire} | {nameof(this.Status)} = {Status} }}";
+        return $"{{ {nameof(this.Pitch)} = {Pitch} | {nameof(this.Status)} = {Status} }}";
     }
 }

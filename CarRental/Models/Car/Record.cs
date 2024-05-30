@@ -12,7 +12,7 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
-internal class CarRecord : ICarRecordable
+internal class Record : ICarRecordable
 {
     // THE PURPOSE OF THE CLASS:
     // // THE ADDITIONAL INFORMATION ABOUT A SPECIFIC CAR.

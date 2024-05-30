@@ -20,13 +20,13 @@ internal class SupplementDataInitializator
 
     // METHODS
 
-    public CarMechanic InitializeMechanic()
+    public Mechanic InitializeMechanic()
     {
         try
         {
             Random random = new Random();
 
-            return new CarMechanic($"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18));
+            return new Mechanic($"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18));
         }
         catch(InvalidCastException exception)
         {
@@ -38,7 +38,7 @@ internal class SupplementDataInitializator
         }
     }
 
-    public Dictionary<string, CarSelectPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    public Dictionary<string, SelectPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
     }

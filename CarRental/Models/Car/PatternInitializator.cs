@@ -104,10 +104,10 @@ public class PatternInitializator
     }
 
     // TO CREATE INSTANCE OF PATTERN-CLASS.
-    public CarSelectPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
+    public SelectPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
     {
         // USE INITIALIZATOR INSTEAD OF EXTENSIVE CONSTRUCTORS.
-        CarSelectPattern pattern = new CarSelectPattern
+        SelectPattern pattern = new SelectPattern
         {
             Name = name,
             Brand = brand,
@@ -183,9 +183,9 @@ public class PatternInitializator
     }
 
     // OVERLOAD OF THE METHOD TO CREATE DICTIONARY OF MODEL-GENERATION PATTERN, A BASIC COMPLECTATION LOGIC.
-    public Dictionary<string, CarSelectPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    public Dictionary<string, SelectPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
-        Dictionary<string, CarSelectPattern> dictionary = new Dictionary<string, CarSelectPattern>();
+        Dictionary<string, SelectPattern> dictionary = new Dictionary<string, SelectPattern>();
         foreach (BrandRecord record in brandRecords)
         {
             foreach (string model in record.Models)

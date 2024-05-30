@@ -14,7 +14,7 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
-internal class CarMechanic : ICarMechanics, ICanDrive
+internal class Mechanic : ICarMechanics, ICanDrive
 {
     // THE PURPOSE OF THE CLASS:
     // // TO PERFORM SPECIAL MANIPULATIONS ON A CAR.
@@ -33,7 +33,7 @@ internal class CarMechanic : ICarMechanics, ICanDrive
 
     // CONSTRUCTORS
 
-    internal CarMechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
+    internal Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
     {
         this.FirstName = firstN;
         this.LastName = lastN;
@@ -108,7 +108,7 @@ internal class CarMechanic : ICarMechanics, ICanDrive
     // TO CHANGE COMPONENTS
 
     // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
-    public bool TryReplaceComponent (Car car, CarEngine engine)
+    public bool TryReplaceComponent (Car car, Engine engine)
     {
         if (car.Engine.Type.Equals(engine.Type))
         {
@@ -121,7 +121,7 @@ internal class CarMechanic : ICarMechanics, ICanDrive
         }
     }
 
-    public bool TryReplaceComponent(Car car, CarTransmission transmission)
+    public bool TryReplaceComponent(Car car, Transmission transmission)
     {
         if (car.Transmission.Type.Equals(transmission.Type))
         {
@@ -135,14 +135,14 @@ internal class CarMechanic : ICarMechanics, ICanDrive
     }
 
     // TO CHANGE INTERIOR IS ALWAYS AVAILABLE.
-    public bool TryReplaceComponent(Car car, CarInterior interior)
+    public bool TryReplaceComponent(Car car, Interior interior)
     {
             car.Interior = interior;
             return true;
     }
 
     // CHECK SIZE, IF EQUAL, REPLACE.
-    public bool TryReplaceComponent(Car car, CarWheels wheels)
+    public bool TryReplaceComponent(Car car, Wheels wheels)
     {
         if (car.Wheels.Size.Equals(wheels.Size))
         {

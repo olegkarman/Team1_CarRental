@@ -12,7 +12,7 @@ using CarRental.Enumerables;
 
 namespace CarRental.Models.Car;
 
-internal static class CarCheckExtensions
+internal static class CheckExtensions
 {
     // THE PURPOSE OF THE CLASS:
     // // A HOLDER OF ADDITIONAL METHODS TO CHECK A CAR STATUS.

@@ -23,7 +23,7 @@ internal class ServiceManagerSupplements
 
     internal BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
     internal Depot DepotService { get; init; }
-    internal Dictionary<string, CarSelectPattern> ModelsPatterns { get; init; }
+    internal Dictionary<string, SelectPattern> ModelsPatterns { get; init; }
     internal BrandRecord[] BrandRecords { get; init; }
-    internal CarMechanic Mechanic { get; init; }
+    internal Mechanic Mechanic { get; init; }
 }

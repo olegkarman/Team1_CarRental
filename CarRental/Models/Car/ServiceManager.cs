@@ -13,7 +13,7 @@ using CarRental.Models.Car;
 
 namespace CarRental.Models.Car;
 
-public class CarServiceManager
+public class ServiceManager
 {
     // THE PURPOSE OF THE CLAS:
     //      TO BE A CONNECTION LINK BETWEEN MENU AND HIDDEN MECHANISM OF CAR-INSTANCE GENERATION.
@@ -33,7 +33,7 @@ public class CarServiceManager
 
     // CONSTRUCTORS
 
-    public CarServiceManager()
+    public ServiceManager()
     {
         this._random = new Random();
         this._carsInfo = new StringBuilder();
@@ -292,7 +292,7 @@ public class CarServiceManager
     {
         _carsInfo.Clear();
 
-        foreach(KeyValuePair<string, CarSelectPattern> pair in _supplementData.ModelsPatterns)
+        foreach(KeyValuePair<string, SelectPattern> pair in _supplementData.ModelsPatterns)
         {
             _carsInfo.Append(pair.Key + " | ");
         }
