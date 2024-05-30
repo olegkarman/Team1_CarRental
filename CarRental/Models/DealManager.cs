@@ -71,7 +71,7 @@ public class DealManager
         }
     }
 
-    public string GetDealInfoJson()
+    public string GetAllDealsJson()
     {
         try
         {
@@ -87,7 +87,7 @@ public class DealManager
 
     public
         Dictionary<int, Tuple<int, int, string, float, DateTime>>
-        GetDealInfoDict()
+        GetAllDealsDict()
     {
         try
         {
