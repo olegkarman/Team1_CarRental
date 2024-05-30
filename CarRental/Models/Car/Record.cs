@@ -25,6 +25,7 @@ internal class Record : ICarRecordable
 
     // ID OF RECORD.
     public string RecordId { get; init; }
+    public Guid uiD { get; init; }
 
     // CAR VIN CODE.
     public string VinCode { get; init; }
@@ -61,6 +62,6 @@ internal class Record : ICarRecordable
 
     public override string ToString()
     {
-        return $"{nameof(this.RecordId)} = {RecordId} | {nameof(this.RecordCreationDate)} = {RecordCreationDate} | {nameof(this.BrandName)} = {BrandName} | {nameof(this.ModelName)} = {ModelName} | {nameof(this.Year)} = {Year} | {nameof(this.NumberPlate)} = {NumberPlate} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.TechnicalInfo)} = {TechnicalInfo} | }}";
+        return $"{nameof(this.RecordId)} = {RecordId} | {nameof(this.RecordCreationDate)} = {RecordCreationDate} | {nameof(this.BrandName)} = {BrandName} | {nameof(this.ModelName)} = {ModelName} | {nameof(this.Year)} = {Year} | {nameof(this.NumberPlate)} = {NumberPlate} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.uiD)} = {uiD} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.TechnicalInfo)} = {TechnicalInfo} | }}";
     }
 }

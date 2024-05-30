@@ -86,6 +86,8 @@ internal class Car : ICar
         set;
     }
 
+    public Guid CarId { get; init; }
+
     public required Models.Car.AbstractInterior Interior { get; set; }
     public required Models.Car.AbstractWheels Wheels { get; set; }
     public required Models.Car.AbstractTransmission Transmission { get; set; }
@@ -193,7 +195,7 @@ internal class Car : ICar
 
     public override string ToString()
     {
-        return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} }}";
+        return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} | {nameof(CarId)} = {CarId} }}";
     }
 
     public bool Drive(ICanDrive driver, float averageSpeed, int drivingTime)

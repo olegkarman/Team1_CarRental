@@ -65,6 +65,7 @@ public class Depot
     {
         string carCode = GetSerialNumber(pattern);
         int yearToSet = _random.Next(1960, 2025);
+        Guid carGuid = Guid.NewGuid();
         int price = _random.Next(pattern.PriceCarInitial, pattern.PriceCarEnd);
         bool isFitForUse;
         //IS FIT FOR USE. NOT ALL CARS ARE READY TO USE.
@@ -84,7 +85,7 @@ public class Depot
             // CAR INSTANCE ARGUMENTS
 
             Year = yearToSet,
-
+            
             VinCode = carCode,
 
             Mileage = 100,   // AVTOPROBIG FOR NEW CARS.
@@ -96,6 +97,7 @@ public class Depot
             Model = pattern.Model,
             Brand = pattern.Brand,
             Status = (TransportStatus)_random.Next(pattern.StatusInitialIndex, pattern.StatusEndIndex),
+            CarId = carGuid,
             IsFitForUse = isFitForUse,
 
             // ENGINE
@@ -160,7 +162,8 @@ public class Depot
                 Year = yearToSet,
                 NumberPlate = GetSerialNumber(pattern).Substring(0, 9).Insert(2, "-").Insert(8, "-"),
                 RecordCreationDate = DateTime.Now.ToString(),
-                Price = price
+                Price = price,
+                uiD = carGuid
             }
 
         };
