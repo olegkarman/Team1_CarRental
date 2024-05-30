@@ -5,8 +5,8 @@ namespace CarRental.Models
 {
     internal class Deal
     {
-        internal int customerId { get; set; }
-        internal int carId { get; set; }
+        internal string customerId { get; set; }
+        internal string carId { get; set; }
         internal float price { get; set; }
 
         private string _dealType;
@@ -26,23 +26,28 @@ namespace CarRental.Models
             }
         }
 
-        internal Deal(int customerId, int carId, string type, float price)
+        internal Deal(string customerId, string carId, string type, float price)
         {
             this.dealType = type;
             this.price = price;
             this.carId = carId;
             this.customerId = customerId;
 
-            Dictionary<int, Tuple<int, int, string, float, DateTime>> dealInfo =
-                new Dictionary<int, Tuple<int, int, string, float, DateTime>>();
+            /*Dictionary<int, Tuple<string, string, string, float, DateTime>> dealInfo =
+                new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
 
             Random rnd = new Random();
             int dealId = rnd.Next(0, 99999);
 
-            dealInfo[dealId] = new Tuple<int, int, string, float, DateTime>(this.customerId, this.carId, this.dealType, this.price, DateTime.Now);
+            dealInfo[dealId] = new Tuple<string, string, string, float, DateTime>(this.customerId, this.carId, this.dealType, this.price, DateTime.Now);
 
             DealManager dealManager = new DealManager();
-            dealManager.SaveDealInfo(dealInfo);
+            dealManager.SaveDealInfo(dealInfo);*/
+        }
+
+        public override string ToString()
+        {
+            return $"The customer {customerId} has {dealType} a car VIN code is {carId} and the price is {price}";
         }
     }
 }
