@@ -1,4 +1,4 @@
-﻿using CarRental.Models.Car;
+using CarRental.Models.Car;
 
 namespace CarRental.Models.Portal;
 public class Portal
@@ -8,7 +8,8 @@ public class Portal
     private DealManager _dealManager;
     private ServiceManager _carServiceManager;
 
-    public Portal(User userData, bool isCustomer) {
+    public Portal(User userData, bool isCustomer)
+    {
         UserData = userData;
         IsCustomer = isCustomer;
         _dealManager = new DealManager();

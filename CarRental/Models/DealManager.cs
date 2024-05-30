@@ -107,6 +107,6 @@ public class DealManager
         {
             return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
         }
-        
+
     }
 }
