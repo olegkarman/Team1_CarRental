@@ -188,6 +188,30 @@ public class ServiceManager
         CurrentCars.Clear();
     }
 
+    // GET CAR BY INDEX
+    internal Car? GetCar(int index)
+    {
+        try
+        {
+            if ((index <= 0) || (index > CurrentCars.Count))
+            {
+                return null;
+            }
+            else
+            {
+                return CurrentCars[index];
+            }
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
+    }
+
     // TO TAKE OFF A CAR FROM THE LIST
 
     internal bool TryTakeCar(int index)
@@ -322,7 +346,7 @@ public class ServiceManager
         for (int i = 0; i < CurrentCars.Count; i++)
         {
             var car = CurrentCars[i];
-            Console.WriteLine(format, i, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Record.NumberPlate, car.VinCode);
+            Console.WriteLine(format, i+1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Record.NumberPlate, car.VinCode);
         }
     }
 
