@@ -21,9 +21,9 @@ internal class ServiceManagerSupplements
 
     // PROPERTIES
 
-    internal BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
-    internal Depot DepotService { get; init; }
-    internal Dictionary<string, SelectPattern> ModelsPatterns { get; init; }
-    internal BrandRecord[] BrandRecords { get; init; }
-    internal Mechanic Mechanic { get; init; }
+    internal required BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
+    internal required Depot DepotService { get; init; }
+    internal required Dictionary<string, SelectPattern> ModelsPatterns { get; init; }
+    internal required BrandRecord[] BrandRecords { get; init; }
+    internal required Mechanic Mechanic { get; init; }
 }
