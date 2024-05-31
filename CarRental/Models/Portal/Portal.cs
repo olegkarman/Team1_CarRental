@@ -1,4 +1,4 @@
-using CarRental.Models.Car;
+﻿using CarRental.Models.Car;
 
 namespace CarRental.Models.Portal;
 public class Portal
