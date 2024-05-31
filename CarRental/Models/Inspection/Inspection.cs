@@ -12,7 +12,7 @@ internal class Inspection : IInspection
     public Guid InspectionId { get; }
     public DateTime InspectionDate => _inspectionDate;
     public string? InspectorName { get; init; }
-    public required int CarId { get; init; }
+    public required string CarId { get; init; }
     public InspectionStatusType Result { get; set; }
 
     public Inspection()
@@ -20,7 +20,7 @@ internal class Inspection : IInspection
         InspectionId = Guid.NewGuid();
     }
     [SetsRequiredMembers]
-    public Inspection(string inspectorName, int carId, InspectionStatusType result) : this()
+    public Inspection(string inspectorName, string carId, InspectionStatusType result) : this()
     {
         InspectorName = inspectorName;
         CarId = carId;

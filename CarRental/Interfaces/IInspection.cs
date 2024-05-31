@@ -12,7 +12,7 @@ namespace CarHubTest
         Guid InspectionId { get; }
         DateTime InspectionDate { get; }
         string? InspectorName { get; }
-        int CarId { get; }
+        string CarId { get; }
         InspectionStatusType Result { get; }
 
         // Methods
