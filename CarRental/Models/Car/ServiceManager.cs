@@ -96,7 +96,7 @@ public class ServiceManager
         try
         {
             // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
-            if ((index <= 0) || (index > CurrentCars.Count))
+            if ((index < 0) || (index > CurrentCars.Count))
             {
                 return false;
             }
@@ -189,27 +189,9 @@ public class ServiceManager
     }
 
     // GET CAR BY INDEX
-    internal Car? GetCar(int index)
+    internal Car? GetSelectedCar()
     {
-        try
-        {
-            if ((index <= 0) || (index > CurrentCars.Count))
-            {
-                return null;
-            }
-            else
-            {
-                return CurrentCars[index];
-            }
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+        return SelectedCar;
     }
 
     // TO TAKE OFF A CAR FROM THE LIST
