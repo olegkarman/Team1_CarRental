@@ -44,32 +44,24 @@ internal class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    internal void InspectCar(Car car, Inspection[] inspections, Inspector[] inspectors) //Інспектувати по пробігу, даті,стану кузова
+    internal void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
     {
-        if (inspectors == null || inspectors.Length == 0)
-        {
-            throw new ArgumentException("Inspectors list cannot be null or empty.", nameof(inspectors));
-        }
-
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
-            var chosenInspector = inspectors[0];
-            var inspection = new Inspection(chosenInspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
+            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
             InspectionManager.AddInspection(inspection);
         }
         else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
         {
-            var chosenInspector = inspectors[0];
-            var inspection = new Inspection(chosenInspector.FirstName, car.VinCode, InspectionStatusType.Repair);
+            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
             InspectionManager.AddInspection(inspection);
         }
         else
         {
-            var chosenInspector = inspectors[0];
-            var inspection = new Inspection(chosenInspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
+            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
             InspectionManager.AddInspection(inspection);

@@ -38,7 +38,7 @@ namespace CarHubTest
         {
             foreach (var inspection in s_inspections)
             {
-                Console.WriteLine(inspection);
+                Console.WriteLine(inspection.ToString());
             }
         }
     }
