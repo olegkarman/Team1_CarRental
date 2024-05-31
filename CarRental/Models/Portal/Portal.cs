@@ -1,19 +1,20 @@
-﻿using CarRental.Models.Car;
+﻿using CarHubTest;
+using CarRental.Models.Car;
 
 namespace CarRental.Models.Portal;
 public class Portal
 {
     public User UserData { get; set; }
     public bool IsCustomer { get; set; }
-    private DealManager _dealManager;
     private ServiceManager _carServiceManager;
+    private InspectionManager _inspectionManager;
 
     public Portal(User userData, bool isCustomer)
     {
         UserData = userData;
         IsCustomer = isCustomer;
-        _dealManager = new DealManager();
         _carServiceManager = new ServiceManager();
+        _inspectionManager = new InspectionManager();
     }
 
     public void StartMainMenu()
