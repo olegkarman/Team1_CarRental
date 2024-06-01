@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Models.Car;
+using CarRental.Enumerables;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -86,6 +87,56 @@ public class ServiceManager
         catch (IndexOutOfRangeException exception)
         {
             throw exception;
+        }
+    }
+
+    // TO CHANGE Car.Status OF A Car-INSTANCE
+
+    internal bool TryToChangeCarStatus(Car car, TransportStatus status)
+    {
+        if (car == null)
+        {
+            throw new ArgumentNullException();
+        }
+        else
+        {
+            if (Enum.IsDefined(typeof(TransportStatus), status))
+            {
+                car.Status = status;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    internal bool TryToChangeCarStatus(int index, TransportStatus status)
+    {
+        if(index < 0 )
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        if (this.CurrentCars[index] == null)
+        {
+            throw new ArgumentNullException(nameof(CurrentCars[index]));
+        }
+
+        else
+        {
+            if (Enum.IsDefined(typeof(TransportStatus), status))
+            {
+                CurrentCars[index].Status = status;
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
