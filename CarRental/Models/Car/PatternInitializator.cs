@@ -132,13 +132,8 @@ public class PatternInitializator
             LightsStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][10],
             LightsStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][11],
 
-<<<<<<< HEAD
-                {"ColorLightsInitial", dataWarehouse.ModelPatternDataDictionary[model][46]},
-                {"ColorLightsEnd", dataWarehouse.ModelPatternDataDictionary[model][47]},
-=======
             SignalStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][12],
             SignalStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][13],
->>>>>>> parent of 382c021 (Replace direct variables assign by a dictionary in classes of patterns. Work in progress...)
 
             ColorCarInitial = dataWarehouse.ModelPatternDataDictionary[model][14],
             ColorCarEnd = dataWarehouse.ModelPatternDataDictionary[model][15],

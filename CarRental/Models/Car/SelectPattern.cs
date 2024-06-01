@@ -26,18 +26,6 @@ public class SelectPattern : ICarSelectivePattern
 
     #region PROPERTIES
 
-<<<<<<< HEAD
-    public Dictionary<string, int> Values;
-
-    public char[] charMap { get; init; }
-
-    //// STATUS S{ECTION
-                                                 
-    //// CAR-RECORD SECTION                                                                   
-                                                
-    // PROPERTIES                               
-                                                
-=======
     public char[] charMap { get; init; }
 
     // STATUS SECTION
@@ -119,7 +107,6 @@ public class SelectPattern : ICarSelectivePattern
 
     // PROPERTIES
 
->>>>>>> parent of 382c021 (Replace direct variables assign by a dictionary in classes of patterns. Work in progress...)
     public string Name { get; init; }
     public string Brand { get; init; }
     public string Model { get; init; }
