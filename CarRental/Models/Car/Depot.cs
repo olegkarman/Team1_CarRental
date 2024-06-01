@@ -61,16 +61,6 @@ public class Depot
         return pattern;
     }
 
-    // TO CREATE AN ARRAY OF DATA FROM SELECTED PATTERN.
-    private int[] CreateArrayFromPatternValues(SelectPattern pattern)
-    {
-        int values[] =
-        [
-            
-        ];
-
-    }
-
     internal Car ObtainNewCar(SelectPattern pattern)
     {
         string carCode = GetSerialNumber(pattern);
@@ -99,67 +89,67 @@ public class Depot
             VinCode = carCode,
 
             Mileage = 100,   // AVTOPROBIG FOR NEW CARS.
-            CurrentFuel =           _random.Next(pattern.CurrentFuelInitial/2, pattern.CurrentFuelEnd),
-            MaxFuelCapacity =       _random.Next(pattern.MaxFuelCapacityInitial, pattern.MaxFuelCapacityEnd),
-            SpeedCoeficient =       _random.Next(pattern.SpeedCoeficientInitial, pattern.SpeedCoeficientEnd),
-            Color =                 (KnownColor)_random.Next(pattern.ColorCarInitial, pattern.ColorCarEnd),
+            CurrentFuel = _random.Next(pattern.CurrentFuelInitial/2, pattern.CurrentFuelEnd),
+            MaxFuelCapacity = _random.Next(pattern.MaxFuelCapacityInitial, pattern.MaxFuelCapacityEnd),
+            SpeedCoeficient = _random.Next(pattern.SpeedCoeficientInitial, pattern.SpeedCoeficientEnd),
+            Color = (KnownColor)_random.Next(pattern.ColorCarInitial, pattern.ColorCarEnd),
             Price = price,
             Model = pattern.Model,
             Brand = pattern.Brand,
-            Status =                (TransportStatus)_random.Next(pattern.StatusInitialIndex, pattern.StatusEndIndex),
+            Status = (TransportStatus)_random.Next(pattern.StatusInitialIndex, pattern.StatusEndIndex),
             CarId = carGuid,
             IsFitForUse = isFitForUse,
 
             // ENGINE
             Engine = new Engine
             {
-                SerialNumber =              GetSerialNumber(pattern),
-                AverageFuelConsumption =    _random.Next(pattern.AverageFuelConsumptionInitial, pattern.AverageFuelConsumptionEnd),
-                Fuel =                      (FuelEngine)_random.Next(pattern.FuelInitial, pattern.FuelEnd),
-                Type =                      (TypeEngine)_random.Next(pattern.TypeEngineInitial, pattern.TypeEngineEnd),
-                Power =                     _random.Next(pattern.PowerEngineInitial, pattern.PowerEngineEnd),
-                Status =                    (ComponentStatus)_random.Next(pattern.EngineStatusInitialIndex, pattern.EngineStatusEndIndex)
+                SerialNumber = GetSerialNumber(pattern),
+                AverageFuelConsumption = _random.Next(pattern.AverageFuelConsumptionInitial, pattern.AverageFuelConsumptionEnd),
+                Fuel = (FuelEngine)_random.Next(pattern.FuelInitial, pattern.FuelEnd),
+                Type = (TypeEngine)_random.Next(pattern.TypeEngineInitial, pattern.TypeEngineEnd),
+                Power = _random.Next(pattern.PowerEngineInitial, pattern.PowerEngineEnd),
+                Status = (ComponentStatus)_random.Next(pattern.EngineStatusInitialIndex, pattern.EngineStatusEndIndex)
             },
 
             // TRANSMISSION
             Transmission = new Transmission
             {
-                SerialNumber =   GetSerialNumber(pattern),
-                Type =          (TypeTransmission)_random.Next(pattern.TypeTransmissionInitial, pattern.TypeTransmissionEnd),
-                SpeedCount =    _random.Next(pattern.SpeedCountInitial, pattern.SpeedCountEnd),
-                Status =        (ComponentStatus)_random.Next(pattern.TransmissionStatusInitialIndex, pattern.TransmissionStatusEndIndex)
+                SerialNumber = GetSerialNumber(pattern),
+                Type = (TypeTransmission)_random.Next(pattern.TypeTransmissionInitial, pattern.TypeTransmissionEnd),
+                SpeedCount = _random.Next(pattern.SpeedCountInitial, pattern.SpeedCountEnd),
+                Status = (ComponentStatus)_random.Next(pattern.TransmissionStatusInitialIndex, pattern.TransmissionStatusEndIndex)
             },
 
             // INTERIOR
             Interior = new Interior
             {
-                Color =     (KnownColor)_random.Next(pattern.ColorInteriorInitial, pattern.ColorInteriorEnd),
-                Material =  (MaterialInterior)_random.Next(pattern.MaterialInteriorInitial, pattern.MaterialInteriorEnd),
-                Status =    (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex)
+                Color = (KnownColor)_random.Next(pattern.ColorInteriorInitial, pattern.ColorInteriorEnd),
+                Material = (MaterialInterior)_random.Next(pattern.MaterialInteriorInitial, pattern.MaterialInteriorEnd),
+                Status = (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex)
             },
 
             // WHEELS
             Wheels = new Wheels
             {
-                Material =  (MaterialWheel)_random.Next(pattern.MaterialWheelsInitial, pattern.MaterialWheelsEnd),
-                Size =      _random.Next(pattern.SizeWheelsInitial, pattern.SizeWheelsEnd),
-                Tire =      (TypeTire)_random.Next(pattern.TireInitial, pattern.TireEnd),
-                Status =    (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex)
+                Material = (MaterialWheel)_random.Next(pattern.MaterialWheelsInitial, pattern.MaterialWheelsEnd),
+                Size = _random.Next(pattern.SizeWheelsInitial, pattern.SizeWheelsEnd),
+                Tire = (TypeTire)_random.Next(pattern.TireInitial, pattern.TireEnd),
+                Status = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex)
             },
 
             // LIGHTS
             Lights = new Lights
             {
-                Color =     (KnownColor)_random.Next(pattern.ColorLightsInitial, pattern.ColorLightsEnd),
-                Power =     (PowerComponent)_random.Next(pattern.PowerLightsInitial, pattern.PowerLightsEnd),
-                Status =    (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex)
+                Color = (KnownColor)_random.Next(pattern.ColorLightsInitial, pattern.ColorLightsEnd),
+                Power = (PowerComponent)_random.Next(pattern.PowerLightsInitial, pattern.PowerLightsEnd),
+                Status = (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex)
             },
 
             // SIGNAL
             Signal = new Signal
             {
-                Pitch =     (PitchComponent)_random.Next(pattern.PitchInitial, pattern.PitchEnd),
-                Status =    (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
+                Pitch = (PitchComponent)_random.Next(pattern.PitchInitial, pattern.PitchEnd),
+                Status = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
             },
 
             // THE RECORD
