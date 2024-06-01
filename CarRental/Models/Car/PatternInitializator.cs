@@ -168,7 +168,7 @@ public class PatternInitializator
                 {"TireInitial", dataWarehouse.ModelPatternDataDictionary[model][44]},
                 {"TireEnd", dataWarehouse.ModelPatternDataDictionary[model][45]},
 
-                {"ColorLightsInitial              ", dataWarehouse.ModelPatternDataDictionary[model][46]},
+                {"ColorLightsInitial", dataWarehouse.ModelPatternDataDictionary[model][46]},
                 {"ColorLightsEnd", dataWarehouse.ModelPatternDataDictionary[model][47]},
 
                 {"PowerLightsInitial", dataWarehouse.ModelPatternDataDictionary[model][48]},
