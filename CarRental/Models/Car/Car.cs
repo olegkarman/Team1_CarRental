@@ -103,7 +103,7 @@ internal class Car : ICar
     public int Price { get; set; }
     internal required string VinCode { get; init; }
 
-    public ICanDrive? LastDriver { get; set; }
+    public ICanDrive LastDriver { get; set; }
 
     internal int Year
     {
