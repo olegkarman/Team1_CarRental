@@ -29,8 +29,8 @@ public class ServiceManager
 
     // PROPERTTES
 
-    internal List<Car> CurrentCars { get; private set; }    // O. KARMANSKYI
-    internal Car SelectedCar { get; private set; }
+    internal List<Car>? CurrentCars { get; private set; }    // O. KARMANSKYI
+    internal Car? SelectedCar { get; private set; }
 
     // CONSTRUCTORS
 
@@ -75,8 +75,15 @@ public class ServiceManager
 
     public void MakeNewListOf15Cars()
     {
+        // NULL-CHECK-UP
+        if (CurrentCars == null)
+        {
+            throw new ArgumentNullException(nameof(this.CurrentCars));
+        }
+
         // TO ERASE ALL ELEMENTS.
         CurrentCars.Clear();
+
         try
         {
             for (int index = 0; index < 15; index = index + 1)
@@ -98,24 +105,28 @@ public class ServiceManager
         {
             throw new ArgumentNullException(nameof(car));
         }
+
+        if (Enum.IsDefined(typeof(TransportStatus), status))
+        {
+            car.Status = status;
+
+            return true;
+        }
         else
         {
-            if (Enum.IsDefined(typeof(TransportStatus), status))
-            {
-                car.Status = status;
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
+       
     }
 
     internal bool TryChangeCarStatus(int index, TransportStatus status)
     {
-        if(index < 0 )
+        if (CurrentCars == null)
+        {
+            throw new ArgumentNullException(nameof(index));
+        }
+
+        if (index < 0 )
         {
             throw new IndexOutOfRangeException();
         }
@@ -125,18 +136,15 @@ public class ServiceManager
             throw new ArgumentNullException(nameof(index));
         }
 
+        if (Enum.IsDefined(typeof(TransportStatus), status))
+        {
+            CurrentCars[index].Status = status;
+
+            return true;
+        }
         else
         {
-            if (Enum.IsDefined(typeof(TransportStatus), status))
-            {
-                CurrentCars[index].Status = status;
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 
@@ -188,17 +196,26 @@ public class ServiceManager
     {
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(index));
+            }
+
             // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
             if ((index <= 0) || (index > CurrentCars.Count))
             {
                 return false;
             }
-            else
+            else if(CurrentCars[index] == null)
             {
-                SelectedCar = CurrentCars[index];
-
-                return true;
+                throw new ArgumentNullException(nameof(index));
             }
+
+            
+            SelectedCar = CurrentCars[index];
+
+            return true;
+            
         }
         catch (IndexOutOfRangeException exception)
         {
@@ -222,6 +239,10 @@ public class ServiceManager
 
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
 
             car = CurrentCars.Find(x => x.Model.Contains(model));
 
@@ -246,6 +267,11 @@ public class ServiceManager
     {
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(index));
+            }
+
             CurrentCars.RemoveAt(index);
         }
         catch (IndexOutOfRangeException exception)
@@ -258,6 +284,11 @@ public class ServiceManager
     {
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
         }
         catch (KeyNotFoundException exception)
@@ -268,9 +299,9 @@ public class ServiceManager
         {
             throw exception;
         }
-        catch (FormatException exception)
+        catch (Exception exception)
         {
-            throw exception;
+            throw new Exception();
         }
     }
 
@@ -278,6 +309,11 @@ public class ServiceManager
 
     public void DeleteAllCarsFromList()
     {
+        if (CurrentCars == null)
+        {
+            throw new ArgumentNullException(nameof(this.CurrentCars));
+        }
+
         CurrentCars.Clear();
     }
 
@@ -286,12 +322,17 @@ public class ServiceManager
     {
         try
         {
-            if ((index <= 0) || (index > CurrentCars.Count))
+            if ((index < 0) || (index > CurrentCars.Count))
             {
-                return null;
+                throw new IndexOutOfRangeException(nameof(index));
             }
             else
             {
+                if (CurrentCars == null)
+                {
+                    throw new ArgumentNullException(nameof(index));
+                }
+
                 return CurrentCars[index];
             }
         }
@@ -311,6 +352,11 @@ public class ServiceManager
     {
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(index));
+            }
+
             if ((index <= 0) || (index > CurrentCars.Count))
             {
                 return false;
@@ -337,6 +383,11 @@ public class ServiceManager
         try
         {
             Car car;
+
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
 
             car = CurrentCars.Find(x => x.Model.Contains(model));
 
@@ -399,6 +450,11 @@ public class ServiceManager
     {
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             // THE EMPTY LINE CAN APPEAR.
             return CurrentCars.Find(x => x.Model.Contains(model)).ToString();
         }
@@ -427,9 +483,22 @@ public class ServiceManager
     }
 
     // TO DISPLAY LIST OF CARS IN TABLE
+    // //
+    // // ~EDITED NOT BY YPARKHOMENKO~
+    // //
+    // // ADVICE BY YPARKHOMENKO: DO NOT USE STRING CONCATINATION IN LOOPS, USE StringBuilder-CLASS FUNCTIONALITY INSTEAD.
+    // // BETTER TO USE STRING OUTPUT RATHER THAN THE CONSOLE OUTPUT.
+    // //
 
     public void DisplayCarsInTable()
     {
+        // ADD NULL CHECK-UP
+
+        if (CurrentCars == null)
+        {
+            throw new ArgumentNullException(nameof(this.CurrentCars));
+        }
+
         string line = new string('-', 110); // adjust the number to fit your table
         string format = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10} | {5,-10} | {6,-10} | {7,-10} | {8,-20}";
 
@@ -449,6 +518,11 @@ public class ServiceManager
     {
         _carsInfo.Clear();
 
+        if (CurrentCars == null)
+        {
+            throw new ArgumentNullException(nameof(this.CurrentCars));
+        }
+
         foreach (Car car in CurrentCars)
         {
             _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
@@ -461,6 +535,11 @@ public class ServiceManager
 
     public string CheckFuelSelectedCar()
     {
+        if (SelectedCar == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar));
+        }
+
         _carsInfo.Clear();
 
         float division = (float)_supplementData.Mechanic.CheckFuel(SelectedCar) / SelectedCar.MaxFuelCapacity;
@@ -476,6 +555,11 @@ public class ServiceManager
 
     public string ShowMileageSelected()
     {
+        if (SelectedCar == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar));
+        }
+
         return SelectedCar.Mileage.ToString();
     }
 
@@ -483,6 +567,11 @@ public class ServiceManager
 
     public void RefillSelectedCar()
     {
+        if (SelectedCar == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar));
+        }
+
         _supplementData.Mechanic.Refill(SelectedCar);
     }
 
@@ -490,6 +579,11 @@ public class ServiceManager
 
     public string CheckSignal()
     {
+        if (SelectedCar == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar));
+        }
+
         return SelectedCar.Signal.ToString();
     }
 
@@ -497,6 +591,11 @@ public class ServiceManager
 
     //public string CheckLights()
     //{
+        /*if (SelectedCar == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar));
+        }*/
+    //
     //    return SelectedCar.Light.ToString();
     //}
 
