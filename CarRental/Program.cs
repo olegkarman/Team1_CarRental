@@ -15,8 +15,8 @@ class CarRentalPortal
 
         ConsoleHelper.ApplyConsoleStyles();
         var login = new Login();
-        var (user, isCustomer) = login.StartLogin();
-        var portal = new Portal(user, isCustomer);
+        var userInSystem = login.StartLogin();
+        var portal = new Portal(userInSystem.UserData, userInSystem.isCusomer);
         ConsoleHelper.ClearConsoleWithDelay(2);
         portal.StartMainMenu();
     }
