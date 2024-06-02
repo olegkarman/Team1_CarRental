@@ -202,7 +202,7 @@ public class ServiceManager
             }
 
             // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
-            if ((index <= 0) || (index > CurrentCars.Count))
+            if ((index < 0) || (index > CurrentCars.Count))
             {
                 return false;
             }
