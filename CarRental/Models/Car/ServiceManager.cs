@@ -92,11 +92,11 @@ public class ServiceManager
 
     // TO CHANGE Car.Status OF A Car-INSTANCE
 
-    internal bool TryToChangeCarStatus(Car car, TransportStatus status)
+    internal bool TryChangeCarStatus(Car car, TransportStatus status)
     {
         if (car == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(car));
         }
         else
         {
@@ -113,7 +113,7 @@ public class ServiceManager
         }
     }
 
-    internal bool TryToChangeCarStatus(int index, TransportStatus status)
+    internal bool TryChangeCarStatus(int index, TransportStatus status)
     {
         if(index < 0 )
         {
@@ -122,7 +122,7 @@ public class ServiceManager
 
         if (this.CurrentCars[index] == null)
         {
-            throw new ArgumentNullException(nameof(CurrentCars[index]));
+            throw new ArgumentNullException(nameof(index));
         }
 
         else
@@ -139,6 +139,48 @@ public class ServiceManager
             }
         }
     }
+
+    internal bool TryChangeCarStatus(List<Car> cars, TransportStatus status)
+    {
+        if (cars == null)
+        {
+            throw new ArgumentNullException(nameof(cars));
+        }
+
+        if (Enum.IsDefined(typeof(TransportStatus), status))
+        {
+            foreach(Car car in cars)
+            {
+                car.Status = status;
+            }
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    internal bool TryChangeCarStatus(TransportStatus status)
+    {
+        if (this.SelectedCar == null)
+        {
+            throw new ArgumentNullException(nameof(status));
+        }
+
+        if (Enum.IsDefined(typeof(TransportStatus), status))
+        {
+            this.SelectedCar.Status = status;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
     // TO SELECT A SPECIFIC CAR FROM THE LIST
 
