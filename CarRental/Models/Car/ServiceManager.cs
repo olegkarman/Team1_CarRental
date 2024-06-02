@@ -593,20 +593,30 @@ public class ServiceManager
             throw new ArgumentNullException(nameof(this.SelectedCar));
         }
 
+        if (SelectedCar.Signal == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar.Signal));
+        }
+
         return SelectedCar.Signal.ToString();
     }
 
     // CHECK LIGHT
 
-    //public string CheckLights()
-    //{
-        /*if (SelectedCar == null)
+    public string CheckLights()
+    {
+        if (SelectedCar == null)
         {
             throw new ArgumentNullException(nameof(this.SelectedCar));
-        }*/
-    //
-    //    return SelectedCar.Light.ToString();
-    //}
+        }
+
+        if (SelectedCar.Lights == null)
+        {
+            throw new ArgumentNullException(nameof(this.SelectedCar.Lights));
+        }
+
+        return SelectedCar.Lights.ToString();
+    }
 
     // METHODS
     // // INITIALIZATION
