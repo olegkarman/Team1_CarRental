@@ -10,7 +10,7 @@ using CarRental.Enumerables;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Models.Car.ExtensionMethods;
 
 internal static class CheckExtensions
 {
