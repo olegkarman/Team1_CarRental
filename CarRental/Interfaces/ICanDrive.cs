@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Models;
+using CarRental.Models.Car;
 
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
@@ -15,5 +16,5 @@ namespace CarRental.Interfaces;
 
 public interface ICanDrive
 {
-    public bool LetsDrive();
+    internal bool LetsDrive(Car car);
 }

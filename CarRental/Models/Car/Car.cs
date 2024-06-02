@@ -198,29 +198,6 @@ internal class Car : ICar
         return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} | {nameof(CarId)} = {CarId} }}";
     }
 
-    public bool Drive(ICanDrive driver, float averageSpeed, int drivingTime)
-    {
-        this.LastDriver = driver;
-
-        // STOP METHOD IF NO FUEL.
-        if ((this.CurrentFuel == 0) || (drivingTime <= 0))
-        {
-            return false;
-        }
-        else if (this.CurrentFuel < (this.Engine.AverageFuelConsumption * averageSpeed * drivingTime))
-        {
-            return false;
-        }
-        else
-        {
-            // TO INCREASE AVTOPROBIG AND DECREASE FUEL LEVEL.
-            this._mileage = this._mileage + (averageSpeed * drivingTime);
-            this.CurrentFuel = this.CurrentFuel - (this.Engine.AverageFuelConsumption * averageSpeed * drivingTime);
-
-            return true;
-        }
-    }
-
     private void SetMaxSpeed()
     {
         MaxSpeed = this.Engine.Power * this.SpeedCoeficient;

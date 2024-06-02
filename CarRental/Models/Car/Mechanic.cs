@@ -68,8 +68,25 @@ internal class Mechanic : ICarMechanics, ICanDrive
     //    // THROW ITSELF AS AN ARGUMENT.
     //    return car.Drive(this, averageSpeed, drivingTime);
     //}
-    public bool LetsDrive()
+
+    public bool LetsDrive(Car car)
     {
+        //car.LastDriver = driver;
+
+        //// STOP METHOD IF NO FUEL.
+        //if ((this.CurrentFuel == 0))
+        //{
+        //    return false;
+        //}
+        //else
+        //{
+        //    // TO INCREASE AVTOPROBIG AND DECREASE FUEL LEVEL.
+        //    this._mileage = this._mileage + (averageSpeed * drivingTime);
+        //    this.CurrentFuel = this.CurrentFuel - (this.Engine.AverageFuelConsumption * averageSpeed * drivingTime);
+
+        //    return true;
+        //}
+
         return true;
     }
 

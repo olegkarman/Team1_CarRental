@@ -19,5 +19,5 @@ public interface ICar
     internal Models.Car.AbstractInterior Interior { get; set; }
     internal Models.Car.AbstractWheels Wheels { get; set; }
     internal Models.Car.AbstractTransmission Transmission { get; set; }
-    internal bool Drive(ICanDrive driver, float averageSpeed, int drivingTime);
+    //internal bool Drive(ICanDrive driver, float averageSpeed, int drivingTime);
 }
