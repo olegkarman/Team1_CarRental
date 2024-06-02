@@ -19,9 +19,7 @@ internal class InspectorCars
     public const int MaxCarsAllowed = 10; //Додати константу (const string InvalidCar ="Car has no mark")
     private int CurrentCarsInspected { get; set; }
     public InspectorCars Status { get; set; }
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     internal InspectorCars()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         Random rand = new Random();
         Mileage = rand.Next(0, 300000);       // Пробіг від 0 до 300 000 км
