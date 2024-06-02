@@ -1,4 +1,5 @@
 ﻿using CarRental.Models.Serialiser;
+using CarRental.Records;
 using System.Text.Json;
 
 namespace CarRental.Models.Login;
@@ -28,7 +29,7 @@ internal class Login
         _options.Converters.Add(new UserJsonConverter());
     }
 
-    public (User?, bool) StartLogin()
+    public UserInSystem StartLogin()
     {
         while (true)
         {
@@ -51,7 +52,7 @@ internal class Login
                     break;
                 case "2":
                     var customer = LoginUser();
-                    if (customer.Item1 != null)
+                    if (customer.UserData != null)
                     {
                         return customer;
                     }
@@ -87,7 +88,7 @@ internal class Login
         Console.WriteLine("Registration successful.");
     }
 
-    private (User?, bool) LoginUser()
+    private UserInSystem LoginUser()
     {
         Console.Write("Enter your username: ");
         string username = Console.ReadLine();
@@ -101,17 +102,26 @@ internal class Login
         if (customer != null)
         {
             Console.WriteLine($"Login successful as Customer. Hello, {customer.FirstName}");
-            return (customer, true);
+            return new UserInSystem(
+                UserData: customer,
+                isCusomer: true
+                );
         }
         else if (inspector != null)
         {
             Console.WriteLine($"Login successful as Inspector. Hello, {inspector.FirstName}");
-            return (inspector, false);
+            return new UserInSystem(
+                UserData: inspector,
+                isCusomer: false
+                );
         }
         else
         {
             Console.WriteLine("Invalid username or password.");
-            return (null, false);
+            return new UserInSystem(
+                UserData: null,
+                isCusomer: false
+                );
         }
     }
 }
