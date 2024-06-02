@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Models.Car;
 using CarRental.Enumerables;
+using CarRental.Interfaces;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -14,7 +15,7 @@ using CarRental.Enumerables;
 
 namespace CarRental.Models.Car;
 
-public class ServiceManager
+public class ServiceManager : ICarManager
 {
     // THE PURPOSE OF THE CLAS:
     //      TO BE A CONNECTION LINK BETWEEN MENU AND HIDDEN MECHANISM OF CAR-INSTANCE GENERATION.
@@ -475,6 +476,11 @@ public class ServiceManager
         {
             throw exception;
         }
+    }
+
+    internal string DisplayCar(Car car)
+    {
+        return car.ToString();
     }
 
     // TO DISPLAY AVAILABLE CAR MODELS.
