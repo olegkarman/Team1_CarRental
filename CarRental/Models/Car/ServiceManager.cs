@@ -301,7 +301,7 @@ public class ServiceManager
         }
         catch (Exception exception)
         {
-            throw new Exception();
+            throw exception;
         }
     }
 
@@ -322,6 +322,11 @@ public class ServiceManager
     {
         try
         {
+            if (CurrentCars == null)
+            {
+                throw new ArgumentNullException(nameof(index));
+            }
+
             if ((index < 0) || (index > CurrentCars.Count))
             {
                 throw new IndexOutOfRangeException(nameof(index));
@@ -418,7 +423,7 @@ public class ServiceManager
     {
         try
         {
-            return this.SelectedCar.ToString();    // MAKE BETTER FORMATTING PLS.
+            return this.SelectedCar.ToString();
         }
         catch (ArgumentNullException exception)
         {
@@ -435,6 +440,10 @@ public class ServiceManager
             return CurrentCars[index].ToString();
         }
         catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch(ArgumentNullException exception)
         {
             throw exception;
         }
