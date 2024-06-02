@@ -9,7 +9,7 @@ using CarRental.Interfaces;
 using CarRental.Models.Car;
 
 namespace CarRental.Models.Car;
-
+public record CarRecord(int Id, string Year, string Mark); /* додати  Record тип.*/
 internal class InspectorCars
 {
     public int Mileage { get; set; }
@@ -19,7 +19,9 @@ internal class InspectorCars
     public const int MaxCarsAllowed = 10; //Додати константу (const string InvalidCar ="Car has no mark")
     private int CurrentCarsInspected { get; set; }
     public InspectorCars Status { get; set; }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     internal InspectorCars()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     {
         Random rand = new Random();
         Mileage = rand.Next(0, 300000);       // Пробіг від 0 до 300 000 км
@@ -30,6 +32,10 @@ internal class InspectorCars
     public void DisplayInfoInspectCar()
     {
         Console.WriteLine($"Mileage: {Mileage}, Release Date: {ReleaseDate}, Exterior Condition: {ExteriorCondition}");
+    }
+    public string GetCarInfo(CarRecord car) /* додати  Record тип.*/
+    {
+        return $"Car Id:{car.Id}, Year{car.Year}, Mark:{car.Mark}";
     }
     internal void InspectedCars(Car car)
     {

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models;
+
 internal class Inspector : User
 {
     public DateTime EmploymentDate { get; init; } //Додати readonly поле (string Year)
 
     [SetsRequiredMembers]
-    public Inspector(string? firstName, string? lastName, DateTime dateOfBirth, DateTime employmentDate, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
+    public Inspector(string? firstName, string? lastName, DateTime dateOfBirth, DateTime employmentDate, string password, string userName) : base(firstName!, lastName!, dateOfBirth, password, userName)
     {
         EmploymentDate = employmentDate;
     }
@@ -37,4 +32,18 @@ internal class Inspector : User
 
         Console.WriteLine($"Selected Inspector: {selectedInspector.FirstName} {selectedInspector.LastName}, ID: {selectedInspector.IdNumber}");
     }
+    public string GetInspectorName() /*Додати до попереднього проекту 1 extension method, будь-який. (наприклад виводити FullName який складається з Firstname+Lastname)*/
+    {
+        string fullName = $"{FirstName} {LastName}";
+        return fullName.InspectorName();
+    }
 }
+
+
+//public static class StringExtension /*Додати до попереднього проекту 1 extension method, будь-який. (наприклад виводити FullName який складається з Firstname+Lastname)*/
+//{
+//    public static string InspectorName(this string str)
+//    {
+//        return str;
+//    }
+//}
