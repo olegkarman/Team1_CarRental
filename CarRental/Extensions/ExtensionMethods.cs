@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Models;
 
-namespace CarRental.Extentions;
-public static class CustomerExtention
+namespace CarRental.Extensions;
+public static class CustomerExtension
 {
     public static string GetCustomerDocuments(this Customer customer)
     {
