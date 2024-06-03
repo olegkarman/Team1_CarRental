@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Models.Car.RecordTypes;
 
 public record class BrandModelsNamesDataSheet
 {
@@ -26,8 +26,8 @@ public record class BrandModelsNamesDataSheet
 
     internal BrandModelsNamesDataSheet()
     {
-        this.BrandNamesData = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"];
-        this.ModelNamesData =
+        BrandNamesData = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"];
+        ModelNamesData =
         [
             // 0 — ZAP [0, 2]
             "ZAZ-966V", "ZAZ-965", "ZAZ-968",
@@ -48,7 +48,7 @@ public record class BrandModelsNamesDataSheet
             "Dakar", "Rubicon", "Malibu", "Wide-Trac", "Cherokee", "Creep", "Cowboy", "Freedom", "Wrangler", "Ecco"
         ];
 
-        this.ModelPatternDataDictionary = new Dictionary<string, int[]>
+        ModelPatternDataDictionary = new Dictionary<string, int[]>
         {
             {
                 // ZAZ

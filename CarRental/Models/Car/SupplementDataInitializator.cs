@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Enumerables;
+using CarRental.Models.Car.RecordTypes;
 //using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
