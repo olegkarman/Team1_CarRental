@@ -171,22 +171,6 @@ internal class Car : ICar
 
     // CONSTRUCTORS
 
-    //public Car
-    //(
-    //    int year,
-    //    string serialNumber,
-    //    string brand,
-    //    string model,
-    //    int maxFuelCapacity
-    //)
-    //{
-    //    this.Year = year;
-    //    this.VinCode = serialNumber;
-    //    this.Brand = brand;
-    //    this.Model = model;
-    //    this._maxFuelCapacity = maxFuelCapacity;
-    //}
-
     #endregion
 
     #region METHODS

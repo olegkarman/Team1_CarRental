@@ -16,7 +16,7 @@ public class BrandRecord : IBrandRecordable
 {
     // THE PURPOSE OF THE CLASS:
     // // A CLASS TO HOLD INFO ABOUT BRANDS OF CARS.
-    
+
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -29,6 +29,11 @@ public class BrandRecord : IBrandRecordable
     /*public Dictionary<string, ICarSelectivePattern> ModelPattern { get; set; }*/
 
     // CONSTRUCTORS
+
+    public BrandRecord()
+    {
+        
+    }
 
     public BrandRecord(string recordId, string brandName, string[] models/*, Dictionary<string, ICarSelectivePattern> dictionaryModelPattern*/)
     {

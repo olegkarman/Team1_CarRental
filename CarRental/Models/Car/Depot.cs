@@ -30,6 +30,8 @@ public class Depot
     private StringBuilder _snStringBuilder;
     private Random _random;
 
+    // CONSTRUCTORS
+
     public Depot()
     {
         this._random = new Random();

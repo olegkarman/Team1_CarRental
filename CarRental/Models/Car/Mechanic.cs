@@ -34,6 +34,11 @@ internal class Mechanic : ICarMechanics, ICanDrive
 
     // CONSTRUCTORS
 
+    internal Mechanic()
+    {
+        
+    }
+
     internal Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
     {
         this.FirstName = firstN;
