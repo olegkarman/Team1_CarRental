@@ -12,6 +12,11 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 03-JUN-2024
+
 internal class Record : ICarRecordable
 {
     // THE PURPOSE OF THE CLASS:

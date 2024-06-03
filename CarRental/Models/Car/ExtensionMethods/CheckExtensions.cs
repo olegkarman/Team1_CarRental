@@ -12,6 +12,11 @@ using CarRental.Enumerables;
 
 namespace CarRental.Models.Car.ExtensionMethods;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 03-JUN-2024
+
 internal static class CheckExtensions
 {
     // THE PURPOSE OF THE CLASS:

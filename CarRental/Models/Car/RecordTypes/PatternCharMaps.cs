@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarRental.Models.Car.RecordTypes;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 03-JUN-2024
+
 internal record class PatternCharMaps
 {
     // PROPERTIES

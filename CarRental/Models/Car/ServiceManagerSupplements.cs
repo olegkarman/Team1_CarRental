@@ -7,9 +7,9 @@ using CarRental.Models.Car.RecordTypes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 30-MAY-2024
+// DATE: 03-JUN-2024
 
 namespace CarRental.Models.Car;
 
