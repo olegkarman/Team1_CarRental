@@ -10,5 +10,5 @@ namespace CarRental.Interfaces;
 public interface ICarManager : IManagerable
 {
     //public Car GetNewCar();
-    internal string DisplayCar(Car car);
+    internal string DisplayCurrentCar();
 }

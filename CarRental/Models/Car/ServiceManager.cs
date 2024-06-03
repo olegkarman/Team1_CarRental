@@ -190,7 +190,6 @@ public class ServiceManager : ICarManager
         }
     }
 
-
     // TO SELECT A SPECIFIC CAR FROM THE LIST
 
     internal bool TrySelectCar(int index)
@@ -478,10 +477,10 @@ public class ServiceManager : ICarManager
         }
     }
 
-    internal string DisplayCar(Car car)
-    {
-        return car.ToString();
-    }
+    //internal string DisplayCar(Car car)
+    //{
+    //    return car.ToString();
+    //}
 
     // TO DISPLAY AVAILABLE CAR MODELS.
 
