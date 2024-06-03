@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Enumerables;
 using CarRental.Models.Car;
 
 namespace CarRental.Interfaces;
 
 public interface ICarManager : IManagerable
 {
-    //public Car GetNewCar();
-    internal string DisplayCurrentCar();
+    // public Car GetNewCar();
+    // public void DeleteCar();
+    // public bool TryChangeCarStatus(TransportStatus status);
+
+    public void MakeNewListOf15Cars();  // CREATE
+    internal string DisplayCurrentCar();    // READ
+    public void RefillSelectedCar();    // UPDATE
+    internal void DeleteAllCarsFromList();  // DELETE
+    
 }
