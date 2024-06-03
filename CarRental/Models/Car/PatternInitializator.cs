@@ -109,12 +109,15 @@ public class PatternInitializator
     // TO CREATE INSTANCE OF PATTERN-CLASS.
     public SelectPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
     {
+        PatternCharMaps charMaps = new PatternCharMaps();
+
         // USE INITIALIZATOR INSTEAD OF EXTENSIVE CONSTRUCTORS.
         SelectPattern pattern = new SelectPattern
         {
             Name = name,
             Brand = brand,
             Model = model,
+            charMap = charMaps.CharMaps[0],
             StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][0],
             StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][1],
 
