@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarHubTest;
+using CarRental.Enumerables;
+using CarRental.Interfaces;
+using CarRental.Models.Car;
 
-namespace CarRental.Models;
+namespace CarRental.Models.Car;
 
 internal class InspectorCars
 {
@@ -40,34 +44,45 @@ internal class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    internal void InspectCar(Car car) //Інспектувати по пробігу, даті,стану кузова
+    internal void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
     {
-
-        if (Mileage < 200000 && ReleaseDate >= 2015 && ExteriorCondition >= 1)
+        if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
-            Console.WriteLine($"Car {car.Brand} {car.Model} is fit for use.");
+            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
+            RecordInspectionResult(car, InspectionStatusType.Successfully);
+            InspectionManager.AddInspection(inspection);
+        }
+        else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
+        {
+            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
+            Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
+            RecordInspectionResult(car, InspectionStatusType.Repair);
+            InspectionManager.AddInspection(inspection);
         }
         else
         {
+            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
+            RecordInspectionResult(car, InspectionStatusType.Unusable);
+            InspectionManager.AddInspection(inspection);
         }
     }
 
-    public void RecordInspectionResult(Car car, TransportStatus inspectionResult)
+    public void RecordInspectionResult(Car car, InspectionStatusType inspectionResult)
     {
         if (car != null)
         {
             switch (inspectionResult)
             {
-                case TransportStatus.available:
-                    car.Status = "Ready";
+                case InspectionStatusType.Successfully:
+                    car.Status = TransportStatus.available;
                     break;
-                case TransportStatus.inRepair:
-                    car.Status = "Repair";
+                case InspectionStatusType.Repair:
+                    car.Status = TransportStatus.inRepair;
                     RemoveCarIfUnfit(car);
                     break;
-                case TransportStatus.unavailable:
-                    car.Status = "Broken";
+                case InspectionStatusType.Unusable:
+                    car.Status = TransportStatus.unavailable;
                     RemoveCarIfUnfit(car);
                     break;
                 default:
@@ -82,13 +97,13 @@ internal class InspectorCars
     }
     public void RemoveCarIfUnfit(Car car) // Видалити машину
     {
-        if (car.Status == "Repair" || car.Status == "Broken")
+        if (car.Status == TransportStatus.inRepair || car.Status == TransportStatus.unavailable)
         {
-            Console.WriteLine($"Car {car.Brand} {car.Model} with Serial Number {car.SerialNumber} removed because it is unfit for use.");
+            Console.WriteLine($"Car {car.Brand} {car.Model} with Serial Number {car.VinCode} removed because it is unfit for use.");
         }
         else
         {
-            Console.WriteLine($"Car {car.Brand} {car.Model} with Serial Number {car.SerialNumber} is fit for use. No action taken.");
+            Console.WriteLine($"Car {car.Brand} {car.Model} with Serial Number {car.VinCode} is fit for use. No action taken.");
         }
     }
 }
