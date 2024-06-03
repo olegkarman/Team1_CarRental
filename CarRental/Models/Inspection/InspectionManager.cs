@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Models;
 
-namespace CarHubTest
+namespace CarRental.Models.Inspection
 {
     internal class InspectionManager
     {
@@ -32,6 +32,11 @@ namespace CarHubTest
         public static Inspection? GetInspection(Guid inspectionId)
         {
             return s_inspections.Find(i => i.InspectionId == inspectionId);
+        }
+
+        public static List<Inspection> GetAllInspection()
+        {
+            return new List<Inspection>(s_inspections);
         }
 
         public static void PrintAllInspections()
