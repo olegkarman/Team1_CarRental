@@ -546,8 +546,6 @@ public class ServiceManager : ICarManager
         return _carsInfo.ToString();
     }
 
-    // TO CHECK THE FUEL OF SELECTED CAR
-
     public string CheckFuelSelectedCar()
     {
         if (SelectedCar == null)
@@ -566,8 +564,6 @@ public class ServiceManager : ICarManager
         return _carsInfo.ToString();
     }
 
-    // TO CHECK THE MILEAGE
-
     public string ShowMileageSelected()
     {
         if (SelectedCar == null)
@@ -578,8 +574,6 @@ public class ServiceManager : ICarManager
         return SelectedCar.Mileage.ToString();
     }
 
-    // TO REFILL THE SELECTED CAR
-
     public void RefillSelectedCar()
     {
         if (SelectedCar == null)
@@ -589,8 +583,6 @@ public class ServiceManager : ICarManager
 
         _supplementData.Mechanic.Refill(SelectedCar);
     }
-
-    // CHECK SIGNAL
 
     public string CheckSignal()
     {
@@ -606,8 +598,6 @@ public class ServiceManager : ICarManager
 
         return SelectedCar.Signal.ToString();
     }
-
-    // CHECK LIGHT
 
     public string CheckLights()
     {
@@ -656,7 +646,6 @@ public class ServiceManager : ICarManager
         }
         catch
         {
-            // THORW SOME EXCEPTION UPWARD.
             throw new Exception();
         }
     }

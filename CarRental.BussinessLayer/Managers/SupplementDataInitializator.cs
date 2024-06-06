@@ -56,7 +56,9 @@ public class SupplementDataInitializator
 
     public BrandModelsNamesDataSheet InitializeDataSheet()
     {
-        return new BrandModelsNamesDataSheet();
+        DataSeedManager dataSeedManager = new DataSeedManager();
+
+        return dataSeedManager.SeedModelComponentsData();
     }
 
     public Depot InitializeDepot()
