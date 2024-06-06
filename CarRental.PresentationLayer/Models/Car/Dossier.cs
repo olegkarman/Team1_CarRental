@@ -53,7 +53,7 @@ public class Dossier : IDossierable
     // IS FIT FOR USE?
     public bool IsFitForUse { get; set; }
 
-    public ICanDrive LastDriver { get; set; }
+    //public ICanDrive LastDriver { get; set; }
 
     // TECH-INFO.
     public string TechnicalInfo { get; set; }
