@@ -9,18 +9,15 @@ using System.Threading.Tasks;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Enumerables;
+namespace CarRental.Enums;
 
-internal enum MaterialWheel
+internal enum MaterialInterior
 {
     Unknown = 0,
-    Steel = 10,
-    Alloy = 11,
-    SplitRims = 12,
-    Chrome = 13,
-    Forged = 14,
-    CompositeAlloy = 15,
-    Elastomer = 16,
-    Magnesium = 17,
-    PressedMetal = 18
+    Metal = 10,
+    Plastic = 11,
+    Leather = 12,
+    Carbon = 13,
+    Wood = 14,
+    Combined = 15
 }

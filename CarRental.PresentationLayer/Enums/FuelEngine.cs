@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Enumerables;
+namespace CarRental.Enums;
 
 internal enum FuelEngine
 {
