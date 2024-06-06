@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using CarRental.Enumerables;
+using CarRental.Enums;
 using CarRental.Interfaces;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
-using CarRental.Enumerables;
+using CarRental.Enums;
 using CarRental.Interfaces;
 using CarRental.Models.Car;
 
