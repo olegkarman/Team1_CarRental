@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Enums;
 
-internal enum TypeTire
+public enum TypeTire
 {
     Unknown = 0,
     AllSeason = 10,

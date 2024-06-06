@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
-using CarRental.Enumerables;
-using CarRental.Models.Car;
-using CarRental.Interfaces;
+using CarRental.Data.Enums;
+using CarRental.Data.Models.Car;
+using CarRental.BussinessLayer.Interfaces;
+using CarRental.Data.Interfaces;
 
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
@@ -14,7 +15,7 @@ using CarRental.Interfaces;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Data.Interfaces;
+namespace CarRental.BussinessLayer.Interfaces;
 
 public interface ICarMechanics
 {

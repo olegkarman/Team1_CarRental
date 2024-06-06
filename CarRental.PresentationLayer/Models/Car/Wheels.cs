@@ -13,7 +13,7 @@ using CarRental.Data.Enums;
 
 namespace CarRental.Data.Models.Car;
 
-internal class Wheels : AbstractWheels
+public class Wheels : AbstractWheels
 {
     // PROPERTIES
 

@@ -14,7 +14,7 @@ using CarRental.Data.Enums;
 
 namespace CarRental.Data.Models.Car;
 
-internal class Interior : AbstractInterior
+public class Interior : AbstractInterior
 {
     // THE PURPOSE OF THE CLASS:
     // // A COMPONENT OF A CAR.

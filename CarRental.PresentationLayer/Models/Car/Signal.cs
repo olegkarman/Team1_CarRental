@@ -13,7 +13,7 @@ using CarRental.Data.Enums;
 
 namespace CarRental.Data.Models.Car;
 
-internal class Signal : AbstractSignal
+public class Signal : AbstractSignal
 {
     // PROPERTIES
 

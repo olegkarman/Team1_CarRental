@@ -13,7 +13,7 @@ using CarRental.Data.Enums;
 
 namespace CarRental.Data.Models.Car;
 
-internal class Engine : AbstractEngine
+public class Engine : AbstractEngine
 {
     // THE PURPOSE OF THE CLASS:
     // // A COMPONENT OF A CAR.
