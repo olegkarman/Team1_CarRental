@@ -25,9 +25,7 @@ public class DealManager
         return jsonString;
     }
 
-    public
-        Dictionary<int, Tuple<string, string, string, float, DateTime>>
-        Deserialize(string jsonString)
+    public Dictionary<int, Tuple<string, string, string, float, DateTime>> Deserialize(string jsonString)
     {
         if (jsonString == "")
         {
@@ -83,9 +81,29 @@ public class DealManager
     {
         try
         {
-            string[] jsonLines = File.ReadAllLines(fileName);
-            string jsonString = string.Join(Environment.NewLine, jsonLines);
-            return jsonString;
+            var d = new Deal("1", "1", "purchase", 1.2f);
+            d.Name = "Mariia";
+
+            //var a = File.ReadAllText(fileName);
+
+            var b = Newtonsoft.Json.JsonConvert.SerializeObject(d);
+
+            using (FileStream fs = new FileStream(Path.Combine(currentDirectory, fileName), FileMode.Create, FileAccess.Write))
+            {
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(d);
+                JsonSerializer.Serialize(fs, d, JsonSerializerOptions.Default);
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine(b);
+                    Debug.WriteLine(json);
+                    Debug.WriteLine($"\n{fileName} was created in {Path.Combine(currentDirectory, fileName)}\n");
+                }
+            }
+
+            //var b = JsonSerializer.Deserialize<Dictionary<int, Tuple<string, string, string, float, DateTime>>>(a);
+            //string[] jsonLines = File.ReadAllLines(fileName);
+            //string jsonString = string.Join(Environment.NewLine, jsonLines);
+            return "json";
         }
         catch (System.IO.FileNotFoundException)
         {
@@ -93,9 +111,7 @@ public class DealManager
         }
     }
 
-    public
-        Dictionary<int, Tuple<string, string, string, float, DateTime>>
-        GetAllDealsDict()
+    public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
     {
         try
         {
