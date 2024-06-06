@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Interfaces;
+namespace CarRental.Data.Interfaces;
 
 internal interface IBrandRecordable : IRecordable
 {

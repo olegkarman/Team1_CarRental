@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Enumerables;
 
-namespace CarRental.Interfaces;
+namespace CarRental.Data.Interfaces;
 
 public interface IComponent
 {

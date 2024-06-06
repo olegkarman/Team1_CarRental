@@ -12,7 +12,7 @@ using CarRental.Models.Car;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Interfaces;
+namespace CarRental.Data.Interfaces;
 
 public interface ICar
 {

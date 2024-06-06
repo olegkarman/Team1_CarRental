@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CarRental.Enumerables;
 using CarRental.Models.Car;
 
-namespace CarRental.Interfaces;
+namespace CarRental.Data.Interfaces;
 
 public interface ICarManager
 {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Enums;
+namespace CarRental.Data.Enums;
 
 public enum TransportStatus : byte
 {

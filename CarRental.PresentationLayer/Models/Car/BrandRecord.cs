@@ -10,7 +10,7 @@ using CarRental.Interfaces;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Data.Models.Car;
 
 public class BrandRecord : IBrandRecordable
 {

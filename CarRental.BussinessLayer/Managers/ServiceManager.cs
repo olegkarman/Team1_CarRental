@@ -13,7 +13,7 @@ using CarRental.Models.Car.RecordTypes;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.BussinessLayer.Managers;
 
 public class ServiceManager : ICarManager
 {

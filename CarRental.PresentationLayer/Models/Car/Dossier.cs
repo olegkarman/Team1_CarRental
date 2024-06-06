@@ -10,7 +10,7 @@ using CarRental.Interfaces;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Data.Models.Car;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
