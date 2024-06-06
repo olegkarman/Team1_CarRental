@@ -21,6 +21,8 @@ internal class Signal : AbstractSignal
     public override PitchComponent Pitch { get; init; }
     public override required ComponentStatus Status { get; set; }
 
+    
+
     // CONSTRUCTORS
 
     // METHODS
@@ -30,3 +32,4 @@ internal class Signal : AbstractSignal
         return $"{{ {nameof(this.Pitch)} = {Pitch} | {nameof(this.Status)} = {Status} }}";
     }
 }
+

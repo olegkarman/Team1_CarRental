@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Models;
-internal class Inspector : User
+public class Inspector : User
 {
     public DateTime EmploymentDate { get; init; } //Додати readonly поле (string Year)
 

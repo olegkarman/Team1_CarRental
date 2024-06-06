@@ -1,6 +1,0 @@
- Volume in drive C is Windows10_64bit_and_Stuff
- Volume Serial Number is 6E52-CBB4
-
- Directory of C:\Users\F021\source\repos\Team1_CarRental\CarRental\Interfaces
-        ..
-IBrandRecordable.cs, ICanDrive.cs, ICar.cs, ICarMechanics.cs, ICarRecordable.cs, ICarSelectivePattern.cs, IComponent.cs, IDepoShop.cs, IDriveable.cs, IDrivingPattern.cs, InterfacesList.txt, IPatternable.cs, IRecordable.cs

@@ -14,7 +14,7 @@ using CarRental.Interfaces;
 
 namespace CarRental.Models.Car;
 
-internal abstract class AbstractLights : IComponent
+public abstract class AbstractLights : IComponent
 {
     // THE PURPOSE OF THE CLASS:
     // // A CAR'S COMPONENT ABSTRACTION.

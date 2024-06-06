@@ -10,7 +10,7 @@ using CarRental.Models.Car;
 
 namespace CarRental.Models.Car;
 
-internal class InspectorCars
+public class InspectorCars
 {
     public int Mileage { get; set; }
     public int ReleaseDate { get; set; }
@@ -19,7 +19,7 @@ internal class InspectorCars
     public const int MaxCarsAllowed = 10; //Додати константу (const string InvalidCar ="Car has no mark")
     private int CurrentCarsInspected { get; set; }
     public InspectorCars Status { get; set; }
-    internal InspectorCars()
+    public InspectorCars()
     {
         Random rand = new Random();
         Mileage = rand.Next(0, 300000);       // Пробіг від 0 до 300 000 км
@@ -44,7 +44,7 @@ internal class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    internal void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
+    public void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
     {
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {

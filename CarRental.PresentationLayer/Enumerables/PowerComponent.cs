@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Models;
-using CarRental.Models.Car;
-
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 30-MAY-2024
 
-namespace CarRental.Interfaces;
+namespace CarRental.Enumerables;
 
-public interface ICanDrive
+public enum PowerComponent
 {
-    internal bool LetsDrive(Car car);
+    unknown = 0,
+    weak = 10,
+    moderate = 11,
+    powerful = 12,
+    extreme = 13
 }
