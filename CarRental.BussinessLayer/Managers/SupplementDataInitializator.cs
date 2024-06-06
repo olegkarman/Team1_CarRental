@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
-using CarRental.BussinessLayer.Interfaces;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
@@ -28,7 +27,7 @@ public class SupplementDataInitializator
         {
             Random random = new Random();
 
-            return new Mechanic($"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18));
+            return new Mechanic(/*$"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18)*/);
         }
         catch(InvalidCastException exception)
         {
