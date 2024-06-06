@@ -14,9 +14,9 @@ public interface ICarManager
     // public void DeleteCar();
     // public bool TryChangeCarStatus(TransportStatus status);
 
-    public void MakeNewListOf15Cars();  // CREATE
-    internal string DisplayCurrentCar();    // READ
-    public void RefillSelectedCar();    // UPDATE
-    internal void DeleteAllCarsFromList();  // DELETE
+    public void MakeNewListOf15Cars();      // CREATE
+    public string DisplayCurrentCar();      // RETRIVE
+    public void RefillSelectedCar();        // UPDATE
+    public void DeleteAllCarsFromList();    // DELETE
     
 }

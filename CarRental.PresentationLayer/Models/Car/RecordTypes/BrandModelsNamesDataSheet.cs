@@ -18,13 +18,13 @@ public record class BrandModelsNamesDataSheet
 
     // PROPERTIES
 
-    internal string[] BrandNamesData { get; init; }
-    internal string[] ModelNamesData { get; init; }
-    internal Dictionary<string, int[]> ModelPatternDataDictionary { get; init; }
+    public string[] BrandNamesData { get; init; }
+    public string[] ModelNamesData { get; init; }
+    public Dictionary<string, int[]> ModelPatternDataDictionary { get; init; }
 
     // CONSTRUCTORS
 
-    internal BrandModelsNamesDataSheet()
+    public BrandModelsNamesDataSheet()
     {
         BrandNamesData = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"];
         ModelNamesData =

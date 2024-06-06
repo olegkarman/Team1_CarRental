@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
 using CarRental.Data.Models.Car.RecordTypes;
-//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
@@ -14,7 +13,7 @@ using CarRental.Data.Models.Car.RecordTypes;
 
 namespace CarRental.Data.Models.Car;
 
-internal class SupplementDataInitializator
+public class SupplementDataInitializator
 {
     // THE PURPOSE OF THE CLASS:
     // // HOLDS METHOD OF DATA-CLASSES INITIALIZATION.
@@ -49,7 +48,7 @@ internal class SupplementDataInitializator
         return patternInitializator.InitializeBrandRecords(data);
     }
 
-    PatternInitializator InitializePatternInitializator()
+    public PatternInitializator InitializePatternInitializator()
     {
         return new PatternInitializator();
     }

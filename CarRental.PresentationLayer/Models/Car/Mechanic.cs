@@ -15,7 +15,7 @@ using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car;
 
-internal class Mechanic : ICarMechanics, ICanDrive
+public class Mechanic : ICarMechanics, ICanDrive
 {
     // THE PURPOSE OF THE CLASS:
     // // TO PERFORM SPECIAL MANIPULATIONS ON A CAR.

@@ -12,7 +12,7 @@ using CarRental.Models.Car.RecordTypes;
 
 namespace CarRental.Data.Models.Car;
 
-internal class ServiceManagerSupplements
+public class ServiceManagerSupplements
 {
     // THE PURPOSE OF THE CLASS:
     // // HOLDS FIELDS ARE ALL NECCESSARY CLASSES TO CREATE CAR-CLASS INSTANCE.
@@ -21,9 +21,9 @@ internal class ServiceManagerSupplements
 
     // PROPERTIES
 
-    internal BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
-    internal Depot DepotService { get; init; }
-    internal Dictionary<string, SelectPattern> ModelsPatterns { get; init; }
-    internal BrandRecord[] BrandRecords { get; init; }
-    internal Mechanic Mechanic { get; init; }
+    public BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
+    public Depot DepotService { get; init; }
+    public Dictionary<string, SelectPattern> ModelsPatterns { get; init; }
+    public BrandRecord[] BrandRecords { get; init; }
+    public Mechanic Mechanic { get; init; }
 }

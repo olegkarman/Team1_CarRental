@@ -60,7 +60,7 @@ public class Depot
         return pattern;
     }
 
-    internal Car ObtainNewCar(SelectPattern pattern)
+    public Car ObtainNewCar(SelectPattern pattern)
     {
         string carCode = GetSerialNumber(pattern);
         int yearToSet = _random.Next(1960, 2025);

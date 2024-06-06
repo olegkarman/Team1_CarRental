@@ -70,7 +70,7 @@ public class Car : ICar
     // FIELDS
 
     private const string _noInfo = "NO INFO";
-    internal readonly int year;
+    public readonly int year;
     private float _mileage;   // AVTOPROBIG.
     private float _currentFuel;
     private int _maxFuelCapacity;
@@ -102,7 +102,7 @@ public class Car : ICar
     public int Price { get; set; }
     public required string VinCode { get; init; }
 
-    internal int Year
+    public int Year
     {
         get
         {
@@ -116,7 +116,7 @@ public class Car : ICar
         }
     }
 
-    internal required float Mileage
+    public required float Mileage
     {
         get
         {
@@ -130,7 +130,7 @@ public class Car : ICar
     }
 
     // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
-    internal required int MaxFuelCapacity
+    public required int MaxFuelCapacity
     {
         get
         {
@@ -144,7 +144,7 @@ public class Car : ICar
     }
 
     // A SMALL AUTO-VALIDATION.
-    internal float CurrentFuel
+    public float CurrentFuel
     {
         get
         {
@@ -157,9 +157,9 @@ public class Car : ICar
         }
     }
 
-    internal string Model { get; init; }
-    internal string Brand { get; init; }
-    internal TransportStatus Status { get; set; }
+    public string Model { get; init; }
+    public string Brand { get; init; }
+    public TransportStatus Status { get; set; }
     public bool IsFitForUse { get; set; }
 
     #endregion
