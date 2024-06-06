@@ -28,25 +28,25 @@ public class Mechanic : ICarMechanics
 
     // PROPERTIES
 
-    public NamesSurenames FirstName { get; init; }
-    public string Id { get; init; }
-    public NamesSurenames LastName { get; init; }
+    //public NamesSurenames FirstName { get; init; }
+    //public string Id { get; init; }
+    //public NamesSurenames LastName { get; init; }
 
 
     // CONSTRUCTORS
 
     public Mechanic()
     {
-        
+        this._random = new Random();
     }
 
-    public Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
-    {
-        this.FirstName = firstN;
-        this.LastName = lastN;
-        this.Id = id;
-        _random = new Random();
-    }
+    //public Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
+    //{
+    //    this.FirstName = firstN;
+    //    this.LastName = lastN;
+    //    this.Id = id;
+    //    _random = new Random();
+    //}
 
     // METHODS
 
