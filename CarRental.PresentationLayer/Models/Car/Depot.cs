@@ -155,22 +155,22 @@ public class Depot
             },
 
             // THE RECORD
-            Record = new Dossier
+            Dossier = new Dossier
             {
-                RecordId = GetSerialNumber(pattern),
+                DossierId = GetSerialNumber(pattern),
                 VinCode = carCode,
                 BrandName = pattern.Brand,
                 ModelName = pattern.Name,
                 Year = yearToSet,
                 NumberPlate = GetSerialNumber(pattern).Substring(0, 9).Insert(2, "-").Insert(8, "-"),
-                RecordCreationDate = DateTime.Now.ToString(),
+                DossierCreationDate = DateTime.Now.ToString(),
                 Price = price,
                 uiD = carGuid
             }
 
         };
 
-        car.Record.TechnicalInfo = car.ToString();
+        car.Dossier.TechnicalInfo = car.ToString();
 
         return car;
     }

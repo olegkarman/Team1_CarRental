@@ -80,7 +80,7 @@ public class Car : ICar
 
     // PROPERTIES
 
-    public required Models.Car.AbstractEngine Engine
+    public required AbstractEngine Engine
     {
         get;
         set;
@@ -102,8 +102,6 @@ public class Car : ICar
     public int MaxSpeed { get; private set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
     public required string VinCode { get; init; }
-
-    public ICanDrive LastDriver { get; set; }
 
     internal int Year
     {

@@ -29,7 +29,7 @@ internal class Dossier : ICarRecordable
     // PROPERTIES.
 
     // ID OF RECORD.
-    public string RecordId { get; init; }
+    public string DossierId { get; init; }
     public Guid uiD { get; init; }
 
     // CAR VIN CODE.
@@ -43,7 +43,7 @@ internal class Dossier : ICarRecordable
 
     // CREATION DATE.
     //public DateTime RecordCreationDate { get; init; }
-    public string RecordCreationDate { get; init; }
+    public string DossierCreationDate { get; init; }
 
     public int Year { get; init; }
 
@@ -52,6 +52,8 @@ internal class Dossier : ICarRecordable
 
     // IS FIT FOR USE?
     public bool IsFitForUse { get; set; }
+
+    public ICanDrive LastDriver { get; set; }
 
     // TECH-INFO.
     public string TechnicalInfo { get; set; }
@@ -67,6 +69,6 @@ internal class Dossier : ICarRecordable
 
     public override string ToString()
     {
-        return $"{nameof(this.RecordId)} = {RecordId} | {nameof(this.RecordCreationDate)} = {RecordCreationDate} | {nameof(this.BrandName)} = {BrandName} | {nameof(this.ModelName)} = {ModelName} | {nameof(this.Year)} = {Year} | {nameof(this.NumberPlate)} = {NumberPlate} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.uiD)} = {uiD} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.TechnicalInfo)} = {TechnicalInfo} | }}";
+        return $"{nameof(this.DossierId)} = {DossierId} | {nameof(this.DossierCreationDate)} = {DossierCreationDate} | {nameof(this.BrandName)} = {BrandName} | {nameof(this.ModelName)} = {ModelName} | {nameof(this.Year)} = {Year} | {nameof(this.NumberPlate)} = {NumberPlate} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.uiD)} = {uiD} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.TechnicalInfo)} = {TechnicalInfo} | }}";
     }
 }
