@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Models.Car.RecordTypes;
+namespace CarRental.Data.Models.Car.RecordTypes;
 
 public record class BrandModelsNamesDataSheet
 {

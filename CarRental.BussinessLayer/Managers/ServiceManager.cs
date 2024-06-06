@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
+using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
+
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
@@ -521,7 +523,7 @@ public class ServiceManager : ICarManager
         for (int i = 0; i < CurrentCars.Count; i++)
         {
             var car = CurrentCars[i];
-            Console.WriteLine(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Record.NumberPlate, car.VinCode);
+            Console.WriteLine(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Dossier.NumberPlate, car.VinCode);
         }
     }
 
@@ -538,7 +540,7 @@ public class ServiceManager : ICarManager
 
         foreach (Car car in CurrentCars)
         {
-            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Record.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
+            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Dossier.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
         }
 
         return _carsInfo.ToString();
