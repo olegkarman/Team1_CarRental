@@ -92,7 +92,7 @@ public class Car : ICar
     public required Models.Car.AbstractWheels Wheels { get; set; }
     public required Models.Car.AbstractTransmission Transmission { get; set; }
 
-    public ICarRecordable Record { get; set; }
+    public ICarRecordable Dossier { get; set; }
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 

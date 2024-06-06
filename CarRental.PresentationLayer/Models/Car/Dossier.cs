@@ -17,7 +17,7 @@ namespace CarRental.Models.Car;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-internal class Record : ICarRecordable
+internal class Dossier : ICarRecordable
 {
     // THE PURPOSE OF THE CLASS:
     // // THE ADDITIONAL INFORMATION ABOUT A SPECIFIC CAR.

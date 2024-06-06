@@ -155,7 +155,7 @@ public class Depot
             },
 
             // THE RECORD
-            Record = new Record
+            Record = new Dossier
             {
                 RecordId = GetSerialNumber(pattern),
                 VinCode = carCode,
