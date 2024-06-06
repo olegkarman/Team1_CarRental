@@ -13,7 +13,7 @@ using CarRental.Data.Interfaces;
 
 namespace CarRental.Data.Models.Car;
 
-internal abstract class AbstractTransmission : IComponent
+public abstract class AbstractTransmission : IComponent
 {
     // THE PURPOSE OF THE CLASS:
     // // A CAR'S COMPONENT ABSTRACTION.

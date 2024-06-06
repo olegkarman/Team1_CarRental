@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Enums;
 
-internal enum MaterialInterior
+public enum MaterialInterior
 {
     Unknown = 0,
     Metal = 10,

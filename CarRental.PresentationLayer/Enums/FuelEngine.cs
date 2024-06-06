@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Enums;
 
-internal enum FuelEngine
+public enum FuelEngine
 {
     Unknown = 0,
     DiselBio = 11,

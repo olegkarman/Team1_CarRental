@@ -21,7 +21,7 @@ public class Transmission : AbstractTransmission
 
     // PROPERTIES
 
-    internal override required string SerialNumber { get; init; }
+    public override required string SerialNumber { get; init; }
     public override required TypeTransmission Type { get; init; }
     public int SpeedCount { get; init; }
     public override ComponentStatus Status { get; set; }

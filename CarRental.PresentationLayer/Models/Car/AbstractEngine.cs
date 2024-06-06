@@ -13,7 +13,7 @@ using CarRental.Data.Interfaces;
 
 namespace CarRental.Data.Models.Car;
 
-internal abstract class AbstractEngine : IComponent
+public abstract class AbstractEngine : IComponent
 {
     // THE PURPOSE OF THE CLASS:
     // // A CAR'S COMPONENT ABSTRACTION.
@@ -23,7 +23,7 @@ internal abstract class AbstractEngine : IComponent
     public abstract string SerialNumber { get; init; }
     public abstract FuelEngine Fuel { get; init; }
     public abstract TypeEngine Type { get; init; }
-    internal abstract required int AverageFuelConsumption { get; set; }
-    internal abstract required int Power { get; set; }
+    public abstract required int AverageFuelConsumption { get; set; }
+    public abstract required int Power { get; set; }
     public abstract ComponentStatus Status { get; set; }
 }

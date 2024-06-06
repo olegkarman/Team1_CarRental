@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Enums;
 
-internal enum MaterialWheel
+public enum MaterialWheel
 {
     Unknown = 0,
     Steel = 10,

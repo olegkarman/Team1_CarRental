@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Enums;
 
-internal enum TypeTransmission
+public enum TypeTransmission
 {
     Unknown = 0,
     Manual = 10,

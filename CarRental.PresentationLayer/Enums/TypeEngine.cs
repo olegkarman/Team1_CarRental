@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Enums;
 
-internal enum TypeEngine
+public enum TypeEngine
 {
     Unknown = 0,
     Inline = 11,

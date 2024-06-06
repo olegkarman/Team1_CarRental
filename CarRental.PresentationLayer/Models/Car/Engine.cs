@@ -25,10 +25,10 @@ public class Engine : AbstractEngine
     // PROPERTIES
 
     public override string SerialNumber { get; init; }
-    internal override required int AverageFuelConsumption { get; set; }
+    public override required int AverageFuelConsumption { get; set; }
     public override FuelEngine Fuel { get; init; }
     public override TypeEngine Type { get; init; }
-    internal override required int Power { get; set; }
+    public override required int Power { get; set; }
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS

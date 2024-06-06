@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using CarRental.Data.Enums;
-using CarRental.Data.Interfaces;
+using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Models.Car;
+using CarRental.Data.Interfaces;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.BussinessLayer.Managers;
 
-public class Mechanic : ICarMechanics, ICanDrive
+public class Mechanic : ICarMechanics
 {
     // THE PURPOSE OF THE CLASS:
     // // TO PERFORM SPECIAL MANIPULATIONS ON A CAR.
@@ -34,12 +35,12 @@ public class Mechanic : ICarMechanics, ICanDrive
 
     // CONSTRUCTORS
 
-    internal Mechanic()
+    public Mechanic()
     {
         
     }
 
-    internal Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
+    public Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
     {
         this.FirstName = firstN;
         this.LastName = lastN;
@@ -51,14 +52,14 @@ public class Mechanic : ICarMechanics, ICanDrive
 
     // TO CHECK THE FUEL OF A CAR
 
-    public float CheckFuel(Models.Car.Car car)
+    public float CheckFuel(Car car)
     {
         return car.CurrentFuel;
     }
 
     // TO REFILL
 
-    public void Refill(Models.Car.Car car)
+    public void Refill(Car car)
     {
         car.CurrentFuel = car.MaxFuelCapacity;
     }
@@ -102,14 +103,14 @@ public class Mechanic : ICarMechanics, ICanDrive
     }
 
     // CHECK A WHOLE CAR. COMPONENT BY COMPONENT.
-    public TransportStatus CheckCar(Models.Car.Car car)
+    public TransportStatus CheckCar(Car car)
     {
-        bool isNeedToBeFixed = ((car.Engine.Status == ComponentStatus.fixIsNeed) || (car.Engine.Status == ComponentStatus.broken)) || ((car.Transmission.Status == ComponentStatus.fixIsNeed) || (car.Transmission.Status == ComponentStatus.broken)) || ((car.Wheels.Status == ComponentStatus.fixIsNeed) || (car.Wheels.Status == ComponentStatus.broken));
+        bool isNeedToBeFixed = ((car.Engine.Status == ComponentStatus.FixIsNeed) || (car.Engine.Status == ComponentStatus.Broken)) || ((car.Transmission.Status == ComponentStatus.FixIsNeed) || (car.Transmission.Status == ComponentStatus.Broken)) || ((car.Wheels.Status == ComponentStatus.FixIsNeed) || (car.Wheels.Status == ComponentStatus.Broken));
 
         // IF A CAR IS NEED A REPAIR, CHANGE ITS STATUS AND RETURN ONE.
         if (isNeedToBeFixed)
         {
-            car.Status = TransportStatus.inRepair;
+            car.Status = TransportStatus.InRepair;
             return car.Status;
         }
         else
@@ -137,7 +138,7 @@ public class Mechanic : ICarMechanics, ICanDrive
     // TO CHANGE COMPONENTS
 
     // IF ENGINE IS DIFFERENT TYPE, CHANGE IS IMPOSSIBLE.
-    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Engine engine)
+    public bool TryReplaceComponent(Car car, Engine engine)
     {
         if (car.Engine.Type.Equals(engine.Type))
         {
@@ -150,7 +151,7 @@ public class Mechanic : ICarMechanics, ICanDrive
         }
     }
 
-    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Transmission transmission)
+    public bool TryReplaceComponent(Car car, Transmission transmission)
     {
         if (car.Transmission.Type.Equals(transmission.Type))
         {
@@ -164,14 +165,14 @@ public class Mechanic : ICarMechanics, ICanDrive
     }
 
     // TO CHANGE INTERIOR IS ALWAYS AVAILABLE.
-    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Interior interior)
+    public bool TryReplaceComponent(Car car, Interior interior)
     {
         car.Interior = interior;
         return true;
     }
 
     // CHECK SIZE, IF EQUAL, REPLACE.
-    public bool TryReplaceComponent(Models.Car.Car car, Models.Car.Wheels wheels)
+    public bool TryReplaceComponent(Car car, Wheels wheels)
     {
         if (car.Wheels.Size.Equals(wheels.Size))
         {
@@ -185,13 +186,13 @@ public class Mechanic : ICarMechanics, ICanDrive
     }
 
     // PAINT A CAR.
-    public void Paint(Models.Car.Car car, KnownColor color)
+    public void Paint(Car car, KnownColor color)
     {
         car.Color = color;
     }
 
     //CHANGE TIRE OF A CAR.
-    public bool TryReplaceComponent(Models.Car.Car car, CarRental.Enumerables.TypeTire tire)
+    public bool TryReplaceComponent(Car car, TypeTire tire)
     {
         car.Wheels.Tire = tire;
         return true;
