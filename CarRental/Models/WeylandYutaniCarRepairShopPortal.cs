@@ -4,13 +4,16 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Data.Models.Car;
+using CarRental.BussinessLayer.Managers;
+
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.Presentation.Models;
 
 public class WeylandYutaniCarRepairShopPortal
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Models.Car;
+using CarRental.Data.Models.Car;
 
 
 
@@ -16,8 +16,8 @@ namespace CarRental.Data.Interfaces;
 
 public interface ICar
 {
-    internal AbstractEngine Engine { get; set; }
-    internal AbstractInterior Interior { get; set; }
-    internal AbstractWheels Wheels { get; set; }
-    internal AbstractTransmission Transmission { get; set; }
+    public AbstractEngine Engine { get; set; }
+    public AbstractInterior Interior { get; set; }
+    public AbstractWheels Wheels { get; set; }
+    public AbstractTransmission Transmission { get; set; }
 }

@@ -49,7 +49,7 @@ public class ServiceManager : ICarManager
 
     // TO GET RANDOM CAR
 
-    internal Car GetNewCar()
+    public Car GetNewCar()
     {
         // KEYS OF THE DICTIONARY INTO ARRAY.
         string[] models = _supplementData.ModelsPatterns.Keys.ToArray();
@@ -60,7 +60,7 @@ public class ServiceManager : ICarManager
 
     // TO GET SPECIFIC CAR BY A MODEL.
 
-    internal Car GetNewCar(string model)
+    public Car GetNewCar(string model)
     {
         try
         {
@@ -101,7 +101,7 @@ public class ServiceManager : ICarManager
 
     // TO CHANGE Car.Status OF A Car-INSTANCE
 
-    internal bool TryChangeCarStatus(Car car, TransportStatus status)
+    public bool TryChangeCarStatus(Car car, TransportStatus status)
     {
         if (car == null)
         {
@@ -121,7 +121,7 @@ public class ServiceManager : ICarManager
        
     }
 
-    internal bool TryChangeCarStatus(int index, TransportStatus status)
+    public bool TryChangeCarStatus(int index, TransportStatus status)
     {
         if (CurrentCars == null)
         {
@@ -150,7 +150,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    internal bool TryChangeCarStatus(List<Car> cars, TransportStatus status)
+    public bool TryChangeCarStatus(List<Car> cars, TransportStatus status)
     {
         if (cars == null)
         {
@@ -172,7 +172,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    internal bool TryChangeCarStatus(TransportStatus status)
+    public bool TryChangeCarStatus(TransportStatus status)
     {
         if (this.SelectedCar == null)
         {
@@ -193,7 +193,7 @@ public class ServiceManager : ICarManager
 
     // TO SELECT A SPECIFIC CAR FROM THE LIST
 
-    internal bool TrySelectCar(int index)
+    public bool TrySelectCar(int index)
     {
         try
         {
@@ -234,7 +234,7 @@ public class ServiceManager : ICarManager
 
     // TRY TO FIND CAR BY ITS MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
 
-    internal bool TrySelectCar(string model)
+    public bool TrySelectCar(string model)
     {
         Car car;
 
@@ -319,7 +319,7 @@ public class ServiceManager : ICarManager
     }
 
     // GET CAR BY INDEX
-    internal Car? GetCar(int index)
+    public Car? GetCar(int index)
     {
         try
         {
@@ -354,7 +354,7 @@ public class ServiceManager : ICarManager
 
     // TO TAKE OFF A CAR FROM THE LIST
 
-    internal bool TryTakeCar(int index)
+    public bool TryTakeCar(int index)
     {
         try
         {
@@ -384,7 +384,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    internal bool TryTakeCar(string model)
+    public bool TryTakeCar(string model)
     {
         try
         {
@@ -627,7 +627,7 @@ public class ServiceManager : ICarManager
     // METHODS
     // // INITIALIZATION
 
-    internal void InitializeManagment()
+    public void InitializeManagment()
     {
         try
         {

@@ -17,10 +17,9 @@ public class Signal : AbstractSignal
 {
     // PROPERTIES
 
+    public override required string SerialNumber { get; init; }
     public override PitchComponent Pitch { get; init; }
     public override required ComponentStatus Status { get; set; }
-
-    
 
     // CONSTRUCTORS
 

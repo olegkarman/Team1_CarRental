@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Interfaces;
 
-internal interface IBrandRecordable : IRecordable
+public interface IBrandRecordable
 {
     public string BrandName { get; init; }
     public string[] Models { get; init; }

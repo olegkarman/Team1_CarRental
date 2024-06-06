@@ -122,6 +122,7 @@ public class Depot
             // INTERIOR
             Interior = new Interior
             {
+                SerialNumber = GetSerialNumber(pattern),
                 Color = (KnownColor)_random.Next(pattern.ColorInteriorInitial, pattern.ColorInteriorEnd),
                 Material = (MaterialInterior)_random.Next(pattern.MaterialInteriorInitial, pattern.MaterialInteriorEnd),
                 Status = (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex)
@@ -130,6 +131,7 @@ public class Depot
             // WHEELS
             Wheels = new Wheels
             {
+                SerialNumber = GetSerialNumber(pattern),
                 Material = (MaterialWheel)_random.Next(pattern.MaterialWheelsInitial, pattern.MaterialWheelsEnd),
                 Size = _random.Next(pattern.SizeWheelsInitial, pattern.SizeWheelsEnd),
                 Tire = (TypeTire)_random.Next(pattern.TireInitial, pattern.TireEnd),
@@ -139,6 +141,7 @@ public class Depot
             // LIGHTS
             Lights = new Lights
             {
+                SerialNumber = GetSerialNumber(pattern),
                 Color = (KnownColor)_random.Next(pattern.ColorLightsInitial, pattern.ColorLightsEnd),
                 Power = (PowerComponent)_random.Next(pattern.PowerLightsInitial, pattern.PowerLightsEnd),
                 Status = (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex)
@@ -147,6 +150,7 @@ public class Depot
             // SIGNAL
             Signal = new Signal
             {
+                SerialNumber = GetSerialNumber(pattern),
                 Pitch = (PitchComponent)_random.Next(pattern.PitchInitial, pattern.PitchEnd),
                 Status = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
             },
