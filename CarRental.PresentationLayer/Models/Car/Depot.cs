@@ -5,11 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
-using CarRental.Enums;
-using CarRental.Interfaces;
-//using System.Reflection;
-//using System.Diagnostics;
-//using System.Reflection;
+using CarRental.Data.Enums;
+using CarRental.Data.Interfaces;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."

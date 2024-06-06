@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Interfaces;
+using CarRental.Data.Interfaces;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -17,7 +17,7 @@ namespace CarRental.Data.Models.Car;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-internal class Dossier : ICarRecordable
+internal class Dossier : IDossierable
 {
     // THE PURPOSE OF THE CLASS:
     // // THE ADDITIONAL INFORMATION ABOUT A SPECIFIC CAR.

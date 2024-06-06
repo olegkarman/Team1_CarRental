@@ -88,11 +88,11 @@ public class Car : ICar
 
     public Guid CarId { get; init; }
 
-    public required Models.Car.AbstractInterior Interior { get; set; }
-    public required Models.Car.AbstractWheels Wheels { get; set; }
-    public required Models.Car.AbstractTransmission Transmission { get; set; }
+    public required AbstractInterior Interior { get; set; }
+    public required AbstractWheels Wheels { get; set; }
+    public required AbstractTransmission Transmission { get; set; }
 
-    public ICarRecordable Dossier { get; set; }
+    public IDossierable Dossier { get; set; }
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
