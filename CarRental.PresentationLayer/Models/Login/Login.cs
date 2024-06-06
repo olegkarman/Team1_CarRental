@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace CarRental.Models.Login;
 
-internal class Login
+public class Login
 {
     private string _usersFileName;
     private JsonSerializerOptions _options;
@@ -73,6 +73,11 @@ internal class Login
         string username = Console.ReadLine();
         Console.Write("Enter a password: ");
         string password = Console.ReadLine();
+
+        string salt = "f328373f";
+        var fullPassword = password + salt;
+        var hashedPass = fullPassword.GetHashCode();
+
 
         var users = Serializer.DeserializeFromFile<User>(_usersFileName);
         if (users.OfType<Customer>().Any(user => user.ValidateCredentials(username)))

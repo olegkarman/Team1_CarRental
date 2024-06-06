@@ -3,14 +3,15 @@ using System.Collections.Generic;
 
 namespace CarRental.Models
 {
-    internal class Deal
+    public class Deal
     {
-        internal string customerId { get; set; }
-        internal string carId { get; set; }
-        internal float price { get; set; }
+        public string Name { get; set; }
+        public string customerId { get; set; }
+        public string carId { get; set; }
+        public float price { get; set; }
 
         private string _dealType;
-        internal string dealType
+        public string dealType
         {
             get { return _dealType; }
             set
