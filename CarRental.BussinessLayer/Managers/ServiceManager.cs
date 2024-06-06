@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Enumerables;
-using CarRental.Interfaces;
-using CarRental.Models.Car.RecordTypes;
+using CarRental.Data.Enums;
+using CarRental.Data.Interfaces;
+using CarRental.Data.Models.Car.RecordTypes;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
-using CarRental.Enums;
-using CarRental.Interfaces;
-using CarRental.Models.Car;
+using CarRental.Data.Enums;
+using CarRental.Data.Interfaces;
+using CarRental.Data.Models.Car;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
