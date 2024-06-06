@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Enumerables;
 
-internal enum PowerComponent
+public enum PowerComponent
 {
     unknown = 0,
     weak = 10,

@@ -1,4 +1,4 @@
-﻿namespace CarRental.Models.ConsoleHelper;
+﻿namespace CarRental.Models;
 public static class ConsoleHelper
 {
     public static void ApplyConsoleStyles()

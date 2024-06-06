@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using CarRental.BussinessLayer.Managers;
 using CarRental.Models;
 using CarRental.Models.ConsoleHelper;
 using CarRental.Models.Login;
@@ -35,8 +36,9 @@ class CarRentalPortal
         var login = new Login();
         var (user, isCustomer) = login.StartLogin();
         var portal = new Portal(user, isCustomer);
+        var portalManager = new PortalManager(portal);
         ConsoleHelper.ClearConsoleWithDelay(2);
-        portal.StartMainMenu();
+        portalManager.StartMainMenu();
 
     }
 

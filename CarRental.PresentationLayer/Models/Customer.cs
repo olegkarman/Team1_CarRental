@@ -2,7 +2,7 @@
 using CarRental.Models;
 
 namespace CarRental.Models;
-internal class Customer : User
+public class Customer : User
 {
     public List<Deal> Deals { get; set; }
     public const float BasicDiscount = 0.5f;

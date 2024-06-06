@@ -29,7 +29,7 @@ public class ServiceManager
     // PROPERTTES
 
     internal List<Car> CurrentCars { get; private set; }    // O. KARMANSKYI
-    internal Car SelectedCar { get; private set; }
+    public Car SelectedCar { get; private set; }
 
     // CONSTRUCTORS
 
@@ -91,7 +91,7 @@ public class ServiceManager
 
     // TO SELECT A SPECIFIC CAR FROM THE LIST
 
-    internal bool TrySelectCar(int index)
+    public bool TrySelectCar(int index)
     {
         try
         {
@@ -189,7 +189,7 @@ public class ServiceManager
     }
 
     // GET CAR BY INDEX
-    internal Car? GetSelectedCar()
+    public Car? GetSelectedCar()
     {
         return SelectedCar;
     }
@@ -392,7 +392,7 @@ public class ServiceManager
     // METHODS
     // // INITIALIZATION
 
-    internal void InitializeManagment()
+    public void InitializeManagment()
     {
         try
         {

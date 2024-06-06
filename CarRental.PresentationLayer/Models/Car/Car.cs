@@ -16,7 +16,7 @@ using CarRental.Models.Car;
 
 namespace CarRental.Models.Car;
 
-internal class Car : ICar
+public class Car : ICar
 {
     // THE PURPOSE OF THE CLASS:
     // // A MAIN TYPE CLASS THAT DEFINES THE BEHAVIOR OF A CAR ABSTRACTION.
@@ -101,7 +101,7 @@ internal class Car : ICar
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; private set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
-    internal required string VinCode { get; init; }
+    public required string VinCode { get; init; }
 
     public ICanDrive LastDriver { get; set; }
 
