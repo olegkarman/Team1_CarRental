@@ -13,10 +13,10 @@ namespace CarRental.Enumerables;
 
 public enum TransportStatus : byte
 {
-    unknown = 0,
-    available = 1,
-    rented = 2,
-    sold = 3,
-    inRepair = 4,
-    unavailable = 200
+    Unknown = 0,
+    Available = 1,
+    Rented = 2,
+    Sold = 3,
+    InRepair = 4,
+    Unavailable = 200
 }

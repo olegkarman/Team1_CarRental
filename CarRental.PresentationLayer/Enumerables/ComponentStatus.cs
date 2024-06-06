@@ -13,8 +13,8 @@ namespace CarRental.Enumerables;
 
 public enum ComponentStatus
 {
-    unknown = 0,
-    ready = 10,
-    fixIsNeed = 11,
-    broken = 12
+    Unknown = 0,
+    Ready = 10,
+    FixIsNeed = 11,
+    Broken = 12
 }

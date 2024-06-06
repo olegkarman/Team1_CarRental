@@ -13,11 +13,11 @@ namespace CarRental.Enumerables;
 
 internal enum MaterialInterior
 {
-    unknown = 0,
-    metal = 10,
-    plastic = 11,
-    leather = 12,
-    carbon = 13,
-    wood = 14,
-    combined = 15
+    Unknown = 0,
+    Metal = 10,
+    Plastic = 11,
+    Leather = 12,
+    Carbon = 13,
+    Wood = 14,
+    Combined = 15
 }

@@ -13,16 +13,16 @@ namespace CarRental.Enumerables;
 
 internal enum TypeEngine
 {
-    unknwon = 0,
-    inline = 11,
-    vTwo = 12,
-    vThree = 13,
-    vFour = 14,
-    vFive = 15,
-    vSix = 16,
-    vEight = 17,
-    wForm = 18,
-    electric = 19,
-    flat = 20,
-    rotary = 21
+    Unknown = 0,
+    Inline = 11,
+    Two = 12,
+    Three = 13,
+    Four = 14,
+    Five = 15,
+    Six = 16,
+    Eight = 17,
+    WingForm = 18,
+    Electric = 19,
+    Flat = 20,
+    Rotary = 21
 }

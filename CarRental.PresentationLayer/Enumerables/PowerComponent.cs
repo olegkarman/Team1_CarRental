@@ -13,9 +13,9 @@ namespace CarRental.Enumerables;
 
 public enum PowerComponent
 {
-    unknown = 0,
-    weak = 10,
-    moderate = 11,
-    powerful = 12,
-    extreme = 13
+    Unknown = 0,
+    Weak = 10,
+    Moderate = 11,
+    Powerful = 12,
+    Extreme = 13
 }

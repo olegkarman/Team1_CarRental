@@ -13,19 +13,19 @@ namespace CarRental.Enumerables;
 
 internal enum FuelEngine
 {
-    unknown = 0,
-    diselBio = 11,
-    diselSynthetic = 12,
-    diselPetroleum = 13,
-    typicalTwoStroke = 14,
-    eGasoline = 15,
-    regular = 16,
-    shellSuper = 17,
-    euroSuper = 18,
-    iesPlus = 19,
-    nitroPlus = 20,
-    superPlus = 21,
-    marcoPetroli = 22,
-    ultimate = 23,
-    electricity = 24
+    Unknown = 0,
+    DiselBio = 11,
+    DiselSynthetic = 12,
+    DiselPetroleum = 13,
+    TypicalTwoStroke = 14,
+    GasolineEte = 15,
+    Regular = 16,
+    ShellSuper = 17,
+    EuroSuper = 18,
+    IesPlus = 19,
+    NitroPlus = 20,
+    SuperPlus = 21,
+    MarcoPetroli = 22,
+    Ultimate = 23,
+    Electricity = 24
 }

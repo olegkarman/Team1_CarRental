@@ -13,9 +13,9 @@ namespace CarRental.Enumerables;
 
 internal enum TypeTransmission
 {
-    unknown = 0,
-    manual = 10,
-    semiAutomatic = 11,
-    automatic = 12,
-    continuouslyVariable = 13
+    Unknown = 0,
+    Manual = 10,
+    SemiAutomatic = 11,
+    Automatic = 12,
+    ContinuouslyVariable = 13
 }

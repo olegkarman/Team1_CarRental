@@ -13,9 +13,9 @@ namespace CarRental.Enumerables;
 
 public enum NamesSurenames
 {
-    unknown = 0,
+    Unknown = 0,
     Yaroslav = 10,
-    Parkhomenkp = 11,
+    Parkhomenko = 11,
     Gjora = 12,
     Ambers = 13,
     Ivan = 14,

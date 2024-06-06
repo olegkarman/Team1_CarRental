@@ -13,9 +13,9 @@ namespace CarRental.Enumerables;
 
 public enum PitchComponent
 {
-    unknown = 0,
-    low = 11,
-    moderate = 12,
-    high = 13,
-    extremelyHigh = 14
+    Unknown = 0,
+    Low = 11,
+    Moderate = 12,
+    High = 13,
+    ExtremelyHigh = 14
 }

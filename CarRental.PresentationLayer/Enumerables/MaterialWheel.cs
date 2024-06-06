@@ -13,14 +13,14 @@ namespace CarRental.Enumerables;
 
 internal enum MaterialWheel
 {
-    unknown = 0,
-    steel = 10,
-    alloy = 11,
-    splitRims = 12,
-    chrome = 13,
-    forged = 14,
-    compositeAlloy = 15,
-    elastomer = 16,
-    magnesium = 17,
-    pressedMetal = 18
+    Unknown = 0,
+    Steel = 10,
+    Alloy = 11,
+    SplitRims = 12,
+    Chrome = 13,
+    Forged = 14,
+    CompositeAlloy = 15,
+    Elastomer = 16,
+    Magnesium = 17,
+    PressedMetal = 18
 }
