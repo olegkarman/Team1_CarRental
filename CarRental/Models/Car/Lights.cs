@@ -21,6 +21,7 @@ internal class Lights : AbstractLights
 
     // PROPERTIES
 
+    public override required string SerialNumber { get; init; }
     public override KnownColor Color { get; init; }
     public override PowerComponent Power { get; init; }
     public override required ComponentStatus Status { get; set; }

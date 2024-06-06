@@ -8,7 +8,7 @@ using CarRental.Models.Car;
 
 namespace CarRental.Interfaces;
 
-public interface ICarManager : IManagerable
+public interface ICarManager
 {
     // public Car GetNewCar();
     // public void DeleteCar();

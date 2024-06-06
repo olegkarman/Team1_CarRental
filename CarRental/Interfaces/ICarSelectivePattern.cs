@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Interfaces;
 
-public interface ICarSelectivePattern : IPatternable
+public interface ICarSelectivePattern
 {
     // PROPERTIES
 

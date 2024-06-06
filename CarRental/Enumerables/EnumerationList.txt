@@ -1,0 +1,40 @@
+ Volume in drive C is Windows10_64bit_and_Stuff
+ Volume Serial Number is 6E52-CBB4
+
+ Directory of C:\Users\F021\source\repos\Team1_CarRental\CarRental\Enumerables
+
+
+
+       ..
+ComponentStatus.csEnumerationList.txtFuelEngine.csMaterialInterior.csMaterialWheel.csNamesSurenames.csPitchComponent.csPowerComponent.csTransportStatus.csTypeEngine.cs
+TypeTire.csTypeTransmission.cs
+
+Оренда Авто
+
+Команда №1 — "Карма"
+
+Посилання на проект: https://github.com/olegkarman/Team1_CarRental
+
+Посилання на "пул реквест": https://github.com/olegkarman/Team1_CarRental/pull/1
+
+Була реалізована сутність "авто" із відповідним функціоналом (на жаль, не все встигнуто). Зокрема створені файли класів: 
+
+Abstract/COMPONENT NAME/.cs — Абстрактні сутності компонентів (може у нас ще мотоцикли будуть)
+BrandModelsNamesDataSheet.cs — Основне вмістилище даних, я не знав як викачути із файла чи із БД, тому просто ввів вручну, скопіювавши та змінивши деякі значення для кожної секції.
+BrandRecord.cs — Це тип запису бренду, зручно.
+Car.cs — Основний тип над яким була виконана робота.
+CheckExtensions.cs — Це статичний клас методів-розширень перевірки сигналу та світла авто (реалізовано тільки один).
+Depot.cs — Основний тип при процесі створення екземпляру Car.
+Mechanic.cs — Тип що виконує лише операції певного виду, створений для розвантаження класу-менеджера.
+PatternInitializator.cs — Потрібний тип для процесу збірки, ініціалізації шаблону генерації екземпляру авто.
+Record.cs — Додаткова, "паперова" інформація по авто.
+SelectPattern.cs — Тип-шаблон для генерації екземпляру авто. Реалізує те, що, кожна модель авто має базову комплектацію, а також дає можливість створювати складні умови по генерації авто, допустимо тільки із випадковим двигуном, або тільки із несправними фарами...
+ServiceManager.cs — Тип що об'єднує в собі все що можна робити із авто, колекціями авто і більше, на жаль не встиг та забув дещо реалізувати (методу зміни статусу авто, згадав вже після мержу коли власник репозиторію запитав)
+ServiceManagerSupplements.cs — Тип що об'єднує дані, які використовуються екземпляром менеджера. 
+SupplementDataInitializator.cs — Тип що ініціалізовує екземпляри даних для менеджера.
+/COMPONENT/.cs — Типи компонентів авто. 
+WeylandYutaniCarRepairShopPortal.cs — Меню консольне, для тестів чи працює щось там.
+Створені інтерфейси: IBrandRecordable.cs — уточнює тип записів, ICanDrive.cs — функціонал не реалізований, не встигнув, ICar.cs, ICarMechanics.cs — функціонал механіка, ICarRecordable.cs, ICarSelectivePattern.cs, IComponent.cs — компоненти, IDepoShop.cs, IDriveable.cs — поведінка того, що можна водити (велосипед напр), IDrivingPattern.cs  — не реалізована, IPatternable.cs — поведінка шаблонів, IRecordable.cs — поведінка додаткових записів, щоб відділити текстові поля там від власне властивостей сутності.
+
+Створені єнумераці: ComponentStatus.cs, FuelEngine.cs, MaterialInterior.cs, MaterialWheel.cs, NamesSurenames.cs, PitchComponent.cs, PowerComponent.cs, TransportStatus.cs, TypeEngine.cs, TypeTire.cs, TypeTransmission.cs — різноманітні назви характеристики із індексами, також використаний KnownColor.
+

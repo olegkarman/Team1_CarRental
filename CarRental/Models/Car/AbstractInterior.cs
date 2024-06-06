@@ -21,6 +21,7 @@ internal abstract class AbstractInterior : IComponent
 
     // PROPERTIES
 
+    public abstract required string SerialNumber { get; init; }
     public abstract required KnownColor Color { get; set; }
     public abstract required MaterialInterior Material { get; init; }
     public abstract required ComponentStatus Status { get; set; }

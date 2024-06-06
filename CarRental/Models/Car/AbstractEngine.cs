@@ -20,7 +20,7 @@ internal abstract class AbstractEngine : IComponent
 
     // PROPERTIES
 
-    internal abstract string SerialNumber { get; init; }
+    public abstract string SerialNumber { get; init; }
     public abstract FuelEngine Fuel { get; init; }
     public abstract TypeEngine Type { get; init; }
     internal abstract required int AverageFuelConsumption { get; set; }

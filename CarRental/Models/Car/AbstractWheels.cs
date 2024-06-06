@@ -20,6 +20,7 @@ internal abstract class AbstractWheels : IComponent
 
     // PROPERTIES
 
+    public abstract required string SerialNumber { get; init; }
     public abstract MaterialWheel Material { get; init; }
     public abstract int Size { get; init; }
     public abstract required TypeTire Tire { get; set; }

@@ -24,7 +24,7 @@ internal class Engine : AbstractEngine
 
     // PROPERTIES
 
-    internal override string SerialNumber { get; init; }
+    public override string SerialNumber { get; init; }
     internal override required int AverageFuelConsumption { get; set; }
     public override FuelEngine Fuel { get; init; }
     public override TypeEngine Type { get; init; }

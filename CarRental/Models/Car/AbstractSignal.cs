@@ -20,6 +20,7 @@ internal abstract class AbstractSignal : IComponent
 
     // PROPERTIES
 
+    public abstract required string SerialNumber { get; init; }
     public abstract PitchComponent Pitch { get; init; }
     public abstract required ComponentStatus Status { get; set; }
 }

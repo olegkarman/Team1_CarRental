@@ -21,6 +21,7 @@ internal class Interior : AbstractInterior
 
     // PROPERTIES
 
+    public override required string SerialNumber { get; init; }
     public override required KnownColor Color { get; set; } // FROM System.Drawing, BASE COLORS ENUM.
     public override required MaterialInterior Material { get; init; }
     public override required ComponentStatus Status { get; set; }
