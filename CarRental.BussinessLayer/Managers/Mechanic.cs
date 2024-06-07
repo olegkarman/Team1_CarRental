@@ -40,18 +40,6 @@ public class Mechanic : ICarMechanics
         this._random = new Random();
     }
 
-    //public Mechanic(string id, NamesSurenames firstN, NamesSurenames lastN)
-    //{
-    //    this.FirstName = firstN;
-    //    this.LastName = lastN;
-    //    this.Id = id;
-    //    _random = new Random();
-    //}
-
-    // METHODS
-
-    // TO CHECK THE FUEL OF A CAR
-
     public float CheckFuel(Car car)
     {
         return car.CurrentFuel;
@@ -64,35 +52,8 @@ public class Mechanic : ICarMechanics
         car.CurrentFuel = car.MaxFuelCapacity;
     }
 
-    // ЗКОМЕНТУВАВ, ЧЕРЕЗ ТЕ ЩО ПІСЛЯ НЕВДАЛОГО ЛОКАЛЬНОГО МЕРЖУ, ЧОМУСЬ ПЕРЕСТАЛИ ПІДКЛЮЧАТИСЯ ІНТЕРФЕЙСИ.
-
-    //internal bool LetsDrive(CarRental.Models.Car.Car car)
-    //{
-    //    float averageSpeed = (float)(car.MaxSpeed / 2);
-    //    int drivingTime = _random.Next(0, 101);
-
-    //    // THROW ITSELF AS AN ARGUMENT.
-    //    return car.Drive(this, averageSpeed, drivingTime);
-    //}
-
     public bool LetsDrive(Car car)
     {
-        //car.LastDriver = driver;
-
-        //// STOP METHOD IF NO FUEL.
-        //if ((this.CurrentFuel == 0))
-        //{
-        //    return false;
-        //}
-        //else
-        //{
-        //    // TO INCREASE AVTOPROBIG AND DECREASE FUEL LEVEL.
-        //    this._mileage = this._mileage + (averageSpeed * drivingTime);
-        //    this.CurrentFuel = this.CurrentFuel - (this.Engine.AverageFuelConsumption * averageSpeed * drivingTime);
-
-        //    return true;
-        //}
-
         return true;
     }
 

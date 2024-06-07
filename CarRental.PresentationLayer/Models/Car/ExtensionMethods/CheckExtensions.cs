@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 using CarRental.Data.Enums;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 30-MAY-2024
-
-namespace CarRental.Data.Models.Car.ExtensionMethods;
-
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
+
+namespace CarRental.Data.Models.Car.ExtensionMethods;
 
 internal static class CheckExtensions
 {

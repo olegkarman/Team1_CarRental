@@ -20,53 +20,6 @@ public class Car : ICar
     // THE PURPOSE OF THE CLASS:
     // // A MAIN TYPE CLASS THAT DEFINES THE BEHAVIOR OF A CAR ABSTRACTION.
 
-    #region COMMENTARY OF O. KARMANSKYI
-
-    //THE COMMENT OF O. KARMANSKYI.
-    /*VinCode: string
-    SerialNumber: string
-    TransmissionType: string
-    Model: string
-    Brand: string
-    Year: int
-    Status: string (available, rented, sold, in repair, etc.)
-    Methods:
-    TakeCarFromParking()
-    SendToRepair()
-    Refuel()
-    RemoveCar()*/
-    // public bool IsFitForUse { get; set; } — NINA BABINETS.
-
-    // O. KARMANSKYI
-    /*
-        Car:
-        Can be rented by a Customer
-        Can be purchased by a Customer
-        Can be sent to repair by an Inspector
-        Can be inspected by an Inspector
-        Can be part of a Deal
-        Customer:
-        Can rent a Car
-        Can purchase a Car
-        Can return a rented Car
-        Can pay money for a rented or purchased Car
-        Can be a party to a Deal
-        Inspector:
-        Can inspect a Car
-        Can record the results of an inspection
-        Can remove a Car from the system if it is deemed unfit for use
-        Inspection:
-        Is performed by an Inspector
-        Is associated with a specific Car
-        Has a result that indicates whether the Car is fit for use
-        Deal:
-        Is created between a Company and a Customer
-        Involves a specific Car
-        Has a type (purchase or rental)
-        Has a price*/
-
-    #endregion
-
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -74,8 +27,6 @@ public class Car : ICar
     private float _mileage;   // AVTOPROBIG.
     private float _currentFuel;
     private int _maxFuelCapacity;
-
-    #region PROPERTIES
 
     // PROPERTIES
 
@@ -162,15 +113,7 @@ public class Car : ICar
     public TransportStatus Status { get; set; }
     public bool IsFitForUse { get; set; }
 
-    #endregion
-
-    #region CONSTRUCTORS
-
     // CONSTRUCTORS
-
-    #endregion
-
-    #region METHODS
 
     // METHODS
 
@@ -183,6 +126,4 @@ public class Car : ICar
     {
         MaxSpeed = this.Engine.Power * this.SpeedCoeficient;
     }
-
-    #endregion
 }

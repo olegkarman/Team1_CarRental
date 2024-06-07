@@ -37,8 +37,6 @@ public class Depot
 
     // MEHODS
 
-    #region METHODS
-
     // TO SELECT A PATTERN ON WHICH CAR-INSTANCE GENERATES.
     public SelectPattern SelectCarComplectationPattern(Dictionary<string, SelectPattern> patterns)
     {
@@ -79,15 +77,13 @@ public class Depot
 
         Car car = new Car
         {
-            //ICarSelectivePattern pattern = this.defaultPattern;
-
             // CAR INSTANCE ARGUMENTS
 
             Year = yearToSet,
             
             VinCode = carCode,
 
-            Mileage = 100,   // AVTOPROBIG FOR NEW CARS.
+            Mileage = 100,
             CurrentFuel = _random.Next(pattern.CurrentFuelInitial/2, pattern.CurrentFuelEnd),
             MaxFuelCapacity = _random.Next(pattern.MaxFuelCapacityInitial, pattern.MaxFuelCapacityEnd),
             SpeedCoeficient = _random.Next(pattern.SpeedCoeficientInitial, pattern.SpeedCoeficientEnd),
@@ -99,7 +95,6 @@ public class Depot
             CarId = carGuid,
             IsFitForUse = isFitForUse,
 
-            // ENGINE
             Engine = new Engine
             {
                 SerialNumber = GetSerialNumber(pattern),
@@ -110,7 +105,6 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.EngineStatusInitialIndex, pattern.EngineStatusEndIndex)
             },
 
-            // TRANSMISSION
             Transmission = new Transmission
             {
                 SerialNumber = GetSerialNumber(pattern),
@@ -119,7 +113,6 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.TransmissionStatusInitialIndex, pattern.TransmissionStatusEndIndex)
             },
 
-            // INTERIOR
             Interior = new Interior
             {
                 SerialNumber = GetSerialNumber(pattern),
@@ -128,7 +121,6 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.InteriorStatusInitialIndex, pattern.InteriorStatusEndIndex)
             },
 
-            // WHEELS
             Wheels = new Wheels
             {
                 SerialNumber = GetSerialNumber(pattern),
@@ -138,7 +130,6 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.WheelsStatusInitialIndex, pattern.WheelsStatusEndIndex)
             },
 
-            // LIGHTS
             Lights = new Lights
             {
                 SerialNumber = GetSerialNumber(pattern),
@@ -147,7 +138,6 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.LightsStatusInitialIndex, pattern.LightsStatusEndIndex)
             },
 
-            // SIGNAL
             Signal = new Signal
             {
                 SerialNumber = GetSerialNumber(pattern),
@@ -155,7 +145,6 @@ public class Depot
                 Status = (ComponentStatus)_random.Next(pattern.SignalStatusInitialIndex, pattern.SignalStatusEndIndex)
             },
 
-            // THE RECORD
             Dossier = new Dossier
             {
                 DossierId = GetSerialNumber(pattern),
@@ -179,7 +168,7 @@ public class Depot
     // TO GENERATE RANDOM NUMBER FROM CHAR-MAP OF A PATTERN.
     private string GetSerialNumber(ICarSelectivePattern pattern)
     {
-        _snStringBuilder.Clear();    // TO CLEAR PREVIOUS SN.
+        _snStringBuilder.Clear();
 
         for (int index = 0; index < 33; index = index + 1)
         {
@@ -188,6 +177,4 @@ public class Depot
 
         return _snStringBuilder.ToString();
     }
-
-    #endregion
 }

@@ -45,8 +45,6 @@ public class ServiceManager : ICarManager
 
     // METHODS
 
-    #region METHODS
-
     // TO GET RANDOM CAR
 
     public Car GetNewCar()
@@ -649,6 +647,4 @@ public class ServiceManager : ICarManager
             throw new Exception();
         }
     }
-
-    #endregion
 }

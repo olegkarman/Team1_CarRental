@@ -10,10 +10,6 @@ namespace CarRental.Data.Interfaces;
 
 public interface ICarManager
 {
-    // public Car GetNewCar();
-    // public void DeleteCar();
-    // public bool TryChangeCarStatus(TransportStatus status);
-
     public void MakeNewListOf15Cars();      // CREATE
     public string DisplayCurrentCar();      // RETRIVE
     public void RefillSelectedCar();        // UPDATE

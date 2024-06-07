@@ -31,27 +31,19 @@ public class PatternInitializator
 
     // METHODS
 
-    #region METHODS
-
-    // TO CREATE THE ARRAY OF BRAND-RECORDS INSTANCES WITH KNWLEDGE OF DATA USED.
     public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
     {
         BrandRecord[] records =
         [
-            // ZAPOROZHETS
             new BrandRecord
             (
-                // ID
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[0].ToUpper()),
 
-                // ZAPOROZHETS
                 dataSheet.BrandNamesData[0],
 
-                // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
                 dataSheet.ModelNamesData[0..2]
             ),
 
-            // PEUGEOT
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[1].ToUpper()),
@@ -61,7 +53,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[3..13]
             ),
 
-            // VOLKSWAGEN
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[2].ToUpper()),
@@ -71,7 +62,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[14..24]
             ),
 
-            // NISSAN
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[3].ToUpper()),
@@ -81,7 +71,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[25..35]
             ),
 
-            // GYGULI
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[4].ToUpper()),
@@ -91,7 +80,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[36..42]
             ),
 
-            // JEEP
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[5].ToUpper()),
@@ -105,12 +93,10 @@ public class PatternInitializator
         return records;
     }
 
-    // TO CREATE INSTANCE OF PATTERN-CLASS.
     public SelectPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
     {
         PatternCharMaps charMaps = new PatternCharMaps();
 
-        // USE INITIALIZATOR INSTEAD OF EXTENSIVE CONSTRUCTORS.
         SelectPattern pattern = new SelectPattern
         {
             Name = name,
@@ -187,7 +173,6 @@ public class PatternInitializator
         return pattern;
     }
 
-    // OVERLOAD OF THE METHOD TO CREATE DICTIONARY OF MODEL-GENERATION PATTERN, A BASIC COMPLECTATION LOGIC.
     public Dictionary<string, SelectPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         Dictionary<string, SelectPattern> dictionary = new Dictionary<string, SelectPattern>();
@@ -201,6 +186,4 @@ public class PatternInitializator
 
         return dictionary;
     }
-
-    #endregion
 }

@@ -28,40 +28,28 @@ public class Dossier : IDossierable
 
     // PROPERTIES.
 
-    // ID OF RECORD.
     public string DossierId { get; init; }
     public Guid uiD { get; init; }
 
-    // CAR VIN CODE.
     public string VinCode { get; init; }
 
     public string BrandName { get; init; }
     public string ModelName { get; init; }
 
-    // CURRENT CAR NUMBER.
     public string NumberPlate { get; set; }
 
-    // CREATION DATE.
-    //public DateTime RecordCreationDate { get; init; }
     public string DossierCreationDate { get; init; }
 
     public int Year { get; init; }
 
-    // PRICE.
     public int Price { get; set; }
 
-    // IS FIT FOR USE?
     public bool IsFitForUse { get; set; }
 
     //public ICanDrive LastDriver { get; set; }
 
-    // TECH-INFO.
     public string TechnicalInfo { get; set; }
 
-    // CURRENT OWNER.
-    // INSPECTION[S].
-    // REPAIR[S].
-    // INSURANCE.
 
     // CONSTRUCTORS
 

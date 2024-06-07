@@ -24,8 +24,6 @@ public class SelectPattern : ICarSelectivePattern
 
     // PROPERTIES
 
-    #region PROPERTIES
-
     public char[] charMap { get; init; }
 
     // STATUS SECTION
@@ -104,14 +102,11 @@ public class SelectPattern : ICarSelectivePattern
 
     // CAR-RECORD SECTION
 
-
     // PROPERTIES
 
     public string Name { get; init; }
     public string Brand { get; init; }
     public string Model { get; init; }
-
-    #endregion
 
     // CONSTRUCTORS
 
