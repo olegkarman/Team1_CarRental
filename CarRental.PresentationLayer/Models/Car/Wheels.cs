@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
+using CarRental.Data.Models.Car.Abstractions;
 //using CarRental.Data.Models.Car;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA

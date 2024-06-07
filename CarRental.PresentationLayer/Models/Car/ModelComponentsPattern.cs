@@ -20,9 +20,13 @@ public class ModelComponentsPattern : ICarSelectivePattern
     
     // FIELDS
 
-    private const string _noInfo = "NO INFO"; 
+    private const string _noInfo = "NO INFO";
 
     // PROPERTIES
+
+    public string Name { get; init; }
+    public string Brand { get; init; }
+    public string Model { get; init; }
 
     public char[] charMap { get; init; }
 
@@ -33,12 +37,6 @@ public class ModelComponentsPattern : ICarSelectivePattern
     public WheelsPattern Wheels { get; init; }
     public LightsPattern Lights { get; init; }
     public SignalPattern Signal { get; init; }
-
-    // PROPERTIES
-
-    public string Name { get; init; }
-    public string Brand { get; init; }
-    public string Model { get; init; }
 
     // CONSTRUCTORS
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 
@@ -11,9 +12,9 @@ using CarRental.Data.Interfaces;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.Data.Models.Car.Abstractions;
 
-public abstract class AbstractWheels : IComponent
+public abstract class AbstractInterior : IComponent
 {
     // THE PURPOSE OF THE CLASS:
     // // A CAR'S COMPONENT ABSTRACTION.
@@ -21,8 +22,7 @@ public abstract class AbstractWheels : IComponent
     // PROPERTIES
 
     public abstract required string SerialNumber { get; init; }
-    public abstract MaterialWheel Material { get; init; }
-    public abstract int Size { get; init; }
-    public abstract required TypeTire Tire { get; set; }
-    public abstract ComponentStatus Status { get; set; }
+    public abstract required KnownColor Color { get; set; }
+    public abstract required MaterialInterior Material { get; init; }
+    public abstract required ComponentStatus Status { get; set; }
 }

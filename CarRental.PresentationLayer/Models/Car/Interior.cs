@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Enums;
+using CarRental.Data.Models.Car.Abstractions;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."

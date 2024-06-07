@@ -11,7 +11,7 @@ using CarRental.Data.Interfaces;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.Data.Models.Car.Abstractions;
 
 public abstract class AbstractEngine : IComponent
 {
