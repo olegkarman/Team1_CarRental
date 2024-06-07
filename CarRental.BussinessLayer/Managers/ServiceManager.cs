@@ -487,7 +487,7 @@ public class ServiceManager : ICarManager
     {
         _carsInfo.Clear();
 
-        foreach (KeyValuePair<string, SelectPattern> pair in _supplementData.ModelsPatterns)
+        foreach (KeyValuePair<string, ModelComponentsPattern> pair in _supplementData.ModelsPatterns)
         {
             _carsInfo.Append(pair.Key + " | ");
         }
