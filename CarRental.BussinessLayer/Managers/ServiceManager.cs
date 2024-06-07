@@ -31,7 +31,7 @@ public class ServiceManager : ICarManager
 
     // PROPERTTES
 
-    internal List<Car>? CurrentCars { get; private set; }    // O. KARMANSKYI
+    internal List<Car>? CurrentCars { get; private set; }
     internal Car? SelectedCar { get; private set; }
 
     // CONSTRUCTORS
@@ -73,28 +73,37 @@ public class ServiceManager : ICarManager
 
     // TO GENERATE A LIST OF CARS
 
-    public void MakeNewListOf15Cars()
+    public List<Car> MakeNewListOfCars()
     {
-        // NULL-CHECK-UP
+        return new List<Car>();
+    }
+
+    // TO MAKE A LIST OF CARS WITH A SPECIFIC NUMBER OF RANDOM VEHICLES
+
+    public List<Car> MakeNewListOfCars(int count)
+    {
+        List<Car> cars = new List<Car>();
+
+        for (int index = 0; index < count; index = index + 1)
+        {
+            cars.Add(GetNewCar());
+        }
+
+        return cars;
+    }
+
+    // TO MAKE A LIST OF CURRENT CARS WITH SPECIFIC AMOUNT OF RANDOM VEHICLES INSIDE
+
+    public void MakeNewListOfCurrentCars(int count)
+    {
         if (CurrentCars == null)
         {
-            throw new ArgumentNullException(nameof(this.CurrentCars));
+            throw new NullReferenceException();
         }
 
-        // TO ERASE ALL ELEMENTS.
         CurrentCars.Clear();
 
-        try
-        {
-            for (int index = 0; index < 15; index = index + 1)
-            {
-                CurrentCars.Add(GetNewCar());
-            }
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
+        this.CurrentCars = MakeNewListOfCars(count);
     }
 
     // TO CHANGE Car.Status OF A Car-INSTANCE
@@ -189,7 +198,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    // TO SELECT A SPECIFIC CAR FROM THE LIST
+    // TO SELECT A SPECIFIC CAR FROM THE CURRENT CARS LIST
 
     public bool TrySelectCar(int index)
     {
@@ -572,6 +581,16 @@ public class ServiceManager : ICarManager
         return SelectedCar.Mileage.ToString();
     }
 
+    public void RefillCar(Car car)
+    {
+        if (car == null)
+        {
+            throw new ArgumentNullException(nameof(car));
+        }
+
+        _supplementData.Mechanic.Refill(car);
+    }
+
     public void RefillSelectedCar()
     {
         if (SelectedCar == null)
@@ -580,6 +599,31 @@ public class ServiceManager : ICarManager
         }
 
         _supplementData.Mechanic.Refill(SelectedCar);
+    }
+
+    // TO CHECK IF INDEX IN THE RANGE OF CURRENT CAR LIST
+
+    public Car ChooseCarFromList(List<Car> list, int index)
+    {
+
+        if (list == null)
+        {
+            throw new NullReferenceException();
+        }
+            
+        if ((index < 0) || (index > list.Count))
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        Car car = list[index];
+
+        if (car == null)
+        {
+            throw new NullReferenceException();
+        }
+
+        return car;
     }
 
     public string CheckSignal()
