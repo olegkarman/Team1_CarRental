@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarHubTest;
-using CarRental.Enumerables;
-using CarRental.Interfaces;
-using CarRental.Models.Car;
+﻿using CarHubTest;
+using CarRental.Data.Models.Car;
 
-namespace CarRental.Models.Car;
+namespace CarRental.Data.Models.InspectorCars;
 
 public class InspectorCars
 {
