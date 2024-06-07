@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental", "CarRental\CarRental.csproj", "{EA3A775F-6482-4A73-9074-A774D1EC5736}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Presentation", "CarRental\CarRental.Presentation.csproj", "{EA3A775F-6482-4A73-9074-A774D1EC5736}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.BussinessLayer", "CarRental.BussinessLayer\CarRental.BussinessLayer.csproj", "{96C0A797-CD99-4FE4-8DD4-F2CE50E6D966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.Data", "CarRental.PresentationLayer\CarRental.Data.csproj", "{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{EA3A775F-6482-4A73-9074-A774D1EC5736}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA3A775F-6482-4A73-9074-A774D1EC5736}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA3A775F-6482-4A73-9074-A774D1EC5736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96C0A797-CD99-4FE4-8DD4-F2CE50E6D966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96C0A797-CD99-4FE4-8DD4-F2CE50E6D966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96C0A797-CD99-4FE4-8DD4-F2CE50E6D966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96C0A797-CD99-4FE4-8DD4-F2CE50E6D966}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

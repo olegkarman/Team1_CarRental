@@ -142,7 +142,7 @@ public class Portal
             Console.WriteLine("Error: Please enter a valid number from 1 to 15.");
         }
         _carServiceManager.TrySelectCar(index - 1);
-        var car = _carServiceManager.GetSelectedCar();
+        var car = _carServiceManager.GetCar(index - 1);
         if (buy)
         {
             (UserData as Customer).BuyCar(car);
@@ -176,7 +176,7 @@ public class Portal
             Console.WriteLine("Error: Please enter a valid number from 1 to 15.");
         }
         _carServiceManager.TrySelectCar(index - 1);
-        var car = _carServiceManager.GetSelectedCar();
+        var car = _carServiceManager.GetCar(index - 1);
         _inspectorCars.InspectCar(car, (UserData as Inspector));
         Console.WriteLine();
         Console.WriteLine("Press any key to continue...");
