@@ -11,13 +11,13 @@ using CarRental.Data.Interfaces;
 // STUDENT: PARKHOMENKO YAROSLAV
 // DATE: 03-JUN-2024
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.Data.Models.Car.Seeds;
 
 public class ModelComponentsPattern : ICarSelectivePattern
 {
     // THE PURPOSE OF THE CLASS:
     // // A DATA-HOLDER OF A PATTERN NECCESSARY TO GENERATE A CAR INSTANCE.
-    
+
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -42,6 +42,6 @@ public class ModelComponentsPattern : ICarSelectivePattern
 
     public ModelComponentsPattern()
     {
-        this.charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        charMap = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
     }
 }

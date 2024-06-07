@@ -7,6 +7,7 @@ using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.BussinessLayer.Managers;
 using CarRental.BussinessLayer.Interfaces;
+using CarRental.Data.Models.Car.Seeds;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 4. Extension methods & Record type."

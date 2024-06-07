@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Data.Models.Car
+namespace CarRental.Data.Models.Car.Seeds
 {
     public class WheelsPattern
     {
