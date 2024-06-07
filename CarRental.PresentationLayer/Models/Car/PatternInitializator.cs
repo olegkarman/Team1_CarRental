@@ -97,7 +97,7 @@ public class PatternInitializator
     {
         PatternCharMaps charMaps = new PatternCharMaps();
 
-        SelectPattern pattern = new SelectPattern
+        ModelComponentsPattern pattern = new ModelComponentsPattern
         {
             Name = name,
             Brand = brand,
