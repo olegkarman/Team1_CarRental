@@ -10,11 +10,11 @@ namespace CarRental.Data.Models.Car
     {
         // PROPERTIES
 
-        public int TransmissionStatusInitialIndex { get; init; }
-        public int TransmissionStatusEndIndex { get; init; }
+        public int StatusInitialIndex { get; init; }
+        public int StatusEndIndex { get; init; }
 
-        public int TypeTransmissionInitial { get; init; }
-        public int TypeTransmissionEnd { get; init; }
+        public int TypeInitial { get; init; }
+        public int TypeEnd { get; init; }
         public int SpeedCountInitial { get; init; }
         public int SpeedCountEnd { get; init; }
     }

@@ -10,12 +10,12 @@ namespace CarRental.Data.Models.Car
     {
         // PROPERTIES
 
-        public int LightsStatusInitialIndex { get; init; }
-        public int LightsStatusEndIndex { get; init; }
+        public int StatusInitialIndex { get; init; }
+        public int StatusEndIndex { get; init; }
 
-        public int ColorLightsInitial { get; init; }
-        public int ColorLightsEnd { get; init; }
-        public int PowerLightsInitial { get; init; }
-        public int PowerLightsEnd { get; init; }
+        public int ColorInitial { get; init; }
+        public int ColorEnd { get; init; }
+        public int PowerInitial { get; init; }
+        public int PowerEnd { get; init; }
     }
 }

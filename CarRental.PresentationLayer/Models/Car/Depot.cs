@@ -100,49 +100,49 @@ public class Depot
                 SerialNumber = GetSerialNumber(pattern),
                 AverageFuelConsumption = _random.Next(pattern.Engine.AverageFuelConsumptionInitial, pattern.Engine.AverageFuelConsumptionEnd),
                 Fuel = (FuelEngine)_random.Next(pattern.Engine.FuelInitial, pattern.Engine.FuelEnd),
-                Type = (TypeEngine)_random.Next(pattern.Engine.TypeEngineInitial, pattern.Engine.TypeEngineEnd),
-                Power = _random.Next(pattern.Engine.PowerEngineInitial, pattern.Engine.PowerEngineEnd),
-                Status = (ComponentStatus)_random.Next(pattern.Engine.EngineStatusInitialIndex, pattern.Engine.EngineStatusEndIndex)
+                Type = (TypeEngine)_random.Next(pattern.Engine.TypeInitial, pattern.Engine.TypeEnd),
+                Power = _random.Next(pattern.Engine.PowerInitial, pattern.Engine.PowerEnd),
+                Status = (ComponentStatus)_random.Next(pattern.Engine.StatusInitialIndex, pattern.Engine.StatusEndIndex)
             },
 
             Transmission = new Transmission
             {
                 SerialNumber = GetSerialNumber(pattern),
-                Type = (TypeTransmission)_random.Next(pattern.Transmission.TypeTransmissionInitial, pattern.Transmission.TypeTransmissionEnd),
+                Type = (TypeTransmission)_random.Next(pattern.Transmission.TypeInitial, pattern.Transmission.TypeEnd),
                 SpeedCount = _random.Next(pattern.Transmission.SpeedCountInitial, pattern.Transmission.SpeedCountEnd),
-                Status = (ComponentStatus)_random.Next(pattern.Transmission.TransmissionStatusInitialIndex, pattern.Transmission.TransmissionStatusEndIndex)
+                Status = (ComponentStatus)_random.Next(pattern.Transmission.StatusInitialIndex, pattern.Transmission.StatusEndIndex)
             },
 
             Interior = new Interior
             {
                 SerialNumber = GetSerialNumber(pattern),
-                Color = (KnownColor)_random.Next(pattern.Interior.ColorInteriorInitial, pattern.Interior.ColorInteriorEnd),
-                Material = (MaterialInterior)_random.Next(pattern.Interior.MaterialInteriorInitial, pattern.Interior.MaterialInteriorEnd),
-                Status = (ComponentStatus)_random.Next(pattern.Interior.InteriorStatusInitialIndex, pattern.Interior.InteriorStatusEndIndex)
+                Color = (KnownColor)_random.Next(pattern.Interior.ColorInitial, pattern.Interior.ColorEnd),
+                Material = (MaterialInterior)_random.Next(pattern.Interior.MaterialInitial, pattern.Interior.MaterialEnd),
+                Status = (ComponentStatus)_random.Next(pattern.Interior.StatusInitialIndex, pattern.Interior.StatusEndIndex)
             },
 
             Wheels = new Wheels
             {
                 SerialNumber = GetSerialNumber(pattern),
-                Material = (MaterialWheel)_random.Next(pattern.Wheels.MaterialWheelsInitial, pattern.Wheels.MaterialWheelsEnd),
-                Size = _random.Next(pattern.Wheels.SizeWheelsInitial, pattern.Wheels.SizeWheelsEnd),
+                Material = (MaterialWheel)_random.Next(pattern.Wheels.MaterialInitial, pattern.Wheels.MaterialEnd),
+                Size = _random.Next(pattern.Wheels.SizeInitial, pattern.Wheels.SizeEnd),
                 Tire = (TypeTire)_random.Next(pattern.Wheels.TireInitial, pattern.Wheels.TireEnd),
-                Status = (ComponentStatus)_random.Next(pattern.Wheels.WheelsStatusInitialIndex, pattern.Wheels.WheelsStatusEndIndex)
+                Status = (ComponentStatus)_random.Next(pattern.Wheels.StatusInitialIndex, pattern.Wheels.StatusEndIndex)
             },
 
             Lights = new Lights
             {
                 SerialNumber = GetSerialNumber(pattern),
-                Color = (KnownColor)_random.Next(pattern.Lights.ColorLightsInitial, pattern.Lights.ColorLightsEnd),
-                Power = (PowerComponent)_random.Next(pattern.Lights.PowerLightsInitial, pattern.Lights.PowerLightsEnd),
-                Status = (ComponentStatus)_random.Next(pattern.Lights.LightsStatusInitialIndex, pattern.Lights.LightsStatusEndIndex)
+                Color = (KnownColor)_random.Next(pattern.Lights.ColorInitial, pattern.Lights.ColorEnd),
+                Power = (PowerComponent)_random.Next(pattern.Lights.PowerInitial, pattern.Lights.PowerEnd),
+                Status = (ComponentStatus)_random.Next(pattern.Lights.StatusInitialIndex, pattern.Lights.StatusEndIndex)
             },
 
             Signal = new Signal
             {
                 SerialNumber = GetSerialNumber(pattern),
                 Pitch = (PitchComponent)_random.Next(pattern.Signal.PitchInitial, pattern.Signal.PitchEnd),
-                Status = (ComponentStatus)_random.Next(pattern.Signal.SignalStatusInitialIndex, pattern.Signal.SignalStatusEndIndex)
+                Status = (ComponentStatus)_random.Next(pattern.Signal.StatusInitialIndex, pattern.Signal.StatusEndIndex)
             },
 
             Dossier = new Dossier
