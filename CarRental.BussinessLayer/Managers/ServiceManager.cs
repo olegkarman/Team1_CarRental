@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
@@ -271,16 +272,13 @@ public class ServiceManager : ICarManager
 
     // TO DELETE THE CAR FROM A LIST
 
-    public void DeleteCarFromList(int index)
+    public void DeleteCarFromList(List<Car> list, int index)
     {
         try
         {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(index));
-            }
+            CheckNull(list);
 
-            CurrentCars.RemoveAt(index);
+            list.RemoveAt(index);
         }
         catch (IndexOutOfRangeException exception)
         {
@@ -288,16 +286,13 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public void DeleteCarFromList(string model)
+    public void DeleteCarFromList(List<Car> list, string model)
     {
         try
         {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
+            CheckNull(list);
 
-            CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
+            list.RemoveAt(list.IndexOf(ChooseCarFromList(list, model)));
         }
         catch (KeyNotFoundException exception)
         {
@@ -313,82 +308,43 @@ public class ServiceManager : ICarManager
         }
     }
 
+    public void DeleteCarFromCurrentCars(int index)
+    {
+        DeleteCarFromList(this.CurrentCars, index);
+    }
+
+    public void DeleteCarFromCurrentCars(string model)
+    {
+        DeleteCarFromList(this.CurrentCars, model);
+    }
+
     // TO DELETE ALL CARS FROM THE LIST
 
-    public void DeleteAllCarsFromList()
+    public void DeleteAllCarsFromList(List<Car> list)
     {
-        if (CurrentCars == null)
-        {
-            throw new ArgumentNullException(nameof(this.CurrentCars));
-        }
+        CheckNull(list);
 
-        CurrentCars.Clear();
+        list.Clear();
     }
 
-    // GET CAR BY INDEX
-    public Car? GetCar(int index)
+    public void DeleteAllCarsFromCurrentCars()
     {
-        try
-        {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(index));
-            }
-
-            if ((index < 0) || (index > CurrentCars.Count))
-            {
-                throw new IndexOutOfRangeException(nameof(index));
-            }
-            else
-            {
-                if (CurrentCars == null)
-                {
-                    throw new ArgumentNullException(nameof(index));
-                }
-
-                return CurrentCars[index];
-            }
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+        DeleteAllCarsFromList(this.CurrentCars);
     }
 
-    // TO TAKE OFF A CAR FROM THE LIST
+    // GET CAR BY INDEX FROM CURRENT CARS LIST
 
-    public bool TryTakeCar(int index)
+    public Car GetCarFromCurrentCars(int index)
     {
-        try
-        {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(index));
-            }
+        return ChooseCarFromList(CurrentCars, index);
+    }
 
-            if ((index <= 0) || (index > CurrentCars.Count))
-            {
-                return false;
-            }
-            else
-            {
-                SelectedCar = CurrentCars[index];
-                CurrentCars.RemoveAt(index);
-                return true;
-            }
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+    // TO TAKE OFF A CAR FROM THE CURRENT CARS LIST
+
+    public void TakeCarFromCurrentCars(int index)
+    {        
+        SelectedCar = ChooseCarFromList(CurrentCars, index);
+        CurrentCars.RemoveAt(index);
     }
 
     public bool TryTakeCar(string model)
@@ -441,98 +397,95 @@ public class ServiceManager : ICarManager
 
     // TO DISPLAY INFO A SPECIFIC BY INDEX CAR FROM THE LIST
 
-    public string DisplayCar(int index)
+    public string DisplayCarFromList(List<Car> cars, int index)
     {
-        try
-        {
-            return CurrentCars[index].ToString();
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch(ArgumentNullException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+        CheckNull(cars);
+
+        return ChooseCarFromList(cars, index).ToString();
     }
 
     // TO DISPLAY INFO OF A SPECIFIC BY ITS MODEL CAR FROM THE LIST 
 
-    public string DisplayCar(string model)
+    public string DisplayCarFromList(List<Car> cars, string model)
     {
-        try
-        {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
+        CheckNull(cars);
 
-            // THE EMPTY LINE CAN APPEAR.
-            return CurrentCars.Find(x => x.Model.Contains(model)).ToString();
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+        return ChooseCarFromList(cars, model).ToString();
     }
 
-    //internal string DisplayCar(Car car)
-    //{
-    //    return car.ToString();
-    //}
+    public string DisplayCarFromCurrentCars(int index)
+    {
+        CheckNull(this.CurrentCars);
+
+        return ChooseCarFromList(this.CurrentCars, index).ToString();
+    }
+
+    public string DisplayCarFromCurrentCars(string model)
+    {
+        CheckNull(this.CurrentCars);
+
+        return ChooseCarFromList(this.CurrentCars, model).ToString();
+    }
+
+    // TO DISPLAY INFO ABOUT A CAR
+
+    public string DisplayCar(Car car)
+    {
+        CheckNull(car);
+
+        return $"{nameof(car)} | {car.ToString()}";
+    }
 
     // TO DISPLAY AVAILABLE CAR MODELS.
 
     public string DisplayAllModels()
     {
-        _carsInfo.Clear();
-
-        foreach (KeyValuePair<string, ModelComponentsPattern> pair in _supplementData.ModelsPatterns)
+        try
         {
-            _carsInfo.Append(pair.Key + " | ");
-        }
+            _carsInfo.Clear();
 
-        return _carsInfo.ToString();
+            foreach (KeyValuePair<string, ModelComponentsPattern> pair in _supplementData.ModelsPatterns)
+            {
+                _carsInfo.Append(pair.Key + " | ");
+            }
+
+            return _carsInfo.ToString();
+        }
+        catch (NullReferenceException exception)
+        {
+            throw exception;
+        }
     }
 
     // TO DISPLAY LIST OF CARS IN TABLE
     // //
-    // // ~EDITED NOT BY YPARKHOMENKO~
+    // // ~THIS METHOD ADDED AND EDITED NOT BY YPARKHOMENKO~
     // //
     // // ADVICE BY YPARKHOMENKO: DO NOT USE STRING CONCATINATION IN LOOPS, USE StringBuilder-CLASS FUNCTIONALITY INSTEAD.
     // // BETTER TO USE STRING OUTPUT RATHER THAN THE CONSOLE OUTPUT.
     // //
 
-    public void DisplayCarsInTable()
-    {
-        // ADD NULL CHECK-UP
+    //public void DisplayCarsInTable()
+    //{
+    //    // ADD NULL CHECK-UP
 
-        if (CurrentCars == null)
-        {
-            throw new ArgumentNullException(nameof(this.CurrentCars));
-        }
+    //    if (CurrentCars == null)
+    //    {
+    //        throw new ArgumentNullException(nameof(this.CurrentCars));
+    //    }
 
-        string line = new string('-', 110); // adjust the number to fit your table
-        string format = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10} | {5,-10} | {6,-10} | {7,-10} | {8,-20}";
+    //    string line = new string('-', 110); // adjust the number to fit your table
+    //    string format = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10} | {5,-10} | {6,-10} | {7,-10} | {8,-20}";
 
-        Console.WriteLine(format, "Index", "Brand", "Model", "Year", "Price", "Status", "FitForUse", "PlateNumber", "VinCode");
-        Console.WriteLine(line);
+    //    Console.WriteLine(format, "Index", "Brand", "Model", "Year", "Price", "Status", "FitForUse", "PlateNumber", "VinCode");
+    //    Console.WriteLine(line);
 
-        for (int i = 0; i < CurrentCars.Count; i++)
-        {
-            var car = CurrentCars[i];
-            Console.WriteLine(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Dossier.NumberPlate, car.VinCode);
-        }
-    }
+    //    for (int i = 0; i < CurrentCars.Count; i++)
+    //    {
+    //        var car = CurrentCars[i];
+    //        Console.WriteLine(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Dossier.NumberPlate, car.VinCode);
+    //    }
+    //}
 
     // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
 
@@ -540,10 +493,7 @@ public class ServiceManager : ICarManager
     {
         _carsInfo.Clear();
 
-        if (CurrentCars == null)
-        {
-            throw new ArgumentNullException(nameof(this.CurrentCars));
-        }
+        CheckNull(this.CurrentCars);
 
         foreach (Car car in CurrentCars)
         {
@@ -553,50 +503,55 @@ public class ServiceManager : ICarManager
         return _carsInfo.ToString();
     }
 
-    public string CheckFuelSelectedCar()
+    public string CheckFuelCar(Car car)
     {
-        if (SelectedCar == null)
-        {
-            throw new ArgumentNullException(nameof(this.SelectedCar));
-        }
+        CheckNull(car);
 
         _carsInfo.Clear();
 
-        float division = (float)_supplementData.Mechanic.CheckFuel(SelectedCar) / SelectedCar.MaxFuelCapacity;
+        try
+        {
+            float division = (float)_supplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
 
-        division = (float)division * 100;
+            division = (float)division * 100;
 
-        _carsInfo.Append($"{(int)division}%");
+            _carsInfo.Append($"{(int)division}%");
 
-        return _carsInfo.ToString();
+            return _carsInfo.ToString();
+        }
+        catch(DivideByZeroException exception)
+        {
+            throw exception;
+        }
     }
 
-    public string ShowMileageSelected()
+    public string CheckFuelSelectedCar()
     {
-        if (SelectedCar == null)
-        {
-            throw new ArgumentNullException(nameof(this.SelectedCar));
-        }
+        return CheckFuelCar(SelectedCar);
+    }
 
-        return SelectedCar.Mileage.ToString();
+    public string ShowMileage(Car car)
+    {
+        CheckNull(car);
+
+        return car.Mileage.ToString();
+    }
+
+    public string ShowMileageSelectedCar()
+    {
+        return ShowMileage(this.SelectedCar);
     }
 
     public void RefillCar(Car car)
     {
-        if (car == null)
-        {
-            throw new ArgumentNullException(nameof(car));
-        }
+        CheckNull(car);
 
         _supplementData.Mechanic.Refill(car);
     }
 
     public void RefillSelectedCar()
     {
-        if (SelectedCar == null)
-        {
-            throw new ArgumentNullException(nameof(this.SelectedCar));
-        }
+        CheckNull(this.SelectedCar);
 
         _supplementData.Mechanic.Refill(SelectedCar);
     }
@@ -606,10 +561,7 @@ public class ServiceManager : ICarManager
     public Car ChooseCarFromList(List<Car> list, int index)
     {
 
-        if (list == null)
-        {
-            throw new NullReferenceException();
-        }
+        CheckNull(list);
             
         if ((index < 0) || (index > list.Count))
         {
@@ -618,42 +570,74 @@ public class ServiceManager : ICarManager
 
         Car car = list[index];
 
-        if (car == null)
-        {
-            throw new NullReferenceException();
-        }
+        CheckNull(car);
 
         return car;
     }
 
-    public string CheckSignal()
+    public Car ChooseCarFromList(List<Car> list, string model)
     {
-        if (SelectedCar == null)
-        {
-            throw new ArgumentNullException(nameof(this.SelectedCar));
-        }
+        CheckNull(list);
 
-        if (SelectedCar.Signal == null)
+        try
         {
-            throw new ArgumentNullException(nameof(this.SelectedCar.Signal));
+            // THE EMPTY LINE CAN APPEAR.
+            return list.Find(x => x.Model.Contains(model));
         }
-
-        return SelectedCar.Signal.ToString();
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (NullReferenceException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
     }
 
-    public string CheckLights()
+    // NULL CHECK
+
+    public void CheckNull(Car car)
     {
-        if (SelectedCar == null)
+        if (car == null)
         {
-            throw new ArgumentNullException(nameof(this.SelectedCar));
+            throw new ArgumentNullException(nameof(car));
         }
+    }
 
-        if (SelectedCar.Lights == null)
+    public void CheckNull(List<Car> cars)
+    {
+        if (cars == null)
         {
-            throw new ArgumentNullException(nameof(this.SelectedCar.Lights));
+            throw new ArgumentNullException(nameof(cars));
         }
+    }
 
-        return SelectedCar.Lights.ToString();
+    public void CheckNull(IComponent component)
+    {
+        if (component == null)
+        {
+            throw new ArgumentNullException(nameof(component));
+        }
+    }
+
+    public string CheckSignal(Car car)
+    {
+        CheckNull(car);
+        CheckNull(car.Signal);
+
+        return car.Signal.ToString();
+    }
+
+    public string CheckLights(Car car)
+    {
+        CheckNull(car);
+        CheckNull(car.Signal);
+
+        return car.Lights.ToString();
     }
 
     // METHODS

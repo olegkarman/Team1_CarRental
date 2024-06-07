@@ -10,9 +10,9 @@ namespace CarRental.Data.Interfaces;
 
 public interface ICarManager
 {
-    public List<Car> MakeNewListOfCars();      // CREATE
-    public string DisplayCurrentCar();      // RETRIVE
-    public void RefillSelectedCar();        // UPDATE
-    public void DeleteAllCarsFromList();    // DELETE
+    public List<Car> MakeNewListOfCars();                 // CREATE
+    public string DisplayCurrentCar();                    // RETRIVE
+    public void RefillSelectedCar();                      // UPDATE
+    public void DeleteAllCarsFromList(List<Car> list);    // DELETE
     
 }
