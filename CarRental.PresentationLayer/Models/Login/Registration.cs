@@ -1,6 +1,7 @@
-﻿using CarRental.Models.Validation;
+﻿using CarRental.Data.Models;
+using CarRental.Data.Models.Validation;
 
-namespace CarRental.Models.Login;
+namespace CarRental.Data.Models.Login;
 internal static class Registration
 {
     public static Customer RegisterCustomer(string login, string password)

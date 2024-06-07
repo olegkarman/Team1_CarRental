@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using CarHubTest;
 
-namespace CarRental.Models;
+namespace CarRental.Data.Models;
 internal class Inspection : IInspection
 {
     private const string InspectionNumber = "Inspection ID ";

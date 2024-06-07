@@ -1,7 +1,7 @@
 ﻿using CarRental.Models.Serialiser;
 using System.Text.Json;
 
-namespace CarRental.Models.Login;
+namespace CarRental.Data.Models.Login;
 
 public class Login
 {

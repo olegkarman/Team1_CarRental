@@ -1,7 +1,9 @@
 ﻿using CarHubTest;
+using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
+using CarRental.Models;
 
-namespace CarRental.Data.Models.InspectorCars;
+namespace CarRental.Data.Models;
 
 public class InspectorCars
 {
@@ -68,14 +70,14 @@ public class InspectorCars
             switch (inspectionResult)
             {
                 case InspectionStatusType.Successfully:
-                    car.Status = TransportStatus.available;
+                    car.Status = TransportStatus.Available;
                     break;
                 case InspectionStatusType.Repair:
-                    car.Status = TransportStatus.inRepair;
+                    car.Status = TransportStatus.InRepair;
                     RemoveCarIfUnfit(car);
                     break;
                 case InspectionStatusType.Unusable:
-                    car.Status = TransportStatus.unavailable;
+                    car.Status = TransportStatus.Unavailable;
                     RemoveCarIfUnfit(car);
                     break;
                 default:
@@ -88,9 +90,9 @@ public class InspectorCars
             Console.WriteLine("Car not found.");
         }
     }
-    public void RemoveCarIfUnfit(Car car) // Видалити машину
+    public void RemoveCarIfUnfit(Car.Car car) // Видалити машину
     {
-        if (car.Status == TransportStatus.inRepair || car.Status == TransportStatus.unavailable)
+        if (car.Status == TransportStatus.InRepair || car.Status == TransportStatus.Unavailable)
         {
             Console.WriteLine($"Car {car.Brand} {car.Model} with Serial Number {car.VinCode} removed because it is unfit for use.");
         }

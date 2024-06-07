@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Models;
+﻿using CarRental.Models;
 
-namespace CarHubTest
+namespace CarRental.BussinessLayer.Managers
 {
     internal class InspectionManager
     {

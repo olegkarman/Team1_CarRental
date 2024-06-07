@@ -1,8 +1,7 @@
 ﻿using CarHubTest;
-using CarRental.Data.Models.InspectorCars;
-using CarRental.Data.Models.Inspector;
+using CarRental.Data.Models.Portal;
 using CarRental.Models;
-using CarRental.Models.Portal;
+using CarRental.Data.Models;
 
 namespace CarRental.BussinessLayer.Managers
 {

@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-using CarRental.Models;
-using System.Text.Json.Serialization;
 using CarRental.Models.Serialiser;
 
 public static class Serializer

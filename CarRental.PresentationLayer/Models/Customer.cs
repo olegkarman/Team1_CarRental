@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models;
 
-namespace CarRental.Models;
+namespace CarRental.Data.Models;
 public class Customer : User
 {
     public List<Deal> Deals { get; set; }
@@ -17,14 +17,14 @@ public class Customer : User
         Deals = new List<Deal>();
     }
 
-    public void BuyCar(Car car)
+    public void BuyCar(Car.Car car)
     {
         var newDeal = new Deal(PassportNumber, car.VinCode, "purchase", car.Price);
         Deals.Add(newDeal);
         car.Status = Enumerables.TransportStatus.sold;
     }
 
-    public void RentCar(Car car)
+    public void RentCar(Car.Car car)
     {
         var newDeal = new Deal(PassportNumber, car.VinCode, "rental", car.Price);
         Deals.Add(newDeal);

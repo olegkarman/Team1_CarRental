@@ -1,7 +1,7 @@
 ﻿using CarRental.BussinessLayer.Managers;
+using CarRental.Data.Models.Login;
+using CarRental.Data.Models.Portal;
 using CarRental.Models;
-using CarRental.Models.Login;
-using CarRental.Models.Portal;
 
 class CarRentalPortal
 {
