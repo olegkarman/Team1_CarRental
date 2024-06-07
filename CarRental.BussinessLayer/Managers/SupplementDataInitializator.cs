@@ -39,7 +39,7 @@ public class SupplementDataInitializator
         }
     }
 
-    public Dictionary<string, SelectPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    public Dictionary<string, ModelComponentsPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
     }

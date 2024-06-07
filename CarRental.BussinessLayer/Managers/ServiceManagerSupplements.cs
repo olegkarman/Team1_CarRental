@@ -26,7 +26,7 @@ public class ServiceManagerSupplements
 
     public BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
     public Depot DepotService { get; init; }
-    public Dictionary<string, SelectPattern> ModelsPatterns { get; init; }
+    public Dictionary<string, ModelComponentsPattern> ModelsPatterns { get; init; }
     public BrandRecord[] BrandRecords { get; init; }
     public Mechanic Mechanic { get; init; }
 }
