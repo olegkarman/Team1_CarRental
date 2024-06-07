@@ -24,7 +24,7 @@ public class InspectorCars
     {
         Console.WriteLine($"Mileage: {Mileage}, Release Date: {ReleaseDate}, Exterior Condition: {ExteriorCondition}");
     }
-    internal void InspectedCars(Car car)
+    internal void InspectedCars(Car.Car car)
     {
 
         if (CurrentCarsInspected >= MaxCarsAllowed)
@@ -37,7 +37,7 @@ public class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    public void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
+    public void InspectCar(Car.Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
     {
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
@@ -61,7 +61,7 @@ public class InspectorCars
         }
     }
 
-    public void RecordInspectionResult(Car car, InspectionStatusType inspectionResult)
+    public void RecordInspectionResult(Car.Car car, InspectionStatusType inspectionResult)
     {
         if (car != null)
         {
