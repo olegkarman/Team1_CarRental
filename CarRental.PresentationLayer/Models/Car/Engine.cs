@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
-using CarRental.Enumerables;
+using CarRental.Data.Enums;
+using CarRental.Data.Models.Car.Abstractions;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 30-MAY-2024
+// DATE: 03-JUN-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Data.Models.Car;
 
-internal class Engine : AbstractEngine
+public class Engine : AbstractEngine
 {
     // THE PURPOSE OF THE CLASS:
     // // A COMPONENT OF A CAR.
@@ -24,11 +25,11 @@ internal class Engine : AbstractEngine
 
     // PROPERTIES
 
-    internal override string SerialNumber { get; init; }
-    internal override required int AverageFuelConsumption { get; set; }
+    public override string SerialNumber { get; init; }
+    public override required int AverageFuelConsumption { get; set; }
     public override FuelEngine Fuel { get; init; }
     public override TypeEngine Type { get; init; }
-    internal override required int Power { get; set; }
+    public override required int Power { get; set; }
     public override required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS

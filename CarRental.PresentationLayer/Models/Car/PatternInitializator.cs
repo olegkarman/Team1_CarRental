@@ -4,14 +4,15 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
+using CarRental.Data.Models.Car.RecordTypes;
+using CarRental.Data.Models.Car.Seeds;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 30-MAY-2024
+// DATE: 03-JUN-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Data.Models.Car;
 
 public class PatternInitializator
 {
@@ -31,27 +32,19 @@ public class PatternInitializator
 
     // METHODS
 
-    #region METHODS
-
-    // TO CREATE THE ARRAY OF BRAND-RECORDS INSTANCES WITH KNWLEDGE OF DATA USED.
     public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
     {
         BrandRecord[] records =
         [
-            // ZAPOROZHETS
             new BrandRecord
             (
-                // ID
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[0].ToUpper()),
 
-                // ZAPOROZHETS
                 dataSheet.BrandNamesData[0],
 
-                // SELECTS PROPER NAMES FOR THE ARRAY AND COPY IT INTO AN ARRAY AND THEN INTO RECORD-CLASS.
                 dataSheet.ModelNamesData[0..2]
             ),
 
-            // PEUGEOT
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[1].ToUpper()),
@@ -61,7 +54,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[3..13]
             ),
 
-            // VOLKSWAGEN
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[2].ToUpper()),
@@ -71,7 +63,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[14..24]
             ),
 
-            // NISSAN
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[3].ToUpper()),
@@ -81,7 +72,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[25..35]
             ),
 
-            // GYGULI
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[4].ToUpper()),
@@ -91,7 +81,6 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[36..42]
             ),
 
-            // JEEP
             new BrandRecord
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[5].ToUpper()),
@@ -105,89 +94,111 @@ public class PatternInitializator
         return records;
     }
 
-    // TO CREATE INSTANCE OF PATTERN-CLASS.
-    public SelectPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
+    public ModelComponentsPattern ChoosePatternForModel(string name, string brand, string model, BrandModelsNamesDataSheet dataWarehouse)
     {
-        // USE INITIALIZATOR INSTEAD OF EXTENSIVE CONSTRUCTORS.
-        SelectPattern pattern = new SelectPattern
+        PatternCharMaps charMaps = new PatternCharMaps();
+
+        ModelComponentsPattern pattern = new ModelComponentsPattern
         {
             Name = name,
             Brand = brand,
             Model = model,
-            StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][0],
-            StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][1],
+            charMap = charMaps.CharMaps[0],
 
-            EngineStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][2],
-            EngineStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][3],
+            General = new GeneralModelPattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][0],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][1],
 
-            TransmissionStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][4],
-            TransmissionStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][5],
+                ColorCarInitial = dataWarehouse.ModelPatternDataDictionary[model][14],
+                ColorCarEnd = dataWarehouse.ModelPatternDataDictionary[model][15],
+                PriceCarInitial = dataWarehouse.ModelPatternDataDictionary[model][16],
+                PriceCarEnd = dataWarehouse.ModelPatternDataDictionary[model][17],
+                MaxFuelCapacityInitial = dataWarehouse.ModelPatternDataDictionary[model][18],
+                MaxFuelCapacityEnd = dataWarehouse.ModelPatternDataDictionary[model][19],
+                CurrentFuelInitial = dataWarehouse.ModelPatternDataDictionary[model][20],
+                CurrentFuelEnd = dataWarehouse.ModelPatternDataDictionary[model][21],
+                SpeedCoeficientInitial = dataWarehouse.ModelPatternDataDictionary[model][22],
+                SpeedCoeficientEnd = dataWarehouse.ModelPatternDataDictionary[model][23]
+            },
 
-            InteriorStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][6],
-            InteriorStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][7],
+            Engine = new EnginePattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][2],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][3],
 
-            WheelsStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][8],
-            WheelsStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][9],
+                AverageFuelConsumptionInitial = dataWarehouse.ModelPatternDataDictionary[model][24],
+                AverageFuelConsumptionEnd = dataWarehouse.ModelPatternDataDictionary[model][25],
+                FuelInitial = dataWarehouse.ModelPatternDataDictionary[model][26],
+                FuelEnd = dataWarehouse.ModelPatternDataDictionary[model][27],
+                TypeInitial = dataWarehouse.ModelPatternDataDictionary[model][28],
+                TypeEnd = dataWarehouse.ModelPatternDataDictionary[model][29],
+                PowerInitial = dataWarehouse.ModelPatternDataDictionary[model][30],
+                PowerEnd = dataWarehouse.ModelPatternDataDictionary[model][31],
+            },
 
-            LightsStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][10],
-            LightsStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][11],
+            Transmission = new TransmissionPattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][4],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][5],
 
-            SignalStatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][12],
-            SignalStatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][13],
+                TypeInitial = dataWarehouse.ModelPatternDataDictionary[model][32],
+                TypeEnd = dataWarehouse.ModelPatternDataDictionary[model][33],
+                SpeedCountInitial = dataWarehouse.ModelPatternDataDictionary[model][34],
+                SpeedCountEnd = dataWarehouse.ModelPatternDataDictionary[model][35]
+            },
 
-            ColorCarInitial = dataWarehouse.ModelPatternDataDictionary[model][14],
-            ColorCarEnd = dataWarehouse.ModelPatternDataDictionary[model][15],
-            PriceCarInitial = dataWarehouse.ModelPatternDataDictionary[model][16],
-            PriceCarEnd = dataWarehouse.ModelPatternDataDictionary[model][17],
-            MaxFuelCapacityInitial = dataWarehouse.ModelPatternDataDictionary[model][18],
-            MaxFuelCapacityEnd = dataWarehouse.ModelPatternDataDictionary[model][19],
-            CurrentFuelInitial = dataWarehouse.ModelPatternDataDictionary[model][20],
-            CurrentFuelEnd = dataWarehouse.ModelPatternDataDictionary[model][21],
-            SpeedCoeficientInitial = dataWarehouse.ModelPatternDataDictionary[model][22],
-            SpeedCoeficientEnd = dataWarehouse.ModelPatternDataDictionary[model][23],
+            Interior = new InteriorPattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][6],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][7],
 
-            AverageFuelConsumptionInitial = dataWarehouse.ModelPatternDataDictionary[model][24],
-            AverageFuelConsumptionEnd = dataWarehouse.ModelPatternDataDictionary[model][25],
-            FuelInitial = dataWarehouse.ModelPatternDataDictionary[model][26],
-            FuelEnd = dataWarehouse.ModelPatternDataDictionary[model][27],
-            TypeEngineInitial = dataWarehouse.ModelPatternDataDictionary[model][28],
-            TypeEngineEnd = dataWarehouse.ModelPatternDataDictionary[model][29],
-            PowerEngineInitial = dataWarehouse.ModelPatternDataDictionary[model][30],
-            PowerEngineEnd = dataWarehouse.ModelPatternDataDictionary[model][31],
+                ColorInitial = dataWarehouse.ModelPatternDataDictionary[model][36],
+                ColorEnd = dataWarehouse.ModelPatternDataDictionary[model][37],
+                MaterialInitial = dataWarehouse.ModelPatternDataDictionary[model][38],
+                MaterialEnd = dataWarehouse.ModelPatternDataDictionary[model][39]
+            },
 
-            TypeTransmissionInitial = dataWarehouse.ModelPatternDataDictionary[model][32],
-            TypeTransmissionEnd = dataWarehouse.ModelPatternDataDictionary[model][33],
-            SpeedCountInitial = dataWarehouse.ModelPatternDataDictionary[model][34],
-            SpeedCountEnd = dataWarehouse.ModelPatternDataDictionary[model][35],
+            Wheels = new WheelsPattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][8],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][9],
 
-            ColorInteriorInitial = dataWarehouse.ModelPatternDataDictionary[model][36],
-            ColorInteriorEnd = dataWarehouse.ModelPatternDataDictionary[model][37],
-            MaterialInteriorInitial = dataWarehouse.ModelPatternDataDictionary[model][38],
-            MaterialInteriorEnd = dataWarehouse.ModelPatternDataDictionary[model][39],
+                MaterialInitial = dataWarehouse.ModelPatternDataDictionary[model][40],
+                MaterialEnd = dataWarehouse.ModelPatternDataDictionary[model][41],
+                SizeInitial = dataWarehouse.ModelPatternDataDictionary[model][42],
+                SizeEnd = dataWarehouse.ModelPatternDataDictionary[model][43],
+                TireInitial = dataWarehouse.ModelPatternDataDictionary[model][44],
+                TireEnd = dataWarehouse.ModelPatternDataDictionary[model][45]
+            },
 
-            MaterialWheelsInitial = dataWarehouse.ModelPatternDataDictionary[model][40],
-            MaterialWheelsEnd = dataWarehouse.ModelPatternDataDictionary[model][41],
-            SizeWheelsInitial = dataWarehouse.ModelPatternDataDictionary[model][42],
-            SizeWheelsEnd = dataWarehouse.ModelPatternDataDictionary[model][43],
-            TireInitial = dataWarehouse.ModelPatternDataDictionary[model][44],
-            TireEnd = dataWarehouse.ModelPatternDataDictionary[model][45],
+            Lights = new LightsPattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][10],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][11],
 
-            ColorLightsInitial = dataWarehouse.ModelPatternDataDictionary[model][46],
-            ColorLightsEnd = dataWarehouse.ModelPatternDataDictionary[model][47],
-            PowerLightsInitial = dataWarehouse.ModelPatternDataDictionary[model][48],
-            PowerLightsEnd = dataWarehouse.ModelPatternDataDictionary[model][49],
+                ColorInitial = dataWarehouse.ModelPatternDataDictionary[model][46],
+                ColorEnd = dataWarehouse.ModelPatternDataDictionary[model][47],
+                PowerInitial = dataWarehouse.ModelPatternDataDictionary[model][48],
+                PowerEnd = dataWarehouse.ModelPatternDataDictionary[model][49]
+            },
 
-            PitchInitial = dataWarehouse.ModelPatternDataDictionary[model][50],
-            PitchEnd = dataWarehouse.ModelPatternDataDictionary[model][51]
+            Signal = new SignalPattern
+            {
+                StatusInitialIndex = dataWarehouse.ModelPatternDataDictionary[model][12],
+                StatusEndIndex = dataWarehouse.ModelPatternDataDictionary[model][13],
+
+                PitchInitial = dataWarehouse.ModelPatternDataDictionary[model][50],
+                PitchEnd = dataWarehouse.ModelPatternDataDictionary[model][51]
+            }
         };
 
         return pattern;
     }
 
-    // OVERLOAD OF THE METHOD TO CREATE DICTIONARY OF MODEL-GENERATION PATTERN, A BASIC COMPLECTATION LOGIC.
-    public Dictionary<string, SelectPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    public Dictionary<string, ModelComponentsPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
-        Dictionary<string, SelectPattern> dictionary = new Dictionary<string, SelectPattern>();
+        Dictionary<string, ModelComponentsPattern> dictionary = new Dictionary<string, ModelComponentsPattern>();
         foreach (BrandRecord record in brandRecords)
         {
             foreach (string model in record.Models)
@@ -198,6 +209,4 @@ public class PatternInitializator
 
         return dictionary;
     }
-
-    #endregion
 }

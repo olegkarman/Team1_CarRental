@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Interfaces;
+using CarRental.Data.Interfaces;
+using CarRental.Data.Models.Car.RecordTypes;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
+// HOMEWORK: "ДЗ 4. Extension methods & Record type."
 // STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 30-MAY-2024
+// DATE: 03-JUN-2024
 
-namespace CarRental.Models.Car;
+namespace CarRental.Data.Models.Car;
 
 public class BrandRecord : IBrandRecordable
 {
     // THE PURPOSE OF THE CLASS:
     // // A CLASS TO HOLD INFO ABOUT BRANDS OF CARS.
-    
+
     // FIELDS
 
     private const string _noInfo = "NO INFO";
@@ -29,6 +30,11 @@ public class BrandRecord : IBrandRecordable
     /*public Dictionary<string, ICarSelectivePattern> ModelPattern { get; set; }*/
 
     // CONSTRUCTORS
+
+    public BrandRecord()
+    {
+        
+    }
 
     public BrandRecord(string recordId, string brandName, string[] models/*, Dictionary<string, ICarSelectivePattern> dictionaryModelPattern*/)
     {
