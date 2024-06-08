@@ -591,7 +591,8 @@ public class ServiceManager : ICarManager
                 DepotService = dataInit.InitializeDepot(),
                 BrandRecords = brandRecords,
                 ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData),
-                Mechanic = dataInit.InitializeMechanic()
+                Mechanic = dataInit.InitializeMechanic(),
+                Validator = dataInit.InitializeValidator()
             };
         }
         catch (NullReferenceException exception)

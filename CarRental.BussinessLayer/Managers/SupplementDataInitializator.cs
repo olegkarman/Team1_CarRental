@@ -7,6 +7,7 @@ using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.Data.Models.Car.Seeds;
+using CarRental.BussinessLayer.Validators;
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
 // HOMEWORK: "ДЗ 3. Methods, properties"
@@ -65,5 +66,10 @@ public class SupplementDataInitializator
     public Depot InitializeDepot()
     {
         return new Depot();
+    }
+
+    public VehicleValidation InitializeValidator()
+    {
+        return new VehicleValidation();
     }
 }
