@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.Car.RecordTypes;
 
+// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
+// HOMEWORK: "ДЗ 3. Methods, properties"
+// STUDENT: PARKHOMENKO YAROSLAV
+// DATE: 07-JUN-2024
+
 namespace CarRental.BussinessLayer.Managers
 {
     internal class DataSeedManager

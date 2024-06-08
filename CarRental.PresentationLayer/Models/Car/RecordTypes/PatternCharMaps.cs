@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Data.Models.Car.RecordTypes;
-
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 4. Extension methods & Record type."
+// HOMEWORK: "ДЗ 3. Methods, properties"
 // STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 03-JUN-2024
+// DATE: 07-JUN-2024
+
+namespace CarRental.Data.Models.Car.RecordTypes;
 
 internal record class PatternCharMaps
 {
