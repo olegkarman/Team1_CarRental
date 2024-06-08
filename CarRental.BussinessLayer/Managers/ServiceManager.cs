@@ -97,10 +97,7 @@ public class ServiceManager : ICarManager
 
     public void MakeNewListOfCurrentCars(int count)
     {
-        if (CurrentCars == null)
-        {
-            throw new NullReferenceException();
-        }
+        CheckNull(this.CurrentCars);
 
         CurrentCars.Clear();
 
@@ -129,145 +126,76 @@ public class ServiceManager : ICarManager
        
     }
 
-    public bool TryChangeCarStatus(int index, TransportStatus status)
+    public void ChangeCurrentCarStatus(int index, TransportStatus status)
     {
-        if (CurrentCars == null)
-        {
-            throw new ArgumentNullException(nameof(index));
-        }
+        CheckNull(this.CurrentCars);
 
-        if (index < 0 )
-        {
-            throw new IndexOutOfRangeException();
-        }
+        Car car = ChooseCarFromList(CurrentCars, index);
 
-        if (this.CurrentCars[index] == null)
-        {
-            throw new ArgumentNullException(nameof(index));
-        }
+        CheckNull(car);
 
-        if (Enum.IsDefined(typeof(TransportStatus), status))
-        {
-            CurrentCars[index].Status = status;
+        CheckType(status);
 
-            return true;
-        }
-        else
+        CurrentCars[index].Status = status;
+    }
+
+    public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
+    {
+        CheckNull(cars);
+        CheckType(status);
+        
+        foreach(Car car in cars)
         {
-            return false;
+            car.Status = status;
         }
     }
 
-    public bool TryChangeCarStatus(List<Car> cars, TransportStatus status)
+    public void ChangeCurrentCarsStatus(TransportStatus status)
     {
-        if (cars == null)
-        {
-            throw new ArgumentNullException(nameof(cars));
-        }
+        CheckNull(this.CurrentCars);
 
-        if (Enum.IsDefined(typeof(TransportStatus), status))
-        {
-            foreach(Car car in cars)
-            {
-                car.Status = status;
-            }
+        CheckType(status);
 
-            return true;
-        }
-        else
+        foreach (Car car in CurrentCars)
         {
-            return false;
+            car.Status = status;
         }
     }
 
-    public bool TryChangeCarStatus(TransportStatus status)
+    public void ChangeSelectedCarStatus(TransportStatus status)
     {
-        if (this.SelectedCar == null)
-        {
-            throw new ArgumentNullException(nameof(status));
-        }
+        CheckNull(this.SelectedCar);
+        CheckType(status);
 
-        if (Enum.IsDefined(typeof(TransportStatus), status))
-        {
-            this.SelectedCar.Status = status;
+        this.SelectedCar.Status = status;
+    }
 
-            return true;
-        }
-        else
+    // TO CHECK TYPE
+
+    public void CheckType(TransportStatus status)
+    {
+        if (!Enum.IsDefined(typeof(TransportStatus), status))
         {
-            return false;
+            throw new InvalidCastException(nameof(status));
         }
     }
 
     // TO SELECT A SPECIFIC CAR FROM THE CURRENT CARS LIST
 
-    public bool TrySelectCar(int index)
+    public void SelectCarFromCurrentCars(int index)
     {
-        try
-        {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(index));
-            }
+        CheckNull(this.CurrentCars);
 
-            // VALIDATION TO TRY AVOID ARGUMENT OUT OF RANGE EXCEPTION.
-            if ((index < 0) || (index > CurrentCars.Count))
-            {
-                return false;
-            }
-            else if(CurrentCars[index] == null)
-            {
-                throw new ArgumentNullException(nameof(index));
-            }
-
-            
-            SelectedCar = CurrentCars[index];
-
-            return true;
-            
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
-        catch
-        {
-            throw new Exception();
-        }
+        this.SelectedCar = ChooseCarFromList(CurrentCars, index);
     }
 
     // TRY TO FIND CAR BY ITS MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
 
-    public bool TrySelectCar(string model)
+    public void SelectCarFromCurrentCars(string model)
     {
-        Car car;
+        CheckNull(this.CurrentCars);
 
-        try
-        {
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            car = CurrentCars.Find(x => x.Model.Contains(model));
-
-            if (car == null)
-            {
-                return false;
-            }
-
-            SelectedCar = car;
-
-            return true;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+        this.SelectedCar = ChooseCarFromList(CurrentCars, model);
     }
 
     // TO DELETE THE CAR FROM A LIST
