@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Interfaces;
+using CarRental.Data.Enums;
 
 namespace CarRental.BussinessLayer.Validators
 {
@@ -75,6 +76,14 @@ namespace CarRental.BussinessLayer.Validators
             if (component == null)
             {
                 throw new ArgumentNullException(nameof(component));
+            }
+        }
+
+        public void CheckType(TransportStatus status)
+        {
+            if (!Enum.IsDefined(typeof(TransportStatus), status))
+            {
+                throw new InvalidCastException(nameof(status));
             }
         }
     }

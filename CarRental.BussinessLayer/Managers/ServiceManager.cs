@@ -97,7 +97,7 @@ public class ServiceManager : ICarManager
 
     public void MakeNewListOfCurrentCars(int count)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
         CurrentCars.Clear();
 
@@ -106,43 +106,33 @@ public class ServiceManager : ICarManager
 
     // TO CHANGE Car.Status OF A Car-INSTANCE
 
-    public bool TryChangeCarStatus(Car car, TransportStatus status)
+    public void ChangeCarStatus(Car car, TransportStatus status)
     {
-        if (car == null)
-        {
-            throw new ArgumentNullException(nameof(car));
-        }
+        _supplementData.Validator.CheckNull(car);
 
-        if (Enum.IsDefined(typeof(TransportStatus), status))
-        {
-            car.Status = status;
+        _supplementData.Validator.CheckType(status);
 
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        car.Status = status;
        
     }
 
     public void ChangeCurrentCarStatus(int index, TransportStatus status)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
         Car car = ChooseCarFromList(CurrentCars, index);
 
-        CheckNull(car);
+        _supplementData.Validator.CheckNull(car);
 
-        CheckType(status);
+        _supplementData.Validator.CheckType(status);
 
         CurrentCars[index].Status = status;
     }
 
     public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
     {
-        CheckNull(cars);
-        CheckType(status);
+        _supplementData.Validator.CheckNull(cars);
+        _supplementData.Validator.CheckType(status);
         
         foreach(Car car in cars)
         {
@@ -152,9 +142,9 @@ public class ServiceManager : ICarManager
 
     public void ChangeCurrentCarsStatus(TransportStatus status)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
-        CheckType(status);
+        _supplementData.Validator.CheckType(status);
 
         foreach (Car car in CurrentCars)
         {
@@ -164,8 +154,8 @@ public class ServiceManager : ICarManager
 
     public void ChangeSelectedCarStatus(TransportStatus status)
     {
-        CheckNull(this.SelectedCar);
-        CheckType(status);
+        _supplementData.Validator.CheckNull(this.SelectedCar);
+        _supplementData.Validator.CheckType(status);
 
         this.SelectedCar.Status = status;
     }
@@ -184,18 +174,18 @@ public class ServiceManager : ICarManager
 
     public void SelectCarFromCurrentCars(int index)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
-        this.SelectedCar = ChooseCarFromList(CurrentCars, index);
+        this.SelectedCar = _supplementData.Validator.ChooseCarFromList(CurrentCars, index);
     }
 
     // TRY TO FIND CAR BY ITS MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
 
     public void SelectCarFromCurrentCars(string model)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
-        this.SelectedCar = ChooseCarFromList(CurrentCars, model);
+        this.SelectedCar = _supplementData.Validator.ChooseCarFromList(CurrentCars, model);
     }
 
     // TO DELETE THE CAR FROM A LIST
@@ -204,7 +194,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            CheckNull(list);
+            _supplementData.Validator.CheckNull(list);
 
             list.RemoveAt(index);
         }
@@ -218,9 +208,9 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            CheckNull(list);
+            _supplementData.Validator.CheckNull(list);
 
-            list.RemoveAt(list.IndexOf(ChooseCarFromList(list, model)));
+            list.RemoveAt(list.IndexOf(_supplementData.Validator.ChooseCarFromList(list, model)));
         }
         catch (KeyNotFoundException exception)
         {
@@ -250,7 +240,7 @@ public class ServiceManager : ICarManager
 
     public void DeleteAllCarsFromList(List<Car> list)
     {
-        CheckNull(list);
+        _supplementData.Validator.CheckNull(list);
 
         list.Clear();
     }
@@ -264,49 +254,30 @@ public class ServiceManager : ICarManager
 
     public Car GetCarFromCurrentCars(int index)
     {
-        return ChooseCarFromList(CurrentCars, index);
+        return _supplementData.Validator.ChooseCarFromList(CurrentCars, index);
     }
 
     // TO TAKE OFF A CAR FROM THE CURRENT CARS LIST
 
     public void TakeCarFromCurrentCars(int index)
     {        
-        SelectedCar = ChooseCarFromList(CurrentCars, index);
+        SelectedCar = _supplementData.Validator.ChooseCarFromList(CurrentCars, index);
         CurrentCars.RemoveAt(index);
     }
 
-    public bool TryTakeCar(string model)
+    public void MoveCarFromCurrentCarsToSelected(string model)
     {
-        try
-        {
-            Car car;
+          Car car;
 
-            if (CurrentCars == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
+        _supplementData.Validator.CheckNull(CurrentCars);
 
-            car = CurrentCars.Find(x => x.Model.Contains(model));
+        car = CurrentCars.Find(x => x.Model.Contains(model));
 
-            if (car == null)
-            {
-                return false;
-            }
+        _supplementData.Validator.CheckNull(car);
 
-            SelectedCar = car;
+        this.SelectedCar = car;
 
-            CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
-
-            return true;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
+          CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
     }
 
     // TO DISPLAY INFO OF A SELECTED CAR
@@ -327,39 +298,39 @@ public class ServiceManager : ICarManager
 
     public string DisplayCarFromList(List<Car> cars, int index)
     {
-        CheckNull(cars);
+        _supplementData.Validator.CheckNull(cars);
 
-        return ChooseCarFromList(cars, index).ToString();
+        return _supplementData.Validator.ChooseCarFromList(cars, index).ToString();
     }
 
     // TO DISPLAY INFO OF A SPECIFIC BY ITS MODEL CAR FROM THE LIST 
 
     public string DisplayCarFromList(List<Car> cars, string model)
     {
-        CheckNull(cars);
+        _supplementData.Validator.CheckNull(cars);
 
-        return ChooseCarFromList(cars, model).ToString();
+        return _supplementData.Validator.ChooseCarFromList(cars, model).ToString();
     }
 
     public string DisplayCarFromCurrentCars(int index)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
-        return ChooseCarFromList(this.CurrentCars, index).ToString();
+        return _supplementData.Validator.ChooseCarFromList(this.CurrentCars, index).ToString();
     }
 
     public string DisplayCarFromCurrentCars(string model)
     {
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
-        return ChooseCarFromList(this.CurrentCars, model).ToString();
+        return _supplementData.Validator.ChooseCarFromList(this.CurrentCars, model).ToString();
     }
 
     // TO DISPLAY INFO ABOUT A CAR
 
     public string DisplayCar(Car car)
     {
-        CheckNull(car);
+        _supplementData.Validator.CheckNull(car);
 
         return $"{nameof(car)} | {car.ToString()}";
     }
@@ -421,7 +392,7 @@ public class ServiceManager : ICarManager
     {
         _carsInfo.Clear();
 
-        CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(this.CurrentCars);
 
         foreach (Car car in CurrentCars)
         {
@@ -433,7 +404,7 @@ public class ServiceManager : ICarManager
 
     public string CheckFuelCar(Car car)
     {
-        CheckNull(car);
+        _supplementData.Validator.CheckNull(car);
 
         _carsInfo.Clear();
 
@@ -460,7 +431,7 @@ public class ServiceManager : ICarManager
 
     public string ShowMileage(Car car)
     {
-        CheckNull(car);
+        _supplementData.Validator.CheckNull(car);
 
         return car.Mileage.ToString();
     }
