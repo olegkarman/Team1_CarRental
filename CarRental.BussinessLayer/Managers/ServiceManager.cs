@@ -10,11 +10,6 @@ using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.Data.Models.Car.Seeds;
 
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 07-JUN-2024
-
 namespace CarRental.BussinessLayer.Managers;
 
 public class ServiceManager : ICarManager
@@ -46,7 +41,7 @@ public class ServiceManager : ICarManager
 
     // METHODS
 
-    // TO GET RANDOM CAR
+    // RANDOM CAR
 
     public Car GetNewCar()
     {
@@ -56,8 +51,6 @@ public class ServiceManager : ICarManager
         // TO SELECT A RANDOM PATTERN FROM THE DICTIONARY.
         return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[models[_random.Next(0, models.Length)]]);
     }
-
-    // TO GET SPECIFIC CAR BY A MODEL.
 
     public Car GetNewCar(string model)
     {
@@ -72,14 +65,12 @@ public class ServiceManager : ICarManager
         }
     }
 
-    // TO GENERATE A LIST OF CARS
-
     public List<Car> MakeNewListOfCars()
     {
         return new List<Car>();
     }
 
-    // TO MAKE A LIST OF CARS WITH A SPECIFIC NUMBER OF RANDOM VEHICLES
+    // RANDOM VEHICLES
 
     public List<Car> MakeNewListOfCars(int count)
     {
@@ -93,8 +84,6 @@ public class ServiceManager : ICarManager
         return cars;
     }
 
-    // TO MAKE A LIST OF CURRENT CARS WITH SPECIFIC AMOUNT OF RANDOM VEHICLES INSIDE
-
     public void MakeNewListOfCurrentCars(int count)
     {
         _supplementData.Validator.CheckNull(this.CurrentCars);
@@ -103,8 +92,6 @@ public class ServiceManager : ICarManager
 
         this.CurrentCars = MakeNewListOfCars(count);
     }
-
-    // TO CHANGE Car.Status OF A Car-INSTANCE
 
     public void ChangeCarStatus(Car car, TransportStatus status)
     {
@@ -170,8 +157,6 @@ public class ServiceManager : ICarManager
         }
     }
 
-    // TO SELECT A SPECIFIC CAR FROM THE CURRENT CARS LIST
-
     public void SelectCarFromCurrentCars(int index)
     {
         _supplementData.Validator.CheckNull(this.CurrentCars);
@@ -179,16 +164,12 @@ public class ServiceManager : ICarManager
         this.SelectedCar = ChooseCarFromList(CurrentCars, index);
     }
 
-    // TRY TO FIND CAR BY ITS MODEL /*ЯКЩО ЧЕСНО, ПОГАНО У МЕНЕ ІЗ ПРЕДИКАТАМИ, НЕ ДУЖЕ ЇХ РОЗУМІЮ :/*/
-
     public void SelectCarFromCurrentCars(string model)
     {
         _supplementData.Validator.CheckNull(this.CurrentCars);
 
         this.SelectedCar = ChooseCarFromList(CurrentCars, model);
     }
-
-    // TO DELETE THE CAR FROM A LIST
 
     public void DeleteCarFromList(List<Car> list, int index)
     {
@@ -236,8 +217,6 @@ public class ServiceManager : ICarManager
         DeleteCarFromList(this.CurrentCars, model);
     }
 
-    // TO DELETE ALL CARS FROM THE LIST
-
     public void DeleteAllCarsFromList(List<Car> list)
     {
         _supplementData.Validator.CheckNull(list);
@@ -250,14 +229,10 @@ public class ServiceManager : ICarManager
         DeleteAllCarsFromList(this.CurrentCars);
     }
 
-    // GET CAR BY INDEX FROM CURRENT CARS LIST
-
     public Car GetCarFromCurrentCars(int index)
     {
         return ChooseCarFromList(CurrentCars, index);
     }
-
-    // TO TAKE OFF A CAR FROM THE CURRENT CARS LIST
 
     public void TakeCarFromCurrentCars(int index)
     {        
@@ -280,9 +255,7 @@ public class ServiceManager : ICarManager
           CurrentCars.RemoveAt(CurrentCars.IndexOf(CurrentCars.Find(x => x.Model.Contains(model))));
     }
 
-    // TO DISPLAY INFO OF A SELECTED CAR
-
-    public string DisplayCurrentCar()
+    public string DisplaySelectedCar()
     {
         try
         {
@@ -294,16 +267,12 @@ public class ServiceManager : ICarManager
         }
     }
 
-    // TO DISPLAY INFO A SPECIFIC BY INDEX CAR FROM THE LIST
-
     public string DisplayCarFromList(List<Car> cars, int index)
     {
         _supplementData.Validator.CheckNull(cars);
 
         return ChooseCarFromList(cars, index).ToString();
     }
-
-    // TO DISPLAY INFO OF A SPECIFIC BY ITS MODEL CAR FROM THE LIST 
 
     public string DisplayCarFromList(List<Car> cars, string model)
     {
@@ -325,8 +294,6 @@ public class ServiceManager : ICarManager
 
         return ChooseCarFromList(this.CurrentCars, model).ToString();
     }
-
-    // TO DISPLAY INFO ABOUT A CAR
 
     public string DisplayCar(Car car)
     {
