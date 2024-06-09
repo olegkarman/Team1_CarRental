@@ -13,7 +13,7 @@ using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car.ExtensionMethods;
 
-internal static class CheckLightSignal
+internal static class CheckerLightSignal
 {
     // THE PURPOSE OF THE CLASS:
     // // A HOLDER OF ADDITIONAL METHODS TO CHECK A CAR STATUS.
