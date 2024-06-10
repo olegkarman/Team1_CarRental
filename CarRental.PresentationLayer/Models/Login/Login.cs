@@ -5,9 +5,13 @@ namespace CarRental.Data.Models.Login;
 
 public class Login
 {
-    public readonly string UsersFileName;
+    public string UsersFileName;
     public JsonSerializerOptions Options;
 
+    public Login()
+    {
+        InitializeLoginProps();
+    }
     public void CheckIfFileExists(string fileName)
     {
         if (!File.Exists(fileName))
@@ -15,8 +19,7 @@ public class Login
             File.Create(fileName).Close();
         }
     }
-
-    public Login()
+    public void InitializeLoginProps()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
         Directory.SetCurrentDirectory(projectDirectory);
