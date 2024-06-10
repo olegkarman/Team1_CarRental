@@ -464,6 +464,29 @@ public class ServiceManager : ICarManager
         }
     }
 
+    public Car ChooseCarFromList(List<Car> list, Guid id)
+    {
+        _supplementData.Validator.CheckNull(list);
+
+        try
+        {
+            // THE EMPTY LINE CAN APPEAR.
+            return list.Find(x => x.CarId.Contains(id));
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (NullReferenceException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
+        }
+    }
+
     public string CheckSignal(Car car)
     {
         _supplementData.Validator.CheckNull(car);
