@@ -7,11 +7,7 @@ using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.Data.Models.Car.Seeds;
-
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 4. Extension methods & Record type."
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 03-JUN-2024
+using CarRental.BussinessLayer.Validators;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -65,5 +61,10 @@ public class SupplementDataInitializator
     public Depot InitializeDepot()
     {
         return new Depot();
+    }
+
+    public VehicleValidation InitializeValidator()
+    {
+        return new VehicleValidation();
     }
 }

@@ -21,14 +21,14 @@ public class Customer : User
     {
         var newDeal = new Deal(PassportNumber, car.VinCode, "purchase", car.Price);
         Deals.Add(newDeal);
-        car.Status = Enumerables.TransportStatus.sold;
+        car.Status = Enums.TransportStatus.Sold;
     }
 
     public void RentCar(Car.Car car)
     {
         var newDeal = new Deal(PassportNumber, car.VinCode, "rental", car.Price);
         Deals.Add(newDeal);
-        car.Status = Enumerables.TransportStatus.rented;
+        car.Status = Enums.TransportStatus.Rented;
     }
 
     public void ShowMyDeals()
