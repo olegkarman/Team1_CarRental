@@ -1,22 +1,25 @@
-﻿using CarRental.Models.Serialiser;
-using System.Text.Json;
+﻿using System.Text.Json;
+using CarRental.Data.Models.Serialiser;
 
 namespace CarRental.Data.Models.Login;
 
 public class Login
 {
-    public readonly string UsersFileName;
-    public JsonSerializerOptions Options;
+    public string UsersFileName;
+    private JsonSerializerOptions _options;
 
-    public void CheckIfFileExists(string fileName)
+    public Login()
+    {
+        InitializeLoginProps();
+    }
+    private void CheckIfFileExists(string fileName)
     {
         if (!File.Exists(fileName))
         {
             File.Create(fileName).Close();
         }
     }
-
-    public Login()
+    private void InitializeLoginProps()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
         Directory.SetCurrentDirectory(projectDirectory);
@@ -24,7 +27,7 @@ public class Login
 
         CheckIfFileExists(UsersFileName);
 
-        Options = new JsonSerializerOptions();
-        Options.Converters.Add(new UserJsonConverter());
+        _options = new JsonSerializerOptions();
+        _options.Converters.Add(new UserJsonConverter());
     }
 }

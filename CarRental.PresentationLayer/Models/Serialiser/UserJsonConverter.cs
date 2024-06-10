@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using CarRental.Data.Models;
 
-namespace CarRental.Models.Serialiser;
+namespace CarRental.Data.Models.Serialiser;
 
 public class UserJsonConverter : JsonConverter<User>
 {

@@ -1,6 +1,4 @@
-﻿using CarHubTest;
-using CarRental.Data.Models.Portal;
-using CarRental.Models;
+﻿using CarRental.Data.Models.Portal;
 using CarRental.Data.Models;
 
 namespace CarRental.BussinessLayer.Managers

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using CarRental.Models;
 
 namespace CarRental.Data.Models;
 public class Inspector : User

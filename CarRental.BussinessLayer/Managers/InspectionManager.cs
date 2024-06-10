@@ -1,6 +1,4 @@
-﻿using CarRental.Models;
-
-namespace CarRental.BussinessLayer.Managers
+﻿namespace CarRental.BussinessLayer.Managers
 {
     internal class InspectionManager
     {

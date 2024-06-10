@@ -1,14 +1,15 @@
 ﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Login;
+using CarRental.Data.Models.Serialiser;
 using CarRental.Data.Models.Validation;
 
 namespace CarRental.BussinessLayer.Managers
 {
     public class LoginManager(Login login, IOutputManager outputManager)
     {
-        private Login _login = login;
-        private IOutputManager _outputManager = outputManager;
+        private readonly Login _login = login;
+        private readonly IOutputManager _outputManager = outputManager;
 
         public (User?, bool) StartLogin()
         {
@@ -109,32 +110,32 @@ namespace CarRental.BussinessLayer.Managers
             var firstName = "";
             var lastName = "";
 
-            Console.WriteLine("Enter the first name of the user:");
+            _outputManager.PrintMessage("Enter the first name of the user:");
 
             while (true)
             {
-                firstName = Console.ReadLine();
+                firstName = _outputManager.GetUserPrompt();
                 if (Validator.IsValidName(firstName))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Wrong format. Please, enter a proper name:");
+                    _outputManager.PrintMessage("Wrong format. Please, enter a proper name:");
                 }
             }
 
             Console.WriteLine("Enter the last name of the user:");
             while (true)
             {
-                lastName = Console.ReadLine();
+                lastName = _outputManager.GetUserPrompt();
                 if (Validator.IsValidName(firstName))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Wrong format. Please, enter a proper last name:");
+                    _outputManager.PrintMessage("Wrong format. Please, enter a proper last name:");
                 }
             }
 

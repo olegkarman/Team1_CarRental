@@ -9,6 +9,7 @@ using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.Data.Models.Car.Seeds;
+using ICarManager = CarRental.BussinessLayer.Interfaces.ICarManager;
 
 namespace CarRental.BussinessLayer.Managers;
 
