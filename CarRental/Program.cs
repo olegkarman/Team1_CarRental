@@ -25,10 +25,4 @@ class CarRentalPortal
         portalManager.StartMainMenu();
 
     }
-
-    public static class Class1
-    {
-
-    }
-
 }
