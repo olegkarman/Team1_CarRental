@@ -1,5 +1,5 @@
-﻿using CarRental.Models.Serialiser;
-using System.Text.Json;
+﻿using System.Text.Json;
+using CarRental.Data.Models.Serialiser;
 
 namespace CarRental.Data.Models.Login;
 

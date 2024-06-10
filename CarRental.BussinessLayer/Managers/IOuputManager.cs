@@ -1,4 +1,4 @@
-﻿namespace CarRental.BussinessLayer.Interfaces
+﻿namespace CarRental.BussinessLayer.Managers
 {
     public interface IOutputManager
     {

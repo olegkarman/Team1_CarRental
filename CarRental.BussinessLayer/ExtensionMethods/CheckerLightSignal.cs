@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Enums;
+﻿using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
 
-namespace CarRental.Data.Models.Car.ExtensionMethods;
+namespace CarRental.BussinessLayer.ExtensionMethods;
 
 internal static class CheckerLightSignal
 {

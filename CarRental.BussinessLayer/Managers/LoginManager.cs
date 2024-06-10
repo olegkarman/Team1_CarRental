@@ -1,6 +1,7 @@
 ﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Login;
+using CarRental.Data.Models.Serialiser;
 using CarRental.Data.Models.Validation;
 
 namespace CarRental.BussinessLayer.Managers
