@@ -465,14 +465,13 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public Car ChooseCarFromList(List<Car> list, Guid id)
+    public Car ChooseCarFromList(List<Car> list, Guid guid)
     {
         _supplementData.Validator.CheckNull(list);
 
         try
         {
-            // THE EMPTY LINE CAN APPEAR.
-            return list.Find(x => x.CarId.Contains(id));
+            return list.Find(x => x.CarId.CompareTo(guid) == 0);
         }
         catch (IndexOutOfRangeException exception)
         {
@@ -487,6 +486,20 @@ public class ServiceManager : ICarManager
             throw exception;
         }
     }
+
+    //public Car FindCarGuid (Car car, Guid guId)
+    //{
+    //    if (guId.CompareTo(car.CarId) == 0)
+    //    {
+    //        return car;
+    //    }
+    //    else
+    //    {
+    //        return null;
+    //    }
+    //}
+
+    //Predicate<Car> carGuidicat = FindCarGuid;
 
     public string CheckSignal(Car car)
     {
