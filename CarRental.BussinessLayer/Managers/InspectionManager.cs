@@ -1,6 +1,8 @@
-﻿namespace CarRental.BussinessLayer.Managers
+﻿using CarRental.Data.Models.Inspection;
+
+namespace CarRental.BussinessLayer.Managers
 {
-    internal class InspectionManager
+    public class InspectionManager
     {
         private static readonly List<Inspection> s_inspections = new List<Inspection>();
 

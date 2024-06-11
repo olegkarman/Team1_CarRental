@@ -1,6 +1,6 @@
 ﻿namespace CarRental.Data.EnumTypes
 {
-    internal enum InspectionStatusType
+    public enum InspectionStatusType
     {
         Unknown,
         Successfully,

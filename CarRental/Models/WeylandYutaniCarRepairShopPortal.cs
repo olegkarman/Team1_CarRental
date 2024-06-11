@@ -40,10 +40,10 @@ public class WeylandYutaniCarRepairShopPortal
         // TEST
         // \\ // \\ // \\ // \\// \\ // \\ // \\ // \\ // \\ // \\
         Car car = serviceManager.GetNewCar();
-        serviceManager.MakeNewListOf15Cars();
+        serviceManager.MakeNewListOfCurrentCars(15);
         //serviceManager.TrySelectCar(5);
         //serviceManager.DisplayCurrentCar();
-        serviceManager.DisplayCar(5);
+        serviceManager.DisplayCurrentCars();
         //Console.WriteLine(serviceManager.CheckFuelSelectedCar());
         //serviceManager.RefillSelectedCar();
         //Console.WriteLine(serviceManager.ShowMileageSelected());

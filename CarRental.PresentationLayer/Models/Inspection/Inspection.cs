@@ -3,7 +3,7 @@ using CarRental.Data.EnumTypes;
 using CarRental.Data.Interfaces;
 
 namespace CarRental.Data.Models.Inspection;
-internal class Inspection : IInspection
+public class Inspection : IInspection
 {
     private const string InspectionNumber = "Inspection ID ";
     private readonly DateTime _inspectionDate = DateTime.Now;
