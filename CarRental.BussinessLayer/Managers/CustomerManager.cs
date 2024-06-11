@@ -20,7 +20,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void RentCar(Car car, Customer customer)
         {
-            var newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
+            Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
             customer.Deals.Add(newDeal);
             car.Status = Data.Enums.TransportStatus.Rented;
         }
