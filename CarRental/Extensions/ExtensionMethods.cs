@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Models;
+﻿using CarRental.Data.Models;
 
 namespace CarRental.Extensions;
 public static class CustomerExtension

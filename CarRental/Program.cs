@@ -21,7 +21,7 @@ class CarRentalPortal
         var loginManager = new LoginManager(login, consoleOutput);
         var (user, isCustomer) = loginManager.StartLogin();
         var portal = new Portal(user, isCustomer);
-        var portalManager = new PortalManager(portal);
+        var portalManager = new PortalManager(portal, consoleOutput);
         ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
         portalManager.StartMainMenu();
 

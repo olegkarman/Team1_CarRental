@@ -6,15 +6,19 @@ namespace CarRental.BussinessLayer.Managers
     public class PortalManager
     {
         private Portal _portalInstance;
+        private IOutputManager _outputManager;
         private ServiceManager _carServiceManager;
         private InspectorCars _inspectorCars;
+        private CustomerManager _customerManager;
 
         public PortalManager() { }
-        public PortalManager(Portal portal)
+        public PortalManager(Portal portal, IOutputManager outputManager)
         {
             _portalInstance = portal;
+            _outputManager = outputManager;
             _carServiceManager = new ServiceManager();
             _inspectorCars = new InspectorCars();
+            _customerManager = new CustomerManager();
         }
 
         public void StartMainMenu()
@@ -28,37 +32,37 @@ namespace CarRental.BussinessLayer.Managers
         {
             while (true)
             {
-                Console.WriteLine($"Welcome {_portalInstance.UserData.FirstName}");
-                Console.WriteLine();
-                Console.WriteLine("Select your next move");
-                Console.WriteLine();
-                Console.WriteLine("1. Show the list of cars");
+                _outputManager.PrintMessage($"Welcome {_portalInstance.UserData.FirstName}");
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage("Select your next move");
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage("1. Show the list of cars");
                 if (_portalInstance.IsCustomer)
                 {
-                    Console.WriteLine("2. Buy a car");
-                    Console.WriteLine("3. Rent a car");
-                    Console.WriteLine("4. Check your deals");
-                    Console.WriteLine("5. Exit");
+                    _outputManager.PrintMessage("2. Buy a car");
+                    _outputManager.PrintMessage("3. Rent a car");
+                    _outputManager.PrintMessage("4. Check your deals");
+                    _outputManager.PrintMessage("5. Exit");
                 }
                 else
                 {
-                    Console.WriteLine("2. Inspect a car");
-                    Console.WriteLine("3. Check your inspections");
-                    Console.WriteLine("4. Exit");
+                    _outputManager.PrintMessage("2. Inspect a car");
+                    _outputManager.PrintMessage("3. Check your inspections");
+                    _outputManager.PrintMessage("4. Exit");
                 }
-                Console.WriteLine();
-                Console.Write("Choose an option: ");
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage("Choose an option: ");
 
-                string option = Console.ReadLine();
-                Console.WriteLine();
+                string option = _outputManager.GetUserPrompt();
+                _outputManager.PrintMessage("");
 
                 switch (option)
                 {
                     case "1":
                         DisplayCars();
-                        Console.WriteLine();
-                        Console.WriteLine("Press any key to continue...");
-                        Console.ReadLine();
+                        _outputManager.PrintMessage("");
+                        _outputManager.PrintMessage("Press any key to continue...");
+                        _outputManager.GetUserPrompt();
                         break;
                     case "2":
                         if (_portalInstance.IsCustomer)
@@ -78,42 +82,42 @@ namespace CarRental.BussinessLayer.Managers
                         else
                         {
                             InspectionManager.PrintAllInspections();
-                            Console.WriteLine();
-                            Console.WriteLine("Press any key to continue...");
-                            Console.ReadLine();
+                            _outputManager.PrintMessage("");
+                            _outputManager.PrintMessage("Press any key to continue...");
+                            _outputManager.GetUserPrompt();
                         }
                         break;
                     case "4":
                         if (_portalInstance.IsCustomer)
                         {
-                            (_portalInstance.UserData as Customer).ShowMyDeals();
-                            Console.WriteLine();
-                            Console.WriteLine("Press any key to continue...");
-                            Console.ReadLine();
+                            _customerManager.ShowMyDeals(_portalInstance.UserData as Customer);
+                            _outputManager.PrintMessage("");
+                            _outputManager.PrintMessage("Press any key to continue...");
+                            _outputManager.GetUserPrompt();
                         }
                         else
                         {
-                            Console.WriteLine("Program stopped");
+                            _outputManager.PrintMessage("Program stopped");
                             Environment.Exit(0);
                         }
                         break;
                     case "5":
                         if (_portalInstance.IsCustomer)
                         {
-                            Console.WriteLine("Program stopped");
+                            _outputManager.PrintMessage("Program stopped");
                             Environment.Exit(0);
                         }
                         else
                         {
-                            Console.WriteLine("Please, select a valid option");
+                            _outputManager.PrintMessage("Please, select a valid option");
                         }
                         break;
                     default:
-                        Console.WriteLine("Please, select a valid option");
+                        _outputManager.PrintMessage("Please, select a valid option");
                         break;
                 }
 
-                /*ConsoleHelper.ClearConsoleWithDelay(2);*/
+                _outputManager.ClearUserUI();
                 break;
             }
             ShowMainMenu();
@@ -121,65 +125,65 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DisplayCars()
         {
-            /*_carServiceManager.DisplayCarsInTable();*/
+            _outputManager.PrintMessage(_carServiceManager.DisplayCurrentCars());
         }
 
         public void BuyRentCarFlow(bool buy = true)
         {
-            Console.Clear();
+            _outputManager.ClearUserUI();
             DisplayCars();
-            Console.WriteLine();
+            _outputManager.PrintMessage("");
             int index;
             while (true)
             {
-                Console.WriteLine("Which car do you want to buy? Select from 1 to 15");
-                string input = Console.ReadLine();
+                _outputManager.PrintMessage("Which car do you want to buy? Select from 1 to 15");
+                string input = _outputManager.GetUserPrompt();
 
                 if (int.TryParse(input, out index) && index >= 1 && index <= 15)
                 {
                     break;
                 }
 
-                Console.WriteLine("Error: Please enter a valid number from 1 to 15.");
+                _outputManager.PrintMessage("Error: Please enter a valid number from 1 to 15.");
             }
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                (_portalInstance.UserData as Customer).BuyCar(car);
+                _customerManager.BuyCar(car, _portalInstance.UserData as Customer);
             }
             else
             {
-                (_portalInstance.UserData as Customer).RentCar(car);
+                _customerManager.RentCar(car, _portalInstance.UserData as Customer);
             }
-            Console.WriteLine($"You have successfully {(buy ? "bought" : "rented")} a car");
+            _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
-            /*ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);*/
+            _outputManager.ClearUserUI();
             ShowMainMenu();
         }
 
         public void InspectCarFlow()
         {
-            Console.Clear();
+            _outputManager.ClearUserUI();
             DisplayCars();
-            Console.WriteLine();
+            _outputManager.PrintMessage("");
             int index;
             while (true)
             {
-                Console.WriteLine("Which car do you want to inspect? Select from 1 to 15");
-                string input = Console.ReadLine();
+                _outputManager.PrintMessage("Which car do you want to inspect? Select from 1 to 15");
+                string input = _outputManager.GetUserPrompt();
 
                 if (int.TryParse(input, out index) && index >= 1 && index <= 15)
                 {
                     break;
                 }
 
-                Console.WriteLine("Error: Please enter a valid number from 1 to 15.");
+                _outputManager.PrintMessage("Error: Please enter a valid number from 1 to 15.");
             }
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             _inspectorCars.InspectCar(car, (_portalInstance.UserData as Inspector));
-            Console.WriteLine();
-            Console.WriteLine("Press any key to continue...");
-            Console.ReadLine();
+            _outputManager.PrintMessage("");
+            _outputManager.PrintMessage("Press any key to continue...");
+            _outputManager.GetUserPrompt();
         }
     }
 }

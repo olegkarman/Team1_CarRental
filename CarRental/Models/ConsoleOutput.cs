@@ -18,4 +18,9 @@ public class ConsoleOutput : IOutputManager
     {
         return Console.ReadLine();
     }
+
+    public void ClearUserUI()
+    {
+        Console.Clear();
+    }
 }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Models.Car;
-
-namespace CarRental.Records;
+﻿namespace CarRental.Records;
 public record AutoSupplier
 {
     public string SupplierId { get; init; }
