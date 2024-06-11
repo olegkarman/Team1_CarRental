@@ -121,7 +121,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DisplayCars()
         {
-            _carServiceManager.DisplayCarsInTable();
+            /*_carServiceManager.DisplayCarsInTable();*/
         }
 
         public void BuyRentCarFlow(bool buy = true)

@@ -44,21 +44,21 @@ public class InspectorCars
         {
             var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
-            InspectionManager.AddInspection(inspection);
+            /*InspectionManager.AddInspection(inspection);*/
         }
         else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
         {
             var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
-            InspectionManager.AddInspection(inspection);
+            /*InspectionManager.AddInspection(inspection);*/
         }
         else
         {
             var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
-            InspectionManager.AddInspection(inspection);
+            /*InspectionManager.AddInspection(inspection);*/
         }
     }
 
