@@ -1,5 +1,5 @@
 ﻿using CarRental.Data.Models.Car;
-using CarRental.Models;
+using CarRental.Data.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.BussinessLayer.Managers
 {
-    internal class CustomerManager
+    public class CustomerManager
     {
         public void BuyCar(Car car, Customer customer)
         {
