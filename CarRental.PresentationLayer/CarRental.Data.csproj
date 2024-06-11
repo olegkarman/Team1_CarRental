@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EnumTypes\**" />
     <Compile Remove="Models\Enumerables\**" />
+    <EmbeddedResource Remove="EnumTypes\**" />
     <EmbeddedResource Remove="Models\Enumerables\**" />
+    <None Remove="EnumTypes\**" />
     <None Remove="Models\Enumerables\**" />
   </ItemGroup>
 

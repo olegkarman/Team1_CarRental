@@ -7,7 +7,7 @@ public interface IInspection
 {
     Guid InspectionId { get; }
     DateTime? InspectionDate { get; }
-    Inspector? Inspector { get; }
+    string? InspectorName { get; }
     Guid? CarId { get; }
     InspectionStatusType? Result { get; }
 }
