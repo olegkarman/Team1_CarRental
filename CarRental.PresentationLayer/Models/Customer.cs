@@ -19,25 +19,5 @@ public class Customer : User
         Deals = new List<Deal>();
     }
 
-    public void BuyCar(Car.Car car)
-    {
-        var newDeal = new Deal(PassportNumber, car.VinCode, "purchase", car.Price);
-        Deals.Add(newDeal);
-        car.Status = Enumerables.TransportStatus.sold;
-    }
-
-    public void RentCar(Car.Car car)
-    {
-        var newDeal = new Deal(PassportNumber, car.VinCode, "rental", car.Price);
-        Deals.Add(newDeal);
-        car.Status = Enumerables.TransportStatus.rented;
-    }
-
-    public void ShowMyDeals()
-    {
-        for (int i = 0; i < Deals.Count; i++)
-        {
-            Console.WriteLine(Deals[i].ToString());
-        }
-    }
+   
 }
