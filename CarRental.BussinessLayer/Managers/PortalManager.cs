@@ -1,5 +1,6 @@
 ﻿using CarRental.Data.Models.Portal;
 using CarRental.Data.Models;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -24,7 +25,7 @@ namespace CarRental.BussinessLayer.Managers
         public void StartMainMenu()
         {
             _carServiceManager.InitializeManagment();
-            _carServiceManager.MakeNewListOfCars(15);
+            _carServiceManager.MakeNewListOfCurrentCars(15);
             ShowMainMenu();
         }
 
@@ -125,7 +126,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DisplayCars()
         {
-            _outputManager.PrintMessage(_carServiceManager.DisplayCurrentCars());
+            _carServiceManager.DisplayCarsInTable(_outputManager);
         }
 
         public void BuyRentCarFlow(bool buy = true)

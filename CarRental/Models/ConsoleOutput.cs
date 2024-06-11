@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.BussinessLayer.Interfaces;
-using CarRental.BussinessLayer.Managers;
 
 namespace CarRental.Presentation.Models;
 public class ConsoleOutput : IOutputManager
@@ -12,6 +11,11 @@ public class ConsoleOutput : IOutputManager
     public void PrintMessage(string message)
     {
         Console.WriteLine(message);
+    }
+
+    public void PrintMessage(string format, params object?[]? args)
+    {
+        Console.WriteLine(format, args);
     }
 
     public string GetUserPrompt()

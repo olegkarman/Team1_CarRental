@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Car;
@@ -420,27 +421,27 @@ public class ServiceManager : ICarManager
     // // BETTER TO USE STRING OUTPUT RATHER THAN THE CONSOLE OUTPUT.
     // //
 
-    //public void DisplayCarsInTable()
-    //{
-    //    // ADD NULL CHECK-UP
+    public void DisplayCarsInTable(IOutputManager outputManager)
+    {
+        // ADD NULL CHECK-UP
 
-    //    if (CurrentCars == null)
-    //    {
-    //        throw new ArgumentNullException(nameof(this.CurrentCars));
-    //    }
+        if (CurrentCars == null)
+        {
+            throw new ArgumentNullException(nameof(this.CurrentCars));
+        }
 
-    //    string line = new string('-', 110); // adjust the number to fit your table
-    //    string format = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10} | {5,-10} | {6,-10} | {7,-10} | {8,-20}";
+        string line = new string('-', 110); // adjust the number to fit your table
+        string format = "{0,-10} | {1,-10} | {2,-10} | {3,-10} | {4,-10} | {5,-10} | {6,-10} | {7,-10} | {8,-20}";
 
-    //    Console.WriteLine(format, "Index", "Brand", "Model", "Year", "Price", "Status", "FitForUse", "PlateNumber", "VinCode");
-    //    Console.WriteLine(line);
+        outputManager.PrintMessage(format, "Index", "Brand", "Model", "Year", "Price", "Status", "FitForUse", "PlateNumber", "VinCode");
+        outputManager.PrintMessage(line);
 
-    //    for (int i = 0; i < CurrentCars.Count; i++)
-    //    {
-    //        var car = CurrentCars[i];
-    //        Console.WriteLine(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Dossier.NumberPlate, car.VinCode);
-    //    }
-    //}
+        for (int i = 0; i < CurrentCars.Count; i++)
+        {
+            var car = CurrentCars[i];
+            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Dossier.NumberPlate, car.VinCode);
+        }
+    }
 
     // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
 
