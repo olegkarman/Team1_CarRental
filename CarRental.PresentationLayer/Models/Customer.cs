@@ -9,6 +9,8 @@ public class Customer : User
     public string PassportNumber { get; init; }
     public required string DrivingLicenseNumber { get; set; }
 
+   
+
     [SetsRequiredMembers]
     public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
     {
@@ -17,25 +19,5 @@ public class Customer : User
         Deals = new List<Deal>();
     }
 
-    public void BuyCar(Car.Car car)
-    {
-        var newDeal = new Deal(PassportNumber, car.VinCode, "purchase", car.Price);
-        Deals.Add(newDeal);
-        car.Status = Enums.TransportStatus.Sold;
-    }
-
-    public void RentCar(Car.Car car)
-    {
-        var newDeal = new Deal(PassportNumber, car.VinCode, "rental", car.Price);
-        Deals.Add(newDeal);
-        car.Status = Enums.TransportStatus.Rented;
-    }
-
-    public void ShowMyDeals()
-    {
-        for (int i = 0; i < Deals.Count; i++)
-        {
-            Console.WriteLine(Deals[i].ToString());
-        }
-    }
+   
 }
