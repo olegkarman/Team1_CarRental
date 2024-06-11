@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
-namespace CarRental.Models;
+namespace CarRental.Data.Models;
 public class Inspector : User
 {
     public DateTime EmploymentDate { get; init; } //Додати readonly поле (string Year)

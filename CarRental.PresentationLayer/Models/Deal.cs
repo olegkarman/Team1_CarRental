@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace CarRental.Models
+﻿namespace CarRental.Data.Models
 {
     public class Deal
     {

@@ -7,11 +7,6 @@ using System.Drawing;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 4. Extension methods & Record type."
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 03-JUN-2024
-
 namespace CarRental.Data.Models.Car.Abstractions;
 
 public abstract class AbstractInterior : IComponent

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using CarRental.Models;
+using CarRental.Data.Models;
 
-namespace CarRental.Models;
+namespace CarRental.Data.Models;
 public class Customer : User
 {
     public List<Deal> Deals { get; set; }

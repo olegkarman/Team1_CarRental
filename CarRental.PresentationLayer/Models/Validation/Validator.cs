@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CarRental.Models.Validation;
+namespace CarRental.Data.Models.Validation;
 public static class Validator
 {
     public static bool IsValidName(string name = "")

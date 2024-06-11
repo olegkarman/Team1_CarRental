@@ -1,7 +1,8 @@
-﻿using CarHubTest;
+﻿using CarRental.Data.Enums;
+using CarRental.Data.EnumTypes;
 using CarRental.Data.Models.Car;
 
-namespace CarRental.Data.Models.InspectorCars;
+namespace CarRental.Data.Models;
 
 public class InspectorCars
 {
@@ -24,7 +25,7 @@ public class InspectorCars
     {
         Console.WriteLine($"Mileage: {Mileage}, Release Date: {ReleaseDate}, Exterior Condition: {ExteriorCondition}");
     }
-    internal void InspectedCars(Car car)
+    internal void InspectedCars(Car.Car car)
     {
 
         if (CurrentCarsInspected >= MaxCarsAllowed)
@@ -37,45 +38,45 @@ public class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    public void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
+    public void InspectCar(Car.Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
     {
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
-            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
+            var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
-            InspectionManager.AddInspection(inspection);
+            /*InspectionManager.AddInspection(inspection);*/
         }
         else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
         {
-            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
+            var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
-            InspectionManager.AddInspection(inspection);
+            /*InspectionManager.AddInspection(inspection);*/
         }
         else
         {
-            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
+            var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
-            InspectionManager.AddInspection(inspection);
+            /*InspectionManager.AddInspection(inspection);*/
         }
     }
 
-    public void RecordInspectionResult(Car car, InspectionStatusType inspectionResult)
+    public void RecordInspectionResult(Car.Car car, InspectionStatusType inspectionResult)
     {
         if (car != null)
         {
             switch (inspectionResult)
             {
                 case InspectionStatusType.Successfully:
-                    car.Status = TransportStatus.available;
+                    car.Status = TransportStatus.Available;
                     break;
                 case InspectionStatusType.Repair:
-                    car.Status = TransportStatus.inRepair;
+                    car.Status = TransportStatus.InRepair;
                     RemoveCarIfUnfit(car);
                     break;
                 case InspectionStatusType.Unusable:
-                    car.Status = TransportStatus.unavailable;
+                    car.Status = TransportStatus.Unavailable;
                     RemoveCarIfUnfit(car);
                     break;
                 default:
@@ -88,9 +89,9 @@ public class InspectorCars
             Console.WriteLine("Car not found.");
         }
     }
-    public void RemoveCarIfUnfit(Car car) // Видалити машину
+    public void RemoveCarIfUnfit(Car.Car car) // Видалити машину
     {
-        if (car.Status == TransportStatus.inRepair || car.Status == TransportStatus.unavailable)
+        if (car.Status == TransportStatus.InRepair || car.Status == TransportStatus.Unavailable)
         {
             Console.WriteLine($"Car {car.Brand} {car.Model} with Serial Number {car.VinCode} removed because it is unfit for use.");
         }

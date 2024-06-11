@@ -1,6 +1,5 @@
-﻿using CarHubTest;
-using CarRental.Data.Models.InspectorCars;
-using CarRental.Models.Portal;
+﻿using CarRental.Data.Models.Portal;
+using CarRental.Data.Models;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -122,7 +121,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DisplayCars()
         {
-            _carServiceManager.DisplayCarsInTable();
+            /*_carServiceManager.DisplayCarsInTable();*/
         }
 
         public void BuyRentCarFlow(bool buy = true)
@@ -143,8 +142,7 @@ namespace CarRental.BussinessLayer.Managers
 
                 Console.WriteLine("Error: Please enter a valid number from 1 to 15.");
             }
-            _carServiceManager.TrySelectCar(index - 1);
-            var car = _carServiceManager.GetSelectedCar();
+            var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
                 (_portalInstance.UserData as Customer).BuyCar(car);
@@ -154,7 +152,7 @@ namespace CarRental.BussinessLayer.Managers
                 (_portalInstance.UserData as Customer).RentCar(car);
             }
             Console.WriteLine($"You have successfully {(buy ? "bought" : "rented")} a car");
-            _carServiceManager.DeleteCarFromList(index - 1);
+            _carServiceManager.DeleteCarFromCurrentCars(index - 1);
             /*ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);*/
             ShowMainMenu();
         }
@@ -177,8 +175,7 @@ namespace CarRental.BussinessLayer.Managers
 
                 Console.WriteLine("Error: Please enter a valid number from 1 to 15.");
             }
-            _carServiceManager.TrySelectCar(index - 1);
-            var car = _carServiceManager.GetSelectedCar();
+            var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             _inspectorCars.InspectCar(car, (_portalInstance.UserData as Inspector));
             Console.WriteLine();
             Console.WriteLine("Press any key to continue...");

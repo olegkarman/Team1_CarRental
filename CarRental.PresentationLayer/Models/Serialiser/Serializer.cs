@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
-using CarRental.Models;
-using System.Text.Json.Serialization;
-using CarRental.Models.Serialiser;
+
+namespace CarRental.Data.Models.Serialiser;
 
 public static class Serializer
 {

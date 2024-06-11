@@ -8,12 +8,6 @@ using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Interfaces;
 
-
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 3. Methods, properties"
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 30-MAY-2024
-
 namespace CarRental.BussinessLayer.Interfaces;
 
 public interface ICarMechanics

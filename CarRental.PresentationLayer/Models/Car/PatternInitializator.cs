@@ -7,11 +7,6 @@ using System.Threading.Tasks;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.Data.Models.Car.Seeds;
 
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 4. Extension methods & Record type."
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 03-JUN-2024
-
 namespace CarRental.Data.Models.Car;
 
 public class PatternInitializator

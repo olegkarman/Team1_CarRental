@@ -1,7 +1,4 @@
-﻿using CarHubTest;
-using CarRental.Models.Car;
-
-namespace CarRental.Models.Portal;
+﻿namespace CarRental.Data.Models.Portal;
 public class Portal
 {
     public User UserData { get; set; }

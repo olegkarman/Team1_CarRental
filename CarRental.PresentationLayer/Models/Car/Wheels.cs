@@ -6,12 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
 using CarRental.Data.Models.Car.Abstractions;
-//using CarRental.Data.Models.Car;
-
-// HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA
-// HOMEWORK: "ДЗ 4. Extension methods & Record type."
-// STUDENT: PARKHOMENKO YAROSLAV
-// DATE: 03-JUN-2024
 
 namespace CarRental.Data.Models.Car;
 

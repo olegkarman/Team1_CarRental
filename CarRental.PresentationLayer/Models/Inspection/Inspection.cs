@@ -1,9 +1,9 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using CarHubTest;
+﻿using System.Diagnostics.CodeAnalysis;
+using CarRental.Data.EnumTypes;
+using CarRental.Data.Interfaces;
 
-namespace CarRental.Models;
-internal class Inspection : IInspection
+namespace CarRental.Data.Models.Inspection;
+public class Inspection : IInspection
 {
     private const string InspectionNumber = "Inspection ID ";
     private readonly DateTime _inspectionDate = DateTime.Now;

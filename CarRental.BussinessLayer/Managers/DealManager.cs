@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.IO;
 using System.Diagnostics;
 
-namespace CarRental.Models;
+namespace CarRental.BussinessLayer.Managers;
 public class DealManager
 {
     private string fileName;
@@ -77,7 +77,7 @@ public class DealManager
         }
     }
 
-    public string GetAllDealsJson()
+    /*public string GetAllDealsJson()
     {
         try
         {
@@ -109,7 +109,7 @@ public class DealManager
         {
             return "{}";
         }
-    }
+    }*/
 
     public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
     {

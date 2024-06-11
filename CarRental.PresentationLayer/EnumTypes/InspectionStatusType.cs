@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarHubTest
+﻿namespace CarRental.Data.EnumTypes
 {
-    internal enum InspectionStatusType
+    public enum InspectionStatusType
     {
         Unknown,
         Successfully,
