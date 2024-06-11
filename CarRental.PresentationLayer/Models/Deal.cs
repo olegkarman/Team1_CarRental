@@ -24,7 +24,7 @@
             }
         }
 
-        internal Deal(string customerId, string carId, string type, float price)
+        public Deal(string customerId, string carId, string type, float price)
         {
             this.dealType = type;
             this.price = price;
