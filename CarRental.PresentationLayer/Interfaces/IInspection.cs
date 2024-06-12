@@ -1,18 +1,13 @@
-﻿using CarRental.Data.EnumTypes;
+﻿using CarRental.Data.Enums;
+using CarRental.Data.Models;
+using CarRental.Data.Models.Car;
 
-namespace CarRental.Data.Interfaces
+namespace CarRental.Data.Interfaces;
+public interface IInspection
 {
-    internal interface IInspection
-    {
-        // Properties
-        Guid InspectionId { get; }
-        DateTime InspectionDate { get; }
-        string? InspectorName { get; }
-        string CarId { get; }
-        InspectionStatusType Result { get; }
-
-        // Methods
-        bool IsInspectionSuccessfully(Guid inspectionId);
-        bool IsInspectionSuccessfully(string inspectorName);
-    }
+    Guid InspectionId { get; }
+    DateTime? InspectionDate { get; }
+    string? InspectorName { get; }
+    Guid? CarId { get; }
+    InspectionStatusType? Result { get; }
 }

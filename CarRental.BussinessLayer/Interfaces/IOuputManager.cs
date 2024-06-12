@@ -6,5 +6,6 @@
         public void PrintMessage(string format, params object?[]? args);
         public string GetUserPrompt();
         public void ClearUserUI();
+        public void PrintList<T>(List<T> list);
     }
 }
