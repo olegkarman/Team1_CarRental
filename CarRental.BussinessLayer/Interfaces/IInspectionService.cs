@@ -13,5 +13,5 @@ public interface IInspectionService
 {
     Inspection CreateInspection(Inspector inspector, Car car, InspectionStatusType result);
     bool IsInspectionSuccessfully(Inspection inspection);
-    void GetInfoToConsole(Inspection inspection);
+    string GetInfo(Inspection inspection);
 }

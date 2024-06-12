@@ -12,5 +12,5 @@ public interface IInspectionsManager
     void RemoveInspection(Inspection inspection);
     Inspection? GetInspection(Inspection inspection);
     List<Inspection> GetSuccessfulInspections();
-    void PrintAllInspections();
+    List<string> InspectionInfoList();
 }

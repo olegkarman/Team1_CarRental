@@ -27,4 +27,11 @@ public class ConsoleOutput : IOutputManager
     {
         Console.Clear();
     }
+    public void PrintList<T>(List<T> list)
+    {
+        foreach (T item in list)
+        {
+            Console.WriteLine(item);
+        }
+    }
 }

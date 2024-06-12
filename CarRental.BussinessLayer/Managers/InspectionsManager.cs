@@ -39,13 +39,15 @@ public class InspectionsManager : IInspectionsManager
         return _inspections.Where(i => i.Result == InspectionStatusType.Successfully).ToList();
     }
 
-    public void PrintAllInspections()
+    public List<string> InspectionInfoList()
     {
         var inspectionService = new InspectionService();
+        var inspectionList = new List<string>();
 
-        foreach (var inspection in _inspections)
+        foreach (var item in _inspections)
         {
-            inspectionService.GetInfoToConsole(inspection);
+            inspectionList.Add(inspectionService.GetInfo(item));
         }
+        return inspectionList;
     }
 }

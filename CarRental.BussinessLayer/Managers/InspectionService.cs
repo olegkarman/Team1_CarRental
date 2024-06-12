@@ -21,12 +21,12 @@ public class InspectionService: IInspectionService
         return (inspection.InspectionId == inspection.InspectionId) && (inspection.Result == InspectionStatusType.Successfully);
     }
 
-    public void GetInfoToConsole(Inspection inspection)
+    public string GetInfo(Inspection inspection)
     {
-        Console.WriteLine($"Inspection Number: {inspection.InspectionId}\n" +
+        return $"Inspection Number: {inspection.InspectionId}\n" +
             $"Inspector Name: {inspection.InspectorName}\n" +
             $"Car ID: {inspection.CarId}\n" +
             $"Inspection Date: {inspection.InspectionDate.Value.ToShortDateString}\n" +
-            $"Result: {inspection.Result}\n");
+            $"Result: {inspection.Result}\n";
     }
 }
