@@ -49,26 +49,26 @@ public class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    public void InspectCar(Car car, InspectorManager inspector) //Інспектувати по пробігу, даті,стану кузова
+    public void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
     {
 
         var inspectionManager = new InspectionsManager();
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
-            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
+            var inspection = new Inspection(inspector, car, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
             inspectionManager.AddInspection(inspection);
         }
         else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
         {
-            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
+            var inspection = new Inspection(inspector, car, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
             inspectionManager.AddInspection(inspection);
         }
         else
         {
-            var inspection = new Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
+            var inspection = new Inspection(inspector, car, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
             inspectionManager.AddInspection(inspection);
