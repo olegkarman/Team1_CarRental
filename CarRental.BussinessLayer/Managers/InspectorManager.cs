@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Data.Models;
 
 namespace CarRental.BussinessLayer.Managers;
-internal class InspectorManager
+public class InspectorManager
 {
     public string GetInspectorInfo(Inspector inspector) //Додати метод (string GetCarInfo() який виводить Id, Year та Mark)
     {
@@ -31,6 +32,6 @@ internal class InspectorManager
     public string GetInspectorName(Inspector inspector) /*Додати до попереднього проекту 1 extension method, будь-який. (наприклад виводити FullName який складається з Firstname+Lastname)*/
     {
         string fullName = $"{inspector.FirstName} {inspector.LastName}";
-        return fullName.InspectorName();
+        return $"{inspector.FirstName} {inspector.LastName}";
     }
 }
