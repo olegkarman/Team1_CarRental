@@ -125,7 +125,7 @@ namespace CarRental.BussinessLayer.Managers
                 }
             }
 
-            Console.WriteLine("Enter the last name of the user:");
+            _outputManager.PrintMessage("Enter the last name of the user:");
             while (true)
             {
                 lastName = _outputManager.GetUserPrompt();

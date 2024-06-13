@@ -1,7 +1,4 @@
 ﻿using CarRental.Data.Enums;
-using CarRental.Data.EnumTypes;
-using CarRental.Data.Models.Car;
-
 namespace CarRental.Data.Models;
 
 public class InspectorCars
@@ -42,20 +39,20 @@ public class InspectorCars
     {
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
-            var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Successfully);
+            var inspection = new Inspection.Inspection(inspector, car, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
             /*InspectionManager.AddInspection(inspection);*/
         }
         else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
         {
-            var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Repair);
+            var inspection = new Inspection.Inspection(inspector, car, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
             /*InspectionManager.AddInspection(inspection);*/
         }
         else
         {
-            var inspection = new Inspection.Inspection(inspector.FirstName, car.VinCode, InspectionStatusType.Unusable);
+            var inspection = new Inspection.Inspection(inspector, car, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
             /*InspectionManager.AddInspection(inspection);*/

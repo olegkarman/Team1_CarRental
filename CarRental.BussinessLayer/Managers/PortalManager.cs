@@ -11,6 +11,7 @@ namespace CarRental.BussinessLayer.Managers
         private ServiceManager _carServiceManager;
         private InspectorCars _inspectorCars;
         private CustomerManager _customerManager;
+        private InspectionsManager _inspectionsManager;
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -20,6 +21,7 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager = new ServiceManager();
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
+            _inspectionsManager = new InspectionsManager();
         }
 
         public void StartMainMenu()
@@ -82,7 +84,11 @@ namespace CarRental.BussinessLayer.Managers
                         }
                         else
                         {
-                            InspectionManager.PrintAllInspections();
+                            var inspections = _inspectionsManager.InspectionInfoList();
+                            foreach (var inspection in inspections)
+                            {
+                                _outputManager.PrintMessage(inspection);
+                            }
                             _outputManager.PrintMessage("");
                             _outputManager.PrintMessage("Press any key to continue...");
                             _outputManager.GetUserPrompt();
