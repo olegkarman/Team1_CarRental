@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.Car.Abstractions;
+using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car;
 
-public class Signal : AbstractSignal
+public class Signal
 {
     // PROPERTIES
 
-    public override required string SerialNumber { get; init; }
-    public override PitchComponent Pitch { get; init; }
-    public override required ComponentStatus Status { get; set; }
+    public required string SerialNumber { get; init; }
+    public PitchComponent Pitch { get; init; }
+    public required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 

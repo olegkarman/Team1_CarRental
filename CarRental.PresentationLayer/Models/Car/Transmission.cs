@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.Car.Abstractions;
+using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car;
 
-public class Transmission : AbstractTransmission
+public class Transmission
 {
     // FIELDS
 
@@ -17,10 +17,10 @@ public class Transmission : AbstractTransmission
 
     // PROPERTIES
 
-    public override required string SerialNumber { get; init; }
-    public override required TypeTransmission Type { get; init; }
+    public required string SerialNumber { get; init; }
+    public required TypeTransmission Type { get; init; }
     public int SpeedCount { get; init; }
-    public override ComponentStatus Status { get; set; }
+    public ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 

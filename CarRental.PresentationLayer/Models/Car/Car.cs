@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
-using CarRental.Data.Models.Car.Abstractions;
 
 namespace CarRental.Data.Models.Car;
 
@@ -26,7 +25,7 @@ public class Car : ICar
 
     // PROPERTIES
 
-    public required AbstractEngine Engine
+    public required Engine Engine
     {
         get;
         set;
@@ -34,16 +33,16 @@ public class Car : ICar
 
     public Guid CarId { get; init; }
 
-    public required AbstractInterior Interior { get; set; }
-    public required AbstractWheels Wheels { get; set; }
-    public required AbstractTransmission Transmission { get; set; }
+    public required Interior Interior { get; set; }
+    public required Wheels Wheels { get; set; }
+    public required Transmission Transmission { get; set; }
 
     public IDossierable Dossier { get; set; }
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
-    public AbstractLights Lights { get; set; }
-    public AbstractSignal Signal { get; set; }
+    public Lights Lights { get; set; }
+    public Signal Signal { get; set; }
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; private set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }

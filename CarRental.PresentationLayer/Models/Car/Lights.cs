@@ -6,21 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.Car.Abstractions;
+using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car;
 
-public class Lights : AbstractLights
+public class Lights
 {
     // THE PURPOSE OF THE CLASS:
     // // A COMPONENT OF A CAR.
 
     // PROPERTIES
 
-    public override required string SerialNumber { get; init; }
-    public override KnownColor Color { get; init; }
-    public override PowerComponent Power { get; init; }
-    public override required ComponentStatus Status { get; set; }
+    public required string SerialNumber { get; init; }
+    public KnownColor Color { get; init; }
+    public PowerComponent Power { get; init; }
+    public required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 

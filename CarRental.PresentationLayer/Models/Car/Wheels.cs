@@ -5,19 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.Car.Abstractions;
+using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car;
 
-public class Wheels : AbstractWheels
+public class Wheels
 {
     // PROPERTIES
 
-    public override required string SerialNumber { get; init; }
-    public override required MaterialWheel Material { get; init; }
-    public override required int Size { get; init; }
-    public override required TypeTire Tire { get; set; }
-    public override ComponentStatus Status { get; set; }
+    public required string SerialNumber { get; init; }
+    public required MaterialWheel Material { get; init; }
+    public required int Size { get; init; }
+    public required TypeTire Tire { get; set; }
+    public ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 

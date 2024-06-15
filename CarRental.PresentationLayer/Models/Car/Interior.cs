@@ -10,17 +10,17 @@ using CarRental.Data.Models.Car.Abstractions;
 
 namespace CarRental.Data.Models.Car;
 
-public class Interior : AbstractInterior
+public class Interior
 {
     // THE PURPOSE OF THE CLASS:
     // // A COMPONENT OF A CAR.
 
     // PROPERTIES
 
-    public override required string SerialNumber { get; init; }
-    public override required KnownColor Color { get; set; } // FROM System.Drawing, BASE COLORS ENUM.
-    public override required MaterialInterior Material { get; init; }
-    public override required ComponentStatus Status { get; set; }
+    public required string SerialNumber { get; init; }
+    public required KnownColor Color { get; set; } // FROM System.Drawing, BASE COLORS ENUM.
+    public required MaterialInterior Material { get; init; }
+    public required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 

@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.Car.Abstractions;
+using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models.Car;
 
-public class Engine : AbstractEngine
+public class Engine
 {
     // THE PURPOSE OF THE CLASS:
     // // A COMPONENT OF A CAR.
@@ -20,12 +20,12 @@ public class Engine : AbstractEngine
 
     // PROPERTIES
 
-    public override string SerialNumber { get; init; }
-    public override required int AverageFuelConsumption { get; set; }
-    public override FuelEngine Fuel { get; init; }
-    public override TypeEngine Type { get; init; }
-    public override required int Power { get; set; }
-    public override required ComponentStatus Status { get; set; }
+    public string SerialNumber { get; init; }
+    public required int AverageFuelConsumption { get; set; }
+    public FuelEngine Fuel { get; init; }
+    public TypeEngine Type { get; init; }
+    public required int Power { get; set; }
+    public required ComponentStatus Status { get; set; }
 
     // CONSTRUCTORS
 
