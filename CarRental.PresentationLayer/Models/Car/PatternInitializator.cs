@@ -27,11 +27,11 @@ public class PatternInitializator
 
     // METHODS
 
-    public BrandRecord[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
+    public Brand[] InitializeBrandRecords(BrandModelsNamesDataSheet dataSheet)
     {
-        BrandRecord[] records =
+        Brand[] records =
         [
-            new BrandRecord
+            new Brand
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[0].ToUpper()),
 
@@ -40,7 +40,7 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[0..2]
             ),
 
-            new BrandRecord
+            new Brand
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[1].ToUpper()),
 
@@ -49,7 +49,7 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[3..13]
             ),
 
-            new BrandRecord
+            new Brand
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[2].ToUpper()),
 
@@ -58,7 +58,7 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[14..24]
             ),
 
-            new BrandRecord
+            new Brand
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[3].ToUpper()),
 
@@ -67,7 +67,7 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[25..35]
             ),
 
-            new BrandRecord
+            new Brand
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[4].ToUpper()),
 
@@ -76,7 +76,7 @@ public class PatternInitializator
                 dataSheet.ModelNamesData[36..42]
             ),
 
-            new BrandRecord
+            new Brand
             (
                 (DateTime.Now.ToString() + dataSheet.BrandNamesData[5].ToUpper()),
 
@@ -191,10 +191,10 @@ public class PatternInitializator
         return pattern;
     }
 
-    public Dictionary<string, ModelComponentsPattern> ChoosePatternForModel(BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    public Dictionary<string, ModelComponentsPattern> ChoosePatternForModel(Brand[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         Dictionary<string, ModelComponentsPattern> dictionary = new Dictionary<string, ModelComponentsPattern>();
-        foreach (BrandRecord record in brandRecords)
+        foreach (Brand record in brandRecords)
         {
             foreach (string model in record.Models)
             {

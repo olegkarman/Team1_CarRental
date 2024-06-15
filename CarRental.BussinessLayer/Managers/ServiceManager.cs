@@ -607,7 +607,7 @@ public class ServiceManager : ICarManager
             // TO ASSIG REFERENE BELOW IN THE OBJECT-INITILIZER.
             BrandModelsNamesDataSheet brandModelsData = dataInit.InitializeDataSheet();
 
-            BrandRecord[] brandRecords = dataInit.InitializeBrandRecordsArray(patternInit, brandModelsData);
+            Brand[] brandRecords = dataInit.InitializeBrandRecordsArray(patternInit, brandModelsData);
 
             this._supplementData = new ServiceManagerSupplements
             {

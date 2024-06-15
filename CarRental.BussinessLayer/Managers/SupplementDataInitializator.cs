@@ -36,12 +36,12 @@ public class SupplementDataInitializator
         }
     }
 
-    public Dictionary<string, ModelComponentsPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, BrandRecord[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
+    public Dictionary<string, ModelComponentsPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, Brand[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
     {
         return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
     }
 
-    public BrandRecord[] InitializeBrandRecordsArray(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
+    public Brand[] InitializeBrandRecordsArray(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
     {
         return patternInitializator.InitializeBrandRecords(data);
     }

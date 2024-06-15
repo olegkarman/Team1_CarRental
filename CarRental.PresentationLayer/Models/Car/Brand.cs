@@ -8,7 +8,7 @@ using CarRental.Data.Models.Car.RecordTypes;
 
 namespace CarRental.Data.Models.Car;
 
-public class BrandRecord : IBrandRecordable
+public class Brand : IBrandRecordable
 {
     // THE PURPOSE OF THE CLASS:
     // // A CLASS TO HOLD INFO ABOUT BRANDS OF CARS.
@@ -26,12 +26,12 @@ public class BrandRecord : IBrandRecordable
 
     // CONSTRUCTORS
 
-    public BrandRecord()
+    public Brand()
     {
         
     }
 
-    public BrandRecord(string recordId, string brandName, string[] models/*, Dictionary<string, ICarSelectivePattern> dictionaryModelPattern*/)
+    public Brand(string recordId, string brandName, string[] models/*, Dictionary<string, ICarSelectivePattern> dictionaryModelPattern*/)
     {
         this.RecordId = recordId;
         this.BrandName = brandName;

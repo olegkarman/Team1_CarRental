@@ -24,7 +24,7 @@ public class ServiceManagerSupplements
     public BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
     public Depot DepotService { get; init; }
     public Dictionary<string, ModelComponentsPattern> ModelsPatterns { get; init; }
-    public BrandRecord[] BrandRecords { get; init; }
+    public Brand[] BrandRecords { get; init; }
     internal VehicleValidation Validator { get; init; }
     public Mechanic Mechanic { get; init; }
 }
