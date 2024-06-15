@@ -11,7 +11,7 @@ using CarRental.Data.Interfaces;
 
 namespace CarRental.BussinessLayer.Managers;
 
-public class Mechanic : ICarMechanics
+public class Mechanic
 {
     // THE PURPOSE OF THE CLASS:
     // // TO PERFORM SPECIAL MANIPULATIONS ON A CAR.
@@ -53,10 +53,10 @@ public class Mechanic : ICarMechanics
     }
 
     // TO CHECK IF A COMPONENT OF A CAR IS NEED TO BE FIXED.
-    public ComponentStatus CheckComponent(IComponent component)
-    {
-        return component.Status;
-    }
+    //public ComponentStatus CheckComponent(IComponent component)
+    //{
+    //    return component.Status;
+    //}
 
     // CHECK A WHOLE CAR. COMPONENT BY COMPONENT.
     public TransportStatus CheckCar(Car car)
@@ -76,20 +76,20 @@ public class Mechanic : ICarMechanics
     }
 
     // METHOD TO FIX COMPONENTS.
-    public bool TryFixComponent(IComponent component)
-    {
-        int success = _random.Next(0, 11);
+    //public bool TryFixComponent(IComponent component)
+    //{
+    //    int success = _random.Next(0, 11);
 
-        if (success >= 5)
-        {
-            component.Status = (ComponentStatus)10;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    //    if (success >= 5)
+    //    {
+    //        component.Status = (ComponentStatus)10;
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
 
     // TO CHANGE COMPONENTS
 

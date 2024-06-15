@@ -29,11 +29,51 @@ namespace CarRental.BussinessLayer.Validators
             }
         }
 
-        public void CheckNull(IComponent component)
+        public void CheckNull(Engine engine)
         {
-            if (component == null)
+            if (engine == null)
             {
-                throw new ArgumentNullException(nameof(component));
+                throw new ArgumentNullException(nameof(engine));
+            }
+        }
+
+        public void CheckNull(Transmission transmission)
+        {
+            if (transmission == null)
+            {
+                throw new ArgumentNullException(nameof(Transmission));
+            }
+        }
+
+        public void CheckNull(Interior interior)
+        {
+            if (interior == null)
+            {
+                throw new ArgumentNullException(nameof(interior));
+            }
+        }
+
+        public void CheckNull(Wheels wheels)
+        {
+            if (wheels == null)
+            {
+                throw new ArgumentNullException(nameof(wheels));
+            }
+        }
+
+        public void CheckNull(Lights lights)
+        {
+            if (lights == null)
+            {
+                throw new ArgumentNullException(nameof(lights));
+            }
+        }
+
+        public void CheckNull(Signal signal)
+        {
+            if (signal == null)
+            {
+                throw new ArgumentNullException(nameof(signal));
             }
         }
 
