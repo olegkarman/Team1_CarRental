@@ -108,6 +108,7 @@ public class Car : ICar
     public string Brand { get; init; }
     public TransportStatus Status { get; set; }
     public List<Inspection.Inspection> Inspections { get; set; }
+    public Deal Deal { get; set; }
     public bool IsFitForUse { get; set; }
 
     // CONSTRUCTORS
