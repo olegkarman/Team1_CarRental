@@ -26,7 +26,7 @@ public class InspectionService: IInspectionService
         return $"Inspection Number: {inspection.InspectionId}\n" +
             $"Inspector Name: {inspection.InspectorName}\n" +
             $"Car ID: {inspection.CarId}\n" +
-            $"Inspection Date: {inspection.InspectionDate.Value.ToShortDateString}\n" +
+            $"Inspection Date: {inspection.InspectionDate.Value.ToShortDateString()}\n" +
             $"Result: {inspection.Result}\n";
     }
 }

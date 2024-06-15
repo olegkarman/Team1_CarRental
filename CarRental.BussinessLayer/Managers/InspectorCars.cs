@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Enums;
+﻿using CarRental.Data.Enums;
 using CarRental.Data.Inspection;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Car;
@@ -49,10 +44,8 @@ public class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    public void InspectCar(Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
+    public void InspectCar(Car car, Inspector inspector, InspectionsManager inspectionManager) //Інспектувати по пробігу, даті,стану кузова
     {
-
-        var inspectionManager = new InspectionsManager();
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
             var inspection = new Inspection(inspector, car, InspectionStatusType.Successfully);
