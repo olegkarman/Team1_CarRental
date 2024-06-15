@@ -15,4 +15,8 @@
     <None Remove="Models\Enumerables\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Car\Abstractions\" />
+  </ItemGroup>
+
 </Project>
