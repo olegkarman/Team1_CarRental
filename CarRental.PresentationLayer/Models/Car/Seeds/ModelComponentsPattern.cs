@@ -8,7 +8,7 @@ using CarRental.Data.Interfaces;
 
 namespace CarRental.Data.Models.Car.Seeds;
 
-public class ModelComponentsPattern : ICarSelectivePattern
+public class ModelComponentsPattern
 {
     // THE PURPOSE OF THE CLASS:
     // // A DATA-HOLDER OF A PATTERN NECCESSARY TO GENERATE A CAR INSTANCE.

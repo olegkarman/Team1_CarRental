@@ -162,7 +162,7 @@ public class Depot
     }
 
     // TO GENERATE RANDOM NUMBER FROM CHAR-MAP OF A PATTERN.
-    private string GetSerialNumber(ICarSelectivePattern pattern)
+    private string GetSerialNumber(ModelComponentsPattern pattern)
     {
         _snStringBuilder.Clear();
 
