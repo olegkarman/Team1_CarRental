@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.BussinessLayer.Validators;
 using CarRental.BussinessLayer.Services;
-using System.Reflection;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -20,6 +19,7 @@ namespace CarRental.BussinessLayer.Managers
         private AgeValidator _ageValidator;
         private MechanicValidation _mechanicValidator;
         private RepairValidation _repairValidator;
+        private IndexOfListValidation _indexValidator;
 
         // PROPERTIES
 
@@ -66,7 +66,7 @@ namespace CarRental.BussinessLayer.Managers
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, int index)
         {
             _mechanicValidator.CheckNull(mechanics);
-            ValidateIndexOfMechanicsList(mechanics, index);
+            _indexValidator.ValidateIndexOfList(mechanics, index);
 
             Mechanic mechanic = mechanics[index];
 
@@ -89,7 +89,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             _mechanicValidator.CheckNull(mechanics);
 
-            ValidateIndexOfMechanicsList(mechanics, index);
+            _indexValidator.ValidateIndexOfList(mechanics, index);
 
             mechanics.RemoveAt(index);
         }

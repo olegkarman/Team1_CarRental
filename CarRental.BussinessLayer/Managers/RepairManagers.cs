@@ -16,6 +16,7 @@ namespace CarRental.BussinessLayer.Managers
         private RepairValidation _repairValidator;
         private VehicleValidation _carValidator;
         private MechanicValidation _mechanicValidator;
+        private IndexOfListValidation _indexValidator;
 
         // PROPERTIES
 
@@ -49,6 +50,7 @@ namespace CarRental.BussinessLayer.Managers
         public Repair ChooseRepairFromList(List<Repair> repairs, int index)
         {
             _repairValidator.CheckNull(repairs);
+            _indexValidator.ValidateIndexOfList(repairs, index);
             
             Repair repair = repairs[index];
 
@@ -58,6 +60,7 @@ namespace CarRental.BussinessLayer.Managers
         public void DeleteRepairFromList(List<Repair> repairs, int index)
         {
             _repairValidator.CheckNull(repairs);
+            _indexValidator.ValidateIndexOfList(repairs, index);
 
             repairs.RemoveAt(index);
         }
