@@ -7,7 +7,7 @@ using CarRental.Data.Interfaces;
 
 namespace CarRental.Data.Models.Car;
 
-public class Dossier : IDossierable
+public class Dossier
 {
     // THE PURPOSE OF THE CLASS:
     // // THE ADDITIONAL INFORMATION ABOUT A SPECIFIC CAR.
