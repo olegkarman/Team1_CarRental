@@ -57,12 +57,30 @@ namespace CarRental.BussinessLayer.Managers
             return repair;
         }
 
+        public Repair ChooseRepairFromList(List<Repair> repairs, string id)
+        {
+            _repairValidator.CheckNull(repairs);
+
+            Repair repair = repairs.Find(x => x.Id.Contains(id));
+
+            _repairValidator.CheckNull(repair);
+
+            return repair;
+        }
+
         public void DeleteRepairFromList(List<Repair> repairs, int index)
         {
             _repairValidator.CheckNull(repairs);
             _indexValidator.ValidateIndexOfList(repairs, index);
 
             repairs.RemoveAt(index);
+        }
+
+        public void DeleteRepairFromList(List<Repair> repairs, string id)
+        {
+            _repairValidator.CheckNull(repairs);
+
+            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id.Contains(id))));
         }
     }
 }
