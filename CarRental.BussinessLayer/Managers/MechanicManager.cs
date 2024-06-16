@@ -16,6 +16,7 @@ namespace CarRental.BussinessLayer.Managers
         private const string _noInfo = "NO INFORMATION";
         private UpdatedNameValidator _validator;
         private TextProcessingService _textProcessor;
+        private AgeValidator _ageValidator;
 
         // PROPERTIES
 
@@ -27,9 +28,11 @@ namespace CarRental.BussinessLayer.Managers
 
         public Mechanic CreateNewMechanic(int year, string name, string surename)
         {
-            // VALIDATIONS
-
-            if (!_validator.ValidateNameDefault(name))
+            if (!_ageValidator.ValidateEmployeeYear(year))
+            {
+                throw new FormatException(nameof(year));
+            }
+            else if (!_validator.ValidateNameDefault(name))
             {
                 throw new FormatException(nameof(name));
             }
@@ -37,6 +40,11 @@ namespace CarRental.BussinessLayer.Managers
             {
                 throw new FormatException(nameof(surename));
             }
+
+            // FORMAT NAMES
+            name = _textProcessor.ReplaceSpacesByEmpty(name);
+            surename = _textProcessor.ReplaceSpacesByEmpty(surename);
+
 
             Mechanic mechanic = new Mechanic
             {
