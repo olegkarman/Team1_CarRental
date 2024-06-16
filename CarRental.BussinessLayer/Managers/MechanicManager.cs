@@ -18,6 +18,8 @@ namespace CarRental.BussinessLayer.Managers
         private UpdatedNameValidator _validator;
         private TextProcessingService _textProcessor;
         private AgeValidator _ageValidator;
+        private MechanicValidation _mechanicValidator;
+        private RepairValidation _repairValidator;
 
         // PROPERTIES
 
@@ -56,30 +58,36 @@ namespace CarRental.BussinessLayer.Managers
                 Repairs = new List<Repair>()
             };
 
+            _mechanicValidator.CheckNull(mechanic);
+
             return mechanic;
         }
 
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, int index)
         {
+            _mechanicValidator.CheckNull(mechanics);
             ValidateIndexOfMechanicsList(mechanics, index);
 
             Mechanic mechanic = mechanics[index];
 
-            // VALIDATE NULL PLS.
+            _mechanicValidator.CheckNull(mechanic);
 
             return mechanic;
         }
 
         public void AddRepairToMechanicList(Mechanic mechanic, Repair repair)
         {
-            // VALIDATE NULL PLS.
+            _mechanicValidator.CheckNull(mechanic);
+            _repairValidator.CheckNull(repair);
+
+            _repairValidator.CheckNull(mechanic.Repairs);
 
             mechanic.Repairs.Add(repair);
         }
 
         public void DeleteMechanicFromList(List<Mechanic> mechanics, int index)
         {
-            // VALIDATE NULL PLS.
+            _mechanicValidator.CheckNull(mechanics);
 
             ValidateIndexOfMechanicsList(mechanics, index);
 

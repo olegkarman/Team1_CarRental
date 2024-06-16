@@ -15,6 +15,7 @@ namespace CarRental.BussinessLayer.Managers
 
         private RepairValidation _repairValidator;
         private VehicleValidation _carValidator;
+        private MechanicValidation _mechanicValidator;
 
         // PROPERTIES
 
@@ -25,7 +26,7 @@ namespace CarRental.BussinessLayer.Managers
         public Repair GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull)
         {
             _carValidator.CheckNull(car);
-
+            _mechanicValidator.CheckNull(mechanic);
 
             Repair repair = new Repair
             {
