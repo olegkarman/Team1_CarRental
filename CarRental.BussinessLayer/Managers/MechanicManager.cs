@@ -75,6 +75,17 @@ namespace CarRental.BussinessLayer.Managers
             return mechanic;
         }
 
+        public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, Guid guid)
+        {
+            _mechanicValidator.CheckNull(mechanics);
+            
+            Mechanic mechanic = mechanics.Find(x => x.Id.CompareTo(guid) == 0);
+
+            _mechanicValidator.CheckNull(mechanic);
+
+            return mechanic;
+        }
+
         public void AddRepairToMechanicList(Mechanic mechanic, Repair repair)
         {
             _mechanicValidator.CheckNull(mechanic);
@@ -94,13 +105,11 @@ namespace CarRental.BussinessLayer.Managers
             mechanics.RemoveAt(index);
         }
 
-        // MOVE IT INTO A VALIDATOR PLS.
-        public void ValidateIndexOfMechanicsList(List<Mechanic> mechanics, int index)
+        public void DeleteMechanicFromList(List<Mechanic> mechanics, Guid guid)
         {
-            if ((index < 0) || (index >= mechanics.Count))
-            {
-                throw new IndexOutOfRangeException();
-            }
+            _mechanicValidator.CheckNull(mechanics);
+
+            mechanics.RemoveAt(mechanics.IndexOf(mechanics.Find(x => x.Id.CompareTo(guid) == 0)));
         }
     }
 }
