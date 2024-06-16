@@ -37,7 +37,7 @@ public class Car : ICar
     public required Wheels Wheels { get; set; }
     public required Transmission Transmission { get; set; }
 
-    public IDossierable Dossier { get; set; }
+    public Dossier Dossier { get; set; }
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
@@ -106,8 +106,6 @@ public class Car : ICar
     public string Model { get; init; }
     public string Brand { get; init; }
     public TransportStatus Status { get; set; }
-    public List<Inspection.Inspection> Inspections { get; set; }
-    public Deal Deal { get; set; }
     public bool IsFitForUse { get; set; }
 
     // CONSTRUCTORS

@@ -40,6 +40,9 @@ public class Dossier
 
     public string TechnicalInfo { get; set; }
 
+    public List<Inspection.Inspection> Inspections { get; set; }
+    public Deal Deal { get; set; }
+
 
     // CONSTRUCTORS
 
