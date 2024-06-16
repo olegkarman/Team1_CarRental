@@ -151,6 +151,7 @@ public class Depot
                 NumberPlate = GetSerialNumber(pattern).Substring(0, 9).Insert(2, "-").Insert(8, "-"),
                 DossierCreationDate = DateTime.Now.ToString(),
                 Price = price,
+                Inspections = new List<Inspection.Inspection>(),
                 uiD = carGuid
             }
 
