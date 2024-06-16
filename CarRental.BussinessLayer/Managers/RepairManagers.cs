@@ -5,11 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Car;
+using CarRental.BussinessLayer.Validators;
 
 namespace CarRental.BussinessLayer.Managers
 {
     public class RepairManagers
     {
+        // FIELDS
+
+        private RepairValidation _repairValidator;
+        private VehicleValidation _carValidator;
+
         // PROPERTIES
 
         public List<Repair> Repairs { get; set; }
@@ -18,7 +24,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public Repair GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull)
         {
-            // VALIDATION PLS.
+            _carValidator.CheckNull(car);
+
 
             Repair repair = new Repair
             {
@@ -33,13 +40,15 @@ namespace CarRental.BussinessLayer.Managers
                  IsSuccessfull = isSuccessfull
             };
 
+            _repairValidator.CheckNull(repair);
+
             return repair;
         }
 
         public Repair ChooseRepairFromList(List<Repair> repairs, int index)
         {
-            // DO NOT FORGET VALIDATIONS.
-
+            _repairValidator.CheckNull(repairs);
+            
             Repair repair = repairs[index];
 
             return repair;
@@ -47,6 +56,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DeleteRepairFromList(List<Repair> repairs, int index)
         {
+            _repairValidator.CheckNull(repairs);
+
             repairs.RemoveAt(index);
         }
     }
