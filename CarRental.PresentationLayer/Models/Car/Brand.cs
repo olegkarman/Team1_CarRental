@@ -8,7 +8,7 @@ using CarRental.Data.Models.Car.RecordTypes;
 
 namespace CarRental.Data.Models.Car;
 
-public class Brand : IBrandRecordable
+public class Brand
 {
     // THE PURPOSE OF THE CLASS:
     // // A CLASS TO HOLD INFO ABOUT BRANDS OF CARS.
