@@ -27,7 +27,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
-        public Mechanic CreateNewMechanic(int year, string name, string surename)
+        public Mechanic GetNewMechanic(int year, string name, string surename)
         {
             if (!_ageValidator.ValidateEmployeeYear(year))
             {
@@ -65,27 +65,28 @@ namespace CarRental.BussinessLayer.Managers
 
             Mechanic mechanic = mechanics[index];
 
-            // VALIDATE NULL PLS
+            // VALIDATE NULL PLS.
 
             return mechanic;
         }
 
         public void AddRepairToMechanicList(Mechanic mechanic, Repair repair)
         {
-            // VALIDATE NULL PLS
+            // VALIDATE NULL PLS.
 
             mechanic.Repairs.Add(repair);
         }
 
         public void DeleteMechanicFromList(List<Mechanic> mechanics, int index)
         {
-            // VALIDATE NULL PLS
+            // VALIDATE NULL PLS.
 
             ValidateIndexOfMechanicsList(mechanics, index);
 
             mechanics.RemoveAt(index);
         }
 
+        // MOVE IT INTO A VALIDATOR PLS.
         public void ValidateIndexOfMechanicsList(List<Mechanic> mechanics, int index)
         {
             if ((index < 0) || (index >= mechanics.Count))
