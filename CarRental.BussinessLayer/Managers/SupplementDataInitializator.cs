@@ -18,13 +18,13 @@ public class SupplementDataInitializator
 
     // METHODS
 
-    public Mechanic InitializeMechanic()
+    public RepairServiceManager InitializeMechanic()
     {
         try
         {
             Random random = new Random();
 
-            return new Mechanic(/*$"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18)*/);
+            return new RepairServiceManager(/*$"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18)*/);
         }
         catch(InvalidCastException exception)
         {

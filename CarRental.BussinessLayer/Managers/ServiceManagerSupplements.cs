@@ -26,5 +26,5 @@ public class ServiceManagerSupplements
     public Dictionary<string, ModelComponentsPattern> ModelsPatterns { get; init; }
     public Brand[] BrandRecords { get; init; }
     internal VehicleValidation Validator { get; init; }
-    public Mechanic Mechanic { get; init; }
+    public RepairServiceManager Mechanic { get; init; }
 }

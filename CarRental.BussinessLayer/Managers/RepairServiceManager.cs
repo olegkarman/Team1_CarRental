@@ -11,7 +11,7 @@ using CarRental.Data.Interfaces;
 
 namespace CarRental.BussinessLayer.Managers;
 
-public class Mechanic
+public class RepairServiceManager
 {
     // THE PURPOSE OF THE CLASS:
     // // TO PERFORM SPECIAL MANIPULATIONS ON A CAR.
@@ -30,7 +30,7 @@ public class Mechanic
 
     // CONSTRUCTORS
 
-    public Mechanic()
+    public RepairServiceManager()
     {
         this._random = new Random();
     }

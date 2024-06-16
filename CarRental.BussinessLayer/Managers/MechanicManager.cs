@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Data.Models;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -14,23 +15,30 @@ namespace CarRental.BussinessLayer.Managers
 
         // PROPERTIES
 
-        public List<Mechanic> Mechanics { get; set; }
+        public List<RepairServiceManager> Mechanics { get; set; }
 
         // CONSTRUCTORS
 
         public MechanicManager()
         {
-            this.Mechanics = new List<Mechanic>();
+            this.Mechanics = new List<RepairServiceManager>();
         }
 
         // METHODS
 
-        public Mechanic CreateNewMechanic()
+        public Mechanic CreateNewMechanic(int year, string name, string surename)
         {
+            // VALIDATIONS
+
             Mechanic mechanic = new Mechanic
             {
-                
-            }
+                Id = Guid.NewGuid(),
+                Year = year,
+                Name = name,
+                Surename = surename,
+                Repairs = new List<Repair>()
+
+            };
 
             return mechanic;
         }
