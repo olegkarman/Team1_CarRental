@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace CarRental.Data.Models.Validation
+namespace CarRental.BussinessLayer.Validators
 {
     internal class UpdatedNameValidator
     {
@@ -50,7 +50,7 @@ namespace CarRental.Data.Models.Validation
 
         public bool ValidateNameLengthDefault(string name)
         {
-            if ((name.Length == 0) || (name.Length < 3) || (name.Length > 100))
+            if ((name.Length < 3) || (name.Length > 100))
             {
                 return false;
             }

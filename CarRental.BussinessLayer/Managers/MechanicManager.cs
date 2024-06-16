@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models;
+using CarRental.BussinessLayer.Validators;
+using CarRental.BussinessLayer.Services;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -12,23 +14,29 @@ namespace CarRental.BussinessLayer.Managers
         // FIELDS
 
         private const string _noInfo = "NO INFORMATION";
+        private UpdatedNameValidator _validator;
+        private TextProcessingService _textProcessor;
 
         // PROPERTIES
 
-        public List<RepairServiceManager> Mechanics { get; set; }
+        public List<RepairServiceManager> Mechanists { get; set; }
 
         // CONSTRUCTORS
-
-        public MechanicManager()
-        {
-            this.Mechanics = new List<RepairServiceManager>();
-        }
 
         // METHODS
 
         public Mechanic CreateNewMechanic(int year, string name, string surename)
         {
             // VALIDATIONS
+
+            if (!_validator.ValidateNameDefault(name))
+            {
+                throw new FormatException(nameof(name));
+            }
+            else if(!_validator.ValidateNameDefault(surename))
+            {
+                throw new FormatException(nameof(surename));
+            }
 
             Mechanic mechanic = new Mechanic
             {
@@ -37,7 +45,6 @@ namespace CarRental.BussinessLayer.Managers
                 Name = name,
                 Surename = surename,
                 Repairs = new List<Repair>()
-
             };
 
             return mechanic;
