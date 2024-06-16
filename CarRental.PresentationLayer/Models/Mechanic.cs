@@ -16,8 +16,8 @@ namespace CarRental.Data.Models
 
         public Guid Id { get; init; }
         public int Year { get; init; }
-        public string Name { get; init; }
-        public string Surename { get; init; }
+        public string Name { get; set; }
+        public string Surename { get; set; }
         public List<Repair> Repairs { get; init; }
 
         // CONSTRUCTORS

@@ -518,7 +518,7 @@ public class ServiceManager : ICarManager
 
         _supplementData.Validator.CheckNull(list);
             
-        if ((index < 0) || (index > list.Count))
+        if ((index < 0) || (index >= list.Count))
         {
             throw new IndexOutOfRangeException();
         }

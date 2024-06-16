@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.BussinessLayer.Validators;
 using CarRental.BussinessLayer.Services;
+using System.Reflection;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -56,6 +57,41 @@ namespace CarRental.BussinessLayer.Managers
             };
 
             return mechanic;
+        }
+
+        public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, int index)
+        {
+            ValidateIndexOfMechanicsList(mechanics, index);
+
+            Mechanic mechanic = mechanics[index];
+
+            // VALIDATE NULL PLS
+
+            return mechanic;
+        }
+
+        public void AddRepairToMechanicList(Mechanic mechanic, Repair repair)
+        {
+            // VALIDATE NULL PLS
+
+            mechanic.Repairs.Add(repair);
+        }
+
+        public void DeleteMechanicFromList(List<Mechanic> mechanics, int index)
+        {
+            // VALIDATE NULL PLS
+
+            ValidateIndexOfMechanicsList(mechanics, index);
+
+            mechanics.RemoveAt(index);
+        }
+
+        public void ValidateIndexOfMechanicsList(List<Mechanic> mechanics, int index)
+        {
+            if ((index < 0) || (index >= mechanics.Count))
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
     }
 }
