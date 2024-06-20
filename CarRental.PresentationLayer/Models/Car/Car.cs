@@ -18,30 +18,28 @@ public class Car
 
     private const string _noInfo = "NO INFORMATION";
     public readonly int year;
-    private float _mileage;   // AVTOPROBIG.
-    private float _currentFuel;
-    private int _maxFuelCapacity;
+    private float? _mileage;   // AVTOPROBIG.
+    private float? _currentFuel;
+    private int? _maxFuelCapacity;
 
     // PROPERTIES
 
-    public required string Engine { get; set; }
+    public string? Engine { get; set; }
 
     public required Guid CarId { get; init; }
 
-    public required string Interior { get; set; }
-    public required string Wheels { get; set; }
-    public required string Transmission { get; set; }
+    public string? Interior { get; set; }
+    public string? Wheels { get; set; }
+    public string? Transmission { get; set; }
 
-    public int SpeedCoeficient { get; init; }
-
-    public string Lights { get; set; }
-    public string Signal { get; set; }
-    public KnownColor Color { get; set; }
-    public int MaxSpeed { get; private set; }
-    public int Price { get; set; }
+    public string? Lights { get; set; }
+    public string? Signal { get; set; }
+    public KnownColor? Color { get; set; }
+    public int? MaxSpeed { get; private set; }
+    public required int Price { get; set; }
     public required string VinCode { get; init; }
 
-    public required float Mileage
+    public float? Mileage
     {
         get
         {
@@ -54,7 +52,7 @@ public class Car
         }
     }
 
-    public required int MaxFuelCapacity
+    public int? MaxFuelCapacity
     {
         get
         {
@@ -67,7 +65,7 @@ public class Car
         }
     }
 
-    public float CurrentFuel
+    public float? CurrentFuel
     {
         get
         {
@@ -80,11 +78,11 @@ public class Car
         }
     }
 
-    public string Model { get; init; }
-    public string Brand { get; init; }
-    public string NumberPlate { get; set; }
-    public TransportStatus Status { get; set; }
-    public bool IsFitForUse { get; set; }
+    public required string Model { get; init; }
+    public required string Brand { get; init; }
+    public required string NumberPlate { get; set; }
+    public TransportStatus? Status { get; set; }
+    public bool? IsFitForUse { get; set; }
 
     // CONSTRUCTORS
 
