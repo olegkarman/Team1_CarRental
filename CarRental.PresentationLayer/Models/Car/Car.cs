@@ -24,20 +24,22 @@ public class Car
 
     // PROPERTIES
 
-    public string? Engine { get; set; }
-
     public required Guid CarId { get; init; }
+    public required string VinCode { get; init; }
+    public required string Model { get; init; }
+    public required string Brand { get; init; }
+    public required string NumberPlate { get; set; }
+    public required int Price { get; set; }
 
+    public string? Engine { get; set; }
+    public string? Transmission { get; set; }
     public string? Interior { get; set; }
     public string? Wheels { get; set; }
-    public string? Transmission { get; set; }
-
     public string? Lights { get; set; }
     public string? Signal { get; set; }
     public KnownColor? Color { get; set; }
+
     public int? MaxSpeed { get; private set; }
-    public required int Price { get; set; }
-    public required string VinCode { get; init; }
 
     public float? Mileage
     {
@@ -78,9 +80,6 @@ public class Car
         }
     }
 
-    public required string Model { get; init; }
-    public required string Brand { get; init; }
-    public required string NumberPlate { get; set; }
     public TransportStatus? Status { get; set; }
     public bool? IsFitForUse { get; set; }
 

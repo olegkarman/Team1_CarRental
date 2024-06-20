@@ -20,7 +20,7 @@ public class ServiceManager : ICarManager
 
     // FIELDS
 
-    private const string _noInfo = "NO INFO";
+    private const string _noInfo = "NO INFORMATION";
     private StringBuilder _carsInfo;
     private Random _random;
     private ServiceManagerSupplements _supplementData;
@@ -43,14 +43,21 @@ public class ServiceManager : ICarManager
 
     // RANDOM CAR
 
-    public Car GetNewCar()
+    // SPECIFIC BY PARAMETERS CAR
+
+    public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
     {
+        Car car = new Car
+        {
+            CarId = carId,
+            VinCode = vinCode,
+            Model = model,
+            Brand = brand,
+            NumberPlate = numberPlate,
+            Price = price
+        };
 
-    }
-
-    public Car GetNewCar(string model)
-    {
-
+        return car;
     }
 
     public List<Car> MakeNewListOfCars()
@@ -60,26 +67,26 @@ public class ServiceManager : ICarManager
 
     // RANDOM VEHICLES
 
-    public List<Car> MakeNewListOfCars(int count)
-    {
-        List<Car> cars = new List<Car>();
+    //public List<Car> MakeNewListOfCars(int count)
+    //{
+    //    List<Car> cars = new List<Car>();
 
-        for (int index = 0; index < count; index = index + 1)
-        {
-            cars.Add(GetNewCar());
-        }
+    //    for (int index = 0; index < count; index = index + 1)
+    //    {
+    //        cars.Add(GetNewCar());
+    //    }
 
-        return cars;
-    }
+    //    return cars;
+    //}
 
-    public void MakeNewListOfCurrentCars(int count)
-    {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+    //public void MakeNewListOfCurrentCars(int count)
+    //{
+    //    _supplementData.Validator.CheckNull(this.CurrentCars);
 
-        CurrentCars.Clear();
+    //    CurrentCars.Clear();
 
-        this.CurrentCars = MakeNewListOfCars(count);
-    }
+    //    this.CurrentCars = MakeNewListOfCars(count);
+    //}
 
     public void ChangeCarStatus(Car car, TransportStatus status)
     {
@@ -432,7 +439,7 @@ public class ServiceManager : ICarManager
 
         try
         {
-            float division = (float)_supplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
+            float? division = (float?)_supplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
 
             division = (float)division * 100;
 
