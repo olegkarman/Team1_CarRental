@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Models.Car.RecordTypes;
 
-internal record class PatternCharMaps
+public record class PatternCharMaps
 {
     // PROPERTIES
 

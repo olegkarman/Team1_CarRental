@@ -39,4 +39,9 @@ public class SupplementDataInitializator
     {
         return new VehicleValidation();
     }
+
+    public PatternCharMaps InitializeCharacterMaps()
+    {
+        return new PatternCharMaps();
+    }
 }
