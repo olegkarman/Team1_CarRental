@@ -33,12 +33,12 @@ public class Car : ICar
     public required string Wheels { get; set; }
     public required string Transmission { get; set; }
 
-    public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
+    public int SpeedCoeficient { get; init; }
 
     public string Lights { get; set; }
     public string Signal { get; set; }
     public KnownColor Color { get; set; }
-    public int MaxSpeed { get; private set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
+    public int MaxSpeed { get; private set; }
     public int Price { get; set; }
     public required string VinCode { get; init; }
 
@@ -55,7 +55,6 @@ public class Car : ICar
         }
     }
 
-    // THE MAX FUEL CAPACITY AND THE CURRENT FUEL CAPACITY OF A CAR CANNOT BE LESS THAN ZERO.
     public required int MaxFuelCapacity
     {
         get

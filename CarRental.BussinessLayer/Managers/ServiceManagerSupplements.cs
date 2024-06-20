@@ -7,7 +7,6 @@ using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using CarRental.BussinessLayer.Managers;
 using CarRental.BussinessLayer.Interfaces;
-using CarRental.Data.Models.Car.Seeds;
 using CarRental.BussinessLayer.Validators;
 
 namespace CarRental.BussinessLayer.Managers;
@@ -22,8 +21,6 @@ public class ServiceManagerSupplements
     // PROPERTIES
 
     public BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
-    public Depot DepotService { get; init; }
-    public Dictionary<string, ModelComponentsPattern> ModelsPatterns { get; init; }
     public Brand[] BrandRecords { get; init; }
     internal VehicleValidation Validator { get; init; }
     public RepairServiceManager Mechanic { get; init; }
