@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Car\Abstractions\" />
+    <Folder Include="Models\Car\Seeds\" />
   </ItemGroup>
 
 </Project>
