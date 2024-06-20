@@ -13,15 +13,9 @@ namespace CarRental.BussinessLayer.Managers;
 
 public class ServiceManagerSupplements
 {
-    // THE PURPOSE OF THE CLASS:
-    // // HOLDS FIELDS ARE ALL NECCESSARY CLASSES TO CREATE CAR-CLASS INSTANCE.
-
     // FIELDS
 
     // PROPERTIES
-
-    public BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
-    public Brand[] BrandRecords { get; init; }
     internal VehicleValidation Validator { get; init; }
     public RepairServiceManager Mechanic { get; init; }
 }

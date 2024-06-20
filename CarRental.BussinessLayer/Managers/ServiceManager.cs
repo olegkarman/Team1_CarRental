@@ -378,13 +378,6 @@ public class ServiceManager : ICarManager
         return $"{nameof(car)} | {car.ToString()}";
     }
 
-    // TO DISPLAY AVAILABLE CAR MODELS.
-
-    public string DisplayAllModels()
-    {
-
-    }
-
     // TO DISPLAY LIST OF CARS IN TABLE
     // //
     // // ~THIS METHOD ADDED AND EDITED NOT BY YPARKHOMENKO~
