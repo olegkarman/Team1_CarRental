@@ -17,7 +17,7 @@ public class Car : ICar
 
     // FIELDS
 
-    private const string _noInfo = "NO INFO";
+    private const string _noInfo = "NO INFORMATION";
     public readonly int year;
     private float _mileage;   // AVTOPROBIG.
     private float _currentFuel;
@@ -25,42 +25,22 @@ public class Car : ICar
 
     // PROPERTIES
 
-    public required Engine Engine
-    {
-        get;
-        set;
-    }
+    public required string Engine { get; set; }
 
-    public Guid CarId { get; init; }
+    public required Guid CarId { get; init; }
 
-    public required Interior Interior { get; set; }
-    public required Wheels Wheels { get; set; }
-    public required Transmission Transmission { get; set; }
-
-    public Dossier Dossier { get; set; }
+    public required string Interior { get; set; }
+    public required string Wheels { get; set; }
+    public required string Transmission { get; set; }
 
     public int SpeedCoeficient { get; init; }   // RE-WORK PLEASE.
 
-    public Lights Lights { get; set; }
-    public Signal Signal { get; set; }
+    public string Lights { get; set; }
+    public string Signal { get; set; }
     public KnownColor Color { get; set; }
     public int MaxSpeed { get; private set; }    // IT BASE ON CHACTERISTIC OF CAR LIKE ENGINE.
     public int Price { get; set; }
     public required string VinCode { get; init; }
-
-    public int Year
-    {
-        get
-        {
-            return year;
-        }
-
-        // init-only SETTER FOR READONLY VALUE.
-        init
-        {
-            year = value;
-        }
-    }
 
     public required float Mileage
     {
@@ -89,7 +69,6 @@ public class Car : ICar
         }
     }
 
-    // A SMALL AUTO-VALIDATION.
     public float CurrentFuel
     {
         get
@@ -116,9 +95,3 @@ public class Car : ICar
     {
         return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} | {nameof(CarId)} = {CarId} }}";
     }
-
-    private void SetMaxSpeed()
-    {
-        MaxSpeed = this.Engine.Power * this.SpeedCoeficient;
-    }
-}
