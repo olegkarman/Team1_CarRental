@@ -47,6 +47,8 @@ public class ServiceManager : ICarManager
 
     public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
     {
+        _supplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
+
         Car car = new Car
         {
             CarId = carId,
@@ -56,6 +58,8 @@ public class ServiceManager : ICarManager
             NumberPlate = numberPlate,
             Price = price
         };
+
+        _supplementData.Validator.CheckNull(car);
 
         return car;
     }

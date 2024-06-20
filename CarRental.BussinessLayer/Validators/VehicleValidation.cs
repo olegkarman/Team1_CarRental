@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Enums;
+using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Validators
 {
@@ -19,6 +20,27 @@ namespace CarRental.BussinessLayer.Validators
             {
                 throw new ArgumentNullException(nameof(car));
             }
+        }
+
+        public void CheckNull(string vinCode, string model, string brand, string numberPlate)
+        {
+            if (vinCode == null)
+            {
+                throw new ArgumentNullException(nameof(vinCode));
+            }
+            else if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            else if (brand == null)
+            {
+                throw new ArgumentNullException(nameof(brand));
+            }
+            else if (numberPlate == null)
+            {
+                throw new ArgumentNullException(nameof(numberPlate));
+            }
+
         }
 
         public void CheckNull(List<Car> cars)
