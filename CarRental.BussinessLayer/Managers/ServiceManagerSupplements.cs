@@ -17,5 +17,5 @@ public class ServiceManagerSupplements
     // PROPERTIES
     internal VehicleValidation Validator { get; init; }
     public RepairServiceManager Mechanic { get; init; }
-    internal PatternCharMaps charMaps { get; init; }
+    internal PatternCharMaps CharMaps { get; init; }
 }

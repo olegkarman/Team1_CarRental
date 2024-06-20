@@ -568,7 +568,8 @@ public class ServiceManager : ICarManager
             this._supplementData = new ServiceManagerSupplements
             {
                 Mechanic = dataInit.InitializeMechanic(),
-                Validator = dataInit.InitializeValidator()
+                Validator = dataInit.InitializeValidator(),
+                CharMaps = dataInit.InitializeCharacterMaps()
             };
         }
         catch (NullReferenceException exception)
