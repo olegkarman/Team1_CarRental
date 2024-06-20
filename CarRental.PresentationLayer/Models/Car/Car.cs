@@ -83,6 +83,7 @@ public class Car : ICar
 
     public string Model { get; init; }
     public string Brand { get; init; }
+    public string NumberPlate { get; set; }
     public TransportStatus Status { get; set; }
     public bool IsFitForUse { get; set; }
 

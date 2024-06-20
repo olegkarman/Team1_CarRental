@@ -438,7 +438,7 @@ public class ServiceManager : ICarManager
         for (int i = 0; i < CurrentCars.Count; i++)
         {
             var car = CurrentCars[i];
-            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.Dossier.NumberPlate, car.VinCode);
+            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.NumberPlate, car.VinCode);
         }
     }
 
