@@ -8,16 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="EnumTypes\**" />
+    <Compile Remove="Models\Car\Abstractions\**" />
+    <Compile Remove="Models\Car\Seeds\**" />
     <Compile Remove="Models\Enumerables\**" />
     <EmbeddedResource Remove="EnumTypes\**" />
+    <EmbeddedResource Remove="Models\Car\Abstractions\**" />
+    <EmbeddedResource Remove="Models\Car\Seeds\**" />
     <EmbeddedResource Remove="Models\Enumerables\**" />
     <None Remove="EnumTypes\**" />
+    <None Remove="Models\Car\Abstractions\**" />
+    <None Remove="Models\Car\Seeds\**" />
     <None Remove="Models\Enumerables\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\Car\Abstractions\" />
-    <Folder Include="Models\Car\Seeds\" />
   </ItemGroup>
 
 </Project>
