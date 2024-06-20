@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using CarRental.Data.Enums;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
-using CarRental.Data.Models.Car.Seeds;
 using CarRental.BussinessLayer.Validators;
 
 namespace CarRental.BussinessLayer.Managers;
@@ -22,7 +21,7 @@ public class SupplementDataInitializator
     {
         try
         {
-            Random random = new Random();
+            //Random random = new Random();
 
             return new RepairServiceManager(/*$"{random.Next(19, 1000001)}{random.Next('A', 'Z')}", (NamesSurenames)random.Next(10, 18), (NamesSurenames)random.Next(10, 18)*/);
         }
@@ -36,31 +35,11 @@ public class SupplementDataInitializator
         }
     }
 
-    public Dictionary<string, ModelComponentsPattern> InitializeModelsPatternsDictionary(PatternInitializator patternInit, Brand[] brandRecords, BrandModelsNamesDataSheet dataWarehouse)
-    {
-        return patternInit.ChoosePatternForModel(brandRecords, dataWarehouse);
-    }
-
-    public Brand[] InitializeBrandRecordsArray(PatternInitializator patternInitializator, BrandModelsNamesDataSheet data)
-    {
-        return patternInitializator.InitializeBrandRecords(data);
-    }
-
-    public PatternInitializator InitializePatternInitializator()
-    {
-        return new PatternInitializator();
-    }
-
     public BrandModelsNamesDataSheet InitializeDataSheet()
     {
         DataSeedManager dataSeedManager = new DataSeedManager();
 
         return dataSeedManager.SeedModelComponentsData();
-    }
-
-    public Depot InitializeDepot()
-    {
-        return new Depot();
     }
 
     public VehicleValidation InitializeValidator()
