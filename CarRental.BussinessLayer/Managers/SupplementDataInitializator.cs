@@ -35,13 +35,6 @@ public class SupplementDataInitializator
         }
     }
 
-    public BrandModelsNamesDataSheet InitializeDataSheet()
-    {
-        DataSeedManager dataSeedManager = new DataSeedManager();
-
-        return dataSeedManager.SeedModelComponentsData();
-    }
-
     public VehicleValidation InitializeValidator()
     {
         return new VehicleValidation();

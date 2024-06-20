@@ -572,12 +572,8 @@ public class ServiceManager : ICarManager
             // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
             SupplementDataInitializator dataInit = new SupplementDataInitializator();
 
-            // TO ASSIG REFERENE BELOW IN THE OBJECT-INITILIZER.
-            BrandModelsNamesDataSheet brandModelsData = dataInit.InitializeDataSheet();
-
             this._supplementData = new ServiceManagerSupplements
             {
-                BrandModelsDataSheet = brandModelsData,
                 Mechanic = dataInit.InitializeMechanic(),
                 Validator = dataInit.InitializeValidator()
             };
