@@ -9,7 +9,6 @@ using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
-using CarRental.Data.Models.Car.Seeds;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -46,24 +45,12 @@ public class ServiceManager : ICarManager
 
     public Car GetNewCar()
     {
-        // KEYS OF THE DICTIONARY INTO ARRAY.
-        string[] models = _supplementData.ModelsPatterns.Keys.ToArray();
 
-        // TO SELECT A RANDOM PATTERN FROM THE DICTIONARY.
-        return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[models[_random.Next(0, models.Length)]]);
     }
 
     public Car GetNewCar(string model)
     {
-        try
-        {
-            return _supplementData.DepotService.ObtainNewCar(_supplementData.ModelsPatterns[model]);
-        }
-        catch (KeyNotFoundException exception)
-        {
-            // THROW AN EXCEPTION UPWARD.
-            throw exception;
-        }
+
     }
 
     public List<Car> MakeNewListOfCars()
@@ -395,21 +382,7 @@ public class ServiceManager : ICarManager
 
     public string DisplayAllModels()
     {
-        try
-        {
-            _carsInfo.Clear();
 
-            foreach (KeyValuePair<string, ModelComponentsPattern> pair in _supplementData.ModelsPatterns)
-            {
-                _carsInfo.Append(pair.Key + " | ");
-            }
-
-            return _carsInfo.ToString();
-        }
-        catch (NullReferenceException exception)
-        {
-            throw exception;
-        }
     }
 
     // TO DISPLAY LIST OF CARS IN TABLE
@@ -438,7 +411,7 @@ public class ServiceManager : ICarManager
         for (int i = 0; i < CurrentCars.Count; i++)
         {
             var car = CurrentCars[i];
-            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.NumberPlate, car.VinCode);
+            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.year, car.Price, car.Status, car.IsFitForUse, car.NumberPlate, car.VinCode);
         }
     }
 
@@ -452,7 +425,7 @@ public class ServiceManager : ICarManager
 
         foreach (Car car in CurrentCars)
         {
-            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.Dossier.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
+            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
         }
 
         return _carsInfo.ToString();
@@ -578,7 +551,6 @@ public class ServiceManager : ICarManager
     public string CheckSignal(Car car)
     {
         _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(car.Signal);
 
         return car.Signal.ToString();
     }
@@ -586,7 +558,6 @@ public class ServiceManager : ICarManager
     public string CheckLights(Car car)
     {
         _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(car.Signal);
 
         return car.Lights.ToString();
     }
@@ -601,19 +572,12 @@ public class ServiceManager : ICarManager
             // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
             SupplementDataInitializator dataInit = new SupplementDataInitializator();
 
-            PatternInitializator patternInit = new PatternInitializator();
-
             // TO ASSIG REFERENE BELOW IN THE OBJECT-INITILIZER.
             BrandModelsNamesDataSheet brandModelsData = dataInit.InitializeDataSheet();
-
-            Brand[] brandRecords = dataInit.InitializeBrandRecordsArray(patternInit, brandModelsData);
 
             this._supplementData = new ServiceManagerSupplements
             {
                 BrandModelsDataSheet = brandModelsData,
-                DepotService = dataInit.InitializeDepot(),
-                BrandRecords = brandRecords,
-                ModelsPatterns = dataInit.InitializeModelsPatternsDictionary(patternInit, brandRecords, brandModelsData),
                 Mechanic = dataInit.InitializeMechanic(),
                 Validator = dataInit.InitializeValidator()
             };
