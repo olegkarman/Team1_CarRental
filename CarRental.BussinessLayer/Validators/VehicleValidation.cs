@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Enums;
-using System.Runtime.ConstrainedExecution;
+using System.Drawing;
 
 namespace CarRental.BussinessLayer.Validators
 {
@@ -19,6 +19,14 @@ namespace CarRental.BussinessLayer.Validators
             if (car == null)
             {
                 throw new ArgumentNullException(nameof(car));
+            }
+        }
+
+        public void CheckNull(string tupleEntry)
+        {
+            if (tupleEntry == null)
+            {
+                throw new ArgumentNullException(nameof(tupleEntry));
             }
         }
 
@@ -40,7 +48,6 @@ namespace CarRental.BussinessLayer.Validators
             {
                 throw new ArgumentNullException(nameof(numberPlate));
             }
-
         }
 
         public void CheckNull(List<Car> cars)
@@ -56,6 +63,38 @@ namespace CarRental.BussinessLayer.Validators
             if (!Enum.IsDefined(typeof(TransportStatus), status))
             {
                 throw new InvalidCastException(nameof(status));
+            }
+        }
+
+        public void CheckType(KnownColor color)
+        {
+            if (!Enum.IsDefined(typeof(KnownColor), color))
+            {
+                throw new InvalidCastException(nameof(color));
+            }
+        }
+
+        public void CheckPrice(int price)
+        {
+            if (price < 0)
+            {
+                throw new FormatException(nameof(price));
+            }
+        }
+
+        public void CheckZeroNegative(int number)
+        {
+            if (number <= 0)
+            {
+                throw new FormatException(nameof(number));
+            }
+        }
+
+        public void CheckZeroNegative(float number)
+        {
+            if (number <= 0)
+            {
+                throw new FormatException(nameof(number));
             }
         }
     }

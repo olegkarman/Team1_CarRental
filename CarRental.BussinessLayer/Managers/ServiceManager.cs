@@ -4,11 +4,13 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.BussinessLayer.ExtensionMethods;
 using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
+using System.Drawing;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -41,9 +43,7 @@ public class ServiceManager : ICarManager
 
     // METHODS
 
-    // RANDOM CAR
-
-    // SPECIFIC BY PARAMETERS CAR
+    // CREATE
 
     public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
     {
@@ -69,104 +69,67 @@ public class ServiceManager : ICarManager
         return new List<Car>();
     }
 
-    // RANDOM VEHICLES
+    // RETRIVE
 
-    //public List<Car> MakeNewListOfCars(int count)
-    //{
-    //    List<Car> cars = new List<Car>();
-
-    //    for (int index = 0; index < count; index = index + 1)
-    //    {
-    //        cars.Add(GetNewCar());
-    //    }
-
-    //    return cars;
-    //}
-
-    //public void MakeNewListOfCurrentCars(int count)
-    //{
-    //    _supplementData.Validator.CheckNull(this.CurrentCars);
-
-    //    CurrentCars.Clear();
-
-    //    this.CurrentCars = MakeNewListOfCars(count);
-    //}
-
-    public void ChangeCarStatus(Car car, TransportStatus status)
+    public Car ChooseCarFromList(List<Car> list, int index)
     {
-        _supplementData.Validator.CheckNull(car);
 
-        _supplementData.Validator.CheckType(status);
+        _supplementData.Validator.CheckNull(list);
 
-        car.Status = status;
-       
-    }
-
-    public void ChangeCurrentCarStatus(int index, TransportStatus status)
-    {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
-
-        Car car = ChooseCarFromList(CurrentCars, index);
-
-        _supplementData.Validator.CheckNull(car);
-
-        _supplementData.Validator.CheckType(status);
-
-        CurrentCars[index].Status = status;
-    }
-
-    public void ChangeCurrentCarStatus(Guid guid, TransportStatus status)
-    {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
-
-        Car car = ChooseCarFromList(CurrentCars, guid);
-
-        _supplementData.Validator.CheckNull(car);
-
-        _supplementData.Validator.CheckType(status);
-
-        // THIS IS A REFEREBCE TYPE, THE CHANGE WILL AFFECT CAR INSTANCE IN THE LIST.
-        car.Status = status;
-    }
-
-    public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
-    {
-        _supplementData.Validator.CheckNull(cars);
-        _supplementData.Validator.CheckType(status);
-        
-        foreach(Car car in cars)
+        if ((index < 0) || (index >= list.Count))
         {
-            car.Status = status;
+            throw new IndexOutOfRangeException();
+        }
+
+        Car car = list[index];
+
+        _supplementData.Validator.CheckNull(car);
+
+        return car;
+    }
+
+    public Car ChooseCarFromList(List<Car> list, string model)
+    {
+        _supplementData.Validator.CheckNull(list);
+
+        try
+        {
+            // THE EMPTY LINE CAN APPEAR.
+            return list.Find(x => x.Model.Contains(model));
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (NullReferenceException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
         }
     }
 
-    public void ChangeCurrentCarsStatus(TransportStatus status)
+    public Car ChooseCarFromList(List<Car> list, Guid guid)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        _supplementData.Validator.CheckNull(list);
 
-        _supplementData.Validator.CheckType(status);
-
-        foreach (Car car in CurrentCars)
+        try
         {
-            car.Status = status;
+            return list.Find(x => x.CarId.CompareTo(guid) == 0);
         }
-    }
-
-    public void ChangeSelectedCarStatus(TransportStatus status)
-    {
-        _supplementData.Validator.CheckNull(this.SelectedCar);
-        _supplementData.Validator.CheckType(status);
-
-        this.SelectedCar.Status = status;
-    }
-
-    // TO CHECK TYPE
-
-    public void CheckType(TransportStatus status)
-    {
-        if (!Enum.IsDefined(typeof(TransportStatus), status))
+        catch (IndexOutOfRangeException exception)
         {
-            throw new InvalidCastException(nameof(status));
+            throw exception;
+        }
+        catch (NullReferenceException exception)
+        {
+            throw exception;
+        }
+        catch (FormatException exception)
+        {
+            throw exception;
         }
     }
 
@@ -191,91 +154,6 @@ public class ServiceManager : ICarManager
         this.SelectedCar = ChooseCarFromList(CurrentCars, guid);
     }
 
-    public void DeleteCarFromList(List<Car> list, int index)
-    {
-        try
-        {
-            _supplementData.Validator.CheckNull(list);
-
-            list.RemoveAt(index);
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public void DeleteCarFromList(List<Car> list, string model)
-    {
-        try
-        {
-            _supplementData.Validator.CheckNull(list);
-
-            list.RemoveAt(list.IndexOf(ChooseCarFromList(list, model)));
-        }
-        catch (KeyNotFoundException exception)
-        {
-            throw exception;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (Exception exception)
-        {
-            throw exception;
-        }
-    }
-
-    public void DeleteCarFromList(List<Car> list, Guid guid)
-    {
-        try
-        {
-            _supplementData.Validator.CheckNull(list);
-
-            list.RemoveAt(list.IndexOf(ChooseCarFromList(list, guid)));
-        }
-        catch (KeyNotFoundException exception)
-        {
-            throw exception;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (Exception exception)
-        {
-            throw exception;
-        }
-    }
-
-    public void DeleteCarFromCurrentCars(int index)
-    {
-        DeleteCarFromList(this.CurrentCars, index);
-    }
-
-    public void DeleteCarFromCurrentCars(string model)
-    {
-        DeleteCarFromList(this.CurrentCars, model);
-    }
-
-    public void DeleteCarFromCurrentCars(Guid guid)
-    {
-        DeleteCarFromList(this.CurrentCars, guid);
-    }
-
-    public void DeleteAllCarsFromList(List<Car> list)
-    {
-        _supplementData.Validator.CheckNull(list);
-
-        list.Clear();
-    }
-
-    public void DeleteAllCarsFromCurrentCars()
-    {
-        DeleteAllCarsFromList(this.CurrentCars);
-    }
-
     public Car GetCarFromCurrentCars(int index)
     {
         return ChooseCarFromList(CurrentCars, index);
@@ -287,7 +165,7 @@ public class ServiceManager : ICarManager
     }
 
     public void TakeCarFromCurrentCars(int index)
-    {        
+    {
         SelectedCar = ChooseCarFromList(CurrentCars, index);
         CurrentCars.RemoveAt(index);
     }
@@ -300,7 +178,7 @@ public class ServiceManager : ICarManager
 
     public void MoveCarFromCurrentCarsToSelected(string model)
     {
-          Car car;
+        Car car;
 
         _supplementData.Validator.CheckNull(CurrentCars);
 
@@ -310,7 +188,7 @@ public class ServiceManager : ICarManager
 
         this.SelectedCar = car;
 
-          CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, model)));
+        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, model)));
     }
 
     public void MoveCarFromCurrentCarsToSelected(Guid guid)
@@ -451,7 +329,7 @@ public class ServiceManager : ICarManager
 
             return _carsInfo.ToString();
         }
-        catch(DivideByZeroException exception)
+        catch (DivideByZeroException exception)
         {
             throw exception;
         }
@@ -474,84 +352,6 @@ public class ServiceManager : ICarManager
         return ShowMileage(this.SelectedCar);
     }
 
-    public void RefillCar(Car car)
-    {
-        _supplementData.Validator.CheckNull(car);
-
-        _supplementData.Mechanic.Refill(car);
-    }
-
-    public void RefillSelectedCar()
-    {
-        _supplementData.Validator.CheckNull(this.SelectedCar);
-
-        _supplementData.Mechanic.Refill(SelectedCar);
-    }
-
-    // TO CHECK IF INDEX IN THE RANGE OF CURRENT CAR LIST
-
-    public Car ChooseCarFromList(List<Car> list, int index)
-    {
-
-        _supplementData.Validator.CheckNull(list);
-            
-        if ((index < 0) || (index >= list.Count))
-        {
-            throw new IndexOutOfRangeException();
-        }
-
-        Car car = list[index];
-
-        _supplementData.Validator.CheckNull(car);
-
-        return car;
-    }
-
-    public Car ChooseCarFromList(List<Car> list, string model)
-    {
-        _supplementData.Validator.CheckNull(list);
-
-        try
-        {
-            // THE EMPTY LINE CAN APPEAR.
-            return list.Find(x => x.Model.Contains(model));
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (NullReferenceException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public Car ChooseCarFromList(List<Car> list, Guid guid)
-    {
-        _supplementData.Validator.CheckNull(list);
-
-        try
-        {
-            return list.Find(x => x.CarId.CompareTo(guid) == 0);
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (NullReferenceException exception)
-        {
-            throw exception;
-        }
-        catch (FormatException exception)
-        {
-            throw exception;
-        }
-    }
-
     public string CheckSignal(Car car)
     {
         _supplementData.Validator.CheckNull(car);
@@ -564,6 +364,296 @@ public class ServiceManager : ICarManager
         _supplementData.Validator.CheckNull(car);
 
         return car.Lights.ToString();
+    }
+
+    // UPDATE
+
+    public void ChangeEngine (Car car, string engine)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(engine);
+
+        car.Engine = engine;
+    }
+
+    public void ChangeTransmission(Car car, string transmission)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(transmission);
+
+        car.Transmission = transmission;
+    }
+
+    public void ChangeInterior(Car car, string interior)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(interior);
+
+        car.Interior = interior;
+    }
+
+    public void ChangeWheels(Car car, string wheels)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(wheels);
+
+        car.Wheels = wheels;
+    }
+
+    public void ChangeLights(Car car, string lights)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(lights);
+
+        car.Lights = lights;
+    }
+
+    public void ChangeSignal(Car car, string signal)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(signal);
+
+        car.Signal = signal;
+    }
+
+    public void ChangeColor(Car car, KnownColor color)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckType(color);
+
+        car.Color = color;
+    }
+
+    public void ChangePrice(Car car, int price)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckPrice(price);
+
+        car.Price = price;
+    }
+
+    public void ChangeNumberPlate(Car car, string numberPlate)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckNull(numberPlate);
+
+        car.NumberPlate = numberPlate;
+    }
+
+    public void ChangeNumberOfSeats(Car car, int number)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckZeroNegative(number);
+
+        car.NumberOfSeats = number;
+    }
+
+    public void ChangeNumberDoors(Car car, int number)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckZeroNegative(number);
+
+        car.NumberOfDoors = number;
+    }
+
+    public void ChangeMileage(Car car, float mileage)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckZeroNegative(mileage);
+
+        car.Mileage = mileage;
+    }
+
+    public void ChangeMaxFuelCapacity(Car car, int capacity)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckZeroNegative(capacity);
+
+        car.MaxFuelCapacity = capacity;
+    }
+
+    public void ChangeCurrentFuel(Car car, float capacity)
+    {
+        _supplementData.Validator.CheckNull(car);
+        _supplementData.Validator.CheckZeroNegative(capacity);
+
+        car.CurrentFuel = capacity;
+    }
+
+    public void ChangeFitForUse(Car car, bool isUse)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        car.IsFitForUse = isUse;
+    }
+
+    public void ChangeCarStatus(Car car, TransportStatus status)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        _supplementData.Validator.CheckType(status);
+
+        car.Status = status;
+       
+    }
+
+    public void ChangeCurrentCarStatus(int index, TransportStatus status)
+    {
+        _supplementData.Validator.CheckNull(this.CurrentCars);
+
+        Car car = ChooseCarFromList(CurrentCars, index);
+
+        _supplementData.Validator.CheckNull(car);
+
+        _supplementData.Validator.CheckType(status);
+
+        CurrentCars[index].Status = status;
+    }
+
+    public void ChangeCurrentCarStatus(Guid guid, TransportStatus status)
+    {
+        _supplementData.Validator.CheckNull(this.CurrentCars);
+
+        Car car = ChooseCarFromList(CurrentCars, guid);
+
+        _supplementData.Validator.CheckNull(car);
+
+        _supplementData.Validator.CheckType(status);
+
+        // THIS IS A REFEREBCE TYPE, THE CHANGE WILL AFFECT CAR INSTANCE IN THE LIST.
+        car.Status = status;
+    }
+
+    public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
+    {
+        _supplementData.Validator.CheckNull(cars);
+        _supplementData.Validator.CheckType(status);
+        
+        foreach(Car car in cars)
+        {
+            car.Status = status;
+        }
+    }
+
+    public void ChangeCurrentCarsStatus(TransportStatus status)
+    {
+        _supplementData.Validator.CheckNull(this.CurrentCars);
+
+        _supplementData.Validator.CheckType(status);
+
+        foreach (Car car in CurrentCars)
+        {
+            car.Status = status;
+        }
+    }
+
+    public void ChangeSelectedCarStatus(TransportStatus status)
+    {
+        _supplementData.Validator.CheckNull(this.SelectedCar);
+        _supplementData.Validator.CheckType(status);
+
+        this.SelectedCar.Status = status;
+    }
+
+    // DELETE
+
+    public void DeleteCarFromList(List<Car> list, int index)
+    {
+        try
+        {
+            _supplementData.Validator.CheckNull(list);
+
+            list.RemoveAt(index);
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+    }
+
+    public void DeleteCarFromList(List<Car> list, string model)
+    {
+        try
+        {
+            _supplementData.Validator.CheckNull(list);
+
+            list.RemoveAt(list.IndexOf(ChooseCarFromList(list, model)));
+        }
+        catch (KeyNotFoundException exception)
+        {
+            throw exception;
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (Exception exception)
+        {
+            throw exception;
+        }
+    }
+
+    public void DeleteCarFromList(List<Car> list, Guid guid)
+    {
+        try
+        {
+            _supplementData.Validator.CheckNull(list);
+
+            list.RemoveAt(list.IndexOf(ChooseCarFromList(list, guid)));
+        }
+        catch (KeyNotFoundException exception)
+        {
+            throw exception;
+        }
+        catch (IndexOutOfRangeException exception)
+        {
+            throw exception;
+        }
+        catch (Exception exception)
+        {
+            throw exception;
+        }
+    }
+
+    public void DeleteCarFromCurrentCars(int index)
+    {
+        DeleteCarFromList(this.CurrentCars, index);
+    }
+
+    public void DeleteCarFromCurrentCars(string model)
+    {
+        DeleteCarFromList(this.CurrentCars, model);
+    }
+
+    public void DeleteCarFromCurrentCars(Guid guid)
+    {
+        DeleteCarFromList(this.CurrentCars, guid);
+    }
+
+    public void DeleteAllCarsFromList(List<Car> list)
+    {
+        _supplementData.Validator.CheckNull(list);
+
+        list.Clear();
+    }
+
+    public void DeleteAllCarsFromCurrentCars()
+    {
+        DeleteAllCarsFromList(this.CurrentCars);
+    }
+
+    public void RefillCar(Car car)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        _supplementData.Mechanic.Refill(car);
+    }
+
+    public void RefillSelectedCar()
+    {
+        _supplementData.Validator.CheckNull(this.SelectedCar);
+
+        _supplementData.Mechanic.Refill(SelectedCar);
     }
 
     // METHODS

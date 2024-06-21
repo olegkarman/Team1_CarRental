@@ -38,8 +38,8 @@ public class Car
     public string? Lights { get; set; }
     public string? Signal { get; set; }
     public KnownColor? Color { get; set; }
-
-    public int? MaxSpeed { get; private set; }
+    public int? NumberOfSeats { get; set; }
+    public int? NumberOfDoors { get; set; }
 
     public float? Mileage
     {
@@ -61,7 +61,7 @@ public class Car
             return _maxFuelCapacity;
         }
 
-        init
+        set
         {
             _maxFuelCapacity = value;
         }
