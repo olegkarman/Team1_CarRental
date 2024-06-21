@@ -1,6 +1,10 @@
 ﻿using CarRental.Data.Enums;
-namespace CarRental.Data.Models;
+using CarRental.Data.Inspection;
+using CarRental.Data.Models;
+using CarRental.Data.Models.Car;
 
+namespace CarRental.BussinessLayer.Managers;
+public record CarRecord(int Id, string Year, string Mark); /* додати  Record тип.*/
 public class InspectorCars
 {
     public int Mileage { get; set; }
@@ -9,7 +13,8 @@ public class InspectorCars
 
     public const int MaxCarsAllowed = 10; //Додати константу (const string InvalidCar ="Car has no mark")
     private int CurrentCarsInspected { get; set; }
-    public InspectorCars Status { get; set; }
+    public TransportStatus Status { get; set; }
+
     public InspectorCars()
     {
         Random rand = new Random();
@@ -22,7 +27,11 @@ public class InspectorCars
     {
         Console.WriteLine($"Mileage: {Mileage}, Release Date: {ReleaseDate}, Exterior Condition: {ExteriorCondition}");
     }
-    internal void InspectedCars(Car.Car car)
+    public string GetCarInfo(CarRecord car) /* додати  Record тип.*/
+    {
+        return $"Car Id:{car.Id}, Year{car.Year}, Mark:{car.Mark}";
+    }
+    internal void InspectedCars(Car car)
     {
 
         if (CurrentCarsInspected >= MaxCarsAllowed)
@@ -35,31 +44,32 @@ public class InspectorCars
             Console.WriteLine("Inspector can check more cars.");
         }
     }
-    public void InspectCar(Car.Car car, Inspector inspector) //Інспектувати по пробігу, даті,стану кузова
+    public void InspectCar(Car car, Inspector inspector, InspectionsManager inspectionManager) //Інспектувати по пробігу, даті,стану кузова
     {
         if (car.Mileage < 200000 && car.Year >= 2015 && ExteriorCondition >= 1)
         {
-            var inspection = new Inspection.Inspection(inspector, car, InspectionStatusType.Successfully);
+            var inspection = new Inspection(inspector, car, InspectionStatusType.Successfully);
             RecordInspectionResult(car, InspectionStatusType.Successfully);
-            /*InspectionManager.AddInspection(inspection);*/
+            inspectionManager.AddInspection(inspection);
         }
         else if (car.Mileage >= 200000 || car.Year < 2015 || ExteriorCondition < 1)
         {
-            var inspection = new Inspection.Inspection(inspector, car, InspectionStatusType.Repair);
+            var inspection = new Inspection(inspector, car, InspectionStatusType.Repair);
             Console.WriteLine($"Car {car.Brand} {car.Model} needs repair.");
             RecordInspectionResult(car, InspectionStatusType.Repair);
-            /*InspectionManager.AddInspection(inspection);*/
+            inspectionManager.AddInspection(inspection);
         }
         else
         {
-            var inspection = new Inspection.Inspection(inspector, car, InspectionStatusType.Unusable);
+            var inspection = new Inspection(inspector, car, InspectionStatusType.Unusable);
             Console.WriteLine($"Car {car.Brand} {car.Model} is unfit for use.");
             RecordInspectionResult(car, InspectionStatusType.Unusable);
-            /*InspectionManager.AddInspection(inspection);*/
+            inspectionManager.AddInspection(inspection);
         }
     }
 
-    public void RecordInspectionResult(Car.Car car, InspectionStatusType inspectionResult)
+
+    public void RecordInspectionResult(Car car, InspectionStatusType inspectionResult)
     {
         if (car != null)
         {
@@ -86,7 +96,7 @@ public class InspectorCars
             Console.WriteLine("Car not found.");
         }
     }
-    public void RemoveCarIfUnfit(Car.Car car) // Видалити машину
+    public void RemoveCarIfUnfit(Car car) // Видалити машину
     {
         if (car.Status == TransportStatus.InRepair || car.Status == TransportStatus.Unavailable)
         {

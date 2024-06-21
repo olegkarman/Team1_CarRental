@@ -191,7 +191,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.PrintMessage("Error: Please enter a valid number from 1 to 15.");
             }
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
-            _inspectorCars.InspectCar(car, (_portalInstance.UserData as Inspector));
+            _inspectorCars.InspectCar(car, (_portalInstance.UserData as Inspector), _inspectionsManager);
             _outputManager.PrintMessage("");
             _outputManager.PrintMessage("Press any key to continue...");
             _outputManager.GetUserPrompt();
