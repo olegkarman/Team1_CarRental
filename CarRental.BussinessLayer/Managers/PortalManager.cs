@@ -1,6 +1,8 @@
 ﻿using CarRental.Data.Models.Portal;
 using CarRental.Data.Models;
 using CarRental.BussinessLayer.Interfaces;
+using System;
+using System.Text;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -27,7 +29,9 @@ namespace CarRental.BussinessLayer.Managers
         public void StartMainMenu()
         {
             _carServiceManager.InitializeManagment();
-            _carServiceManager.MakeNewListOfCurrentCars(15);
+
+            this._carServiceManager.GetNewRandomCurrentCars(15);
+
             ShowMainMenu();
         }
 

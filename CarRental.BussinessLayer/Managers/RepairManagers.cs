@@ -38,7 +38,7 @@ namespace CarRental.BussinessLayer.Managers
                  CarModel = car.Model,
                  MechanicName = mechanic.Name,
                  MechanicId = mechanic.Id,
-                 TechnicalInfo = car.Dossier.TechnicalInfo,
+                 TechnicalInfo = car.ToString(),
                  IsSuccessfull = isSuccessfull
             };
 

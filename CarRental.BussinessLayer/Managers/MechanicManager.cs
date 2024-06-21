@@ -23,7 +23,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // PROPERTIES
 
-        public List<RepairServiceManager> Mechanists { get; set; }
+        public List<Mechanic> Mechanists { get; set; }
 
         // CONSTRUCTORS
 

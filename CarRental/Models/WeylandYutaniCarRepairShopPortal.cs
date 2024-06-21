@@ -39,8 +39,8 @@ public class WeylandYutaniCarRepairShopPortal
 
         // TEST
         // \\ // \\ // \\ // \\// \\ // \\ // \\ // \\ // \\ // \\
-        Car car = serviceManager.GetNewCar();
-        serviceManager.MakeNewListOfCurrentCars(15);
+        //Car car = serviceManager.GetNewCar();
+        //serviceManager.MakeNewListOfCurrentCars(15);
         //serviceManager.TrySelectCar(5);
         //serviceManager.DisplayCurrentCar();
         serviceManager.DisplayCurrentCars();

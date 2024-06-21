@@ -10,13 +10,13 @@ internal static class CheckerLightSignal
 
     // METHODS
 
-    public static PitchComponent Signal(this Car car)
+    public static string Signal(this Car car)
     {
-        return car.Signal.Pitch;
+        return car.Signal;
     }
 
-    public static PowerComponent Light(this Car car)
+    public static string Light(this Car car)
     {
-        return car.Lights.Power;
+        return car.Lights;
     }
 }

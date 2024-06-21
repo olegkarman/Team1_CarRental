@@ -17,7 +17,7 @@ public class Car
     // FIELDS
 
     private const string _noInfo = "NO INFORMATION";
-    public readonly int year;
+    private readonly int? _year;
     private float? _mileage;   // AVTOPROBIG.
     private float? _currentFuel;
     private int? _maxFuelCapacity;
@@ -80,6 +80,8 @@ public class Car
         }
     }
 
+    public int? Year { get; init; }
+
     public TransportStatus? Status { get; set; }
     public bool? IsFitForUse { get; set; }
 
@@ -89,6 +91,6 @@ public class Car
 
     public override string ToString()
     {
-        return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} | {nameof(CarId)} = {CarId} }}";
+        return $"{{ {nameof(this.Brand)} = {Brand} | {nameof(this.Model)} = {Model} | {nameof(this.Year)} = {Year} | {nameof(this.Engine)} = {Engine} | {nameof(this.Transmission)} = {Transmission} | {nameof(this.Wheels)} = {Wheels} | {nameof(this.Interior)} = {Interior} | {nameof(this.Color)} = {Color} | {nameof(this.VinCode)} = {VinCode} | {nameof(this.Price)} = {Price} | {nameof(this.IsFitForUse)} = {IsFitForUse} | {nameof(this.Status)} = {Status} | {nameof(CarId)} = {CarId} }}";
     }
 }

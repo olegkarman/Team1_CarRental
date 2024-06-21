@@ -11,6 +11,7 @@ using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Car;
 using CarRental.Data.Models.Car.RecordTypes;
 using System.Drawing;
+using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -64,9 +65,134 @@ public class ServiceManager : ICarManager
         return car;
     }
 
+    public Car GetNewCar
+    (
+        Guid carId,
+        string vinCode,
+        string model,
+        string brand,
+        int year,
+        string numberPlate,
+        int price,
+        string engine,
+        string transmission,
+        string interior,
+        string wheels,
+        string lights,
+        string signal,
+        KnownColor color,
+        int numberOfSeats,
+        int numberOfDoors,
+        float mileage,
+        int maxFuelCapacity,
+        float currentFuel,
+        TransportStatus status,
+        bool isFitForUse
+    )
+    {
+        // CHECK ONLY NECCESSARY COMPONENTS.
+        _supplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
+
+        Car car = new Car
+        {
+            CarId = carId,
+            VinCode = vinCode,
+            Model = model,
+            Brand = brand,
+            Year = year,
+            NumberPlate = numberPlate,
+            Price = price,
+            Engine = engine,
+            Transmission = transmission,
+            Interior = interior,
+            Wheels = wheels,
+            Lights = lights,
+            Signal = signal,
+            Color = color,
+            NumberOfSeats = numberOfSeats,
+            NumberOfDoors = numberOfDoors,
+            Mileage = mileage,
+            MaxFuelCapacity = maxFuelCapacity,
+            CurrentFuel = currentFuel,
+            Status = status,
+            IsFitForUse = isFitForUse
+        };
+
+        _supplementData.Validator.CheckNull(car);
+
+        return car;
+    }
+
+    public Car GetNewRandomCar()
+    {
+        Guid carId = _supplementData.RandomCarGenerator.GetNewCarId();
+        string vinCode = _supplementData.RandomCarGenerator.GetNewVinCode();
+        string model = _supplementData.RandomCarGenerator.GetNewModelName();
+        string brand = _supplementData.RandomCarGenerator.GetNewBrandName();
+        string numberPlate = _supplementData.RandomCarGenerator.GetNewNumberPlate();
+        int price = _supplementData.RandomCarGenerator.GetNewPrice();
+
+        string engine = _supplementData.RandomCarGenerator.GetNewEngine();
+        string transmission = _supplementData.RandomCarGenerator.GetNewTransmission();
+        string interior = _supplementData.RandomCarGenerator.GetNewInterior();
+        string wheels = _supplementData.RandomCarGenerator.GetNewWheels();
+        string lights = _supplementData.RandomCarGenerator.GetNewLights();
+        string signal = _supplementData.RandomCarGenerator.GetNewSignal();
+        KnownColor color = _supplementData.RandomCarGenerator.GetNewColor();
+        int numberOfSeats = _supplementData.RandomCarGenerator.GetNewNumberOfSeats();
+        int numberOfDoors = _supplementData.RandomCarGenerator.GetNewNumberOfDoors();
+        int year = _supplementData.RandomCarGenerator.GetNewYear();
+        float mileage = _supplementData.RandomCarGenerator.GetNewMileage();
+        int maxFuelCapacity = _supplementData.RandomCarGenerator.GetNewMaxFuelCapacity();
+        float currentFuel = _supplementData.RandomCarGenerator.GetNewCurrentFuel();
+        TransportStatus status = _supplementData.RandomCarGenerator.GetNewStatus();
+        bool isFitForUse = _supplementData.RandomCarGenerator.GetNewIsFitForUse();
+
+        Car car = new Car
+        {
+            CarId = carId,
+            VinCode = vinCode,
+            Model = model,
+            Brand = brand,
+            Year = year,
+            NumberPlate = numberPlate,
+            Price = price,
+            Engine = engine,
+            Transmission = transmission,
+            Interior = interior,
+            Wheels = wheels,
+            Lights = lights,
+            Signal = signal,
+            Color = color,
+            NumberOfSeats = numberOfSeats,
+            NumberOfDoors = numberOfDoors,
+            Mileage = mileage,
+            MaxFuelCapacity = maxFuelCapacity,
+            CurrentFuel = currentFuel,
+            Status = status,
+            IsFitForUse = isFitForUse
+        };
+
+        _supplementData.Validator.CheckNull(car);
+
+        return car;
+    }
+
     public List<Car> MakeNewListOfCars()
     {
         return new List<Car>();
+    }
+
+    public void GetNewRandomCurrentCars(int count)
+    {
+        _supplementData.Validator.CheckNull(this.CurrentCars);
+
+        this.CurrentCars.Clear();
+
+        for (int index = 0; index < count; index = index + 1)
+        {
+            this.CurrentCars.Add(GetNewRandomCar());
+        }
     }
 
     // RETRIVE
@@ -293,7 +419,7 @@ public class ServiceManager : ICarManager
         for (int i = 0; i < CurrentCars.Count; i++)
         {
             var car = CurrentCars[i];
-            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.year, car.Price, car.Status, car.IsFitForUse, car.NumberPlate, car.VinCode);
+            outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.NumberPlate, car.VinCode);
         }
     }
 
@@ -307,7 +433,7 @@ public class ServiceManager : ICarManager
 
         foreach (Car car in CurrentCars)
         {
-            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
+            _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.Year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
         }
 
         return _carsInfo.ToString();
@@ -670,16 +796,13 @@ public class ServiceManager : ICarManager
             {
                 Mechanic = dataInit.InitializeMechanic(),
                 Validator = dataInit.InitializeValidator(),
-                CharMaps = dataInit.InitializeCharacterMaps()
+                CharMaps = dataInit.InitializeCharacterMaps(),
+                RandomCarGenerator = dataInit.InitializeRandomCarGenerator()
             };
         }
         catch (NullReferenceException exception)
         {
             throw exception;
-        }
-        catch
-        {
-            throw new Exception();
         }
     }
 }
