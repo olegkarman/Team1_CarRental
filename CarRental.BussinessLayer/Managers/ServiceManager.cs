@@ -439,32 +439,32 @@ public class ServiceManager : ICarManager
         return _carsInfo.ToString();
     }
 
-    public string CheckFuelCar(Car car)
-    {
-        _supplementData.Validator.CheckNull(car);
+    //public string CheckFuelCar(Car car)
+    //{
+    //    _supplementData.Validator.CheckNull(car);
 
-        _carsInfo.Clear();
+    //    _carsInfo.Clear();
 
-        try
-        {
-            float? division = (float?)_supplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
+    //    try
+    //    {
+    //        float? division = (float?)_supplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
 
-            division = (float)division * 100;
+    //        division = (float)division * 100;
 
-            _carsInfo.Append($"{(int)division}%");
+    //        _carsInfo.Append($"{(int)division}%");
 
-            return _carsInfo.ToString();
-        }
-        catch (DivideByZeroException exception)
-        {
-            throw exception;
-        }
-    }
+    //        return _carsInfo.ToString();
+    //    }
+    //    catch (DivideByZeroException exception)
+    //    {
+    //        throw exception;
+    //    }
+    //}
 
-    public string CheckFuelSelectedCar()
-    {
-        return CheckFuelCar(SelectedCar);
-    }
+    //public string CheckFuelSelectedCar()
+    //{
+    //    return CheckFuelCar(SelectedCar);
+    //}
 
     public string ShowMileage(Car car)
     {
@@ -768,19 +768,19 @@ public class ServiceManager : ICarManager
         DeleteAllCarsFromList(this.CurrentCars);
     }
 
-    public void RefillCar(Car car)
-    {
-        _supplementData.Validator.CheckNull(car);
+    //public void RefillCar(Car car)
+    //{
+    //    _supplementData.Validator.CheckNull(car);
 
-        _supplementData.Mechanic.Refill(car);
-    }
+    //    _supplementData.Mechanic.Refill(car);
+    //}
 
-    public void RefillSelectedCar()
-    {
-        _supplementData.Validator.CheckNull(this.SelectedCar);
+    //public void RefillSelectedCar()
+    //{
+    //    _supplementData.Validator.CheckNull(this.SelectedCar);
 
-        _supplementData.Mechanic.Refill(SelectedCar);
-    }
+    //    _supplementData.Mechanic.Refill(SelectedCar);
+    //}
 
     // METHODS
     // // INITIALIZATION
@@ -794,7 +794,7 @@ public class ServiceManager : ICarManager
 
             this._supplementData = new ServiceManagerSupplements
             {
-                Mechanic = dataInit.InitializeMechanic(),
+                //Mechanic = dataInit.InitializeMechanic(),
                 Validator = dataInit.InitializeValidator(),
                 CharMaps = dataInit.InitializeCharacterMaps(),
                 RandomCarGenerator = dataInit.InitializeRandomCarGenerator()
