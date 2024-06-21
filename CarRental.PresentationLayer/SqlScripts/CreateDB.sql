@@ -1,0 +1,4 @@
+-- INITIAL DATA BASE
+
+CREATE DATABASE KarmaCarRental
+GO
