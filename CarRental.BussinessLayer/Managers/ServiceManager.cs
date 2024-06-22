@@ -185,6 +185,14 @@ public class ServiceManager : ICarManager
         return new List<Car>();
     }
 
+    public void AddCarInToList(List<Car> cars, Car car)
+    {
+        _supplementData.Validator.CheckNull(cars);
+        _supplementData.Validator.CheckNull(car);
+
+        cars.Add(car);
+    }
+
     public void GetNewRandomCurrentCars(int count)
     {
         _supplementData.Validator.CheckNull(this.CurrentCars);
@@ -424,8 +432,6 @@ public class ServiceManager : ICarManager
             outputManager.PrintMessage(format, i + 1, car.Brand, car.Model, car.Year, car.Price, car.Status, car.IsFitForUse, car.NumberPlate, car.VinCode);
         }
     }
-
-    // TO DISPLAY LIST OF CARS WITH HELP OF StringBuilder CLASS.
 
     public string DisplayCurrentCars()
     {
@@ -690,10 +696,9 @@ public class ServiceManager : ICarManager
         bool isSuccessfull;
         int chance;
 
-        // CHANGE STATUS IF
-
         if ((car.Status == (TransportStatus)0) || (car.Status == (TransportStatus)4) || (car.Status == (TransportStatus)200))
         {
+            // REPRESENT NOT 100% PROBABILITY TO REPAIR THE CAR.
             chance = _random.Next(0, 11);
 
             if (chance > 1)
