@@ -41,7 +41,8 @@ namespace CarRental.BussinessLayer.Managers
                  MechanicName = mechanic.Name,
                  MechanicId = mechanic.Id,
                  TechnicalInfo = car.ToString(),
-                 IsSuccessfull = isSuccessfull
+                 IsSuccessfull = isSuccessfull,
+                 TotalCost = (car.Price / 3)
             };
 
             _repairValidator.CheckNull(repair);
