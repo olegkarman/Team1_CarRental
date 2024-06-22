@@ -115,7 +115,8 @@ public class ServiceManager : ICarManager
             MaxFuelCapacity = maxFuelCapacity,
             CurrentFuel = currentFuel,
             Status = status,
-            IsFitForUse = isFitForUse
+            IsFitForUse = isFitForUse,
+            Repairs = new List<Repair>()
         };
 
         _supplementData.Validator.CheckNull(car);
@@ -170,7 +171,8 @@ public class ServiceManager : ICarManager
             MaxFuelCapacity = maxFuelCapacity,
             CurrentFuel = currentFuel,
             Status = status,
-            IsFitForUse = isFitForUse
+            IsFitForUse = isFitForUse,
+            Repairs = new List<Repair>()
         };
 
         _supplementData.Validator.CheckNull(car);
@@ -683,6 +685,8 @@ public class ServiceManager : ICarManager
 
     public void Repair(Car car, Mechanic mechanic)
     {
+        _supplementData.Validator.CheckNull(car);
+
         bool isSuccessfull;
         int chance;
 
@@ -696,15 +700,25 @@ public class ServiceManager : ICarManager
             {
                 isSuccessfull = true;
 
+                car.Status = (TransportStatus)1;
+
                 Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+
+                AddRepairInToCar(car, repair);
+
+                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+            }
+            else if (chance < 2)
+            {
+                isSuccessfull = false;
+
+                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+
+                AddRepairInToCar(car, repair);
 
                 _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
             }
         }
-
-        // MAKE REPAIR.
-        // ADD REPAIR TO MECHANIC LIST OF REPAIRS.
-        // ADD REPAIR OT CAR LIST OF REPAIRS.
     }
 
     public void AddRepairInToCar(Car car, Repair repair)
