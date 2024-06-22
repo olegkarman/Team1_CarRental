@@ -698,12 +698,20 @@ public class ServiceManager : ICarManager
 
                 Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
 
+                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
             }
         }
 
         // MAKE REPAIR.
         // ADD REPAIR TO MECHANIC LIST OF REPAIRS.
         // ADD REPAIR OT CAR LIST OF REPAIRS.
+    }
+
+    public void AddRepairInToCar(Car car, Repair repair)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        _supplementData.JunkRepairManager.AddRepairInToList(car.Repairs, repair);
     }
 
     // DELETE

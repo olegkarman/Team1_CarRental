@@ -24,6 +24,8 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
+        // CREATE
+
         public Repair GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull)
         {
             _carValidator.CheckNull(car);
@@ -47,6 +49,16 @@ namespace CarRental.BussinessLayer.Managers
             return repair;
         }
 
+        public void AddRepairInToList(List<Repair> repairs, Repair repair)
+        {
+            _repairValidator.CheckNull(repairs);
+            _repairValidator.CheckNull(repair);
+
+            repairs.Add(repair);
+        }
+
+        // RETRIVE
+
         public Repair ChooseRepairFromList(List<Repair> repairs, int index)
         {
             _repairValidator.CheckNull(repairs);
@@ -67,6 +79,8 @@ namespace CarRental.BussinessLayer.Managers
 
             return repair;
         }
+
+        // DELETE
 
         public void DeleteRepairFromList(List<Repair> repairs, int index)
         {
