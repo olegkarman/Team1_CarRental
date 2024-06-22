@@ -9,9 +9,9 @@ using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Car;
+using CarRental.Data.Models;
 using CarRental.Data.Models.Car.RecordTypes;
 using System.Drawing;
-using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -681,6 +681,31 @@ public class ServiceManager : ICarManager
         this.SelectedCar.Status = status;
     }
 
+    public void Repair(Car car, Mechanic mechanic)
+    {
+        bool isSuccessfull;
+        int chance;
+
+        // CHANGE STATUS IF
+
+        if ((car.Status == (TransportStatus)0) || (car.Status == (TransportStatus)4) || (car.Status == (TransportStatus)200))
+        {
+            chance = _random.Next(0, 11);
+
+            if (chance > 1)
+            {
+                isSuccessfull = true;
+
+                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+
+            }
+        }
+
+        // MAKE REPAIR.
+        // ADD REPAIR TO MECHANIC LIST OF REPAIRS.
+        // ADD REPAIR OT CAR LIST OF REPAIRS.
+    }
+
     // DELETE
 
     public void DeleteCarFromList(List<Car> list, int index)
@@ -797,7 +822,9 @@ public class ServiceManager : ICarManager
                 //Mechanic = dataInit.InitializeMechanic(),
                 Validator = dataInit.InitializeValidator(),
                 CharMaps = dataInit.InitializeCharacterMaps(),
-                RandomCarGenerator = dataInit.InitializeRandomCarGenerator()
+                RandomCarGenerator = dataInit.InitializeRandomCarGenerator(),
+                MechanicalManager = dataInit.InitializeMechanization(),
+                JunkRepairManager = dataInit.InitializeRepair()
             };
         }
         catch (NullReferenceException exception)

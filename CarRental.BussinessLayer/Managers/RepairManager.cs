@@ -9,7 +9,7 @@ using CarRental.BussinessLayer.Validators;
 
 namespace CarRental.BussinessLayer.Managers
 {
-    public class RepairManagers
+    public class RepairManager
     {
         // FIELDS
 

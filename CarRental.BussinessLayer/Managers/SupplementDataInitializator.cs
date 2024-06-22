@@ -59,10 +59,20 @@ public class SupplementDataInitializator
 
             Lights = ["Unknown", "Weak", "Moderate", "Powerful", "Extreme"],
 
-            Signals = ["Unknown", "Low", "Moderate", "Hight", "ExremelyHight"]
+            Signals = ["Unknown", "Low", "Moderate", "Hight", "ExtremelyHight"]
 
         };
         
         return randomGenerator;
+    }
+
+    public MechanicManager InitializeMechanization()
+    {
+        return new MechanicManager();
+    }
+
+    public RepairManager InitializeRepair()
+    {
+        return new RepairManager();
     }
 }
