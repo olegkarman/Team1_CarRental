@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models;
+using CarRental.Data.Enums;
 using CarRental.BussinessLayer.Validators;
 using CarRental.BussinessLayer.Services;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -20,12 +23,18 @@ namespace CarRental.BussinessLayer.Managers
         private MechanicValidation _mechanicValidator;
         private RepairValidation _repairValidator;
         private IndexOfListValidation _indexValidator;
+        private Random _pseudoRandom;
 
         // PROPERTIES
 
         public List<Mechanic> Mechanists { get; set; }
 
         // CONSTRUCTORS
+
+        public MechanicManager()
+        {
+            this._pseudoRandom = new Random();
+        }
 
         // METHODS
 
@@ -50,7 +59,6 @@ namespace CarRental.BussinessLayer.Managers
             name = _textProcessor.ReplaceSpacesByEmpty(name);
             surename = _textProcessor.ReplaceSpacesByEmpty(surename);
 
-
             Mechanic mechanic = new Mechanic
             {
                 Id = Guid.NewGuid(),
@@ -61,6 +69,26 @@ namespace CarRental.BussinessLayer.Managers
             };
 
             _mechanicValidator.CheckNull(mechanic);
+
+            return mechanic;
+        }
+
+        public Mechanic GetNewRandomMechanic()
+        {
+            int year = _pseudoRandom.Next(1947, 2021);
+
+            string name = $"{(NamesSurenames)_pseudoRandom.Next(10, 18)}";
+
+            string surename = $"{(NamesSurenames)_pseudoRandom.Next(10, 18)}{(NamesSurenames)_pseudoRandom.Next(10, 18)}";
+
+            Mechanic mechanic = new Mechanic
+            {
+                Id = Guid.NewGuid(),
+                Year = year,
+                Name = name,
+                Surename = surename,
+                Repairs = new List<Repair>()
+            };
 
             return mechanic;
         }
