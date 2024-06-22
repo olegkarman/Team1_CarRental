@@ -712,6 +712,8 @@ public class ServiceManager : ICarManager
                 AddRepairInToCar(car, repair);
 
                 _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+
+                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
             else if (chance < 2)
             {
@@ -722,6 +724,8 @@ public class ServiceManager : ICarManager
                 AddRepairInToCar(car, repair);
 
                 _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+
+                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
         }
     }
