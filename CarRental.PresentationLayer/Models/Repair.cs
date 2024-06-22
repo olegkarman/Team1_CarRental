@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CarRental.Data.Models.Car;
 
 namespace CarRental.Data.Models
 {
@@ -26,5 +30,10 @@ namespace CarRental.Data.Models
         // CONSTRUCTORS
 
         // METHODS
+
+        public override string ToString()
+        {
+            return $"{{ {nameof(this.Id)} = {Id} | {nameof(this.Date)} = {Date} | {nameof(this.CarId)} = {CarId} | {nameof(CarBrand)} = {this.CarBrand} | {nameof(CarModel)} = {this.CarModel} | {nameof(MechanicName)} = {this.MechanicName} | {nameof(TechnicalInfo)} = {this.TechnicalInfo} | {nameof(IsSuccessfull)} = {this.IsSuccessfull} | {nameof(TotalCost)} = {this.TotalCost} }}";
+        }
     }
 }

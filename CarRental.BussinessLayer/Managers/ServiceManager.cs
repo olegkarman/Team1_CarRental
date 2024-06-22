@@ -18,7 +18,6 @@ namespace CarRental.BussinessLayer.Managers;
 public class ServiceManager : ICarManager
 {
     // THE PURPOSE OF THE CLAS:
-    //      TO BE A CONNECTION LINK BETWEEN MENU AND HIDDEN MECHANISM OF CAR-INSTANCE GENERATION.
     //      TO HOLD A LIST OF CARS AND TO OPERATE WITH IT.
 
     // FIELDS

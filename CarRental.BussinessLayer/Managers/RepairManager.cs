@@ -80,6 +80,13 @@ namespace CarRental.BussinessLayer.Managers
             return repair;
         }
 
+        public string ShowRepairInfo(Repair repair)
+        {
+            _repairValidator.CheckNull(repair);
+
+            return repair.ToString();
+        }
+
         // DELETE
 
         public void DeleteRepairFromList(List<Repair> repairs, int index)
