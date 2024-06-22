@@ -93,6 +93,14 @@ namespace CarRental.BussinessLayer.Managers
             return mechanic;
         }
 
+        public void AddMechanicInToList(List<Mechanic> mechanics, Mechanic mechanic)
+        {
+            _mechanicValidator.CheckNull(mechanics);
+            _mechanicValidator.CheckNull(mechanic);
+
+            mechanics.Add(mechanic);
+        }
+
         // RETRIVE
 
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, int index)
