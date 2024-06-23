@@ -18,12 +18,16 @@ namespace CarRental.BussinessLayer.Managers
         
         public void BuyCar(Car car, Customer customer, ServiceManager serviceManager)
         {
+            // NULL-VALIDATION SHOULD BE.
             Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
+            car.Status = Data.Enums.TransportStatus.Sold;
+
+            // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
             customer.Deals.Add(newDeal);
 
             serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER INSTEAD.
 
-            car.Status = Data.Enums.TransportStatus.Sold;
+            AddCarInToCustomer(customer, car);
         }
 
         public void RentCar(Car car, Customer customer, ServiceManager serviceManager)
@@ -31,9 +35,11 @@ namespace CarRental.BussinessLayer.Managers
             Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
             customer.Deals.Add(newDeal);
 
+            car.Status = Data.Enums.TransportStatus.Rented;
+
             serviceManager.AddDealToCar(car, newDeal);
 
-            car.Status = Data.Enums.TransportStatus.Rented;
+            AddCarInToCustomer(customer, car);
         }
 
         public void ShowMyDeals(Customer customer)
@@ -73,6 +79,13 @@ namespace CarRental.BussinessLayer.Managers
             {
                 return $"{nameof(customer.Cars)} = {_noInfo}";
             }
+        }
+
+        public void AddCarInToCustomer(Customer customer, Car car)
+        {
+            // SHOULD BE SOME VALIDATION THERE. NULL-VALIDATION FOR AN EXAMPLE, BUT FROM A SEPARATE VALIDATOR-CLASS.
+
+            customer.Cars.Add(car);
         }
     }
 }
