@@ -634,7 +634,15 @@ public class ServiceManager : ICarManager
         _supplementData.Validator.CheckType(status);
 
         car.Status = status;
-       
+    }
+
+    public void ChangeCarStatus(Car car, int status)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        _supplementData.Validator.CheckType((TransportStatus)status);
+
+        car.Status = (TransportStatus)status;
     }
 
     public void ChangeCurrentCarStatus(int index, TransportStatus status)
@@ -700,6 +708,11 @@ public class ServiceManager : ICarManager
         _supplementData.Validator.CheckNull(car);
 
         bool isSuccessfull;
+
+        _supplementData.Validator.CheckNull(car.IsFitForUse);
+
+        bool isFitForUse = (bool)car.IsFitForUse;
+
         int chance;
 
         if ((car.Status == (TransportStatus)0) || (car.Status == (TransportStatus)4) || (car.Status == (TransportStatus)200))
@@ -722,6 +735,37 @@ public class ServiceManager : ICarManager
                 _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
             else if (chance < 2)
+            {
+                isSuccessfull = false;
+
+                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+
+                AddRepairInToCar(car, repair);
+
+                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+
+                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+            }
+        }
+        else if (!isFitForUse)
+        {
+            chance = _random.Next(0, 11);
+
+            if (chance > 1)
+            {
+                isSuccessfull = true;
+
+                car.IsFitForUse = true;
+
+                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+
+                AddRepairInToCar(car, repair);
+
+                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+
+                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+            }
+            else
             {
                 isSuccessfull = false;
 

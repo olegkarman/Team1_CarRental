@@ -22,6 +22,14 @@ namespace CarRental.BussinessLayer.Validators
             }
         }
 
+        public void CheckNull(bool? isFitForUse)
+        {
+            if (isFitForUse == null)
+            {
+                throw new ArgumentNullException(nameof(isFitForUse));
+            }
+        }
+
         public void CheckNull(string tupleEntry)
         {
             if (tupleEntry == null)
