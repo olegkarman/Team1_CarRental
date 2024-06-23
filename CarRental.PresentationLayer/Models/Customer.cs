@@ -7,7 +7,7 @@ public class Customer : User
 {
     public const float BasicDiscount = 0.5f;    // CONST-S SHOULD BE ON TOP.
     public List<Deal> Deals { get; set; }
-    public List<Car> Cars { get; set; }
+    public List<Car>? Cars { get; set; }
     public string PassportNumber { get; init; }
     public required string DrivingLicenseNumber { get; set; }
 
@@ -19,6 +19,7 @@ public class Customer : User
         PassportNumber = passportNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
         Deals = new List<Deal>();
+        this.Cars = new List<Car>();    // ADDED THIS (YPARKHOMENKO).
     }
 
    

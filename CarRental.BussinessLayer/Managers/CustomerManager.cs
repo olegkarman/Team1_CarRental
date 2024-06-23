@@ -11,12 +11,17 @@ namespace CarRental.BussinessLayer.Managers
 {
     public class CustomerManager
     {
+        // FIELDS
+        private const string _noInfo = "NO INFORMATION";
+        
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE???
+        
         public void BuyCar(Car car, Customer customer, ServiceManager serviceManager)
         {
             Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
             customer.Deals.Add(newDeal);
 
-            serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER.
+            serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER INSTEAD.
 
             car.Status = Data.Enums.TransportStatus.Sold;
         }
@@ -35,7 +40,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             for (int i = 0; i < customer.Deals.Count; i++)
             {
-                Console.WriteLine(customer.Deals[i].ToString());    // CHANGE IT PLS, IT IS HARD-CONNECTION TO CONSOLE, SHOULD BE NOT.
+                Console.WriteLine(customer.Deals[i].ToString());    // CHANGE IT PLS, IT IS A HARD-CONNECTION TO CONSOLE, SHOULD BE NOT.
             }
         }
 
@@ -44,14 +49,22 @@ namespace CarRental.BussinessLayer.Managers
         {
             StringBuilder displayBuilder = new StringBuilder();
 
-            foreach (Car car in customer.Cars)
+            if (customer.Cars != null)
             {
-                displayBuilder.Append(serviceManager.DisplayCar(car));
 
-                displayBuilder.Append(" || ");
+                foreach (Car? car in customer.Cars)
+                {
+                    displayBuilder.Append(serviceManager.DisplayCar(car));
+
+                    displayBuilder.Append(" || ");
+                }
+
+                return displayBuilder.ToString();
             }
-
-            return displayBuilder.ToString();
+            else
+            {
+                return $"{nameof(customer.Cars)} = {_noInfo}";
+            }
         }
     }
 }
