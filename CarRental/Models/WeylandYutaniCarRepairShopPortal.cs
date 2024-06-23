@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Managers;
 
 
