@@ -68,11 +68,30 @@ public class SupplementDataInitializator
 
     public MechanicManager InitializeMechanization()
     {
-        return new MechanicManager();
+        MechanicManager mechanicManager = new MechanicManager
+        {
+            Validator = new UpdatedNameValidator(),
+            TextProcessor = new TextProcessingService(),
+            AgeValidator = new AgeValidator(),
+            MechanicValidator = new MechanicValidation(),
+            RepairValidator = new RepairValidation(),
+            IndexValidator = new IndexOfListValidation(),
+            PseudoRandom = new Random() 
+        };
+
+        return mechanicManager;
     }
 
     public RepairManager InitializeRepair()
     {
-        return new RepairManager();
+        RepairManager repManager = new RepairManager
+        {
+            RepairValidator = new RepairValidation(),
+            CarValidator = new VehicleValidation(),
+            MechanicValidator = new MechanicValidation(),
+            IndexValidator = new IndexOfListValidation()
+        };
+
+        return repManager;
     }
 }

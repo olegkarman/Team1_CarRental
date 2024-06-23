@@ -13,10 +13,12 @@ namespace CarRental.BussinessLayer.Managers
     {
         // FIELDS
 
-        private RepairValidation _repairValidator;
-        private VehicleValidation _carValidator;
-        private MechanicValidation _mechanicValidator;
-        private IndexOfListValidation _indexValidator;
+        // PROPERTIES
+
+        internal RepairValidation RepairValidator { get; init; }
+        internal VehicleValidation CarValidator { get; init; }
+        internal MechanicValidation MechanicValidator { get; init; }
+        internal IndexOfListValidation IndexValidator { get; init; }
 
         // PROPERTIES
 
@@ -28,8 +30,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public Repair GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull)
         {
-            _carValidator.CheckNull(car);
-            _mechanicValidator.CheckNull(mechanic);
+            CarValidator.CheckNull(car);
+            MechanicValidator.CheckNull(mechanic);
 
             Repair repair = new Repair
             {
@@ -45,15 +47,15 @@ namespace CarRental.BussinessLayer.Managers
                  TotalCost = (car.Price / 3)
             };
 
-            _repairValidator.CheckNull(repair);
+            RepairValidator.CheckNull(repair);
 
             return repair;
         }
 
         public void AddRepairInToList(List<Repair> repairs, Repair repair)
         {
-            _repairValidator.CheckNull(repairs);
-            _repairValidator.CheckNull(repair);
+            RepairValidator.CheckNull(repairs);
+            RepairValidator.CheckNull(repair);
 
             repairs.Add(repair);
         }
@@ -62,8 +64,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public Repair ChooseRepairFromList(List<Repair> repairs, int index)
         {
-            _repairValidator.CheckNull(repairs);
-            _indexValidator.ValidateIndexOfList(repairs, index);
+            RepairValidator.CheckNull(repairs);
+            IndexValidator.ValidateIndexOfList(repairs, index);
             
             Repair repair = repairs[index];
 
@@ -72,18 +74,18 @@ namespace CarRental.BussinessLayer.Managers
 
         public Repair ChooseRepairFromList(List<Repair> repairs, string id)
         {
-            _repairValidator.CheckNull(repairs);
+            RepairValidator.CheckNull(repairs);
 
             Repair repair = repairs.Find(x => x.Id.Contains(id));
 
-            _repairValidator.CheckNull(repair);
+            RepairValidator.CheckNull(repair);
 
             return repair;
         }
 
         public string ShowRepairInfo(Repair repair)
         {
-            _repairValidator.CheckNull(repair);
+            RepairValidator.CheckNull(repair);
 
             return repair.ToString();
         }
@@ -92,15 +94,15 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DeleteRepairFromList(List<Repair> repairs, int index)
         {
-            _repairValidator.CheckNull(repairs);
-            _indexValidator.ValidateIndexOfList(repairs, index);
+            RepairValidator.CheckNull(repairs);
+            IndexValidator.ValidateIndexOfList(repairs, index);
 
             repairs.RemoveAt(index);
         }
 
         public void DeleteRepairFromList(List<Repair> repairs, string id)
         {
-            _repairValidator.CheckNull(repairs);
+            RepairValidator.CheckNull(repairs);
 
             repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id.Contains(id))));
         }
