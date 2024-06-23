@@ -49,7 +49,8 @@ namespace CarRental.BussinessLayer.Managers
                     _outputManager.PrintMessage("2. Buy a car");
                     _outputManager.PrintMessage("3. Rent a car");
                     _outputManager.PrintMessage("4. Check your deals");
-                    _outputManager.PrintMessage("5. Exit");
+                    _outputManager.PrintMessage("5. Check your cars");
+                    _outputManager.PrintMessage("6. Exit");
                 }
                 else
                 {
@@ -115,6 +116,20 @@ namespace CarRental.BussinessLayer.Managers
                     case "5":
                         if (_portalInstance.IsCustomer)
                         {
+                            DisplayCustomerCars(_customerManager, _portalInstance.UserData as Customer);
+                            _outputManager.PrintMessage("");
+                            _outputManager.PrintMessage("Press any key to continue...");
+                            _outputManager.GetUserPrompt();
+                        }
+                        else
+                        {
+                            _outputManager.PrintMessage("Program stopped");
+                            Environment.Exit(0);
+                        }
+                        break;
+                    case "6":
+                        if (_portalInstance.IsCustomer)
+                        {
                             _outputManager.PrintMessage("Program stopped");
                             Environment.Exit(0);
                         }
@@ -137,6 +152,11 @@ namespace CarRental.BussinessLayer.Managers
         public void DisplayCars()
         {
             _carServiceManager.DisplayCarsInTable(_outputManager);
+        }
+
+        public void DisplayCustomerCars(CustomerManager manager, Customer customer)
+        {
+            _outputManager.PrintMessage(manager.ShowCars(customer, _carServiceManager));
         }
 
         public void BuyRentCarFlow(bool buy = true)

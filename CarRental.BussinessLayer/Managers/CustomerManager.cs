@@ -35,8 +35,23 @@ namespace CarRental.BussinessLayer.Managers
         {
             for (int i = 0; i < customer.Deals.Count; i++)
             {
-                Console.WriteLine(customer.Deals[i].ToString());
+                Console.WriteLine(customer.Deals[i].ToString());    // CHANGE IT PLS, IT IS HARD-CONNECTION TO CONSOLE, SHOULD BE NOT.
             }
+        }
+
+        // WITH HELP OF STRING BUILDER IT GOING TO BE EASIER FOR PERFORMANCE.
+        public string ShowCars(Customer customer, ServiceManager serviceManager)
+        {
+            StringBuilder displayBuilder = new StringBuilder();
+
+            foreach (Car car in customer.Cars)
+            {
+                displayBuilder.Append(serviceManager.DisplayCar(car));
+
+                displayBuilder.Append(" || ");
+            }
+
+            return displayBuilder.ToString();
         }
     }
 }
