@@ -1,4 +1,4 @@
-﻿using CarRental.Data.Models.Car;
+﻿using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
 using System;
 using System.Collections;
