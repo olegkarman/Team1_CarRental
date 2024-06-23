@@ -49,9 +49,8 @@ namespace CarRental.BussinessLayer.Managers
         {
             StringBuilder displayBuilder = new StringBuilder();
 
-            if (customer.Cars != null)
+            if (customer.Cars != null)  // ACTUALLY VALIDATION IS BETTER TO SPARE INTO A SEPARATE CLASS, BUT I DO NOT WANT TOO MUCH REWRITE THE CLASS WHICH IS NOT MINE.
             {
-
                 foreach (Car? car in customer.Cars)
                 {
                     displayBuilder.Append(serviceManager.DisplayCar(car));
@@ -59,7 +58,16 @@ namespace CarRental.BussinessLayer.Managers
                     displayBuilder.Append(" || ");
                 }
 
-                return displayBuilder.ToString();
+                string? output = displayBuilder.ToString();
+
+                if (String.IsNullOrEmpty(output))
+                {
+                    return _noInfo;
+                }
+                else
+                {
+                    return output;
+                }
             }
             else
             {
