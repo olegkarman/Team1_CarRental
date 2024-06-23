@@ -499,6 +499,13 @@ public class ServiceManager : ICarManager
         return car.Lights.ToString();
     }
 
+    public string ShowDeal(Car car)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        return $"{car.Engagement.ToString()}";
+    }
+
     // UPDATE
 
     public void ChangeEngine (Car car, string engine)
@@ -734,6 +741,15 @@ public class ServiceManager : ICarManager
         _supplementData.Validator.CheckNull(car);
 
         _supplementData.JunkRepairManager.AddRepairInToList(car.Repairs, repair);
+    }
+
+    public void AddDealToCar(Car car, Deal deal)
+    {
+        _supplementData.Validator.CheckNull(car);
+
+        // CHECK NULL DEAL
+
+        car.Engagement = deal;
     }
 
     // DELETE

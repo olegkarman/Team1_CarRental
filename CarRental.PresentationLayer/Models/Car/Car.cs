@@ -85,6 +85,7 @@ public class Car
     public TransportStatus? Status { get; set; }
     public bool? IsFitForUse { get; set; }
 
+    public Deal? Engagement { get; set; }
     public List<Repair>? Repairs { get; set; }
 
     // CONSTRUCTORS

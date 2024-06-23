@@ -11,17 +11,23 @@ namespace CarRental.BussinessLayer.Managers
 {
     public class CustomerManager
     {
-        public void BuyCar(Car car, Customer customer)
+        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager)
         {
             Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
             customer.Deals.Add(newDeal);
+
+            serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER.
+
             car.Status = Data.Enums.TransportStatus.Sold;
         }
 
-        public void RentCar(Car car, Customer customer)
+        public void RentCar(Car car, Customer customer, ServiceManager serviceManager)
         {
             Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
             customer.Deals.Add(newDeal);
+
+            serviceManager.AddDealToCar(car, newDeal);
+
             car.Status = Data.Enums.TransportStatus.Rented;
         }
 

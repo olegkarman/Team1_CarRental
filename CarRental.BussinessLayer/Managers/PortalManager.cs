@@ -160,11 +160,11 @@ namespace CarRental.BussinessLayer.Managers
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                _customerManager.BuyCar(car, _portalInstance.UserData as Customer);
+                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager);
             }
             else
             {
-                _customerManager.RentCar(car, _portalInstance.UserData as Customer);
+                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager);
             }
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
