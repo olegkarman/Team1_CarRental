@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarRental.Data.Models.Car.RecordTypes;
+namespace CarRental.Data.Models.Automobile.RecordTypes;
 
 public record class PatternCharMaps
 {

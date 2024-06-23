@@ -7,7 +7,7 @@ using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Enums;
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.Data.Models.Automobile;
 
 public class Car
 {

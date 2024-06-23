@@ -7,7 +7,6 @@ using CarRental.Data.Models;
 using CarRental.Data.Enums;
 using CarRental.BussinessLayer.Validators;
 using CarRental.BussinessLayer.Services;
-using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 
 namespace CarRental.BussinessLayer.Managers

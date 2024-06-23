@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Interfaces;
-using CarRental.Data.Models.Car.RecordTypes;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
-namespace CarRental.Data.Models.Car;
+namespace CarRental.Data.Models.Automobile;
 
 public class Brand
 {

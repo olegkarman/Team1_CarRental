@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Models;
+using CarRental.Data.Models.Automobile;
 
 namespace CarRental.Data.Models;
 public class Customer : User

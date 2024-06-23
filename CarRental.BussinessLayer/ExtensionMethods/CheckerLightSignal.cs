@@ -1,5 +1,5 @@
 ﻿using CarRental.Data.Enums;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models.Automobile;
 
 namespace CarRental.BussinessLayer.ExtensionMethods;
 

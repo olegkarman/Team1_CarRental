@@ -8,9 +8,9 @@ using CarRental.BussinessLayer.ExtensionMethods;
 using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
-using CarRental.Data.Models.Car.RecordTypes;
+using CarRental.Data.Models.Automobile.RecordTypes;
 using System.Drawing;
 
 namespace CarRental.BussinessLayer.Managers;
