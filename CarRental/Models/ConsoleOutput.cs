@@ -54,22 +54,22 @@ public class ConsoleOutput : IOutputManager
         string status;
 
         // HOW TO SEND ON THE PLACE OF NUMBER 17 PARAMETER SOME VARIABLE???
-        Console.WriteLine("{0, -13}|{1, -15}|{2, -15}|{3, -18}|{4, -10}|{5, -10}|{6,-5}", "BRAND", "MODEL", "NUMBERPLATE", "COLOUR", "YEAR", "STATUS", "IS READY");
-        Console.WriteLine("————————————————————————————————————————————————————————————————————————————————————————————————");
+        Console.WriteLine("{0, -3}|{1, -13}|{2, -15}|{3, -15}|{4, -18}|{5, -10}|{6, -10}|{7, -5}", "№", "BRAND", "MODEL", "NUMBERPLATE", "COLOUR", "YEAR", "STATUS", "IS READY");
+        Console.WriteLine("———————————————————————————————————————————————————————————————————————————————————————————————————");
 
-        foreach (string carInfo in carsInfo)
+        for (int index = 0; index < carsInfo.Length; index = index + 1)
         {
-            if (string.IsNullOrEmpty(carInfo))
+            if (string.IsNullOrEmpty(carsInfo[index]))
             {
                 continue;
             }
             else
             {
-                tempInfo = carInfo;     // STRING-INSTANCE HAVE CLONEABLE BEHAVIOR, NOT JUST TO REASSIGN THE REFERENCE.
+                tempInfo = carsInfo[index];     // STRING-INSTANCE HAVE CLONEABLE BEHAVIOR, NOT JUST TO REASSIGN THE REFERENCE.
 
-                tempInfo = Regex.Match(carInfo, patternInitialTrim).Value;  // STATIC, NO GC ADDITIONAL WORK.
+                tempInfo = Regex.Match(carsInfo[index], patternInitialTrim).Value;  // STATIC, NO GC ADDITIONAL WORK.
 
-                carsInfoInput = tempInfo.Replace(textToDeleteFirst, string.Empty); // TRIM WILL NOT WORK.
+                tempInfo = tempInfo.Replace(textToDeleteFirst, string.Empty); // TRIM WILL NOT WORK.
 
                 tempInfo = tempInfo.Replace(textToDeleteSecond, string.Empty);
 
@@ -92,8 +92,8 @@ public class ConsoleOutput : IOutputManager
 
                 isFitForUse = Regex.Match(tempInfo, statusSecondaryMatch).Value;
 
-                Console.WriteLine("{0, -13}|{1, -15}|{2, -15}|{3, -18}|{4, -10}|{5, -10}|{6,-5}", brand, model, numberPlate, colour, year, status, isFitForUse);
-                Console.WriteLine("————————————————————————————————————————————————————————————————————————————————————————————————");
+                Console.WriteLine("{0, -3}|{1, -13}|{2, -15}|{3, -15}|{4, -18}|{5, -10}|{6, -10}|{7, -5}", index, brand, model, numberPlate, colour, year, status, isFitForUse);
+                Console.WriteLine("———————————————————————————————————————————————————————————————————————————————————————————————————");
             }
         }
     }

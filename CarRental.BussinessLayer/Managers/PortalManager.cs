@@ -181,8 +181,6 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.DisplayCarsInTable(_outputManager);
         }
 
-
-
         // I THINK LOGIC OF DISPLAY SOMETHING IN CONSOLE SHOULD BE HERE ARE.
         public void DisplayCustomerCars
         (
