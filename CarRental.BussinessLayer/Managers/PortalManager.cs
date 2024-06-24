@@ -19,8 +19,6 @@ namespace CarRental.BussinessLayer.Managers
         private InspectorCars _inspectorCars;
         private CustomerManager _customerManager;
         private InspectionsManager _inspectionsManager;
-        //private MechanicManager _mechanicManager;
-        //private RepairManager _repairManager;
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -31,8 +29,6 @@ namespace CarRental.BussinessLayer.Managers
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
             _inspectionsManager = new InspectionsManager();
-            //_mechanicManager = new MechanicManager();
-            //_repairManager = new RepairManager();
         }
 
         public void StartMainMenu()
@@ -263,15 +259,15 @@ namespace CarRental.BussinessLayer.Managers
             int index;
             while (true)
             {
-                _outputManager.PrintMessage("Which car do you want to buy? Select from 1 to 15");
+                _outputManager.PrintMessage($"Which car do you want to buy? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && index >= 1 && index <= 15)
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
                 {
                     break;
                 }
 
-                _outputManager.PrintMessage("Error: Please enter a valid number from 1 to 15.");
+                _outputManager.PrintMessage($"Error: Please enter a valid number from 1 to {_carServiceManager.CurrentCars.Count}.");
             }
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
@@ -296,15 +292,15 @@ namespace CarRental.BussinessLayer.Managers
             int index;
             while (true)
             {
-                _outputManager.PrintMessage("Which car do you want to inspect? Select from 1 to 15");
+                _outputManager.PrintMessage($"Which car do you want to inspect? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && index >= 1 && index <= 15)
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
                 {
                     break;
                 }
 
-                _outputManager.PrintMessage("Error: Please enter a valid number from 1 to 15.");
+                _outputManager.PrintMessage($"Error: Please enter a valid number from 1 to {_carServiceManager.CurrentCars.Count}.");
             }
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             _inspectorCars.InspectCar(car, (_portalInstance.UserData as Inspector), _inspectionsManager);
