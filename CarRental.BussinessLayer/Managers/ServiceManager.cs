@@ -704,6 +704,14 @@ public class ServiceManager : ICarManager
         this.SelectedCar.Status = status;
     }
 
+    public void ChangerOwner(Car car, Customer owner)
+    {
+        SupplementData.Validator.CheckNull(car);
+
+        // I SHOULD CHECK CUSTOMER OVER NULL.
+        car.Owner = owner;
+    }
+
     public void Repair(Car car, Mechanic mechanic)
     {
         SupplementData.Validator.CheckNull(car);
