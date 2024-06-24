@@ -9,6 +9,7 @@ public class DealManager
     private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
+    // MOVE IT INTO SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
     public DealManager()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;

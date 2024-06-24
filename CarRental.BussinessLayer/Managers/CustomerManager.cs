@@ -19,6 +19,7 @@ namespace CarRental.BussinessLayer.Managers
         public void BuyCar(Car car, Customer customer, ServiceManager serviceManager)
         {
             // NULL-VALIDATION SHOULD BE.
+            // THIS IS WORK OF DEAL-MANAGER, NOT CUSTOMER MANAGER.
             Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
 
