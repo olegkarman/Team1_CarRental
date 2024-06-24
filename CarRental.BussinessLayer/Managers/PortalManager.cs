@@ -3,6 +3,11 @@ using CarRental.Data.Models;
 using CarRental.BussinessLayer.Interfaces;
 using System;
 using System.Text;
+using CarRental.Data.Models.Automobile;
+using System.Drawing;
+using System.Globalization;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -14,6 +19,8 @@ namespace CarRental.BussinessLayer.Managers
         private InspectorCars _inspectorCars;
         private CustomerManager _customerManager;
         private InspectionsManager _inspectionsManager;
+        private MechanicManager _mechanicManager;
+        private RepairManager _repairManager;
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -24,6 +31,8 @@ namespace CarRental.BussinessLayer.Managers
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
             _inspectionsManager = new InspectionsManager();
+            _mechanicManager = new MechanicManager();
+            _repairManager = new RepairManager();
         }
 
         public void StartMainMenu()
@@ -48,6 +57,7 @@ namespace CarRental.BussinessLayer.Managers
             string yearMatch = @"(?<=Year)(.*?)(?=\|)";
             string statusMainMatch = @"(?<=Status)(.*?)(?=\|)";
             string statusSecondaryMatch = @"(?<=IsFitForUse)(.*?)(?=\|)";
+            string guidMatch = @"(?<=CarId)(.*?)(?=\|)";
 
             while (true)
             {
@@ -62,7 +72,8 @@ namespace CarRental.BussinessLayer.Managers
                     _outputManager.PrintMessage("3. Rent a car");
                     _outputManager.PrintMessage("4. Check your deals");
                     _outputManager.PrintMessage("5. Check your cars");
-                    _outputManager.PrintMessage("6. Exit");
+                    _outputManager.PrintMessage("6. Repair your car");
+                    _outputManager.PrintMessage("7. Exit");
                 }
                 else
                 {
@@ -144,6 +155,7 @@ namespace CarRental.BussinessLayer.Managers
                                 statusMainMatch,
                                 statusSecondaryMatch
                             );
+
                             _outputManager.PrintMessage("");
                             _outputManager.PrintMessage("Press any key to continue...");
                             _outputManager.GetUserPrompt();
@@ -155,6 +167,33 @@ namespace CarRental.BussinessLayer.Managers
                         }
                         break;
                     case "6":
+                        if (_portalInstance.IsCustomer)
+                        {
+                            RepairCarFlow
+                            (
+                                _customerManager,
+                                _portalInstance.UserData as Customer,
+                                patternInitialTrim,
+                                delimiterToSplit,
+                                textToDeleteFirst,
+                                textToDeleteSecond,
+                                brandMatch,
+                                modelMatch,
+                                numberPlateMatch,
+                                colourMatch,
+                                yearMatch,
+                                statusMainMatch,
+                                statusSecondaryMatch,
+                                guidMatch
+                            );
+                        }
+                        else
+                        {
+                            _outputManager.PrintMessage("Program stopped");
+                            Environment.Exit(0);
+                        }
+                        break;
+                    case "7":
                         if (_portalInstance.IsCustomer)
                         {
                             _outputManager.PrintMessage("Program stopped");
@@ -272,6 +311,139 @@ namespace CarRental.BussinessLayer.Managers
             _outputManager.PrintMessage("");
             _outputManager.PrintMessage("Press any key to continue...");
             _outputManager.GetUserPrompt();
+        }
+
+        public void RepairCarFlow
+        (
+            CustomerManager manager,
+            Customer customer,
+            string patternInitialTrim,
+            string delimiterToSplit,
+            string textToDeleteFirst,
+            string textToDeleteSecond,
+            string brandMatch,
+            string modelMatch,
+            string numberPlateMatch,
+            string colourMatch,
+            string yearMatch,
+            string statusMainMatch,
+            string statusSecondaryMatch,
+            string guidMatch
+        )
+        {
+            // I JUST MIMICED METHODS ABOVE. DECIDED TO NOT DIFFERENT SOLUTION.
+            _outputManager.ClearUserUI();
+
+            DisplayCustomerCars
+            (
+                manager,
+                customer,
+                patternInitialTrim,
+                delimiterToSplit,
+                textToDeleteFirst,
+                textToDeleteSecond,
+                brandMatch,
+                modelMatch,
+                numberPlateMatch,
+                colourMatch,
+                yearMatch,
+                statusMainMatch,
+                statusSecondaryMatch
+            );
+
+            _outputManager.PrintMessage("");
+
+            int numberInput;
+            string input;
+            string iD;
+            bool isInputSuccessfull = false;
+
+            if (customer.Cars.Count == 0)
+            {
+                _outputManager.PrintMessage("DEAR CUSTOMER, YOU HAVE NO ANY CAR TO REPAIR!!!");
+
+                return;
+            }
+
+            // DO I MAKE DUPLICATE OF MY OWN LOGIC???
+            string inputInfo = manager.ShowCars(customer, _carServiceManager);
+
+            string[] carsInfo = inputInfo.Split(delimiterToSplit); 
+
+            // UPPER BORDER OF COUNT VALIDATION??? MAYBE I WILL.
+            for (int index = 0; index < carsInfo.Length; index = index + 1)
+            {
+                if (string.IsNullOrEmpty(carsInfo[index]))
+                {
+                    continue;
+                }
+                else
+                {
+                    carsInfo[index] = Regex.Match(carsInfo[index], patternInitialTrim).Value;  // STATIC, NO GC ADDITIONAL WORK.
+
+                    carsInfo[index] = carsInfo[index].Replace(textToDeleteFirst, string.Empty); // TRIM WILL NOT WORK.
+
+                    carsInfo[index] = carsInfo[index].Replace(textToDeleteSecond, string.Empty);
+                }
+            }
+
+            do
+            {
+                _outputManager.PrintMessage("SELECT A CAR WHICH YOU WANT TO REPAIR BY ITS NUMBER №:");
+
+                input = _outputManager.GetUserPrompt();
+
+                isInputSuccessfull = int.TryParse(input, out numberInput) && (numberInput < customer.Cars.Count);
+
+                if (!isInputSuccessfull)
+                {
+                    _outputManager.PrintMessage("YOU MADE A WRONG CHOICE!!! PLEASE, MAKE CORRECT SELECTION OF A CAR!");
+                }
+            }
+            while (!isInputSuccessfull);
+
+            iD = Regex.Match(carsInfo[numberInput], guidMatch).Value;
+
+            Guid guid = new Guid(iD);
+
+            // LOOKING FOR CAR BY ITS GUID, INSTEAD OF INDEX.
+            Car car = _carServiceManager.ChooseCarFromList(customer.Cars, guid);
+
+            // CREATE RANDOM MECHANIC.
+            
+            Mechanic mechanic = _mechanicManager.GetNewRandomMechanic();
+
+            // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
+            _carServiceManager.Repair(car, mechanic);
+
+            bool isSuccessfull = (bool)car.IsFitForUse;
+
+            if (isSuccessfull)
+            {
+                _outputManager.PrintMessage("YOUR CAR IS REPAIRED SUCCESSFULLY!!!");
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage(_carServiceManager.DisplayCar(car));
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage("REPAIR HISTORY:");
+
+                foreach (Repair repair in car.Repairs)
+                {
+                    _outputManager.PrintMessage(_repairManager.ShowRepairInfo(repair));
+
+                }
+
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage("Press any key to continue...");
+                _outputManager.GetUserPrompt();
+            }
+            else
+            {
+                _outputManager.PrintMessage("YOUR CAR IS NOT REPAIRED!!!");
+
+                _outputManager.PrintMessage("");
+                _outputManager.PrintMessage("Press any key to continue...");
+                _outputManager.GetUserPrompt();
+            }
         }
     }
 }
