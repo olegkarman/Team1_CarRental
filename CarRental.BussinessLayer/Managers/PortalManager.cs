@@ -156,7 +156,33 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DisplayCustomerCars(CustomerManager manager, Customer customer)
         {
-            _outputManager.PrintMessage(manager.ShowCars(customer, _carServiceManager));
+            string patternInitialTrim = @"(?<=\{)(.*)(?=\})";
+            string delimiterToSplit = "||";
+            string textToDeleteFirst = " ";
+            string textToDeleteSecond = "=";
+            string brandMatch = @"(?<=Brand)(.*?)(?=\|)";
+            string modelMatch = @"(?<=Model)(.*?)(?=\|)";
+            string numberPlateMatch = @"(?<=NumberPlate)(.*?)(?=\|)";
+            string colourMatch = @"(?<=Color)(.*?)(?=\|)";
+            string yearMatch = @"(?<=Year)(.*?)(?=\|)";
+            string statusMainMatch = @"(?<=Status)(.*?)(?=\|)";
+            string statusSecondaryMatch = @"(?<=IsFitForUse)(.*?)(?=\|)";
+
+            _outputManager.PrintCarsInfoOfCustomerInTable
+            (
+                manager.ShowCars(customer, _carServiceManager),
+                delimiterToSplit,
+                patternInitialTrim,
+                textToDeleteFirst,
+                textToDeleteSecond,
+                brandMatch,
+                modelMatch,
+                numberPlateMatch,
+                colourMatch,
+                yearMatch,
+                statusMainMatch,
+                statusSecondaryMatch
+            );
         }
 
         public void BuyRentCarFlow(bool buy = true)
