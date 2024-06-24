@@ -37,6 +37,18 @@ namespace CarRental.BussinessLayer.Managers
 
         public void ShowMainMenu()
         {
+            string patternInitialTrim = @"(?<=\{)(.*)(?=\})";
+            string delimiterToSplit = "||";
+            string textToDeleteFirst = " ";
+            string textToDeleteSecond = "=";
+            string brandMatch = @"(?<=Brand)(.*?)(?=\|)";
+            string modelMatch = @"(?<=Model)(.*?)(?=\|)";
+            string numberPlateMatch = @"(?<=NumberPlate)(.*?)(?=\|)";
+            string colourMatch = @"(?<=Color)(.*?)(?=\|)";
+            string yearMatch = @"(?<=Year)(.*?)(?=\|)";
+            string statusMainMatch = @"(?<=Status)(.*?)(?=\|)";
+            string statusSecondaryMatch = @"(?<=IsFitForUse)(.*?)(?=\|)";
+
             while (true)
             {
                 _outputManager.PrintMessage($"Welcome {_portalInstance.UserData.FirstName}");
@@ -116,7 +128,22 @@ namespace CarRental.BussinessLayer.Managers
                     case "5":
                         if (_portalInstance.IsCustomer)
                         {
-                            DisplayCustomerCars(_customerManager, _portalInstance.UserData as Customer);
+                            DisplayCustomerCars
+                            (
+                                _customerManager,
+                                _portalInstance.UserData as Customer,
+                                patternInitialTrim,
+                                delimiterToSplit,
+                                textToDeleteFirst,
+                                textToDeleteSecond,
+                                brandMatch,
+                                modelMatch,
+                                numberPlateMatch,
+                                colourMatch,
+                                yearMatch,
+                                statusMainMatch,
+                                statusSecondaryMatch
+                            );
                             _outputManager.PrintMessage("");
                             _outputManager.PrintMessage("Press any key to continue...");
                             _outputManager.GetUserPrompt();
@@ -154,20 +181,26 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.DisplayCarsInTable(_outputManager);
         }
 
-        public void DisplayCustomerCars(CustomerManager manager, Customer customer)
-        {
-            string patternInitialTrim = @"(?<=\{)(.*)(?=\})";
-            string delimiterToSplit = "||";
-            string textToDeleteFirst = " ";
-            string textToDeleteSecond = "=";
-            string brandMatch = @"(?<=Brand)(.*?)(?=\|)";
-            string modelMatch = @"(?<=Model)(.*?)(?=\|)";
-            string numberPlateMatch = @"(?<=NumberPlate)(.*?)(?=\|)";
-            string colourMatch = @"(?<=Color)(.*?)(?=\|)";
-            string yearMatch = @"(?<=Year)(.*?)(?=\|)";
-            string statusMainMatch = @"(?<=Status)(.*?)(?=\|)";
-            string statusSecondaryMatch = @"(?<=IsFitForUse)(.*?)(?=\|)";
 
+
+        // I THINK LOGIC OF DISPLAY SOMETHING IN CONSOLE SHOULD BE HERE ARE.
+        public void DisplayCustomerCars
+        (
+            CustomerManager manager,
+            Customer customer,
+            string patternInitialTrim,
+            string delimiterToSplit,
+            string textToDeleteFirst,
+            string textToDeleteSecond,
+            string brandMatch,
+            string modelMatch,
+            string numberPlateMatch,
+            string colourMatch,
+            string yearMatch,
+            string statusMainMatch,
+            string statusSecondaryMatch
+        )
+        {
             _outputManager.PrintCarsInfoOfCustomerInTable
             (
                 manager.ShowCars(customer, _carServiceManager),

@@ -54,8 +54,8 @@ public class ConsoleOutput : IOutputManager
         string status;
 
         // HOW TO SEND ON THE PLACE OF NUMBER 17 PARAMETER SOME VARIABLE???
-        Console.WriteLine("{0, -13}|{1, -15}|{2, -15}|{3, -15}|{4, -10}|{5, -10}|{6,-5}", "BRAND", "MODEL", "NUMBERPLATE", "COLOUR", "YEAR", "STATUS", "IS READY");
-        Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————————————————");
+        Console.WriteLine("{0, -13}|{1, -15}|{2, -15}|{3, -18}|{4, -10}|{5, -10}|{6,-5}", "BRAND", "MODEL", "NUMBERPLATE", "COLOUR", "YEAR", "STATUS", "IS READY");
+        Console.WriteLine("————————————————————————————————————————————————————————————————————————————————————————————————");
 
         foreach (string carInfo in carsInfo)
         {
@@ -92,8 +92,8 @@ public class ConsoleOutput : IOutputManager
 
                 isFitForUse = Regex.Match(tempInfo, statusSecondaryMatch).Value;
 
-                Console.WriteLine("{0, -13}|{1, -15}|{2, -15}|{3, -15}|{4, -10}|{5, -10}|{6,-5}", brand, model, numberPlate, colour, year, status, isFitForUse);
-                Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————————————————");
+                Console.WriteLine("{0, -13}|{1, -15}|{2, -15}|{3, -18}|{4, -10}|{5, -10}|{6,-5}", brand, model, numberPlate, colour, year, status, isFitForUse);
+                Console.WriteLine("————————————————————————————————————————————————————————————————————————————————————————————————");
             }
         }
     }
