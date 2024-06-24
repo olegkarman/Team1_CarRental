@@ -22,5 +22,9 @@ public class Customer : User
         this.Cars = new List<Car>();    // ADDED THIS (YPARKHOMENKO).
     }
 
-   
+   // BECAUSE THERE IS NO ANY SHOW-INFORMATION METHOD IN THE CUSTOMER MANAGER.
+   public override string ToString()
+   {
+        return $"{{ {nameof(FirstName)} = {this.FirstName} | {nameof(LastName)} = {this.LastName} | {nameof(DateOfBirth)} = {this.DateOfBirth} | {nameof(UserName)} = {this.UserName} | {nameof(IdNumber)} = {this.IdNumber} | }}";
+   }
 }
