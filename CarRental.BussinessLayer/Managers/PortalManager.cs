@@ -19,8 +19,8 @@ namespace CarRental.BussinessLayer.Managers
         private InspectorCars _inspectorCars;
         private CustomerManager _customerManager;
         private InspectionsManager _inspectionsManager;
-        private MechanicManager _mechanicManager;
-        private RepairManager _repairManager;
+        //private MechanicManager _mechanicManager;
+        //private RepairManager _repairManager;
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -31,8 +31,8 @@ namespace CarRental.BussinessLayer.Managers
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
             _inspectionsManager = new InspectionsManager();
-            _mechanicManager = new MechanicManager();
-            _repairManager = new RepairManager();
+            //_mechanicManager = new MechanicManager();
+            //_repairManager = new RepairManager();
         }
 
         public void StartMainMenu()
@@ -411,7 +411,7 @@ namespace CarRental.BussinessLayer.Managers
 
             // CREATE RANDOM MECHANIC.
             
-            Mechanic mechanic = _mechanicManager.GetNewRandomMechanic();
+            Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetNewRandomMechanic();
 
             // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
             _carServiceManager.Repair(car, mechanic);
@@ -428,8 +428,7 @@ namespace CarRental.BussinessLayer.Managers
 
                 foreach (Repair repair in car.Repairs)
                 {
-                    _outputManager.PrintMessage(_repairManager.ShowRepairInfo(repair));
-
+                    _outputManager.PrintMessage(_carServiceManager.SupplementData.JunkRepairManager.ShowRepairInfo(repair));
                 }
 
                 _outputManager.PrintMessage("");

@@ -18,7 +18,8 @@ namespace CarRental.Data.Models
         public int Year { get; init; }
         public string Name { get; set; }
         public string Surename { get; set; }
-        public List<Repair> Repairs { get; init; }
+
+        public List<Repair> Repairs { get; set; }
 
         // CONSTRUCTORS
 

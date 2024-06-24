@@ -25,12 +25,13 @@ public class ServiceManager : ICarManager
     private const string _noInfo = "NO INFORMATION";
     private StringBuilder _carsInfo;
     private Random _random;
-    private ServiceManagerSupplements _supplementData;
+
 
     // PROPERTTES
 
     internal List<Car>? CurrentCars { get; private set; }
     internal Car? SelectedCar { get; private set; }
+    public ServiceManagerSupplements SupplementData { get; private set; }
 
     // CONSTRUCTORS
 
@@ -47,7 +48,7 @@ public class ServiceManager : ICarManager
 
     public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
     {
-        _supplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
+        SupplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
 
         Car car = new Car
         {
@@ -59,7 +60,7 @@ public class ServiceManager : ICarManager
             Price = price
         };
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car;
     }
@@ -90,7 +91,7 @@ public class ServiceManager : ICarManager
     )
     {
         // CHECK ONLY NECCESSARY COMPONENTS.
-        _supplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
+        SupplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
 
         Car car = new Car
         {
@@ -118,35 +119,35 @@ public class ServiceManager : ICarManager
             Repairs = new List<Repair>()
         };
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car;
     }
 
     public Car GetNewRandomCar()
     {
-        Guid carId = _supplementData.RandomCarGenerator.GetNewCarId();
-        string vinCode = _supplementData.RandomCarGenerator.GetNewVinCode();
-        string model = _supplementData.RandomCarGenerator.GetNewModelName();
-        string brand = _supplementData.RandomCarGenerator.GetNewBrandName();
-        string numberPlate = _supplementData.RandomCarGenerator.GetNewNumberPlate();
-        int price = _supplementData.RandomCarGenerator.GetNewPrice();
+        Guid carId = SupplementData.RandomCarGenerator.GetNewCarId();
+        string vinCode = SupplementData.RandomCarGenerator.GetNewVinCode();
+        string model = SupplementData.RandomCarGenerator.GetNewModelName();
+        string brand = SupplementData.RandomCarGenerator.GetNewBrandName();
+        string numberPlate = SupplementData.RandomCarGenerator.GetNewNumberPlate();
+        int price = SupplementData.RandomCarGenerator.GetNewPrice();
 
-        string engine = _supplementData.RandomCarGenerator.GetNewEngine();
-        string transmission = _supplementData.RandomCarGenerator.GetNewTransmission();
-        string interior = _supplementData.RandomCarGenerator.GetNewInterior();
-        string wheels = _supplementData.RandomCarGenerator.GetNewWheels();
-        string lights = _supplementData.RandomCarGenerator.GetNewLights();
-        string signal = _supplementData.RandomCarGenerator.GetNewSignal();
-        KnownColor color = _supplementData.RandomCarGenerator.GetNewColor();
-        int numberOfSeats = _supplementData.RandomCarGenerator.GetNewNumberOfSeats();
-        int numberOfDoors = _supplementData.RandomCarGenerator.GetNewNumberOfDoors();
-        int year = _supplementData.RandomCarGenerator.GetNewYear();
-        float mileage = _supplementData.RandomCarGenerator.GetNewMileage();
-        int maxFuelCapacity = _supplementData.RandomCarGenerator.GetNewMaxFuelCapacity();
-        float currentFuel = _supplementData.RandomCarGenerator.GetNewCurrentFuel();
-        TransportStatus status = _supplementData.RandomCarGenerator.GetNewStatus();
-        bool isFitForUse = _supplementData.RandomCarGenerator.GetNewIsFitForUse();
+        string engine = SupplementData.RandomCarGenerator.GetNewEngine();
+        string transmission = SupplementData.RandomCarGenerator.GetNewTransmission();
+        string interior = SupplementData.RandomCarGenerator.GetNewInterior();
+        string wheels = SupplementData.RandomCarGenerator.GetNewWheels();
+        string lights = SupplementData.RandomCarGenerator.GetNewLights();
+        string signal = SupplementData.RandomCarGenerator.GetNewSignal();
+        KnownColor color = SupplementData.RandomCarGenerator.GetNewColor();
+        int numberOfSeats = SupplementData.RandomCarGenerator.GetNewNumberOfSeats();
+        int numberOfDoors = SupplementData.RandomCarGenerator.GetNewNumberOfDoors();
+        int year = SupplementData.RandomCarGenerator.GetNewYear();
+        float mileage = SupplementData.RandomCarGenerator.GetNewMileage();
+        int maxFuelCapacity = SupplementData.RandomCarGenerator.GetNewMaxFuelCapacity();
+        float currentFuel = SupplementData.RandomCarGenerator.GetNewCurrentFuel();
+        TransportStatus status = SupplementData.RandomCarGenerator.GetNewStatus();
+        bool isFitForUse = SupplementData.RandomCarGenerator.GetNewIsFitForUse();
 
         Car car = new Car
         {
@@ -174,7 +175,7 @@ public class ServiceManager : ICarManager
             Repairs = new List<Repair>()
         };
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car;
     }
@@ -186,15 +187,15 @@ public class ServiceManager : ICarManager
 
     public void AddCarInToList(List<Car> cars, Car car)
     {
-        _supplementData.Validator.CheckNull(cars);
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(cars);
+        SupplementData.Validator.CheckNull(car);
 
         cars.Add(car);
     }
 
     public void GetNewRandomCurrentCars(int count)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         this.CurrentCars.Clear();
 
@@ -209,7 +210,7 @@ public class ServiceManager : ICarManager
     public Car ChooseCarFromList(List<Car> list, int index)
     {
 
-        _supplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(list);
 
         if ((index < 0) || (index >= list.Count))
         {
@@ -218,14 +219,14 @@ public class ServiceManager : ICarManager
 
         Car car = list[index];
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car;
     }
 
     public Car ChooseCarFromList(List<Car> list, string model)
     {
-        _supplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(list);
 
         try
         {
@@ -248,7 +249,7 @@ public class ServiceManager : ICarManager
 
     public Car ChooseCarFromList(List<Car> list, Guid guid)
     {
-        _supplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(list);
 
         try
         {
@@ -270,21 +271,21 @@ public class ServiceManager : ICarManager
 
     public void SelectCarFromCurrentCars(int index)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         this.SelectedCar = ChooseCarFromList(CurrentCars, index);
     }
 
     public void SelectCarFromCurrentCars(string model)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         this.SelectedCar = ChooseCarFromList(CurrentCars, model);
     }
 
     public void SelectCarFromCurrentCars(Guid guid)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         this.SelectedCar = ChooseCarFromList(CurrentCars, guid);
     }
@@ -315,11 +316,11 @@ public class ServiceManager : ICarManager
     {
         Car car;
 
-        _supplementData.Validator.CheckNull(CurrentCars);
+        SupplementData.Validator.CheckNull(CurrentCars);
 
         car = ChooseCarFromList(CurrentCars, model);
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         this.SelectedCar = car;
 
@@ -330,11 +331,11 @@ public class ServiceManager : ICarManager
     {
         Car car;
 
-        _supplementData.Validator.CheckNull(CurrentCars);
+        SupplementData.Validator.CheckNull(CurrentCars);
 
         car = ChooseCarFromList(CurrentCars, guid);
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         this.SelectedCar = car;
 
@@ -355,49 +356,49 @@ public class ServiceManager : ICarManager
 
     public string DisplayCarFromList(List<Car> cars, int index)
     {
-        _supplementData.Validator.CheckNull(cars);
+        SupplementData.Validator.CheckNull(cars);
 
         return ChooseCarFromList(cars, index).ToString();
     }
 
     public string DisplayCarFromList(List<Car> cars, string model)
     {
-        _supplementData.Validator.CheckNull(cars);
+        SupplementData.Validator.CheckNull(cars);
 
         return ChooseCarFromList(cars, model).ToString();
     }
 
     public string DisplayCarFromList(List<Car> cars, Guid guid)
     {
-        _supplementData.Validator.CheckNull(cars);
+        SupplementData.Validator.CheckNull(cars);
 
         return ChooseCarFromList(cars, guid).ToString();
     }
 
     public string DisplayCarFromCurrentCars(int index)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         return ChooseCarFromList(this.CurrentCars, index).ToString();
     }
 
     public string DisplayCarFromCurrentCars(string model)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         return ChooseCarFromList(this.CurrentCars, model).ToString();
     }
 
     public string DisplayCarFromCurrentCars(Guid guid)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         return ChooseCarFromList(this.CurrentCars, guid).ToString();
     }
 
     public string DisplayCar(Car car)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return $"{nameof(car)} | {car.ToString()}";
     }
@@ -436,7 +437,7 @@ public class ServiceManager : ICarManager
     {
         _carsInfo.Clear();
 
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         foreach (Car car in CurrentCars)
         {
@@ -448,13 +449,13 @@ public class ServiceManager : ICarManager
 
     //public string CheckFuelCar(Car car)
     //{
-    //    _supplementData.Validator.CheckNull(car);
+    //    SupplementData.Validator.CheckNull(car);
 
     //    _carsInfo.Clear();
 
     //    try
     //    {
-    //        float? division = (float?)_supplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
+    //        float? division = (float?)SupplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
 
     //        division = (float)division * 100;
 
@@ -475,7 +476,7 @@ public class ServiceManager : ICarManager
 
     public string ShowMileage(Car car)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car.Mileage.ToString();
     }
@@ -487,21 +488,21 @@ public class ServiceManager : ICarManager
 
     public string CheckSignal(Car car)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car.Signal.ToString();
     }
 
     public string CheckLights(Car car)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return car.Lights.ToString();
     }
 
     public string ShowDeal(Car car)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         return $"{car.Engagement.ToString()}";
     }
@@ -510,163 +511,163 @@ public class ServiceManager : ICarManager
 
     public void ChangeEngine (Car car, string engine)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(engine);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(engine);
 
         car.Engine = engine;
     }
 
     public void ChangeTransmission(Car car, string transmission)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(transmission);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(transmission);
 
         car.Transmission = transmission;
     }
 
     public void ChangeInterior(Car car, string interior)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(interior);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(interior);
 
         car.Interior = interior;
     }
 
     public void ChangeWheels(Car car, string wheels)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(wheels);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(wheels);
 
         car.Wheels = wheels;
     }
 
     public void ChangeLights(Car car, string lights)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(lights);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(lights);
 
         car.Lights = lights;
     }
 
     public void ChangeSignal(Car car, string signal)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(signal);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(signal);
 
         car.Signal = signal;
     }
 
     public void ChangeColor(Car car, KnownColor color)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckType(color);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckType(color);
 
         car.Color = color;
     }
 
     public void ChangePrice(Car car, int price)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckPrice(price);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckPrice(price);
 
         car.Price = price;
     }
 
     public void ChangeNumberPlate(Car car, string numberPlate)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckNull(numberPlate);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(numberPlate);
 
         car.NumberPlate = numberPlate;
     }
 
     public void ChangeNumberOfSeats(Car car, int number)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckZeroNegative(number);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckZeroNegative(number);
 
         car.NumberOfSeats = number;
     }
 
     public void ChangeNumberDoors(Car car, int number)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckZeroNegative(number);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckZeroNegative(number);
 
         car.NumberOfDoors = number;
     }
 
     public void ChangeMileage(Car car, float mileage)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckZeroNegative(mileage);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckZeroNegative(mileage);
 
         car.Mileage = mileage;
     }
 
     public void ChangeMaxFuelCapacity(Car car, int capacity)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckZeroNegative(capacity);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckZeroNegative(capacity);
 
         car.MaxFuelCapacity = capacity;
     }
 
     public void ChangeCurrentFuel(Car car, float capacity)
     {
-        _supplementData.Validator.CheckNull(car);
-        _supplementData.Validator.CheckZeroNegative(capacity);
+        SupplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckZeroNegative(capacity);
 
         car.CurrentFuel = capacity;
     }
 
     public void ChangeFitForUse(Car car, bool isUse)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         car.IsFitForUse = isUse;
     }
 
     public void ChangeCarStatus(Car car, TransportStatus status)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
-        _supplementData.Validator.CheckType(status);
+        SupplementData.Validator.CheckType(status);
 
         car.Status = status;
     }
 
     public void ChangeCarStatus(Car car, int status)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
-        _supplementData.Validator.CheckType((TransportStatus)status);
+        SupplementData.Validator.CheckType((TransportStatus)status);
 
         car.Status = (TransportStatus)status;
     }
 
     public void ChangeCurrentCarStatus(int index, TransportStatus status)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         Car car = ChooseCarFromList(CurrentCars, index);
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
-        _supplementData.Validator.CheckType(status);
+        SupplementData.Validator.CheckType(status);
 
         CurrentCars[index].Status = status;
     }
 
     public void ChangeCurrentCarStatus(Guid guid, TransportStatus status)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
         Car car = ChooseCarFromList(CurrentCars, guid);
 
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
-        _supplementData.Validator.CheckType(status);
+        SupplementData.Validator.CheckType(status);
 
         // THIS IS A REFEREBCE TYPE, THE CHANGE WILL AFFECT CAR INSTANCE IN THE LIST.
         car.Status = status;
@@ -674,8 +675,8 @@ public class ServiceManager : ICarManager
 
     public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
     {
-        _supplementData.Validator.CheckNull(cars);
-        _supplementData.Validator.CheckType(status);
+        SupplementData.Validator.CheckNull(cars);
+        SupplementData.Validator.CheckType(status);
         
         foreach(Car car in cars)
         {
@@ -685,9 +686,9 @@ public class ServiceManager : ICarManager
 
     public void ChangeCurrentCarsStatus(TransportStatus status)
     {
-        _supplementData.Validator.CheckNull(this.CurrentCars);
+        SupplementData.Validator.CheckNull(this.CurrentCars);
 
-        _supplementData.Validator.CheckType(status);
+        SupplementData.Validator.CheckType(status);
 
         foreach (Car car in CurrentCars)
         {
@@ -697,19 +698,19 @@ public class ServiceManager : ICarManager
 
     public void ChangeSelectedCarStatus(TransportStatus status)
     {
-        _supplementData.Validator.CheckNull(this.SelectedCar);
-        _supplementData.Validator.CheckType(status);
+        SupplementData.Validator.CheckNull(this.SelectedCar);
+        SupplementData.Validator.CheckType(status);
 
         this.SelectedCar.Status = status;
     }
 
     public void Repair(Car car, Mechanic mechanic)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         bool isSuccessfull;
 
-        _supplementData.Validator.CheckNull(car.IsFitForUse);
+        SupplementData.Validator.CheckNull(car.IsFitForUse);
 
         bool isFitForUse = (bool)car.IsFitForUse;
 
@@ -726,25 +727,25 @@ public class ServiceManager : ICarManager
 
                 car.Status = (TransportStatus)1;
 
-                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
 
                 AddRepairInToCar(car, repair);
 
-                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
 
-                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
             else if (chance < 2)
             {
                 isSuccessfull = false;
 
-                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
 
                 AddRepairInToCar(car, repair);
 
-                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
 
-                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
         }
         else if (!isFitForUse)
@@ -757,39 +758,39 @@ public class ServiceManager : ICarManager
 
                 car.IsFitForUse = true;
 
-                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
 
                 AddRepairInToCar(car, repair);
 
-                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
 
-                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
             else
             {
                 isSuccessfull = false;
 
-                Repair repair = _supplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
 
                 AddRepairInToCar(car, repair);
 
-                _supplementData.JunkRepairManager.AddRepairInToList(_supplementData.JunkRepairManager.Repairs, repair);
+                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
 
-                _supplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
             }
         }
     }
 
     public void AddRepairInToCar(Car car, Repair repair)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
-        _supplementData.JunkRepairManager.AddRepairInToList(car.Repairs, repair);
+        SupplementData.JunkRepairManager.AddRepairInToList(car.Repairs, repair);
     }
 
     public void AddDealToCar(Car car, Deal deal)
     {
-        _supplementData.Validator.CheckNull(car);
+        SupplementData.Validator.CheckNull(car);
 
         // CHECK NULL DEAL
 
@@ -802,7 +803,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            _supplementData.Validator.CheckNull(list);
+            SupplementData.Validator.CheckNull(list);
 
             list.RemoveAt(index);
         }
@@ -816,7 +817,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            _supplementData.Validator.CheckNull(list);
+            SupplementData.Validator.CheckNull(list);
 
             list.RemoveAt(list.IndexOf(ChooseCarFromList(list, model)));
         }
@@ -838,7 +839,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            _supplementData.Validator.CheckNull(list);
+            SupplementData.Validator.CheckNull(list);
 
             list.RemoveAt(list.IndexOf(ChooseCarFromList(list, guid)));
         }
@@ -873,7 +874,7 @@ public class ServiceManager : ICarManager
 
     public void DeleteAllCarsFromList(List<Car> list)
     {
-        _supplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(list);
 
         list.Clear();
     }
@@ -885,16 +886,16 @@ public class ServiceManager : ICarManager
 
     //public void RefillCar(Car car)
     //{
-    //    _supplementData.Validator.CheckNull(car);
+    //    SupplementData.Validator.CheckNull(car);
 
-    //    _supplementData.Mechanic.Refill(car);
+    //    SupplementData.Mechanic.Refill(car);
     //}
 
     //public void RefillSelectedCar()
     //{
-    //    _supplementData.Validator.CheckNull(this.SelectedCar);
+    //    SupplementData.Validator.CheckNull(this.SelectedCar);
 
-    //    _supplementData.Mechanic.Refill(SelectedCar);
+    //    SupplementData.Mechanic.Refill(SelectedCar);
     //}
 
     // METHODS
@@ -907,7 +908,7 @@ public class ServiceManager : ICarManager
             // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
             SupplementDataInitializator dataInit = new SupplementDataInitializator();
 
-            this._supplementData = new ServiceManagerSupplements
+            this.SupplementData = new ServiceManagerSupplements
             {
                 Validator = dataInit.InitializeValidator(),
                 CharMaps = dataInit.InitializeCharacterMaps(),

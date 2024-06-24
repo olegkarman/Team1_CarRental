@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
+using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.BussinessLayer.Validators;
@@ -76,7 +77,7 @@ public class SupplementDataInitializator
             MechanicValidator = new MechanicValidation(),
             RepairValidator = new RepairValidation(),
             IndexValidator = new IndexOfListValidation(),
-            PseudoRandom = new Random() 
+            PseudoRandom = new Random()
         };
 
         return mechanicManager;
@@ -89,7 +90,9 @@ public class SupplementDataInitializator
             RepairValidator = new RepairValidation(),
             CarValidator = new VehicleValidation(),
             MechanicValidator = new MechanicValidation(),
-            IndexValidator = new IndexOfListValidation()
+            IndexValidator = new IndexOfListValidation(),
+
+            Repairs = new List<Repair>()
         };
 
         return repManager;

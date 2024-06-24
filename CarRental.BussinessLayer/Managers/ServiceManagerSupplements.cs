@@ -17,9 +17,9 @@ public class ServiceManagerSupplements
 
     // PROPERTIES
 
-    internal RandomCarGeneration RandomCarGenerator { get; init; }
-    internal VehicleValidation Validator { get; init; }
-    internal PatternCharMaps CharMaps { get; init; }
-    internal MechanicManager MechanicalManager { get; init; }
-    internal RepairManager JunkRepairManager { get; init; }
+    public RandomCarGeneration RandomCarGenerator { get; init; }
+    public VehicleValidation Validator { get; init; }
+    public PatternCharMaps CharMaps { get; init; }
+    public MechanicManager MechanicalManager { get; init; }
+    public RepairManager JunkRepairManager { get; init; }
 }
