@@ -1,5 +1,3 @@
-CREATE DATABASE KarmaRentalThree
-GO
 
 -- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
 
@@ -30,11 +28,11 @@ CREATE TABLE Users
 	Password NVARCHAR(250) NOT NULL,
 	UserName NVARCHAR(150) NOT NULL,
 	-- CUSTOMER
-	BasicDiscount FLOAT NOT NULL,
-	PassportNumber NVARCHAR(100) NOT NULL,
-	DrivingLicenseNumber NVARCHAR(100) NOT NULL,
+	BasicDiscount FLOAT NULL,
+	PassportNumber NVARCHAR(100) NULL,
+	DrivingLicenseNumber NVARCHAR(100) NULL,
 	-- INSPECTOR
-	EmployementDate DATETIME NOT NULL
+	EmployementDate DATETIME NULL
 
 	-- CONNECTIONS TO: [Cars] (1 — MANY), [Deals] (1 — MANY), [Inspections] (1 — MANY).
 );
@@ -162,8 +160,79 @@ CREATE TABLE Repairs
 
 INSERT INTO TransportStatuses
 	VALUES
-	(
-		0, 'Unknown'
-	);
+	   (0, 'Unknown'),
+	   (1, 'Available'),
+	   (2, 'Rented'),
+	   (3, 'Sold'),
+	   (4, 'InRepair'),
+	   (200, 'Unavailable');
 
+INSERT INTO InspectionStatuses
+	VALUES
+	   (0, 'Unknown'),
+       (1, 'Successfully'),
+       (2, 'Repair'),
+       (3, 'Unusable');
+
+-- SOME DATA TAKEN FROM MR. D. IBRAHIMOV'S BRANCH, AND O. KARMANSKYI CODE.
+-- SOME TUPLE MUST BE NULL TO REPRESENT CUSTOMER, INSPECTOR.
+INSERT INTO Users
+	VALUES
+		(
+			'615A5A48-5C4B-49F9-900B-0241134D640C',
+			'Olga',
+			'Ivanenko',
+			'1987-12-03T00:00:00',
+			'1234BB385678C6533DC7CF4A',
+			'Olga',
+			0.5,
+			'RW293589',
+			'895609'
+		),
+		(
+			'67F84A48-B96B-4A16-BB38-6C641F8504CC',
+			'Alex',
+			'Petrov',
+			'1984-11-03T00:00:00',
+			'87654BB38321C6533DCBB387CF4A',
+			'Alex',
+			0.2,
+			'VW634101',
+			'626825'
+		),
+		(
+			'3B8BE39A-0738-4B15-93C9-3AA1620CBC5A',
+			'Maria',
+			'Sidorova',
+			'1981-12-05T00:00:00',
+			'123BB38487BB3865C6533DC7CF4A',
+			'Maria',
+			0.2,
+			'MG225941',
+			'172860'
+		),
+		(
+			'BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2',
+			'Igor',
+			'Kuznetsov',
+			'1999-11-03T00:00:00',
+			'567BB388123BB384C6533DC7CF4A',
+			'Igor',
+			0.5,
+			'SL882705',
+			'242445'
+		),
+		(
+			'BF016BBD-0AF3-412A-B8CD-C6533DC7CF4A',
+			'Elena',
+			'Nikolaeva',
+			'1987-10-03T00:00:00',
+			'C653BB383DCBB387CF4A',
+			'Elena',
+			0.5,
+			'UX764750',
+			'488237'
+		);
+
+INSERT INTO DEALS
 -- END OF INSER VALUES SECTION
