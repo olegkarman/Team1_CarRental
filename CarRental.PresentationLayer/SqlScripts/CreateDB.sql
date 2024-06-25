@@ -22,18 +22,21 @@ CREATE TABLE InspectionStatuses
 
 CREATE TABLE Users
 (
+	-- ABSTRACT USER
 	IdNumber NVARCHAR(100) NOT NULL PRIMARY KEY,
 	FirstName NVARCHAR(150) NOT NULL,
 	LastName NVARCHAR(150) NOT NULL,
 	DateOfBirth Date NOT NULL,
 	Password NVARCHAR(250) NOT NULL,
 	UserName NVARCHAR(150) NOT NULL,
+	-- CUSTOMER
 	BasicDiscount FLOAT NOT NULL,
 	PassportNumber NVARCHAR(100) NOT NULL,
 	DrivingLicenseNumber NVARCHAR(100) NOT NULL,
+	-- INSPECTOR
 	EmployementDate DATETIME NOT NULL
 
-	-- CONNECTIONS TO: [Cars] (1 - MANY), [DEALS] (1 - MANY).
+	-- CONNECTIONS TO: [Cars] (1 — MANY), [Deals] (1 — MANY), [Inspections] (1 — MANY).
 );
 
 CREATE TABLE Deals
@@ -75,6 +78,7 @@ CREATE TABLE Cars
 		REFERENCES TransportStatuses (Status),
 	-- DEAL CONNECTION (Car HAS ONE DEAL)
 	Name NVARCHAR(250) NOT NULL,
+	-- CONNECTION TO Customer, (MANY - 1)
 	CustomerId NVARCHAR(100) NOT NULL,
 	FOREIGN KEY (Name, CustomerId)
 		REFERENCES Deals (Name, CustomerId),
@@ -90,27 +94,31 @@ CREATE TABLE Cars
 	Year DATE NULL,
 	IsFitForUse BIT NULL
 
-	-- ENTITY CONNECTIONS: [Deals] (1 - 1), [Inspections] (1 - MANY) V,
-	-- [Customer] (MANY - 1), [Repairs] (1 - MANY).
+	-- ENTITY CONNECTIONS: [Deals] (1 — 1), [Inspections] (1 — MANY) V,
+	-- [Customer] (MANY - 1) V, [Repairs] (1 - MANY).
 	-- DIRECTLY BY TYPES AND COLLECTIONS OF TYPE.
 );
 
 CREATE TABLE Inspections
 (
 	InspectionId NVARCHAR(100) NOT NULL PRIMARY KEY,
-	-- INSPECTION CONNECTION (Car HAS MANY INSPECTIONS),
+	-- INSPECTION CONNECTION TO Car, (MANY - 1).
 	CarId NVARCHAR(100) NOT NULL,
 	VinCode NVARCHAR(100) NOT NULL,
 	FOREIGN KEY (CarId, VinCode)
 		REFERENCES Cars (CarId, VinCode),
-	InspectionDate DATE NULL,
-	InspectorName NVARCHAR(250) NULL,
-	Result NVARCHAR(50) NULL,
 	-- INSPECTION CONNECTION TO STATUS ENUM.
 	FOREIGN KEY (Result)
-		REFERENCES InspectionStatuses (Status)
+		REFERENCES InspectionStatuses (Status),
+	IdNumber NVARCHAR(100) NOT NULL,
+	FOREIGN KEY (IdNumber)
+		REFERENCES Users (IdNumber),
+	InspectionDate DATE NULL,
+	InspectorName NVARCHAR(250) NULL,
+	Result NVARCHAR(50) NULL
 
-	-- ENTITY CONNECTIONS: [Cars] (MANY - 1) V, [Inspectors] THROUGH PROPERTIES.
+
+	-- ENTITY CONNECTIONS: [Cars] (MANY - 1) V, [Inspectors] (MANY — 1) THROUGH PROPERTIES.
 );
 
 CREATE TABLE Repairs
