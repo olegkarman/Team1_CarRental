@@ -29,12 +29,17 @@ CREATE TABLE Users
 	Password NVARCHAR(250) NOT NULL,
 	UserName NVARCHAR(150) NOT NULL,
 	BasicDiscount FLOAT NOT NULL,
-	PassportNumber NVARCHAR(100) NOT NULL,
-	DrivingLicenseNumber NVARCHAR(100) NOT NULL,
-	EmployementDate DATETIME NOT NULL
-
-	-- CONNECTIONS TO: [Cars] (1 - MANY), [DEALS] (1 - MANY).
 );
+
+CREATE TABLE Customers
+(
+	Id int IDENTITY not null PRIMARY KEY,
+	PassportNumber NVARCHAR(100) not null,
+	DrivingLicenseNumber NVARCHAR(100) not null,
+	UserId int not null
+);
+
+
 
 CREATE TABLE Deals
 (
@@ -140,10 +145,26 @@ CREATE TABLE Repairs
 -- END OF MAIN ENTITIES
 
 -- ALTERATION SECTION
-
+	ALTER TABLE Customers
+	ADD Constraint FK_Customers_Users_UserId FOREIGN KEY (UserId)
+	REFERENCES Users(ID)
 --ALTER TABLE Inspections
 --ADD CONSTRAINT FK_Cars_CarId_VinCode_Inspections
 --	FOREIGN KEY (CarId, VinCode)
 --		REFERENCES Cars (CarId, VinCode);
 
 -- END OF ALTERATIONS
+
+INSERT INTO Users
+VALUES  ('Olga', 'Ivanenko', '1999-06-23', '12345678', 'Olga'),
+('Alex', 'Petrov', '1985-12-14', '87654321', 'Alex'),
+('Maria', 'Sidorova', '1992-03-30', '12348765', 'Maria'),
+('Igor', 'Kuznetsov', '1978-07-22', '56781234', 'Igor'),
+('Elena', 'Nikolaeva', '1995-11-05', '43215678', 'Elena')
+GO
+INSERT INTO Customers
+VALUES ('19990623O', '19990623DL', 1),
+('19851214A', '19851214DL', 2),
+('19920330M', '19920330DL', 3),
+ ('19780722I', '19780722DL', 4),
+('19951105E', '19951105DL', 5)
