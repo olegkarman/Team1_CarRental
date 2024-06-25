@@ -42,7 +42,8 @@ CREATE TABLE Users
 CREATE TABLE Deals
 (
 	Name NVARCHAR(250) NOT NULL,
-	CustomerId NVARCHAR(100) NOT NULL,
+	CustomerId NVARCHAR(100) NOT NULL, -- IT IS NOT IdNumber FROM User, IT IS PassportNumber... O_o
+	-- SO NO COMPROMISE OF FIRST NROMAL-FORM, Я ДУМЯЮ... о_О
 	CONSTRAINT PK_Deals_Name_CustomerId
 		PRIMARY KEY (Name, CustomerId),
 	IdNumber NVARCHAR(100) NOT NULL,
