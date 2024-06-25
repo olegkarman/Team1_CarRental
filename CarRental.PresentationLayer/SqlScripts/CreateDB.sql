@@ -32,8 +32,6 @@ CREATE TABLE Deals
 	-- ENTITY CONNECTIONS: [Users], [Cars] THROUGH PROPERTIES.
 );
 
-
-
 CREATE TABLE Users
 (
 	IdNumber NVARCHAR(100) NOT NULL PRIMARY KEY,
@@ -46,9 +44,9 @@ CREATE TABLE Users
 	PassportNumber NVARCHAR(100) NOT NULL,
 	DrivingLicenseNumber NVARCHAR(100) NOT NULL,
 	EmployementDate DATETIME NOT NULL
+
+	-- CONNECTIONS TO: [Cars] (1 - MANY), [DEALS] (1 - MANY).
 );
-
-
 
 CREATE TABLE Mechanicists
 (
