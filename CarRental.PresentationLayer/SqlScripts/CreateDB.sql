@@ -28,7 +28,7 @@ CREATE TABLE Users
 	DateOfBirth Date NOT NULL,
 	Password NVARCHAR(250) NOT NULL,
 	UserName NVARCHAR(150) NOT NULL,
-	BasicDiscount FLOAT NOT NULL,
+	
 );
 
 CREATE TABLE Customers
@@ -36,7 +36,8 @@ CREATE TABLE Customers
 	Id int IDENTITY not null PRIMARY KEY,
 	PassportNumber NVARCHAR(100) not null,
 	DrivingLicenseNumber NVARCHAR(100) not null,
-	UserId int not null
+	BasicDiscount FLOAT NOT NULL,
+	UserId INT NOT NULL UNIQUE
 );
 
 
@@ -163,8 +164,8 @@ VALUES  ('Olga', 'Ivanenko', '1999-06-23', '12345678', 'Olga'),
 ('Elena', 'Nikolaeva', '1995-11-05', '43215678', 'Elena')
 
 INSERT INTO Customers
-VALUES ('19990623O', '19990623DL', 1),
-('19851214A', '19851214DL', 2),
-('19920330M', '19920330DL', 3),
- ('19780722I', '19780722DL', 4),
-('19951105E', '19951105DL', 5)
+VALUES ('19990623O', '19990623DL',0.5, 1),
+('19851214A', '19851214DL',0.5, 2),
+('19920330M', '19920330DL',0.5, 3),
+ ('19780722I', '19780722DL',0.5, 4),
+('19951105E', '19951105DL',0.5, 5)
