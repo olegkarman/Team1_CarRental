@@ -80,7 +80,7 @@ CREATE TABLE Cars
 	-- DEAL CONNECTION (Car HAS ONE DEAL)
 	Name NVARCHAR(250) NOT NULL,
 	-- CONNECTION TO Customer, (MANY - 1)
-	CustomerId NVARCHAR(100) NOT NULL,
+	CustomerId NVARCHAR(100) UNIQUE NOT NULL,
 	FOREIGN KEY (Name, CustomerId)
 		REFERENCES Deals (Name, CustomerId),
 	NumberPlate NVARCHAR(50) NOT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE Cars
 	Year DATE NULL,
 	IsFitForUse BIT NULL
 
-	-- ENTITY CONNECTIONS: [Deals] (1 — 1), [Inspections] (1 — MANY) V,
+	-- ENTITY CONNECTIONS: [Deals] (1 — 1) V, [Inspections] (1 — MANY) V,
 	-- [Customer] (MANY - 1) V, [Repairs] (1 - MANY).
 	-- DIRECTLY BY TYPES AND COLLECTIONS OF TYPE.
 );
