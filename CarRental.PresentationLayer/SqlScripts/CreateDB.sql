@@ -20,17 +20,7 @@ CREATE TABLE InspectionStatuses
 
 -- TABLES OF THE MAIN ENTITIES
 
-CREATE TABLE Deals
-(
-	Name NVARCHAR(250) NOT NULL,
-	CustomerId NVARCHAR(100) NOT NULL,
-	CONSTRAINT PK_Deals_Name_CustomerId
-		PRIMARY KEY (Name, CustomerId),
-	CarId NVARCHAR(100) NOT NULL,
-	Price FLOAT NOT NULL
 
-	-- ENTITY CONNECTIONS: [Users], [Cars] THROUGH PROPERTIES.
-);
 
 CREATE TABLE Users
 (
@@ -46,6 +36,21 @@ CREATE TABLE Users
 	EmployementDate DATETIME NOT NULL
 
 	-- CONNECTIONS TO: [Cars] (1 - MANY), [DEALS] (1 - MANY).
+);
+
+CREATE TABLE Deals
+(
+	Name NVARCHAR(250) NOT NULL,
+	CustomerId NVARCHAR(100) NOT NULL,
+	CONSTRAINT PK_Deals_Name_CustomerId
+		PRIMARY KEY (Name, CustomerId),
+	IdNumber NVARCHAR(100) NOT NULL,
+	FOREIGN KEY (IdNumber)
+		REFERENCES Users (IdNumber),
+	CarId NVARCHAR(100) NOT NULL,
+	Price FLOAT NOT NULL
+
+	-- ENTITY CONNECTIONS: [Users] (MANY - 1), [Cars] (MANY - 1), THROUGH PROPERTIES.
 );
 
 CREATE TABLE Mechanicists
