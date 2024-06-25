@@ -1,6 +1,5 @@
-CREATE DATABASE KarmaCarRentalGo
+CREATE DATABASE KarmaCarRentalGoTwo
 	GO
-
 -- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
 
 CREATE TABLE TransportStatuses
@@ -108,14 +107,16 @@ CREATE TABLE Inspections
 	FOREIGN KEY (CarId, VinCode)
 		REFERENCES Cars (CarId, VinCode),
 	-- INSPECTION CONNECTION TO STATUS ENUM.
+	Result NVARCHAR(50) NULL,
 	FOREIGN KEY (Result)
 		REFERENCES InspectionStatuses (Status),
+	-- CONNECTION INSPECTOR
 	IdNumber NVARCHAR(100) NOT NULL,
 	FOREIGN KEY (IdNumber)
 		REFERENCES Users (IdNumber),
-	InspectionDate DATE NULL,
+	InspectionDate DATE NULL
 	--InspectorName NVARCHAR(250) NULL, TRANSITIVE DEPENDANCY???
-	Result NVARCHAR(50) NULL
+
 
 	-- ENTITY CONNECTIONS: [Cars] (MANY - 1) V, [Inspectors] (MANY — 1) V THROUGH PROPERTIES.
 );
@@ -138,6 +139,7 @@ CREATE TABLE Repairs
 	CarModel NVARCHAR(500) NULL,
 	-- TECHNICAL INFORMATION CAN CONSIST OF MUCH OF DATA.
 	TechnicalInfo TEXT NULL,
+	-- MAYBE MAKE IT CHECK IN? RATHER THAN BOOL?
 	IsSuccessfull BIT NOT NULL,
 	TotalCost INT NOT NULL
 
@@ -174,7 +176,7 @@ INSERT INTO InspectionStatuses
        (3, 'Unusable');
 
 -- SOME DATA TAKEN FROM MR. D. IBRAHIMOV'S BRANCH, AND O. KARMANSKYI CODE.
--- SOME TUPLE MUST BE NULL TO REPRESENT CUSTOMER, INSPECTOR.
+-- SOME TUPLES MUST BE NULL TO REPRESENT CUSTOMER, INSPECTOR.
 INSERT INTO Users
 	VALUES
 		(
@@ -187,18 +189,22 @@ INSERT INTO Users
 			'Olga',
 			0.5,
 			'RW293589',
-			'895609'
+			'895609',
+			NULL
 		),
 		(
+			-- INSPECTOR
+			-- INSPECTOR-1, INSPECTION-1 RELATION
 			'67F84A48-B96B-4A16-BB38-6C641F8504CC',
 			'Alex',
 			'Petrov',
 			'1984-11-03T00:00:00',
 			'87654BB38321C6533DCBB387CF4A',
 			'Alex',
-			0.2,
-			'VW634101',
-			'626825'
+			NULL,
+			NULL,
+			NULL,
+			'1984-11-03T00:00:00'
 		),
 		(
 			'3B8BE39A-0738-4B15-93C9-3AA1620CBC5A',
@@ -209,7 +215,8 @@ INSERT INTO Users
 			'Maria',
 			0.2,
 			'MG225941',
-			'172860'
+			'172860',
+			NULL
 		),
 		(
 			'BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2',
@@ -220,7 +227,8 @@ INSERT INTO Users
 			'Igor',
 			0.5,
 			'SL882705',
-			'242445'
+			'242445',
+			NULL
 		),
 		(
 			'BF016BBD-0AF3-412A-B8CD-C6533DC7CF4A',
@@ -231,7 +239,8 @@ INSERT INTO Users
 			'Elena',
 			0.5,
 			'UX764750',
-			'488237'
+			'488237',
+			NULL
 		);
 
 INSERT INTO DEALS
@@ -267,6 +276,7 @@ INSERT INTO Cars
 			NULL,
 			NULL,
 			NULL,
+			NULL,
 			NULL
 		);
 
@@ -291,9 +301,49 @@ INSERT INTO Repairs
 		-- REPAIR-1, MECHANIC-1 RELATION
 		'0BBEF7B3-CE96-4DC6-AF5D-899106C9BFD5',
 		'Zporozhets',
-		'Bora'
+		'Bora',
+		-- TechnicalInfo
+		'{ Brand = Zporozhets | Model = ZAZ-965 | Year = 2018 |
+		Engine = FourStandardCylinders | Transmission = SemiAutomatic |
+		Wheels = Elastomer | Interior = Metal | Color = DarkGray |
+		VinCode = J5HOUCO2VPV86C6BDI2EGBHHXB5WODD15 | Price = 192966 |
+		IsFitForUse = True | Status = Sold | CarId = a3ff4598-6fc6-4e28-a8f5-fce59f68d1dd |
+		NumberPlate = WZ-509ZM-79 | Owner =  |} | IsSuccessfull = True | TotalCost = 64322 }',
+		1,
+		15000
+	);
 
-
+INSERT INTO Inspections
+	VALUES
+	(
+		'D3C048F0-6752-4F0A-8CD9-B15F5D9CC730',
+		-- INSPECTION-1, CAR-1 RELATION
+		'9B09A4A5-0B13-4239-9E94-C3535E661566',
+		'X5JT7H0AXI3AAUQJ0524N2KQS9433RGUC',
+		'Successfully',
+		-- INSPECTION-1, INSPECTOR-1 RELATION
+		'67F84A48-B96B-4A16-BB38-6C641F8504CC',
+		'1984-11-03T00:00:00'
 	);
 
 -- END OF INSER VALUES SECTION
+
+-- COPY OF DANIIL IBRAHIMOV SCRIPT
+
+CREATE TABLE Customers
+(
+	Id int IDENTITY not null PRIMARY KEY,
+	PassportNumber NVARCHAR(100) not null,
+	DrivingLicenseNumber NVARCHAR(100) not null,
+	BasicDiscount FLOAT NOT NULL,
+	UserId INT NOT NULL UNIQUE
+);
+
+INSERT INTO Customers
+VALUES ('19990623O', '19990623DL',0.5, 1),
+('19851214A', '19851214DL',0.5, 2),
+('19920330M', '19920330DL',0.5, 3),
+ ('19780722I', '19780722DL',0.5, 4),
+('19951105E', '19951105DL',0.5, 5)
+
+-- END OF COPY OF DANIIL IBRAHIMOV SCRIPT
