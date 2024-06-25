@@ -161,7 +161,7 @@ VALUES  ('Olga', 'Ivanenko', '1999-06-23', '12345678', 'Olga'),
 ('Maria', 'Sidorova', '1992-03-30', '12348765', 'Maria'),
 ('Igor', 'Kuznetsov', '1978-07-22', '56781234', 'Igor'),
 ('Elena', 'Nikolaeva', '1995-11-05', '43215678', 'Elena')
-GO
+
 INSERT INTO Customers
 VALUES ('19990623O', '19990623DL', 1),
 ('19851214A', '19851214DL', 2),
