@@ -145,6 +145,8 @@ CREATE TABLE Repairs
 	-- CONNECTED TO: [Mechanics] (MANY - 1) V, [Cars] (MANY - 1) V DIRECTLY.
 );
 
+
+
 -- END OF MAIN ENTITIES
 
 -- ALTERATION SECTION
@@ -155,3 +157,13 @@ CREATE TABLE Repairs
 --		REFERENCES Cars (CarId, VinCode);
 
 -- END OF ALTERATIONS
+
+-- INSERT VALUE SECTION
+
+INSERT INTO TransportStatuses
+	VALUES
+	(
+		0, 'Unknown'
+	);
+
+-- END OF INSER VALUES SECTION
