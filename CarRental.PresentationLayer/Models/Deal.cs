@@ -3,9 +3,9 @@
     public class Deal
     {
         public string Name { get; set; }
-        public string customerId { get; set; }
-        public string carId { get; set; }
-        public float price { get; set; }
+        public string CustomerId { get; set; }
+        public string CarId { get; set; }
+        public float Price { get; set; }
 
         private string _dealType;
         public string dealType
@@ -24,12 +24,12 @@
             }
         }
 
-        public Deal(string customerId, string carId, string type, float price)
+        public Deal(string CustomerId, string CarId, string type, float Price)
         {
             this.dealType = type;
-            this.price = price;
-            this.carId = carId;
-            this.customerId = customerId;
+            this.Price = Price;
+            this.CarId = CarId;
+            this.CustomerId = CustomerId;
 
             /*Dictionary<int, Tuple<string, string, string, float, DateTime>> dealInfo =
                 new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
@@ -37,7 +37,7 @@
             Random rnd = new Random();
             int dealId = rnd.Next(0, 99999);
 
-            dealInfo[dealId] = new Tuple<string, string, string, float, DateTime>(this.customerId, this.carId, this.dealType, this.price, DateTime.Now);
+            dealInfo[dealId] = new Tuple<string, string, string, float, DateTime>(this.CustomerId, this.CarId, this.dealType, this.Price, DateTime.Now);
 
             DealManager dealManager = new DealManager();
             dealManager.SaveDealInfo(dealInfo);*/
@@ -45,7 +45,7 @@
 
         public override string ToString()
         {
-            return $"The customer {customerId} has {dealType} a car VIN code is {carId} and the price is {price}";
+            return $"The customer {CustomerId} has {dealType} a car VIN code is {CarId} and the Price is {Price}";
         }
     }
 }
