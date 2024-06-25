@@ -4,7 +4,8 @@ using CarRental.Data.Interfaces;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 
-namespace CarRental.Data.Inspection;
+namespace CarRental.Data.Checkup;
+
 public class Inspection : IInspection
 {
     private readonly DateTime _inspectionDate = DateTime.Now;

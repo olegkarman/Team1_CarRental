@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
+using CarRental.Data.Checkup;
 using CarRental.Data.Enums;
 
 namespace CarRental.Data.Models.Automobile;
@@ -86,6 +87,7 @@ public class Car
     public bool? IsFitForUse { get; set; }
 
     public Deal? Engagement { get; set; }
+    public List<Inspection> Inspections { get; set; }
     public List<Repair>? Repairs { get; set; }
     public Customer? Owner { get; set; }
 

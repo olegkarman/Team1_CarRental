@@ -1,5 +1,5 @@
 ﻿using CarRental.Data.Enums;
-using CarRental.Data.Inspection;
+using CarRental.Data.Checkup;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 

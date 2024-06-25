@@ -1,4 +1,4 @@
-﻿using CarRental.Data.Inspection;
+﻿using CarRental.Data.Checkup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
