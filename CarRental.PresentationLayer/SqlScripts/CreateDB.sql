@@ -221,6 +221,7 @@ INSERT INTO Users
 			NULL
 		),
 		(
+			-- CUSTOMER-3
 			'BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2',
 			'Igor',
 			'Kuznetsov',
@@ -367,6 +368,18 @@ INSERT INTO Deals
 			'C01BD220-FE99-4E74-87AF-E3F6672A096E',
 			-- CAR-2 Price
 			245000
+		),
+		(
+			-- DEAL-3
+			'Mahuna-Lou',
+			-- DEAL-3, CUSTOMER-3 RELATION
+			'SL882705',
+			-- CUSTOMER-3 IdNumber
+			'BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2',
+			-- CAR-3 CarId
+			'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
+			-- CAR-3 Price
+			68810
 		);
 
 INSERT INTO Cars
@@ -392,6 +405,27 @@ INSERT INTO Cars
 		200,
 		1986,
 		1
+	),
+	(
+		-- CAR-3
+		'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
+		'AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9',
+		'Sold',
+		-- DEAL-3 Name
+		'Mahuna-Lou',
+		-- DEAL-3 CustomerId
+		'SL882705',
+		'0E-9OHNA-4Z',
+		'Gyguli',
+		'Golf',
+		68810,
+		5,
+		4,
+		500000,
+		100,
+		100,
+		1964,
+		1
 	);
 
 INSERT INTO Mechanicists
@@ -402,6 +436,13 @@ INSERT INTO Mechanicists
 		1991,
 		'Roxy',
 		'Undefeatable'
+	),
+	(
+		-- MECHANIC-3
+		'6ECCC761-9A37-46CD-BC24-C326D8BE544E',
+		1986,
+		'TheMaster',
+		'Dreadful'
 	);
 
 INSERT INTO Repairs
@@ -427,6 +468,28 @@ INSERT INTO Repairs
 		NumberPlate = WZ-509ZM-79 | Owner =  |} | IsSuccessfull = True | TotalCost = 64322 }',
 		1,
 		30000
+	),
+	(
+		-- REPAIR-3
+		'A6E435E7-44A5-4B40-8256-1A937B32A241',
+		'2024-10-06T05:32:00',
+		-- REPAIR-3, CAR-3 RELATION
+		'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
+		'AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9',
+		-- REPAIR-3, MECHANIC-3 RELATION
+		'TheMaster',
+		'6ECCC761-9A37-46CD-BC24-C326D8BE544E',
+		'Gyguli',
+		'Golf',
+		-- TechnicalInfo
+		'{ Brand = Nissan | Model = Dakar | Year = 1986 |
+		Engine = FourStandardCylinders | Transmission = SemiAutomatic |
+		Wheels = Elastomer | Interior = Metal | Color = DarkGray |
+		VinCode = AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9 | Price = 68810 |
+		IsFitForUse = True | Status = Sold | CarId = A783A6FA-3C35-4CE1-ABC0-12F9D69636BE |
+		NumberPlate = WZ-509ZM-79 | Owner =  |} | IsSuccessfull = True | TotalCost = 64322 }',
+		1,
+		20000
 	);
 
 INSERT INTO Inspections
