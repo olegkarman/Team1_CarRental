@@ -41,7 +41,8 @@ CREATE TABLE Users
 CREATE TABLE Deals
 (
 	Name NVARCHAR(250) NOT NULL,
-	CustomerId NVARCHAR(100) NOT NULL, -- IT IS NOT IdNumber FROM User, IT IS PassportNumber... O_o
+	CustomerId NVARCHAR(100) NOT NULL, -- IT IS NOT IdNumber FROM User,
+	-- IT IS A PassportNumber (CustomerManager.cs)... O_o
 	-- SO NO COMPROMISE OF FIRST NROMAL-FORM, Я ДУМЯЮ... о_О
 	CONSTRAINT PK_Deals_Name_CustomerId
 		PRIMARY KEY (Name, CustomerId),
@@ -207,6 +208,7 @@ INSERT INTO Users
 			'1984-11-03T00:00:00'
 		),
 		(
+			-- CUSTOMER-2
 			'3B8BE39A-0738-4B15-93C9-3AA1620CBC5A',
 			'Maria',
 			'Sidorova',
@@ -347,3 +349,84 @@ VALUES ('19990623O', '19990623DL',0.5, 1),
 ('19951105E', '19951105DL',0.5, 5)
 
 -- END OF COPY OF DANIIL IBRAHIMOV SCRIPT
+
+-- INSERT SECTION --
+-- 26-JUN-24
+-- ADD MORE DATA
+
+INSERT INTO Deals
+	VALUES
+		(
+			-- DEAL-2
+			'Tihuana',
+			-- DEAL-2, CUSTOMER-2 RELATION
+			'MG225941',
+			-- CUSTOMER-2 IdNumber
+			'3B8BE39A-0738-4B15-93C9-3AA1620CBC5A',
+			-- CAR-2 CarId
+			'C01BD220-FE99-4E74-87AF-E3F6672A096E',
+			-- CAR-2 Price
+			245000
+		);
+
+INSERT INTO Cars
+	VALUES
+	(
+		-- CAR-2
+		'C01BD220-FE99-4E74-87AF-E3F6672A096E',
+		'UG7KNG1SBAFEXORSVVMJIXRBOYBD3HK38',
+		'Sold',
+		-- DEAL-2 Name
+		'Tihuana',
+		-- DEAL-2 CustomerId
+		'MG225941',
+		'8U-AGEV0-WI',
+		'Nissan',
+		'Dakar',
+		245000,
+		-- I HAVE SOME TIME ;O
+		5,
+		4,
+		15000,
+		200,
+		200,
+		1986,
+		1
+	);
+
+INSERT INTO Mechanicists
+	VALUES
+	(
+		-- MECHANIC-2
+		'685F0F5D-2328-40B5-A32D-6E9233D55B96',
+		1991,
+		'Roxy',
+		'Undefeatable'
+	);
+
+INSERT INTO Repairs
+	VALUES
+	(
+		-- REPAIR-2
+		'E9046A8D-F100-4ACA-9B7C-D8680C7A81DD',
+		'1996-11-04T00:00:00',
+		-- REPAIR-1, CAR-1 RELATION
+		'9B09A4A5-0B13-4239-9E94-C3535E661566',
+		'X5JT7H0AXI3AAUQJ0524N2KQS9433RGUC',
+		'Yaroslav',
+		-- REPAIR-1, MECHANIC-1 RELATION
+		'0BBEF7B3-CE96-4DC6-AF5D-899106C9BFD5',
+		'Zporozhets',
+		'Bora',
+		-- TechnicalInfo
+		'{ Brand = Zporozhets | Model = ZAZ-965 | Year = 2018 |
+		Engine = FourStandardCylinders | Transmission = SemiAutomatic |
+		Wheels = Elastomer | Interior = Metal | Color = DarkGray |
+		VinCode = J5HOUCO2VPV86C6BDI2EGBHHXB5WODD15 | Price = 192966 |
+		IsFitForUse = True | Status = Sold | CarId = a3ff4598-6fc6-4e28-a8f5-fce59f68d1dd |
+		NumberPlate = WZ-509ZM-79 | Owner =  |} | IsSuccessfull = True | TotalCost = 64322 }',
+		1,
+		15000
+	);
+
+-- END OF INSERT SECTION
