@@ -460,7 +460,6 @@ INSERT INTO Cars
 		170,
 		2004,
 		1
-		-- END OF "WIP", DELETE IT AFTER RENEW.
 	);
 
 INSERT INTO Mechanicists
@@ -478,6 +477,13 @@ INSERT INTO Mechanicists
 		1986,
 		'TheMaster',
 		'Dreadful'
+	),
+	(
+		-- MECHANIC-4
+		'5FC4F1FD-396A-42B2-B4D4-8832091108AD',
+		1986,
+		'TheSummoner',
+		'Overpowered'
 	);
 
 INSERT INTO Repairs
@@ -523,6 +529,27 @@ INSERT INTO Repairs
 		VinCode = AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9 | Price = 68810 |
 		IsFitForUse = True | Status = Sold | CarId = A783A6FA-3C35-4CE1-ABC0-12F9D69636BE |
 		NumberPlate = WZ-509ZM-79 | Owner =  |} | IsSuccessfull = True | TotalCost = 64322 }',
+		1,
+		20000
+	),
+	(
+		-- REPAIR-4
+		'2643C170-65F3-4E8E-800D-35A93BD97A30',
+		'2024-12-21T05:32:00',
+		-- REPAIR-4, CAR-4 RELATION
+		'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
+		'AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9',
+		-- REPAIR-4, MECHANIC-4 RELATION
+		'TheSummoner',
+		'5FC4F1FD-396A-42B2-B4D4-8832091108AD',
+		'Peugeot',
+		'Touager',
+		-- TechnicalInfo
+		'{ Brand = Peugeot | Model = Touager | Year = 2011 | Engine = WingForm |
+		Transmission = Unknown | Wheels = Alloy | Interior = Leather | Color = ButtonHighlight |
+		VinCode = QYCO78LA07FPZE9QYCDAWZ3MG2H4VJHM2 | Price = 96700 | IsFitForUse = True |
+		Status = Sold | CarId = 2fe9a8f6-a116-4841-94c9-755e1087159c |
+		NumberPlate = RD-O2SDQ-9J | Owner =  |}',
 		1,
 		20000
 	);
