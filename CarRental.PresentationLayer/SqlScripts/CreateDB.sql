@@ -417,10 +417,10 @@ INSERT INTO Deals
 			'UX764750',
 			-- CUSTOMER-5 IdNumber
 			'BF016BBD-0AF3-412A-B8CD-C6533DC7CF4A',
-			-- CAR-4 CarId
-			'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
-			-- CAR-4 Price
-			68810
+			-- CAR-5 CarId
+			'56FF595B-17B7-4BA9-B9A9-D2242A4E5FDB',
+			-- CAR-5 Price
+			113900
 		);
 
 INSERT INTO Cars
@@ -492,22 +492,22 @@ INSERT INTO Cars
 	(
 		-- CAR-5
 		'56FF595B-17B7-4BA9-B9A9-D2242A4E5FDB',
-		'JUGKHGQCOFTXQKZVK2TZBJ9DE5UGEHTWE',
+		'CQGF7RQL2PK7GTX6DRI3HCBPNIYHKZGEK',
 		'Sold',
-		-- DEAL-4 Name
-		'Hawai-October',
-		-- DEAL-4 CustomerId
-		'UX764750',
-		'RD-O2SDQ-9J',
-		'Peugeot',
-		'Touager',
-		96700,
+		-- DEAL-5 Name
+		'Amarilo-Sydney',
+		-- DEAL-5 CustomerId (Passport)
+		'MG394001',
+		'YE-SU542-GV',
+		'Volkswagen',
+		'Freedom',
+		113900,
+		7,
 		4,
-		2,
-		10000,
-		170,
-		170,
-		2004,
+		9000,
+		340,
+		340,
+		2019,
 		1
 	);
 
@@ -533,6 +533,13 @@ INSERT INTO Mechanicists
 		1986,
 		'TheSummoner',
 		'Overpowered'
+	),
+	(
+		-- MECHANIC-5
+		'4B445309-CBC5-4895-8E02-4BAA0001238A',
+		1999,
+		'Soldier',
+		'Mother'
 	);
 
 INSERT INTO Repairs
@@ -601,6 +608,27 @@ INSERT INTO Repairs
 		NumberPlate = RD-O2SDQ-9J | Owner =  |}',
 		1,
 		24000
+	),
+	(
+		-- REPAIR-5
+		'F5F60FA4-CCA6-4101-88B1-E8E8DF035C86',
+		'2022-11-22T05:10:00',
+		-- REPAIR-5, CAR-5 RELATION
+		'56FF595B-17B7-4BA9-B9A9-D2242A4E5FDB',
+		'CQGF7RQL2PK7GTX6DRI3HCBPNIYHKZGEK',
+		-- REPAIR-5, MECHANIC-5 RELATION
+		'Soldier',
+		'4B445309-CBC5-4895-8E02-4BAA0001238A',
+		'Volkswagen',
+		'Freedom',
+		-- TechnicalInfo
+		'{ Brand = Volkswagen | Model = Freedom | Year = 2019 | Engine = WingForm |
+		Transmission = Unknown | Wheels = Alloy | Interior = Leather | Color = ButtonHighlight |
+		VinCode = CQGF7RQL2PK7GTX6DRI3HCBPNIYHKZGEK | Price = 113900 | IsFitForUse = True |
+		Status = Sold | CarId = 56FF595B-17B7-4BA9-B9A9-D2242A4E5FDB |
+		NumberPlate = YE-SU542-GV | Owner =  |}',
+		1,
+		24000
 	);
 
 INSERT INTO Inspections
@@ -637,6 +665,17 @@ INSERT INTO Inspections
 		-- INSPECTION-4, INSPECTOR-1 RELATION
 		'67F84A48-B96B-4A16-BB38-6C641F8504CC',
 		'2024-11-04T10:10:25'
+	),
+	(
+		-- INSPECTION-5
+		'5A51AF19-605D-4172-B8A1-A29181A5FFB8',
+		-- INSPECTION-5, CAR-5 RELATION
+		'56FF595B-17B7-4BA9-B9A9-D2242A4E5FDB',
+		'CQGF7RQL2PK7GTX6DRI3HCBPNIYHKZGEK',
+		'Successfully',
+		-- INSPECTION-5, INSPECTOR-1 RELATION
+		'67F84A48-B96B-4A16-BB38-6C641F8504CC',
+		'2024-10-08T14:12:33'
 	);
 
 -- END OF INSERT SECTION
