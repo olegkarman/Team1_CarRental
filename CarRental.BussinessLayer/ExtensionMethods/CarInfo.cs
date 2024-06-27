@@ -27,6 +27,6 @@ internal static class CarInfo
 
     public static string ExploitationInfo(this Car car)
     {
-        return $"{nameof(car.Mileage)} = {car.Mileage} | Capitally repaired {car.Repairs.Count} times.";
+        return $"{nameof(car.Mileage)} = {car.Mileage} | {nameof(car)} сapitally repaired {car.Repairs.Count} times.";
     }
 }
