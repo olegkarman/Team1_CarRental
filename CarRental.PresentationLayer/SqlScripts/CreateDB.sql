@@ -1,4 +1,4 @@
-CREATE DATABASE KarmaCarRentalGoEleven
+CREATE DATABASE KarmaCarRentalDB
 	GO
 
 -- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
@@ -407,9 +407,9 @@ INSERT INTO Deals
 			-- CUSTOMER-4 IdNumber
 			'BF016BBD-0AF3-412A-B8CD-C6533DC7CF4A',
 			-- CAR-4 CarId
-			'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
+			'57BED521-BE12-447B-AF3F-54466A9E8CEF',
 			-- CAR-4 Price
-			68810
+			96700
 		),
 		(
 			-- DEAL-5
@@ -580,7 +580,7 @@ INSERT INTO Repairs
 		'Gyguli',
 		'Golf',
 		-- TechnicalInfo
-		'{ Brand = Nissan | Model = Dakar | Year = 1986 |
+		'{ Brand = Gyguli | Model = Golf | Year = 1964 |
 		Engine = FourStandardCylinders | Transmission = SemiAutomatic |
 		Wheels = Elastomer | Interior = Metal | Color = DarkGray |
 		VinCode = AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9 | Price = 68810 |
@@ -692,7 +692,68 @@ ALTER TABLE Cars
 		Interior NVARCHAR(500) NULL,
 		Wheels NVARCHAR(500) NULL,
 		Lights NVARCHAR(500) NULL,
-		Signal NVARCHAR(500) NULL;
-		--Color NVARCHAR(500) NULL; IT IS ENUM...
+		Signal NVARCHAR(500) NULL,
+		Color NVARCHAR(500) NULL;
 
 -- END ALTER SECTION
+
+-- UPDATE SECTION
+-- 27-JUN-24
+-- TO UPDATE SOME NULL-ATTRIBUTES
+
+UPDATE Cars
+	SET 
+		Engine = 'ThreeCircleCylinders',
+		Transmission = ' Unknown',
+		Interior = 'Leather',
+		Wheels = 'Forged',
+		Lights = 'Moderate',
+		Signal = 'Low',
+		Color = 'DarkOrchid '
+	WHERE "CarId" = '56FF595B-17B7-4BA9-B9A9-D2242A4E5FDB';
+
+UPDATE Cars	
+	SET 
+		Engine = 'EightCylinders',
+		Transmission = ' Unknown',
+		Interior = 'Unknown',
+		Wheels = 'Steel',
+		Lights = 'Powerful',
+		Signal = 'Unknown',
+		Color = 'DarkOrchid'
+	WHERE "CarId" = '57BED521-BE12-447B-AF3F-54466A9E8CEF';
+
+UPDATE Cars	
+	SET 
+		Engine = 'Flat',
+		Transmission = 'ContinuouslyVariable',
+		Interior = 'Unknown',
+		Wheels = 'PressedMetal',
+		Lights = 'Weak',
+		Signal = 'Hight',
+		Color = 'OrangeRed'
+	WHERE "CarId" = '9B09A4A5-0B13-4239-9E94-C3535E661566';
+
+UPDATE Cars	
+	SET 
+	    Engine = 'WingForm',
+		Transmission = 'Manual',
+		Interior = 'Metal',
+		Wheels = 'Unknown',
+		Lights = 'Powerful',
+		Signal = 'Moderate',
+		Color = 'OldLace '
+	WHERE "CarId" = 'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE';
+
+UPDATE Cars	
+	SET 
+		Engine = 'Unknown',
+		Transmission = 'Manual',
+		Interior = 'Unknown',
+		Wheels = 'Chrome',
+		Lights = 'Extreme',
+		Signal = 'Low',
+		Color = 'RosyBrown'
+	WHERE "CarId" = 'C01BD220-FE99-4E74-87AF-E3F6672A096E';
+
+-- END OF TEST SECTION
