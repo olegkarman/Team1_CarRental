@@ -39,6 +39,17 @@ CREATE TABLE Users
 	-- CONNECTIONS TO: [Cars] (1 — MANY), [Deals] (1 — MANY), [Inspections] (1 — MANY).
 );
 
+CREATE TABLE Customers
+(
+	Id int IDENTITY not null PRIMARY KEY,
+	PassportNumber NVARCHAR(100) not null,
+	DrivingLicenseNumber NVARCHAR(100) not null,
+	BasicDiscount FLOAT NOT NULL,
+	UserId INT NOT NULL UNIQUE
+);
+
+
+
 CREATE TABLE Deals
 (
 	Name NVARCHAR(250) NOT NULL,
@@ -152,10 +163,9 @@ CREATE TABLE Repairs
 
 -- ALTERATION SECTION
 
---ALTER TABLE Inspections
---ADD CONSTRAINT FK_Cars_CarId_VinCode_Inspections
---	FOREIGN KEY (CarId, VinCode)
---		REFERENCES Cars (CarId, VinCode);
+	ALTER TABLE Customers
+	ADD Constraint FK_Customers_Users_UserId FOREIGN KEY (UserId)
+	REFERENCES Users(ID)
 
 -- END OF ALTERATIONS
 
@@ -695,7 +705,7 @@ ALTER TABLE Cars
 		Signal NVARCHAR(500) NULL,
 		Color NVARCHAR(500) NULL;
 
--- END ALTER SECTION
+-- END OF ALTER SECTION
 
 -- UPDATE SECTION
 -- 27-JUN-24
@@ -756,4 +766,13 @@ UPDATE Cars
 		Color = 'RosyBrown'
 	WHERE "CarId" = 'C01BD220-FE99-4E74-87AF-E3F6672A096E';
 
--- END OF TEST SECTION
+-- END OF UPDATE SECTION
+
+-- DROP SECTION
+-- 27-JUN-24
+-- DANIIL IBRAHIMOV
+
+DROP TABLE Customers
+--fixing for future changes
+
+-- END OF DROP SECTION
