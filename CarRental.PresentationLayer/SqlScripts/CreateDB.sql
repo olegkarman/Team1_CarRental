@@ -38,6 +38,17 @@ CREATE TABLE Users
 	-- CONNECTIONS TO: [Cars] (1 — MANY), [Deals] (1 — MANY), [Inspections] (1 — MANY).
 );
 
+CREATE TABLE Customers
+(
+	Id int IDENTITY not null PRIMARY KEY,
+	PassportNumber NVARCHAR(100) not null,
+	DrivingLicenseNumber NVARCHAR(100) not null,
+	BasicDiscount FLOAT NOT NULL,
+	UserId INT NOT NULL UNIQUE
+);
+
+
+
 CREATE TABLE Deals
 (
 	Name NVARCHAR(250) NOT NULL,
@@ -149,7 +160,9 @@ CREATE TABLE Repairs
 -- END OF MAIN ENTITIES
 
 -- ALTERATION SECTION
-
+	ALTER TABLE Customers
+	ADD Constraint FK_Customers_Users_UserId FOREIGN KEY (UserId)
+	REFERENCES Users(ID)
 --ALTER TABLE Inspections
 --ADD CONSTRAINT FK_Cars_CarId_VinCode_Inspections
 --	FOREIGN KEY (CarId, VinCode)
@@ -346,4 +359,6 @@ VALUES ('19990623O', '19990623DL',0.5, 1),
  ('19780722I', '19780722DL',0.5, 4),
 ('19951105E', '19951105DL',0.5, 5)
 
+DROP TABLE Customers
+--fixing for future changes
 -- END OF COPY OF DANIIL IBRAHIMOV SCRIPT
