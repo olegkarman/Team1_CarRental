@@ -500,6 +500,16 @@ public class ServiceManager : ICarManager
         return car.Lights.ToString();
     }
 
+    public string CheckTechInfo(Car car)
+    {
+        return car.TechnicalInfo();
+    }
+
+    public string CheckExpoitation(Car car)
+    {
+        return car.ExploitationInfo();
+    }
+
     public string ShowDeal(Car car)
     {
         SupplementData.Validator.CheckNull(car);
