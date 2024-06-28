@@ -14,6 +14,8 @@ public class DealManager
 
     private UpdatedNameValidator _nameValidator;
 
+    private DealValidation _validator;
+
     // PROPERTIES
 
     // CONSTRUCTORS
@@ -47,7 +49,8 @@ public class DealManager
 
     //public Deal ChooseDealFromList(List<Deal> deals, int index)
     //{
-    //    return
+        
+    //    return deal;
     //}
 
     /*private string fileName;
@@ -156,18 +159,18 @@ public class DealManager
         }
     }*/
 
-   /* public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
-    {
-        try
-        {
-            string[] jsonLines = File.ReadAllLines(fileName);
-            string jsonString = string.Join(Environment.NewLine, jsonLines);
-            return Deserialize(jsonString);
-        }
-        catch (System.IO.FileNotFoundException)
-        {
-            return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
-        }
+    /* public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
+     {
+         try
+         {
+             string[] jsonLines = File.ReadAllLines(fileName);
+             string jsonString = string.Join(Environment.NewLine, jsonLines);
+             return Deserialize(jsonString);
+         }
+         catch (System.IO.FileNotFoundException)
+         {
+             return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
+         }
 
-    }*/
+     }*/
 }
