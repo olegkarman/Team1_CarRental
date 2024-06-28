@@ -1,4 +1,4 @@
-CREATE DATABASE KarmaCarRentalGoTwentyThree
+CREATE DATABASE KarmaCarRentalGoTwentyFive
 	GO
 
 -- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
@@ -838,37 +838,6 @@ INSERT INTO Brands
 			'Jeep'
 		);
 
-INSERT INTO Cars
-	VALUES
-	(
-		-- CAR-6
-		'48167DBF-AA16-4BDF-B72E-CC64737C9641',
-		'ONYWMBYQ5NWE72G1HE9CVGW5YAMTH4DG7',
-		'Rented',
-		-- DEAL-6 Name
-		'Arisaka-Bones',
-		-- DEAL-6 CustomerId (Passport)
-		'MG394001',
-		'7Y-E9N7K-IU',
-		'Jeep',
-		'ZAZ-968',
-		243999,
-		5,
-		4,
-		11000,
-		500,
-		500,
-		'2021',
-		1,
-		'Flat',
-		'Manual',
-		'Plastic',
-		'CompositeAlloy',
-		'Extreme',
-		'Hight',
-		'LightSlateGray'
-	);
-
 -- END OF INSERT SECTION
 
 -- ALTER SECTION
@@ -936,6 +905,37 @@ INSERT INTO Deals
 			'ONYWMBYQ5NWE72G1HE9CVGW5YAMTH4DG7',
 			'rental'
 		);
+
+INSERT INTO Cars
+	VALUES
+	(
+		-- CAR-6
+		'48167DBF-AA16-4BDF-B72E-CC64737C9641',
+		'ONYWMBYQ5NWE72G1HE9CVGW5YAMTH4DG7',
+		'Rented',
+		-- DEAL-6 Name
+		'Arisaka-Bones',
+		-- DEAL-6 CustomerId (Passport)
+		'MG394001',
+		'7Y-E9N7K-IU',
+		'Jeep',
+		'ZAZ-968',
+		243999,
+		5,
+		4,
+		11000,
+		500,
+		500,
+		'2021',
+		1,
+		'Flat',
+		'Manual',
+		'Plastic',
+		'CompositeAlloy',
+		'Extreme',
+		'Hight',
+		'LightSlateGray'
+	);
 
 -- END OF INSERT SECTION
 
