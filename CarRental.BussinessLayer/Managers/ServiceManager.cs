@@ -207,31 +207,31 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    public Car ChooseCarFromList(List<Car> list, int index)
+    public Car ChooseCarFromList(List<Car> cars, int index)
     {
 
-        SupplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(cars);
 
-        if ((index < 0) || (index >= list.Count))
+        if ((index < 0) || (index >= cars.Count))
         {
             throw new IndexOutOfRangeException();
         }
 
-        Car car = list[index];
+        Car car = cars[index];
 
         SupplementData.Validator.CheckNull(car);
 
         return car;
     }
 
-    public Car ChooseCarFromList(List<Car> list, string model)
+    public Car ChooseCarFromList(List<Car> cars, string model)
     {
-        SupplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(cars);
 
         try
         {
             // THE EMPTY LINE CAN APPEAR.
-            return list.Find(x => x.Model.Contains(model));
+            return cars.Find(x => x.Model.Contains(model));
         }
         catch (IndexOutOfRangeException exception)
         {
@@ -247,13 +247,13 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public Car ChooseCarFromList(List<Car> list, Guid guid)
+    public Car ChooseCarFromList(List<Car> cars, Guid guid)
     {
-        SupplementData.Validator.CheckNull(list);
+        SupplementData.Validator.CheckNull(cars);
 
         try
         {
-            return list.Find(x => x.CarId.CompareTo(guid) == 0);
+            return cars.Find(x => x.CarId.CompareTo(guid) == 0);
         }
         catch (IndexOutOfRangeException exception)
         {

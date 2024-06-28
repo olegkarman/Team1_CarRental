@@ -12,8 +12,8 @@ public class DealManager
 
     private const string _invalidName = "INVALID";
 
+    private IndexOfListValidation _indexValidator;
     private UpdatedNameValidator _nameValidator;
-
     private DealValidation _validator;
 
     // PROPERTIES
@@ -47,11 +47,29 @@ public class DealManager
 
     // RETRIVE
 
-    //public Deal ChooseDealFromList(List<Deal> deals, int index)
-    //{
-        
-    //    return deal;
-    //}
+    public Deal ChooseDealFromList(List<Deal> deals, int index)
+    {
+        _validator.CheckNull(deals);
+        _indexValidator.ValidateIndexOfList(deals, index);
+
+        Deal deal = deals[index];
+
+        _validator.CheckNull(deal);
+
+        return deal;
+    }
+
+    // Name AND CustomerId ARE TWO PARTS OF PRIMARY KEY IN THE DATA BASE.
+    public Deal ChooseDealFromList(List<Deal> deals, string name, string customerId)
+    {
+        _validator.CheckNull(deals);
+
+        Deal deal = deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId)));
+
+        _validator.CheckNull(deal);
+
+        return deal;
+    }
 
     /*private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;

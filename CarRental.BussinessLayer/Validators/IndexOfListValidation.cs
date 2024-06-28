@@ -35,5 +35,13 @@ namespace CarRental.BussinessLayer.Validators
                 throw new IndexOutOfRangeException();
             }
         }
+
+        public void ValidateIndexOfList(List<Deal> deals, int index)
+        {
+            if ((index < 0) || (index >= deals.Count))
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
     }
 }
