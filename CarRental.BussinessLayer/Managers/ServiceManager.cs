@@ -224,6 +224,7 @@ public class ServiceManager : ICarManager
     public Car ChooseCarFromList(List<Car> cars, string model)
     {
         SupplementData.Validator.CheckNull(cars);
+        SupplementData.Validator.CheckNullEmpty(model);
 
         try
         {
@@ -275,6 +276,7 @@ public class ServiceManager : ICarManager
 
     public void SelectCarFromCurrentCars(string model)
     {
+        SupplementData.Validator.CheckNullEmpty(model);
         SupplementData.Validator.CheckNull(this.CurrentCars);
 
         this.SelectedCar = ChooseCarFromList(CurrentCars, model);
@@ -311,6 +313,8 @@ public class ServiceManager : ICarManager
 
     public void MoveCarFromCurrentCarsToSelected(string model)
     {
+        SupplementData.Validator.CheckNullEmpty(model);
+
         Car car;
 
         SupplementData.Validator.CheckNull(CurrentCars);
@@ -360,6 +364,7 @@ public class ServiceManager : ICarManager
 
     public string DisplayCarFromList(List<Car> cars, string model)
     {
+        SupplementData.Validator.CheckNullEmpty(model);
         SupplementData.Validator.CheckNull(cars);
 
         return ChooseCarFromList(cars, model).ToString();
@@ -381,6 +386,7 @@ public class ServiceManager : ICarManager
 
     public string DisplayCarFromCurrentCars(string model)
     {
+        SupplementData.Validator.CheckNullEmpty(model);
         SupplementData.Validator.CheckNull(this.CurrentCars);
 
         return ChooseCarFromList(this.CurrentCars, model).ToString();
@@ -832,6 +838,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
+            SupplementData.Validator.CheckNullEmpty(model);
             SupplementData.Validator.CheckNull(list);
 
             list.RemoveAt(list.IndexOf(ChooseCarFromList(list, model)));
@@ -841,10 +848,6 @@ public class ServiceManager : ICarManager
             throw exception;
         }
         catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (Exception exception)
         {
             throw exception;
         }

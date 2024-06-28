@@ -66,6 +66,14 @@ namespace CarRental.BussinessLayer.Validators
             }
         }
 
+        public void CheckNullEmpty(string model)
+        {
+            if (string.IsNullOrEmpty(model))
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+        }
+
         public void CheckType(TransportStatus status)
         {
             if (!Enum.IsDefined(typeof(TransportStatus), status))
