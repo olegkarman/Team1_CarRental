@@ -11,25 +11,20 @@ public class Customer : User
     public string PassportNumber { get; init; }
     public required string DrivingLicenseNumber { get; set; }
 
-    // PROPERTIES
-
-    public Guid Id { get; init; }
-
     [SetsRequiredMembers]
-    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName, Guid id) : base(firstName, lastName, dateOfBirth, password, userName)
+    public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
     {
         PassportNumber = passportNumber;
         DrivingLicenseNumber = drivingLicenseNumber;
         Deals = new List<Deal>();
 
         // ADDED THIS PROPERTIES (YPARKHOMENKO).
-        Cars = new List<Car>();    
-        Id = Guid.NewGuid();
+        Cars = new List<Car>();
     }
 
    // BECAUSE THERE IS NO ANY SHOW-INFORMATION METHOD IN THE CUSTOMER MANAGER.
    public override string ToString()
    {
-        return $"{{ {nameof(FirstName)} = {this.FirstName} | {nameof(LastName)} = {this.LastName} | {nameof(DateOfBirth)} = {this.DateOfBirth} | {nameof(UserName)} = {this.UserName} | {nameof(IdNumber)} = {this.IdNumber} | {nameof(Id)} = {this.Id} | }}";
+        return $"{{ {nameof(FirstName)} = {this.FirstName} | {nameof(LastName)} = {this.LastName} | {nameof(DateOfBirth)} = {this.DateOfBirth} | {nameof(UserName)} = {this.UserName} | {nameof(IdNumber)} = {this.IdNumber} | }}";
    }
 }
