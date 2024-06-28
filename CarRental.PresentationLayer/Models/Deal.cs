@@ -2,13 +2,17 @@
 {
     public class Deal
     {
+        // PROPERTIES
+
+        //public Guid Id { get; init; }
         public string Name { get; set; }
         public string CustomerId { get; set; }
         public string CarId { get; set; }
         public float Price { get; set; }
 
         private string _dealType;
-        public string dealType
+
+        public string DealType
         {
             get { return _dealType; }
             set
@@ -24,9 +28,16 @@
             }
         }
 
+        // CONSTRUCTORS
+
+        public Deal()
+        {
+            
+        }
+
         public Deal(string CustomerId, string CarId, string type, float Price)
         {
-            this.dealType = type;
+            this.DealType = type;
             this.Price = Price;
             this.CarId = CarId;
             this.CustomerId = CustomerId;
@@ -45,7 +56,7 @@
 
         public override string ToString()
         {
-            return $"The customer {CustomerId} has {dealType} a car VIN code is {CarId} and the Price is {Price}";
+            return $"The customer {CustomerId} has {DealType} a car VIN code is {CarId} and the Price is {Price}";
         }
     }
 }

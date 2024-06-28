@@ -1,12 +1,56 @@
 ﻿using System;
-using System.Text.Json;
-using System.IO;
+//using System.Text.Json;
+//using System.IO;
 using System.Diagnostics;
+using CarRental.Data.Models;
+using CarRental.BussinessLayer.Validators;
 
 namespace CarRental.BussinessLayer.Managers;
 public class DealManager
 {
-    private string fileName;
+    // FIELDS
+
+    private const string _invalidName = "INVALID";
+
+    private UpdatedNameValidator _nameValidator;
+
+    // PROPERTIES
+
+    // CONSTRUCTORS
+
+    // METHODS
+
+    // CREATE
+
+    public Deal GetNewDeal(string name, string customerId, string carId, float price, string dealType)
+    {
+        // IF INVALID NAME IS ENTERED, RENAME IT TO Guid INSTEAD. A GUARANCE OF UNIQUITY.
+        if(!_nameValidator.ValidateNameDefault(name))
+        {
+            name = _invalidName + Guid.NewGuid().ToString();
+        }
+        
+        Deal deal = new Deal
+        {
+            Name = name,
+            CustomerId = customerId,
+            CarId = carId,
+            Price = price,
+            // SOME VALIDATION IN THE Deal-CLASS.
+            DealType = dealType
+        };
+
+        return deal;
+    }
+
+    // RETRIVE
+
+    //public Deal ChooseDealFromList(List<Deal> deals, int index)
+    //{
+    //    return
+    //}
+
+    /*private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     // MOVE IT INTO SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
@@ -76,7 +120,7 @@ public class DealManager
                 }
             }
         }
-    }
+    }*/
 
     /*public string GetAllDealsJson()
     {
@@ -112,7 +156,7 @@ public class DealManager
         }
     }*/
 
-    public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
+   /* public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
     {
         try
         {
@@ -125,5 +169,5 @@ public class DealManager
             return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
         }
 
-    }
+    }*/
 }
