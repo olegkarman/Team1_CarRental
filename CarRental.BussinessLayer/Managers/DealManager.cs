@@ -71,10 +71,31 @@ public class DealManager
         return deal;
     }
 
+    // UPDATE
+
+    // DELETE
+
+    public void DeleteDealFromList(List<Deal> deals, int index)
+    {
+        _validator.CheckNull(deals);
+        _indexValidator.ValidateIndexOfList(deals, index);
+
+        deals.RemoveAt(index);
+    }
+
+    public void DeleteDealFromList(List<Deal> deals, string name, string customerId)
+    {
+        _validator.CheckNull(deals);
+
+        int index = deals.IndexOf(deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId))));
+
+        deals.RemoveAt(index);
+    }
+
     /*private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    // MOVE IT INTO SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
+    // MOVE IT INTO A SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
     public DealManager()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
