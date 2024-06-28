@@ -1,7 +1,9 @@
---CREATE DATABASE KarmaCarRentalGoTwentyOne
---	GO
+CREATE DATABASE KarmaCarRentalGoTwentyThree
+	GO
 
 -- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
+
+------------------------------------------------ T-SQL ALREADY EXECUTED START ------------------------------------------------
 
 CREATE TABLE TransportStatuses
 (
@@ -354,6 +356,8 @@ VALUES ('19990623O', '19990623DL',0.5, 1),
 
 -- END OF COPY OF DANIIL IBRAHIMOV SCRIPT
 
+------------------------------------------------ T-SQL ALREADY EXECUTED END ------------------------------------------------
+
 -- INSERT SECTION --
 -- 26-JUN-24
 -- ADD MORE DATA
@@ -695,6 +699,7 @@ ALTER TABLE Cars
 		Lights NVARCHAR(500) NULL,
 		Signal NVARCHAR(500) NULL,
 		Color NVARCHAR(500) NULL;
+GO -- SOMEHOW WITHOUT 'GO' THE STATEMENT 'UPDATE' EXECTURED BEFORE 'ADD'.
 
 -- END OF ALTER SECTION
 
@@ -854,7 +859,14 @@ INSERT INTO Cars
 		500,
 		500,
 		'2021',
-		1
+		1,
+		'Flat',
+		'Manual',
+		'Plastic',
+		'CompositeAlloy',
+		'Extreme',
+		'Hight',
+		'LightSlateGray'
 	);
 
 -- END OF INSERT SECTION
@@ -866,6 +878,7 @@ ALTER TABLE Deals
 	ADD
 		VinCode NVARCHAR(100) NULL,
 		DealType NVARCHAR(50) NULL;
+GO
 
 -- END OF ALTER SECTION
 
