@@ -53,7 +53,7 @@ public class SupplementDataInitializator
                 "Dakar", "Rubicon", "Malibu", "Wide-Trac", "Cherokee", "Creep", "Cowboy", "Freedom", "Wrangler", "Ecco"
             ],
 
-            Brands = ["Zporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"],
+            Brands = ["Zaporozhets", "Peugeot", "Volkswagen", "Nissan", "Gyguli", "Jeep"],
 
             Engines = ["Unknown", "Inline", "TwoCylinderSimple", "ThreeCircleCylinders", "FourStandardCylinders", "FiveCylinders", "SixCylinders", "EightCylinders", "WingForm", "Electric", "Flat", "Rotary"],
 

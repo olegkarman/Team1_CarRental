@@ -161,7 +161,7 @@ namespace CarRental.BussinessLayer.Managers
             // Combine the letters and the number into a string
             string pasportNumber = $"{letter1}{letter2}{pasportNumberToUse:D6}";
 
-            return new Customer(firstName, lastName, pasportNumber, drivingLicenseNumber, dob, password, userName);
+            return new Customer(firstName, lastName, pasportNumber, drivingLicenseNumber, dob, password, userName, Guid.NewGuid());
         }
     }
 }
