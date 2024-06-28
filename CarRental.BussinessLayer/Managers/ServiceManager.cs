@@ -212,10 +212,7 @@ public class ServiceManager : ICarManager
 
         SupplementData.Validator.CheckNull(cars);
 
-        if ((index < 0) || (index >= cars.Count))
-        {
-            throw new IndexOutOfRangeException();
-        }
+        SupplementData.IndexValidator.ValidateIndexOfList(cars, index);
 
         Car car = cars[index];
 
@@ -929,6 +926,7 @@ public class ServiceManager : ICarManager
             this.SupplementData = new ServiceManagerSupplements
             {
                 Validator = dataInit.InitializeValidator(),
+                IndexValidator = dataInit.InitializeIndexValidator(),
                 CharMaps = dataInit.InitializeCharacterMaps(),
                 RandomCarGenerator = dataInit.InitializeRandomCarGenerator(),
                 MechanicalManager = dataInit.InitializeMechanization(),

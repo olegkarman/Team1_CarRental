@@ -24,6 +24,11 @@ public class SupplementDataInitializator
         return new VehicleValidation();
     }
 
+    public IndexOfListValidation InitializeIndexValidator()
+    {
+        return new IndexOfListValidation();
+    }
+
     public PatternCharMaps InitializeCharacterMaps()
     {
         return new PatternCharMaps();
