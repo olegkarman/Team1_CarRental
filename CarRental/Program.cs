@@ -1,6 +1,6 @@
 ﻿using CarRental.BussinessLayer.Managers;
 using CarRental.Data.Models.Login;
-using CarRental.Data.Models.Portal;
+using CarRental.Data.Models.Gateway;
 using CarRental.Presentation.Models;
 
 namespace CarRental.Presentation;

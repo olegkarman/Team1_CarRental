@@ -1,4 +1,4 @@
-﻿using CarRental.Data.Models.Portal;
+﻿using CarRental.Data.Models.Gateway;
 using CarRental.Data.Models;
 using CarRental.BussinessLayer.Interfaces;
 using System;

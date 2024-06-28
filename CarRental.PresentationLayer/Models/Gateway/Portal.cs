@@ -1,4 +1,4 @@
-﻿namespace CarRental.Data.Models.Portal;
+﻿namespace CarRental.Data.Models.Gateway;
 public class Portal
 {
     public User UserData { get; set; }
