@@ -19,6 +19,7 @@ namespace CarRental.BussinessLayer.Managers
         private InspectorCars _inspectorCars;
         private CustomerManager _customerManager;
         private InspectionsManager _inspectionsManager;
+        private DealManager _dealManager;
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -29,6 +30,7 @@ namespace CarRental.BussinessLayer.Managers
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
             _inspectionsManager = new InspectionsManager();
+            _dealManager = new DealManager();
         }
 
         public void StartMainMenu()
@@ -272,11 +274,11 @@ namespace CarRental.BussinessLayer.Managers
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager);
+                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager);
             }
             else
             {
-                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager);
+                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager);
             }
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);

@@ -7,7 +7,8 @@
         //public Guid Id { get; init; }
         public string Name { get; init; }
         public string CustomerId { get; init; }
-        public string CarId { get; init; }
+        public string VinCode { get; init; }
+        public Guid CarId { get; init; }
         public float Price { get; init; }
 
         private string _dealType;
@@ -36,7 +37,7 @@
             
         }
 
-        public Deal(string CustomerId, string CarId, string type, float Price)
+        public Deal(string CustomerId, Guid CarId, string type, float Price)
         {
             this.DealType = type;
             this.Price = Price;

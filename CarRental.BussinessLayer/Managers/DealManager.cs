@@ -24,22 +24,19 @@ public class DealManager
 
     // CREATE
 
-    public Deal GetNewDeal(string name, string customerId, string carId, float price, string dealType)
+    public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
     {
-        // IF INVALID NAME IS ENTERED, RENAME IT TO Guid INSTEAD. A GUARANCE OF UNIQUITY.
-        if(_nameValidator.CheckNullEmpty(name))
-        {
-            name = _invalidName + Guid.NewGuid().ToString();
-        }
+        name = name + Guid.NewGuid().ToString().Substring(24);
         
         Deal deal = new Deal
         {
             Name = name,
             CustomerId = customerId,
+            VinCode = vinCode,
             CarId = carId,
-            Price = price,
             // SOME VALIDATION IN THE Deal-CLASS.
-            DealType = dealType
+            DealType = dealType,
+            Price = price,
         };
 
         return deal;
@@ -73,6 +70,14 @@ public class DealManager
     }
 
     // UPDATE
+
+    public void AddDealInToList(List<Deal> deals, Deal deal)
+    {
+        _validator.CheckNull(deals);
+        _validator.CheckNull(deal);
+
+        deals.Add(deal);
+    }
 
     // DELETE
 
