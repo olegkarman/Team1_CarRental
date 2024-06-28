@@ -1,21 +1,22 @@
 ﻿namespace CarRental.Data.Models
 {
-    public class Deal
+    public record class Deal
     {
         // PROPERTIES
 
         //public Guid Id { get; init; }
-        public string Name { get; set; }
-        public string CustomerId { get; set; }
-        public string CarId { get; set; }
-        public float Price { get; set; }
+        public string Name { get; init; }
+        public string CustomerId { get; init; }
+        public string CarId { get; init; }
+        public float Price { get; init; }
 
         private string _dealType;
 
+        // FOR WHAT A PURPOSE IT? MAYBE ENUM INSTEAD? WELL, NEVERMIND...
         public string DealType
         {
             get { return _dealType; }
-            set
+            init
             {
                 if (value == "purchase" || value == "rental")
                 {
@@ -54,6 +55,7 @@
             dealManager.SaveDealInfo(dealInfo);*/
         }
 
+        // IN THE RECORD-CLASS IT IS UNECCESSARY.
         public override string ToString()
         {
             return $"The customer {CustomerId} has {DealType} a car VIN code is {CarId} and the Price is {Price}";
