@@ -27,7 +27,7 @@ public class DealManager
     public Deal GetNewDeal(string name, string customerId, string carId, float price, string dealType)
     {
         // IF INVALID NAME IS ENTERED, RENAME IT TO Guid INSTEAD. A GUARANCE OF UNIQUITY.
-        if(!_nameValidator.ValidateNameDefault(name))
+        if(_nameValidator.CheckNullEmpty(name))
         {
             name = _invalidName + Guid.NewGuid().ToString();
         }
@@ -63,6 +63,7 @@ public class DealManager
     public Deal ChooseDealFromList(List<Deal> deals, string name, string customerId)
     {
         _validator.CheckNull(deals);
+        _nameValidator.CheckNullEmpty(name, customerId);
 
         Deal deal = deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId)));
 
@@ -86,6 +87,7 @@ public class DealManager
     public void DeleteDealFromList(List<Deal> deals, string name, string customerId)
     {
         _validator.CheckNull(deals);
+        _nameValidator.CheckNullEmpty(name, customerId);
 
         int index = deals.IndexOf(deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId))));
 

@@ -48,6 +48,26 @@ namespace CarRental.BussinessLayer.Validators
             }
         }
 
+        public bool CheckNullEmpty(string name)
+        {
+            if(string.IsNullOrEmpty(name))
+            {
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public void CheckNullEmpty(string name, string customerId)
+        {
+            if (CheckNullEmpty(name) || CheckNullEmpty(customerId))
+            {
+                throw new ArgumentNullException(nameof(name) + "/" + nameof(customerId));
+            }
+        }
+
         public bool ValidateNameLengthDefault(string name)
         {
             if ((name.Length < 3) || (name.Length > 100))
