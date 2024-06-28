@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Validators
 {
@@ -39,6 +40,14 @@ namespace CarRental.BussinessLayer.Validators
         public void ValidateIndexOfList(List<Deal> deals, int index)
         {
             if ((index < 0) || (index >= deals.Count))
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+
+        public void ValidateIndexOfList(List<Brand> brands, int index)
+        {
+            if ((index < 0) || (index >= brands.Count))
             {
                 throw new IndexOutOfRangeException();
             }
