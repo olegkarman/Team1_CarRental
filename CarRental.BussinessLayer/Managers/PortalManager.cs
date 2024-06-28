@@ -4,6 +4,7 @@ using CarRental.BussinessLayer.Interfaces;
 using System;
 using System.Text;
 using CarRental.Data.Models.Automobile;
+using CarRental.BussinessLayer.Validators;
 using System.Drawing;
 using System.Globalization;
 using System.Reflection;
@@ -30,7 +31,13 @@ namespace CarRental.BussinessLayer.Managers
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
             _inspectionsManager = new InspectionsManager();
-            _dealManager = new DealManager();
+
+            _dealManager = new DealManager
+            {
+                _indexValidator = new IndexOfListValidation(),
+                _nameValidator = new UpdatedNameValidator(),
+                _validator = new DealValidation()
+            };
         }
 
         public void StartMainMenu()

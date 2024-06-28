@@ -59,7 +59,7 @@
         // IN THE RECORD-CLASS IT IS UNECCESSARY.
         public override string ToString()
         {
-            return $"The customer {CustomerId} has {DealType} a car VIN code is {CarId} and the Price is {Price}";
+            return $"The customer {CustomerId} has {DealType} a car VIN code is {VinCode} and the Price is {Price}";
         }
     }
 }

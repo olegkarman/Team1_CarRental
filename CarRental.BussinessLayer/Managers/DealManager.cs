@@ -12,14 +12,20 @@ public class DealManager
 
     private const string _invalidName = "INVALID";
 
-    private IndexOfListValidation _indexValidator;
-    private UpdatedNameValidator _nameValidator;
-    private DealValidation _validator;
+    internal IndexOfListValidation _indexValidator;
+    internal UpdatedNameValidator _nameValidator;
+    internal DealValidation _validator;
 
     // PROPERTIES
 
     // CONSTRUCTORS
 
+    public DealManager()
+    {
+        
+    }
+
+    //public DealManager(IndexValidator idexValidator, UpdatedNameValidator nameValidator, DealValidation _)
     // METHODS
 
     // CREATE
