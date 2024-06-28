@@ -21,6 +21,7 @@ namespace CarRental.BussinessLayer.Managers
         private CustomerManager _customerManager;
         private InspectionsManager _inspectionsManager;
         private DealManager _dealManager;
+        private BrandManager _brandManager;
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -37,6 +38,12 @@ namespace CarRental.BussinessLayer.Managers
                 _indexValidator = new IndexOfListValidation(),
                 _nameValidator = new UpdatedNameValidator(),
                 _validator = new DealValidation()
+            };
+
+            _brandManager = new BrandManager
+            {
+                Validator = new BrandValidation(),
+                IndexValidator = new IndexOfListValidation()
             };
         }
 
