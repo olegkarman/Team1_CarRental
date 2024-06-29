@@ -17,7 +17,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // PROPERTIES
 
-        internal BrandValidation Validator { get; init; }
+        internal NullValidation NullValidator { get; init; }
         internal IndexOfListValidation IndexValidator { get; init; }
 
         public List<Brand> Brands { get; set; }
@@ -35,9 +35,9 @@ namespace CarRental.BussinessLayer.Managers
 
         public Brand GetNewBrand(Guid id, string name, string[] models)
         {
-            Validator.CheckNull(name);
-            Validator.CheckNull(id);
-            Validator.CheckNull(models);
+            NullValidator.CheckNull(name);
+            NullValidator.CheckNull(id);
+            NullValidator.CheckNull(models);
 
             Brand brand = new Brand
             {
@@ -53,31 +53,31 @@ namespace CarRental.BussinessLayer.Managers
 
         public Brand GetBrandFromList(List<Brand> brands, int index)
         {
-            Validator.CheckNull(brands);
+            NullValidator.CheckNull(brands);
             IndexValidator.ValidateIndexOfList(brands, index);
 
             Brand brand = brands[index];
 
-            Validator.CheckNull(brand);
+            NullValidator.CheckNull(brand);
 
             return brand;
         }
 
         public Brand GetBrandFromList(List<Brand> brands, Guid id)
         {
-            Validator.CheckNull(brands);
+            NullValidator.CheckNull(brands);
 
             Brand brand = brands.Find(x => x.Id.CompareTo(id) == 0);
 
-            Validator.CheckNull(brand);
+            NullValidator.CheckNull(brand);
 
             return brand;
         }
 
         public string ShowBrandInfo(Brand brand)
         {
-            Validator.CheckNull(brand);
-            Validator.CheckNull(brand.Models);
+            NullValidator.CheckNull(brand);
+            NullValidator.CheckNull(brand.Models);
 
             StringBuilder modelsBuilder = new StringBuilder();
 
@@ -94,8 +94,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public void AddBrandInToList(List<Brand> brands, Brand brand)
         {
-            Validator.CheckNull(brands);
-            Validator.CheckNull(brand);
+            NullValidator.CheckNull(brands);
+            NullValidator.CheckNull(brand);
 
             brands.Add(brand);
         }
@@ -104,7 +104,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DeleteBrandFromList(List<Brand> brands, int index)
         {
-            Validator.CheckNull(brands);
+            NullValidator.CheckNull(brands);
             IndexValidator.ValidateIndexOfList(brands, index);
 
             brands.RemoveAt(index);
@@ -112,8 +112,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DeleteBrandFromList(List<Brand> brands, Guid guid)
         {
-            Validator.CheckNull(brands);
-            Validator.CheckNull(guid);
+            NullValidator.CheckNull(brands);
+            NullValidator.CheckNull(guid);
 
             brands.RemoveAt(brands.IndexOf(brands.Find(x => x.Id.CompareTo(guid) == 0)));
         }

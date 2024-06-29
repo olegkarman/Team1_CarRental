@@ -19,8 +19,7 @@ namespace CarRental.BussinessLayer.Managers
         internal UpdatedNameValidator Validator { get; init; }
         internal TextProcessingService TextProcessor { get; init; }
         internal AgeValidator AgeValidator { get; init; }
-        internal MechanicValidation MechanicValidator { get; init; }
-        internal RepairValidation RepairValidator { get; init; }
+        internal NullValidation NullValidator { get; init; }
         internal IndexOfListValidation IndexValidator { get; init; }
         internal Random PseudoRandom;
 
@@ -67,7 +66,7 @@ namespace CarRental.BussinessLayer.Managers
                 Repairs = new List<Repair>()
             };
 
-            MechanicValidator.CheckNull(mechanic);
+            NullValidator.CheckNull(mechanic);
 
             return mechanic;
         }
@@ -94,8 +93,8 @@ namespace CarRental.BussinessLayer.Managers
 
         public void AddMechanicInToList(List<Mechanic> mechanics, Mechanic mechanic)
         {
-            MechanicValidator.CheckNull(mechanics);
-            MechanicValidator.CheckNull(mechanic);
+            NullValidator.CheckNull(mechanics);
+            NullValidator.CheckNull(mechanic);
 
             mechanics.Add(mechanic);
         }
@@ -104,23 +103,23 @@ namespace CarRental.BussinessLayer.Managers
 
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, int index)
         {
-            MechanicValidator.CheckNull(mechanics);
+            NullValidator.CheckNull(mechanics);
             IndexValidator.ValidateIndexOfList(mechanics, index);
 
             Mechanic mechanic = mechanics[index];
 
-            MechanicValidator.CheckNull(mechanic);
+            NullValidator.CheckNull(mechanic);
 
             return mechanic;
         }
 
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, Guid guid)
         {
-            MechanicValidator.CheckNull(mechanics);
+            NullValidator.CheckNull(mechanics);
             
             Mechanic mechanic = mechanics.Find(x => x.Id.CompareTo(guid) == 0);
 
-            MechanicValidator.CheckNull(mechanic);
+            NullValidator.CheckNull(mechanic);
 
             return mechanic;
         }
@@ -129,10 +128,10 @@ namespace CarRental.BussinessLayer.Managers
 
         public void AddRepairInToMechanicList(Mechanic mechanic, Repair repair)
         {
-            MechanicValidator.CheckNull(mechanic);
-            RepairValidator.CheckNull(repair);
+            NullValidator.CheckNull(mechanic);
+            NullValidator.CheckNull(repair);
 
-            RepairValidator.CheckNull(mechanic.Repairs);
+            NullValidator.CheckNull(mechanic.Repairs);
 
             mechanic.Repairs.Add(repair);
         }
@@ -141,7 +140,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DeleteMechanicFromList(List<Mechanic> mechanics, int index)
         {
-            MechanicValidator.CheckNull(mechanics);
+            NullValidator.CheckNull(mechanics);
 
             IndexValidator.ValidateIndexOfList(mechanics, index);
 
@@ -150,7 +149,7 @@ namespace CarRental.BussinessLayer.Managers
 
         public void DeleteMechanicFromList(List<Mechanic> mechanics, Guid guid)
         {
-            MechanicValidator.CheckNull(mechanics);
+            NullValidator.CheckNull(mechanics);
 
             mechanics.RemoveAt(mechanics.IndexOf(mechanics.Find(x => x.Id.CompareTo(guid) == 0)));
         }

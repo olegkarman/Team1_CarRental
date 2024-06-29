@@ -37,12 +37,12 @@ namespace CarRental.BussinessLayer.Managers
             {
                 _indexValidator = new IndexOfListValidation(),
                 _nameValidator = new UpdatedNameValidator(),
-                _validator = new DealValidation()
+                _validator = new NullValidation()
             };
 
             _brandManager = new BrandManager
             {
-                Validator = new BrandValidation(),
+                NullValidator = new NullValidation(),
                 IndexValidator = new IndexOfListValidation()
             };
         }

@@ -14,7 +14,7 @@ public class DealManager
 
     internal IndexOfListValidation _indexValidator;
     internal UpdatedNameValidator _nameValidator;
-    internal DealValidation _validator;
+    internal NullValidation _validator;
 
     // PROPERTIES
 

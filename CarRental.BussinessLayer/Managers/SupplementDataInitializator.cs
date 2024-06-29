@@ -84,8 +84,7 @@ public class SupplementDataInitializator
             Validator = new UpdatedNameValidator(),
             TextProcessor = new TextProcessingService(),
             AgeValidator = new AgeValidator(),
-            MechanicValidator = new MechanicValidation(),
-            RepairValidator = new RepairValidation(),
+            NullValidator = new NullValidation(),
             IndexValidator = new IndexOfListValidation(),
             PseudoRandom = new Random()
         };
@@ -97,9 +96,7 @@ public class SupplementDataInitializator
     {
         RepairManager repManager = new RepairManager
         {
-            RepairValidator = new RepairValidation(),
-            CarValidator = new VehicleValidation(),
-            MechanicValidator = new MechanicValidation(),
+            NullValidator = new NullValidation(),
             IndexValidator = new IndexOfListValidation(),
 
             Repairs = new List<Repair>()
