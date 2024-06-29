@@ -14,44 +14,52 @@ namespace CarRental.BussinessLayer.Validators
     {
         // METHODS
 
-        public void ValidateIndexOfList(List<Mechanic> mechanics, int index)
+        public void ValidateIndexOfList<T>(List<T> models, int index)
         {
-            if ((index < 0) || (index >= mechanics.Count))
+            if ((index < 0) || (index >= models.Count))
             {
                 throw new IndexOutOfRangeException();
             }
         }
 
-        public void ValidateIndexOfList(List<Car> cars, int index)
-        {
-            if ((index < 0) || (index >= cars.Count))
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
+        //public void ValidateIndexOfList(List<Mechanic> mechanics, int index)
+        //{
+        //    if ((index < 0) || (index >= mechanics.Count))
+        //    {
+        //        throw new IndexOutOfRangeException();
+        //    }
+        //}
 
-        public void ValidateIndexOfList(List<Repair> repairs, int index)
-        {
-            if ((index < 0) || (index >= repairs.Count))
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
+        //public void ValidateIndexOfList(List<Car> cars, int index)
+        //{
+        //    if ((index < 0) || (index >= cars.Count))
+        //    {
+        //        throw new IndexOutOfRangeException();
+        //    }
+        //}
 
-        public void ValidateIndexOfList(List<Deal> deals, int index)
-        {
-            if ((index < 0) || (index >= deals.Count))
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
+        //public void ValidateIndexOfList(List<Repair> repairs, int index)
+        //{
+        //    if ((index < 0) || (index >= repairs.Count))
+        //    {
+        //        throw new IndexOutOfRangeException();
+        //    }
+        //}
 
-        public void ValidateIndexOfList(List<Brand> brands, int index)
-        {
-            if ((index < 0) || (index >= brands.Count))
-            {
-                throw new IndexOutOfRangeException();
-            }
-        }
+        //public void ValidateIndexOfList(List<Deal> deals, int index)
+        //{
+        //    if ((index < 0) || (index >= deals.Count))
+        //    {
+        //        throw new IndexOutOfRangeException();
+        //    }
+        //}
+
+        //public void ValidateIndexOfList(List<Brand> brands, int index)
+        //{
+        //    if ((index < 0) || (index >= brands.Count))
+        //    {
+        //        throw new IndexOutOfRangeException();
+        //    }
+        //}
     }
 }
