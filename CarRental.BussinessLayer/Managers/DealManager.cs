@@ -2,8 +2,8 @@
 //using System.Text.Json;
 //using System.IO;
 using System.Diagnostics;
-using CarRental.Data.Models;
 using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers;
 public class DealManager

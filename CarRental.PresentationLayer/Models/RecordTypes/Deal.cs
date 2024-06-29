@@ -1,4 +1,4 @@
-﻿namespace CarRental.Data.Models
+﻿namespace CarRental.Data.Models.RecordTypes
 {
     public record class Deal
     {
@@ -34,12 +34,12 @@
 
         public Deal()
         {
-            
+
         }
 
         public Deal(string CustomerId, Guid CarId, string type, float Price)
         {
-            this.DealType = type;
+            DealType = type;
             this.Price = Price;
             this.CarId = CarId;
             this.CustomerId = CustomerId;

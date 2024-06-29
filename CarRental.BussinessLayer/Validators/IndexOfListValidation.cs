@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Validators
 {

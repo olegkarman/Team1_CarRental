@@ -12,6 +12,7 @@ using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using System.Drawing;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers;
 
