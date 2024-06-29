@@ -19,7 +19,7 @@ public class Car
     // FIELDS
 
     private const string _noInfo = "NO INFORMATION";
-    private readonly int? _year;
+    //private readonly int? _year;
     private float? _mileage;   // AVTOPROBIG.
     private float? _currentFuel;
     private int? _maxFuelCapacity;
@@ -88,7 +88,7 @@ public class Car
     public bool? IsFitForUse { get; set; }
 
     public Deal? Engagement { get; set; }
-    public List<Inspection> Inspections { get; set; }
+    public List<Inspection>? Inspections { get; set; }
     public List<Repair>? Repairs { get; set; }
     public Customer? Owner { get; set; }
 
