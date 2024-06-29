@@ -23,4 +23,5 @@ public class ServiceManagerSupplements
     public PatternCharMaps CharMaps { get; init; }
     public MechanicManager MechanicalManager { get; init; }
     public RepairManager JunkRepairManager { get; init; }
+    public NullValidation NullValidator { get; init; }
 }

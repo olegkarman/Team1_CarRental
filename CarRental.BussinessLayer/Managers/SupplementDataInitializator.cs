@@ -19,6 +19,11 @@ public class SupplementDataInitializator
 
     // METHODS
 
+    public NullValidation InitializeNullValidator()
+    {
+        return new NullValidation();
+    }
+
     public VehicleValidation InitializeValidator()
     {
         return new VehicleValidation();

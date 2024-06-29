@@ -7,6 +7,7 @@ using CarRental.Data.Models.Automobile;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Enums;
 using System.Drawing;
+using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Validators
 {
@@ -14,29 +15,37 @@ namespace CarRental.BussinessLayer.Validators
     {
         // METHODS
 
-        public void CheckNull(Car car)
+        public void CheckNull<T>(T model)
         {
-            if (car == null)
+            if (model == null)
             {
-                throw new ArgumentNullException(nameof(car));
+                throw new ArgumentNullException(nameof(model));
             }
         }
 
-        public void CheckNull(bool? isFitForUse)
-        {
-            if (isFitForUse == null)
-            {
-                throw new ArgumentNullException(nameof(isFitForUse));
-            }
-        }
+        //public void CheckNull(Car car)
+        //{
+        //    if (car == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(car));
+        //    }
+        //}
 
-        public void CheckNull(string tupleEntry)
-        {
-            if (tupleEntry == null)
-            {
-                throw new ArgumentNullException(nameof(tupleEntry));
-            }
-        }
+        //public void CheckNull(bool? isFitForUse)
+        //{
+        //    if (isFitForUse == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(isFitForUse));
+        //    }
+        //}
+
+        //public void CheckNull(string tupleEntry)
+        //{
+        //    if (tupleEntry == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(tupleEntry));
+        //    }
+        //}
 
         public void CheckNull(string vinCode, string model, string brand, string numberPlate)
         {
@@ -58,13 +67,21 @@ namespace CarRental.BussinessLayer.Validators
             }
         }
 
-        public void CheckNull(List<Car> cars)
+        public void CheckNull<T>(List<T> models)
         {
-            if (cars == null)
+            if (models == null)
             {
-                throw new ArgumentNullException(nameof(cars));
+                throw new ArgumentNullException(nameof(models));
             }
         }
+
+        //public void CheckNull(List<Car> cars)
+        //{
+        //    if (cars == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(cars));
+        //    }
+        //}
 
         public void CheckNullEmpty(string model)
         {

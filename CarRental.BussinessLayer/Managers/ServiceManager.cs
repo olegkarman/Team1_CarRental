@@ -934,7 +934,8 @@ public class ServiceManager : ICarManager
                 CharMaps = dataInit.InitializeCharacterMaps(),
                 RandomCarGenerator = dataInit.InitializeRandomCarGenerator(),
                 MechanicalManager = dataInit.InitializeMechanization(),
-                JunkRepairManager = dataInit.InitializeRepair()
+                JunkRepairManager = dataInit.InitializeRepair(),
+                NullValidator = dataInit.InitializeNullValidator()
             };
         }
         catch (NullReferenceException exception)
