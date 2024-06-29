@@ -25,5 +25,13 @@ namespace CarRental.BussinessLayer.Validators
                 throw new ArgumentNullException(nameof(models));
             }
         }
+
+        public void CheckNull<T>(T[] models)
+        {
+            if (models == null)
+            {
+                throw new ArgumentNullException(nameof(models));
+            }
+        }
     }
 }
