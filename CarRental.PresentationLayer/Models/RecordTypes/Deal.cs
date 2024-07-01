@@ -4,7 +4,7 @@
     {
         // PROPERTIES
 
-        //public Guid Id { get; init; }
+        public Guid Id { get; init; }
         public string Name { get; init; }
         public string CustomerId { get; init; }
         public string VinCode { get; init; }
@@ -59,7 +59,7 @@
         // IN THE RECORD-CLASS IT IS UNECCESSARY.
         public override string ToString()
         {
-            return $"The customer {CustomerId} has {DealType} a car VIN code is {VinCode} and the Price is {Price}";
+            return $"DEAL NUMBER: {Id}. The customer {CustomerId} has {DealType} a car VIN code is {VinCode} and the Price is {Price}";
         }
     }
 }
