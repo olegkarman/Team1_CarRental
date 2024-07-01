@@ -1,4 +1,4 @@
-﻿using CarRental.Data.Inspection;
+﻿using CarRental.Data.Checkup;
 using CarRental.Data.Models;
 using System.Diagnostics.CodeAnalysis;
 

@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Data.Models.Car;
-using CarRental.Data.Models.Car.RecordTypes;
+using CarRental.Data.Models.Automobile;
+using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.BussinessLayer.Managers;
-using CarRental.BussinessLayer.Interfaces;
-using CarRental.Data.Models.Car.Seeds;
 using CarRental.BussinessLayer.Validators;
+using CarRental.BussinessLayer.Services;
 
 namespace CarRental.BussinessLayer.Managers;
 
 public class ServiceManagerSupplements
 {
-    // THE PURPOSE OF THE CLASS:
-    // // HOLDS FIELDS ARE ALL NECCESSARY CLASSES TO CREATE CAR-CLASS INSTANCE.
-
     // FIELDS
 
     // PROPERTIES
 
-    public BrandModelsNamesDataSheet BrandModelsDataSheet { get; init; }
-    public Depot DepotService { get; init; }
-    public Dictionary<string, ModelComponentsPattern> ModelsPatterns { get; init; }
-    public BrandRecord[] BrandRecords { get; init; }
-    internal VehicleValidation Validator { get; init; }
-    public Mechanic Mechanic { get; init; }
+    public RandomCarGeneration RandomCarGenerator { get; init; }
+    public VehicleValidation Validator { get; init; }
+    public IndexOfListValidation IndexValidator { get; init; }
+    public PatternCharMaps CharMaps { get; init; }
+    public MechanicManager MechanicalManager { get; init; }
+    public RepairManager JunkRepairManager { get; init; }
+    public NullValidation NullValidator { get; init; }
 }

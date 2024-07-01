@@ -1,7 +1,7 @@
 ﻿using CarRental.Data.Enums;
-using CarRental.Data.Inspection;
+using CarRental.Data.Checkup;
 using CarRental.Data.Models;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models.Automobile;
 
 namespace CarRental.BussinessLayer.Managers;
 public record CarRecord(int Id, string Year, string Mark); /* додати  Record тип.*/

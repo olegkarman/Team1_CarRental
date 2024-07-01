@@ -1,14 +1,114 @@
 ﻿using System;
-using System.Text.Json;
-using System.IO;
+//using System.Text.Json;
+//using System.IO;
 using System.Diagnostics;
+using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers;
 public class DealManager
 {
-    private string fileName;
+    // FIELDS
+
+    private const string _invalidName = "INVALID";
+
+    internal IndexOfListValidation _indexValidator;
+    internal UpdatedNameValidator _nameValidator;
+    internal NullValidation _validator;
+
+    // PROPERTIES
+
+    // CONSTRUCTORS
+
+    public DealManager()
+    {
+        
+    }
+
+    //public DealManager(IndexValidator idexValidator, UpdatedNameValidator nameValidator, DealValidation _)
+    // METHODS
+
+    // CREATE
+
+    public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
+    {
+        name = name + Guid.NewGuid().ToString().Substring(24);
+        
+        Deal deal = new Deal
+        {
+            Name = name,
+            CustomerId = customerId,
+            VinCode = vinCode,
+            CarId = carId,
+            // SOME VALIDATION IN THE Deal-CLASS.
+            DealType = dealType,
+            Price = price,
+        };
+
+        return deal;
+    }
+
+    // RETRIVE
+
+    public Deal ChooseDealFromList(List<Deal> deals, int index)
+    {
+        _validator.CheckNull(deals);
+        _indexValidator.ValidateIndexOfList(deals, index);
+
+        Deal deal = deals[index];
+
+        _validator.CheckNull(deal);
+
+        return deal;
+    }
+
+    // Name AND CustomerId ARE TWO PARTS OF PRIMARY KEY IN THE DATA BASE.
+    public Deal ChooseDealFromList(List<Deal> deals, string name, string customerId)
+    {
+        _validator.CheckNull(deals);
+        _nameValidator.CheckNullEmpty(name, customerId);
+
+        Deal deal = deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId)));
+
+        _validator.CheckNull(deal);
+
+        return deal;
+    }
+
+    // UPDATE
+
+    public void AddDealInToList(List<Deal> deals, Deal deal)
+    {
+        _validator.CheckNull(deals);
+        _validator.CheckNull(deal);
+
+        deals.Add(deal);
+    }
+
+    // DELETE
+
+    public void DeleteDealFromList(List<Deal> deals, int index)
+    {
+        _validator.CheckNull(deals);
+        _indexValidator.ValidateIndexOfList(deals, index);
+
+        deals.RemoveAt(index);
+    }
+
+    public void DeleteDealFromList(List<Deal> deals, string name, string customerId)
+    {
+        _validator.CheckNull(deals);
+        _nameValidator.CheckNullEmpty(name, customerId);
+
+        int index = deals.IndexOf(deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId))));
+
+        deals.RemoveAt(index);
+    }
+
+    /*private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
+    // MOVE IT INTO A SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
     public DealManager()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
@@ -75,7 +175,7 @@ public class DealManager
                 }
             }
         }
-    }
+    }*/
 
     /*public string GetAllDealsJson()
     {
@@ -111,18 +211,18 @@ public class DealManager
         }
     }*/
 
-    public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
-    {
-        try
-        {
-            string[] jsonLines = File.ReadAllLines(fileName);
-            string jsonString = string.Join(Environment.NewLine, jsonLines);
-            return Deserialize(jsonString);
-        }
-        catch (System.IO.FileNotFoundException)
-        {
-            return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
-        }
+    /* public Dictionary<int, Tuple<string, string, string, float, DateTime>> GetAllDealsDict()
+     {
+         try
+         {
+             string[] jsonLines = File.ReadAllLines(fileName);
+             string jsonString = string.Join(Environment.NewLine, jsonLines);
+             return Deserialize(jsonString);
+         }
+         catch (System.IO.FileNotFoundException)
+         {
+             return new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
+         }
 
-    }
+     }*/
 }

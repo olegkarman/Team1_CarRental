@@ -1,8 +1,8 @@
 ﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
-using CarRental.Data.Inspection;
+using CarRental.Data.Checkup;
 using CarRental.Data.Models;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models.Automobile;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CarRental.Data.Models.Car;
+using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Managers;
 
 
@@ -39,8 +39,8 @@ public class WeylandYutaniCarRepairShopPortal
 
         // TEST
         // \\ // \\ // \\ // \\// \\ // \\ // \\ // \\ // \\ // \\
-        Car car = serviceManager.GetNewCar();
-        serviceManager.MakeNewListOfCurrentCars(15);
+        //Car car = serviceManager.GetNewCar();
+        //serviceManager.MakeNewListOfCurrentCars(15);
         //serviceManager.TrySelectCar(5);
         //serviceManager.DisplayCurrentCar();
         serviceManager.DisplayCurrentCars();

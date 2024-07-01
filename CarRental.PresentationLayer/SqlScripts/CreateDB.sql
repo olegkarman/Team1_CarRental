@@ -1,9 +1,11 @@
-CREATE DATABASE KarmaCarRentalGoTwentyFive
+-- INITIAL DATA BASE
+
+CREATE DATABASE KarmaCarRentalDB
 	GO
 
--- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
-
 ------------------------------------------------ T-SQL ALREADY EXECUTED START ------------------------------------------------
+
+-- THE IMPLEMENTATION OF ENUMS ON THE DATABASE... O_o
 
 CREATE TABLE TransportStatuses
 (
@@ -357,6 +359,8 @@ VALUES ('19990623O', '19990623DL',0.5, 1),
 -- END OF COPY OF DANIIL IBRAHIMOV SCRIPT
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED SECOND START ------------------------------------------------
 
 -- INSERT SECTION --
 -- 26-JUN-24
@@ -943,3 +947,4 @@ INSERT INTO Cars
 
 -- END OF INSERT SECTION
 
+------------------------------------------------ T-SQL ALREADY EXECUTED SECOND END ------------------------------------------------

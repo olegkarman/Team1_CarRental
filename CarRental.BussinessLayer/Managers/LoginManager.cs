@@ -139,6 +139,8 @@ namespace CarRental.BussinessLayer.Managers
                 }
             }
 
+            // THIS LOGIC SHOULD BE IN CUSTOMER MANAGER. I THINK SO...
+
             /* DoB */
             DateTime start = new DateTime(1940, 1, 1);
             int range = (new DateTime(2002, 12, 31) - start).Days;
