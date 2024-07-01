@@ -6,6 +6,7 @@ using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers;
+
 public class DealManager
 {
     // FIELDS
@@ -36,6 +37,7 @@ public class DealManager
         
         Deal deal = new Deal
         {
+            Id = Guid.NewGuid(),
             Name = name,
             CustomerId = customerId,
             VinCode = vinCode,
@@ -69,6 +71,17 @@ public class DealManager
         _nameValidator.CheckNullEmpty(name, customerId);
 
         Deal deal = deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId)));
+
+        _validator.CheckNull(deal);
+
+        return deal;
+    }
+
+    public Deal ChooseDealFromList(List<Deal> deals, Guid id)
+    {
+        _validator.CheckNull(deals);
+
+        Deal deal = deals.Find(x => (x.Id.CompareTo(id) == 0));
 
         _validator.CheckNull(deal);
 
