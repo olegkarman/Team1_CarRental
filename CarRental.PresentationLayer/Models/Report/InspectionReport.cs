@@ -12,14 +12,14 @@ namespace CarRental.Data.Models.Report
         public InspectionStatusType? Result { get; private set; }
 
 
-        public InspectionReport(InspectionReport inspectionReport)
+        public InspectionReport(Guid inspectionId, DateTime inspectionDate, string inspectorName, Guid carId, InspectionStatusType result)
         {
             Id = Guid.NewGuid();
-            InspectionId = inspectionReport.InspectionId;
-            InspectionDate = inspectionReport.InspectionDate;
-            InspectorName = inspectionReport.InspectorName;
-            CarId = inspectionReport.CarId;
-            Result = inspectionReport.Result;
+            InspectionId = inspectionId;
+            InspectionDate = inspectionDate;
+            InspectorName = inspectorName;
+            CarId = carId;
+            Result = result;
         }
     }
 }
