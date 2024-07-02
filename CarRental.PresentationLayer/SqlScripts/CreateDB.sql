@@ -1,7 +1,5 @@
--- INITIAL DATA BASE
-
-CREATE DATABASE KarmaCarRentalDB
-	GO
+CREATE DATABASE CarRentalDB;
+GO
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED START ------------------------------------------------
 
@@ -11,13 +9,17 @@ CREATE TABLE TransportStatuses
 (
 	Id INT NOT NULL,
 	-- DUE TO ENUM-INDEX CAN DUPLICATE BUT NOT STRING-VALUE.
-	Status NVARCHAR(50) NOT NULL PRIMARY KEY
+	Status NVARCHAR(50) NOT NULL,
+	CONSTRAINT PK_TransportStatuses_Status_TEST
+		PRIMARY KEY (Status)
 );
 
 CREATE TABLE InspectionStatuses
 (
 	Id INT NOT NULL,
-	Status NVARCHAR(50) NOT NULL PRIMARY KEY
+	Status NVARCHAR(50) NOT NULL,
+	CONSTRAINT PK_InspectionStatuses_Status_TEST
+		PRIMARY KEY (Status)
 );
 
 -- END OF ENUMS
@@ -49,7 +51,7 @@ CREATE TABLE Deals
 	CustomerId NVARCHAR(100) NOT NULL, -- IT IS NOT IdNumber FROM User,
 	-- IT IS A PassportNumber (CustomerManager.cs)... O_o
 	-- SO NO COMPROMISE OF FIRST NROMAL-FORM, Я ДУМЯЮ... о_О
-	CONSTRAINT PK_Deals_Name_CustomerId
+	CONSTRAINT PK_Deals_Name_CustomerId_TEST
 		PRIMARY KEY (Name, CustomerId),
 	IdNumber NVARCHAR(100) NOT NULL,
 	FOREIGN KEY (IdNumber)
@@ -80,13 +82,17 @@ CREATE TABLE Cars
 	-- AN ATTEMPT TO IMPLEMENT ENUMS.
 	-- CHECK(Status IN ('Unknown', 'Available', 'Rented', 'Sold', 'InRepair', 'Unavailable'))
 	-- DEFAULT 'Unknown'
-	FOREIGN KEY (Status)
-		REFERENCES TransportStatuses (Status),
+	CONSTRAINT FK_Cars_TransportStatuses_Status_TEST
+		FOREIGN KEY (Status)
+			REFERENCES TransportStatuses (Status),
 	-- DEAL CONNECTION (Car HAS ONE DEAL)
 	Name NVARCHAR(250) NOT NULL,
-	CustomerId NVARCHAR(100) UNIQUE NOT NULL,
-	FOREIGN KEY (Name, CustomerId)
-		REFERENCES Deals (Name, CustomerId),
+	CustomerId NVARCHAR(100) NOT NULL,
+	CONSTRAINT UQ_Cars_CustomerId_TEST
+		UNIQUE(CustomerID),
+	CONSTRAINT FK_Cars_Deals_Name_CustomerId_TEST
+		FOREIGN KEY (Name, CustomerId)
+			REFERENCES Deals (Name, CustomerId),
 	NumberPlate NVARCHAR(50) NOT NULL,
 	Brand NVARCHAR(500) NOT NULL,
 	Model NVARCHAR(500) NOT NULL,
@@ -114,12 +120,14 @@ CREATE TABLE Inspections
 		REFERENCES Cars (CarId, VinCode),
 	-- INSPECTION CONNECTION TO STATUS ENUM.
 	Result NVARCHAR(50) NULL,
-	FOREIGN KEY (Result)
-		REFERENCES InspectionStatuses (Status),
+	CONSTRAINT FK_Inspections_InspectionStatuses_Result_Status_TEST
+		FOREIGN KEY (Result)
+			REFERENCES InspectionStatuses (Status),
 	-- CONNECTION INSPECTOR
 	IdNumber NVARCHAR(100) NOT NULL,
-	FOREIGN KEY (IdNumber)
-		REFERENCES Users (IdNumber),
+	CONSTRAINT FK_Inspections_Users_IdNumber_IdNumber_TEST
+		FOREIGN KEY (IdNumber)
+			REFERENCES Users (IdNumber),
 	InspectionDate DATE NULL
 	--InspectorName NVARCHAR(250) NULL, TRANSITIVE DEPENDANCY???
 
@@ -853,9 +861,11 @@ ALTER TABLE Deals
 		DealType NVARCHAR(50) NULL;
 GO
 
--- ALTER TABLE Cars
---	DROP CONSTRAINT --NAME_OF_UNIQUE_KEY_FOR CUSTOMERID AFTER FIRST PART OF THE SCRIPT EXECUTED
--- GO
+-- THERE WAS A 'HARDCORE'
+
+ALTER TABLE Cars
+	DROP CONSTRAINT UQ_Cars_CustomerId_TEST;
+GO
 
 -- END OF ALTER SECTION
 
@@ -948,3 +958,362 @@ INSERT INTO Cars
 -- END OF INSERT SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED SECOND END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED THIRD ------------------------------------------------
+
+
+-- ALTER TABLE SECTION
+-- 02-JUL-24
+
+ALTER TABLE Cars
+	DROP CONSTRAINT FK_Cars_Deals_Name_CustomerId_TEST;
+GO
+
+ALTER TABLE Deals
+	DROP CONSTRAINT PK_Deals_Name_CustomerId_TEST;
+GO
+
+ALTER TABLE Deals
+	ADD
+		Id NVARCHAR(100) NULL;
+GO
+
+-- END OF ALTER TABLE SECTION
+
+-- UPDATE SECTION
+-- 02-JUL-24
+
+UPDATE Deals
+	SET
+		Id = '99AC3D72-D132-4F4B-6C96-B3B58249FF2D'
+	WHERE Name = 'Alabama';
+
+UPDATE Deals
+	SET
+		Id = '4074E448-C826-406B-FBD1-40B9BD43809D'
+	WHERE Name = 'Arisaka-Bones';
+
+UPDATE Deals
+	SET
+		Id = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8'
+	WHERE Name = 'Amarilo-Sydney';
+
+UPDATE Deals
+	SET
+		Id = 'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6'
+	WHERE Name = 'Hawai-October';
+
+UPDATE Deals
+	SET
+		Id = 'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A'
+	WHERE Name = 'Mahuna-Lou';
+
+UPDATE Deals
+	SET
+		Id = 'BCBAE3B2-581B-4E50-6590-F0F02E0F96A5'
+	WHERE Name = 'Tihuana';
+
+-- END OF UPDATE SECTION
+
+-- ALTER TABLE SECTION
+-- 02-JUL-24
+
+ALTER TABLE Deals
+	ALTER COLUMN Id
+		NVARCHAR(100) NOT NULL;
+GO
+
+ALTER TABLE Deals
+	ADD CONSTRAINT PK_Deals_Id
+		PRIMARY KEY (Id);
+GO
+
+ALTER TABLE Cars
+	ADD
+		DealId NVARCHAR(100) NULL;
+GO
+
+-- END OF ALTER SECTION
+
+-- UPDATE SECTION
+-- 02-JUL-24
+
+UPDATE Cars
+	SET DealId = '4074E448-C826-406B-FBD1-40B9BD43809D'
+	WHERE Name = 'Arisaka-Bones';
+
+UPDATE Cars
+	SET DealId = '99AC3D72-D132-4F4B-6C96-B3B58249FF2D'
+	WHERE Name = 'Alabama';
+
+UPDATE Cars
+	SET DealId = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8'
+	WHERE Name = 'Amarilo-Sydney';
+
+UPDATE Cars
+	SET DealId = 'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6'
+	WHERE Name = 'Hawai-October';
+
+UPDATE Cars
+	SET DealId = 'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A'
+	WHERE Name = 'Mahuna-Lou';
+
+UPDATE Cars
+	SET DealId = 'BCBAE3B2-581B-4E50-6590-F0F02E0F96A5'
+	WHERE Name = 'Tihuana';
+
+-- END OF UPDATE SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Cars
+	ADD CONSTRAINT FK_Cars_Deals_DealId_Id
+		FOREIGN KEY (DealId)
+			REFERENCES Deals (Id);
+GO
+
+ALTER TABLE Cars
+	DROP COLUMN Name;
+GO
+
+-- END OF ALTER SECTION
+
+-- UPDATE SECTION
+-- 02-JUL-24
+
+UPDATE Cars
+	SET
+		CustomerId = '3B8BE39A-0738-4B15-93C9-3AA1620CBC5A'
+	WHERE DealId = 'BCBAE3B2-581B-4E50-6590-F0F02E0F96A5';
+
+UPDATE Cars
+	SET
+		CustomerId = '615A5A48-5C4B-49F9-900B-0241134D640C'
+	WHERE DealId = '99AC3D72-D132-4F4B-6C96-B3B58249FF2D';
+
+UPDATE Cars
+	SET
+		CustomerId = '7D8752F4-E040-4B2D-9422-32A4C0C10789'
+	WHERE DealId = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8';
+
+UPDATE Cars
+	SET
+		CustomerId = '7D8752F4-E040-4B2D-9422-32A4C0C10789'
+	WHERE DealId = '4074E448-C826-406B-FBD1-40B9BD43809D';
+
+UPDATE Cars
+	SET
+		CustomerId = 'BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2'
+	WHERE DealId = 'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A';
+
+UPDATE Cars
+	SET
+		CustomerId = 'BF016BBD-0AF3-412A-B8CD-C6533DC7CF4A'
+	WHERE DealId = 'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6';
+
+-- END OF UPDATE SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Cars
+	ADD CONSTRAINT FK_Cars_Users_CustomerId_IdNumber
+		FOREIGN KEY (CustomerId)
+			REFERENCES Users (IdNumber);
+GO
+
+-- END OF ALTER SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Cars
+	DROP CONSTRAINT FK_Cars_TransportStatuses_Status_TEST;
+GO
+
+ALTER TABLE TransportStatuses
+	DROP CONSTRAINT	PK_TransportStatuses_Status_TEST;
+GO
+
+EXEC sp_rename 'TransportStatuses.Id',
+	'Number', 'COLUMN';
+
+ALTER TABLE TransportStatuses
+	ADD
+		Id INT IDENTITY;
+GO
+
+ALTER TABLE Cars
+	ADD
+		StatusId INT NULL;
+GO
+
+-- END OF ALTER SECTION
+
+-- UPDATE SECTION
+-- 02-JUL-24
+
+UPDATE Cars
+	SET
+		StatusId = 1
+	WHERE Status = 'Available';
+
+UPDATE Cars
+	SET
+		StatusId = 4
+	WHERE Status = 'Sold';
+
+UPDATE Cars
+	SET
+		StatusId = 3
+	WHERE Status = 'Rented';
+
+-- END OF UPDATE SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Cars
+	DROP COLUMN Status;
+GO
+
+ALTER TABLE TransportStatuses
+	ADD CONSTRAINT PK_TransportStatuses_Id
+		PRIMARY KEY (Id);
+GO
+
+ALTER TABLE Cars
+	ADD CONSTRAINT FK_Cars_TransportStatuses_StatusId_Id
+		FOREIGN KEY (StatusId)
+			REFERENCES TransportStatuses (Id);
+GO
+
+-- END OF ALTER SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Inspections
+	DROP CONSTRAINT FK_Inspections_InspectionStatuses_Result_Status_TEST;
+GO
+
+ALTER TABLE InspectionStatuses
+	DROP CONSTRAINT	PK_InspectionStatuses_Status_TEST;
+GO
+
+EXEC sp_rename 'InspectionStatuses.Id',
+	'Number', 'COLUMN';
+GO
+
+ALTER TABLE InspectionStatuses
+	ADD
+		Id INT IDENTITY;
+GO
+
+ALTER TABLE Inspections
+	ADD
+		StatusId INT NULL;
+GO
+
+-- END OF ALTER SECTION
+
+-- UPDATE SECTION
+-- 02-JUL-24
+
+UPDATE Inspections
+	SET
+		StatusId = 2
+	WHERE Result = 'Successfully';
+
+-- END OF UPDATE SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Inspections
+	DROP COLUMN Result;
+GO
+
+ALTER TABLE InspectionStatuses
+	ADD CONSTRAINT PK_InspectionStatuses_Id
+		PRIMARY KEY (Id);
+GO
+
+ALTER TABLE Inspections
+	ADD CONSTRAINT FK_Inspections_InspectionStatuses_StatusId_Id
+		FOREIGN KEY (StatusId)
+			REFERENCES InspectionStatuses (Id);
+GO
+
+ALTER TABLE Inspections
+	DROP CONSTRAINT FK_Inspections_Users_IdNumber_IdNumber_TEST;
+GO
+
+EXEC sp_rename 'Inspections.IdNumber',
+	'InspectorId', 'COLUMN';
+GO
+
+ALTER TABLE Inspections
+	ADD CONSTRAINT FK_Inspections_Users_InspectorId_IdNumber
+		FOREIGN KEY (InspectorId)
+			REFERENCES Users (IdNumber);
+GO
+
+-- END OF ALTER SECTION
+
+-- ALTER SECTION
+-- 02-JUL-24
+
+ALTER TABLE Users
+	ADD
+		Category NVARCHAR(50) NULL;
+GO
+
+-- END OF ALTER SECTION
+
+-- UPDATE SECTION
+-- 02-JUL-24
+
+UPDATE Users
+	SET
+		Category = 'Customer'
+	WHERE NOT UserName IN ('Alex');
+
+UPDATE Users
+	SET
+		Category = 'Inspector'
+	WHERE UserName IN ('Alex');
+
+-- END OF UPDATE SECTION
+
+-- CREATE SECTION
+-- 02-JUL-24
+-- O. KARMANSKYY
+
+CREATE TABLE InspectionReports (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    InspectionId UNIQUEIDENTIFIER NOT NULL,
+    InspectionDate DATETIME,
+    InspectorName NVARCHAR(255),
+    CarId UNIQUEIDENTIFIER NOT NULL,
+    Result INT
+);
+
+-- END OF CREATE SECTION
+
+-- INSERT SECTION
+-- 02-JUL-24
+-- O. KARMANSKYY
+
+INSERT INTO InspectionReports (Id, InspectionId, InspectionDate, InspectorName, CarId, Result)
+	VALUES
+	(NEWID(), NEWID(), '2023-04-01T10:00:00', 'John Doe', NEWID(), 1),
+	(NEWID(), NEWID(), '2023-04-02T11:00:00', 'Jane Smith', NEWID(), 2),
+	(NEWID(), NEWID(), '2023-04-03T09:30:00', 'Mike Johnson', NEWID(), 0),
+	(NEWID(), NEWID(), '2023-04-04T14:45:00', 'Emily Davis', NEWID(), 1),
+	(NEWID(), NEWID(), '2023-04-05T16:20:00', 'Chris Brown', NEWID(), 2);
+
+-- END OF INSERT SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED THIRD END ------------------------------------------------
