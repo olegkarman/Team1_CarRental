@@ -1,6 +1,9 @@
-﻿using CarRental.Data.Enums;
+﻿using System;
+using System.Reflection;
+using CarRental.Data.Enums;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.RecordTypes;
+using System.Text;
 
 namespace CarRental.BussinessLayer.ExtensionMethods;
 
@@ -48,7 +51,28 @@ internal static class CarInfo
 
     public static string TechnicalInfo(this Car car)
     {
-        return $"{nameof(car.Engine)} = {car.Engine} | {nameof(car.Transmission)} = {car.Transmission} | {nameof(car.Interior)} = {car.Interior} | {nameof(car.Wheels)} = {car.Wheels} | {nameof(car.Lights)} = {car.Lights} | {nameof(car.Signal)} = {car.Signal} | {nameof(car.MaxFuelCapacity)} = {car.MaxFuelCapacity} | {nameof(car.CurrentFuel)} = {car.CurrentFuel} |";
+        string[] techInfoNames = [nameof(car.Engine), nameof(car.Transmission), nameof(car.Interior), nameof(car.Wheels), nameof(car.Lights), nameof(car.Signal)];
+
+        string[] techInfoStrings = new string[techInfoNames.Length];
+        techInfoStrings = [car.Engine, car.Transmission, car.Interior, car.Wheels, car.Lights, car.Signal];
+
+        StringBuilder techInfoBuilder = new StringBuilder();
+
+        // foreeach CANNOT ACCESS ELEMENTS OF AN ARRAY, SO THE for-LOOP IS USED.
+        for (int index = 0; index < techInfoStrings.Length; index = index + 1)
+        {
+            if(string.IsNullOrEmpty(techInfoStrings[index]))
+            {
+                techInfoStrings[index] = _noInfo;
+            }
+
+            techInfoBuilder.Append(techInfoNames[index]);
+            techInfoBuilder.Append(" = ");
+            techInfoBuilder.Append(techInfoStrings[index]);
+            techInfoBuilder.Append(" | ");
+        }
+
+        return techInfoBuilder.ToString();
     }
 
     public static string ExploitationInfo(this Car car)
