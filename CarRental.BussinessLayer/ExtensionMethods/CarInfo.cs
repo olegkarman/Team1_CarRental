@@ -93,6 +93,27 @@ internal static class CarInfo
 
     public static string GetExploitationInfo(this Car car)
     {
-        return $"{nameof(car.Mileage)} = {car.Mileage} | {nameof(car)} сapitally repaired {car.Repairs.Count} times.";
+        string mileage;
+        string repairsCount;
+
+        if (car.Mileage != null)
+        {
+            mileage = car.Mileage.ToString(); 
+        }
+        else
+        {
+            mileage = _noInfo;
+        }
+
+        if (car.Repairs != null)
+        {
+            repairsCount = car.Repairs.Count.ToString();
+        }
+        else
+        {
+            repairsCount = _noInfo;
+        }
+
+        return $"{nameof(car.Mileage)} = {mileage} | {nameof(car)} сapitally repaired {repairsCount} times.";
     }
 }
