@@ -123,4 +123,16 @@ internal static class CarInfo
 
         return !areNotAllComponentsPresent;
     }
+
+    public static string GetAge(this Car car)
+    {
+        if (car.Year != null)
+        {
+            return $"{(int)DateTime.Now.Year - (int)car.Year}";
+        }
+        else
+        {
+            return _noInfo;
+        }
+    }
 }
