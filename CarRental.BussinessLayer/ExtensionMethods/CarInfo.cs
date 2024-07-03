@@ -14,6 +14,7 @@ internal static class CarInfo
 
     // FIELDS
 
+    // USED MICROSOFT CONVENTION TO NAME PRIVATE FIELDS.
     private const string _noInfo = "NO INFORAMTION";
 
     // METHODS
@@ -44,12 +45,27 @@ internal static class CarInfo
         return $"OWNER: {owner} | OWNERSHIP: {ownershipType}";
     }
 
-    public static string Light(this Car car)
+    public static string GetCurrentFuelInPercent(this Car car)
     {
-        return car.Lights;
+        string result;
+
+        float percentFuel;
+
+        if ((car.CurrentFuel == null) || (car.MaxFuelCapacity == null))
+        {
+            result = _noInfo;
+
+            return result;
+        }
+
+        percentFuel = ((float)car.CurrentFuel / (float)car.MaxFuelCapacity);
+
+        result = String.Format("{0:P0}", percentFuel);
+
+        return result;
     }
 
-    public static string TechnicalInfo(this Car car)
+    public static string GetTechnicalInfo(this Car car)
     {
         string[] techInfoNames = [nameof(car.Engine), nameof(car.Transmission), nameof(car.Interior), nameof(car.Wheels), nameof(car.Lights), nameof(car.Signal)];
 
@@ -75,7 +91,7 @@ internal static class CarInfo
         return techInfoBuilder.ToString();
     }
 
-    public static string ExploitationInfo(this Car car)
+    public static string GetExploitationInfo(this Car car)
     {
         return $"{nameof(car.Mileage)} = {car.Mileage} | {nameof(car)} сapitally repaired {car.Repairs.Count} times.";
     }
