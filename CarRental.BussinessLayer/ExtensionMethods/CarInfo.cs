@@ -74,7 +74,7 @@ internal static class CarInfo
 
         StringBuilder techInfoBuilder = new StringBuilder();
 
-        // foreeach CANNOT ACCESS ELEMENTS OF AN ARRAY, SO THE for-LOOP IS USED.
+        // foreeach CANNOT ACCESS THE ELEMENTS OF AN ARRAY, SO for-LOOP IS USED.
         for (int index = 0; index < techInfoStrings.Length; index = index + 1)
         {
             if(string.IsNullOrEmpty(techInfoStrings[index]))
@@ -115,5 +115,12 @@ internal static class CarInfo
         }
 
         return $"{nameof(car.Mileage)} = {mileage} | {nameof(car)} сapitally repaired {repairsCount} times.";
+    }
+
+    public static bool AreAllComponentsPresent(this Car car)
+    {
+        bool areNotAllComponentsPresent = String.IsNullOrEmpty(car.Engine) || String.IsNullOrEmpty(car.Transmission) || String.IsNullOrEmpty(car.Interior) || String.IsNullOrEmpty(car.Wheels) || String.IsNullOrEmpty(car.Lights) || String.IsNullOrEmpty(car.Signal);
+
+        return !areNotAllComponentsPresent;
     }
 }
