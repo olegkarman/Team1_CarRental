@@ -21,7 +21,6 @@ public record class Brand
     public Guid Id { get; init; }
     public string BrandName { get; init; }
     public string[] Models { get; init; }
-    /*public Dictionary<string, ICarSelectivePattern> ModelPattern { get; set; }*/
 
     // CONSTRUCTORS
 
