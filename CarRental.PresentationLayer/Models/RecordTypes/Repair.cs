@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.Automobile;
 
-namespace CarRental.Data.Models
+namespace CarRental.Data.Models.RecordTypes
 {
     public record class Repair
     {
@@ -16,7 +16,7 @@ namespace CarRental.Data.Models
 
         // PROPERTIES
         
-        public string Id { get; init; }
+        public Guid Id { get; init; }
         public DateTime Date { get; init; }
         public Guid CarId { get; init; }
         public string? CarBrand { get; init; }

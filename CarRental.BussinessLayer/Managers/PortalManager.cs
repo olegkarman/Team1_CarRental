@@ -3,6 +3,7 @@ using CarRental.Data.Models;
 using CarRental.BussinessLayer.Interfaces;
 using System;
 using System.Text;
+using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Validators;
 using System.Drawing;
