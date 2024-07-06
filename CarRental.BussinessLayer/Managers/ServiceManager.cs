@@ -490,30 +490,6 @@ public class ServiceManager : ICarManager
         return ShowMileage(this.SelectedCar);
     }
 
-    public string CheckSignal(Car car)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        return car.Signal.ToString();
-    }
-
-    public string CheckLights(Car car)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        return car.Lights.ToString();
-    }
-
-    public string CheckTechInfo(Car car)
-    {
-        return car.TechnicalInfo();
-    }
-
-    public string CheckExpoitation(Car car)
-    {
-        return car.ExploitationInfo();
-    }
-
     public string ShowDeal(Car car)
     {
         SupplementData.NullValidator.CheckNull(car);
