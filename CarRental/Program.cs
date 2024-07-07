@@ -26,7 +26,7 @@ class CarRentalPortal
             .AddJsonFile("appsettings.YarikSuper.json")
             .Build();
 
-        string connectionString = configurations.GetConnectionString("YParkhomenko");
+        string connectionString = configurations.GetConnectionString("YParkhomenkoLocal");
 
         Console.WriteLine(connectionString);
 
