@@ -208,6 +208,13 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
+    public Car GetCarFromDatabase(Guid id, string connectionString)
+    {
+        SupplementData.DataContext.OpenConnection(connectionString);
+        
+        return car;
+    }
+
     public Car ChooseCarFromList(List<Car> cars, int index)
     {
 
@@ -935,7 +942,8 @@ public class ServiceManager : ICarManager
                 RandomCarGenerator = dataInit.InitializeRandomCarGenerator(),
                 MechanicalManager = dataInit.InitializeMechanization(),
                 JunkRepairManager = dataInit.InitializeRepair(),
-                NullValidator = dataInit.InitializeNullValidator()
+                NullValidator = dataInit.InitializeNullValidator(),
+                DataContext = dataInit.InitializeDataContext()
             };
         }
         catch (NullReferenceException exception)

@@ -24,4 +24,5 @@ public class ServiceManagerSupplements
     public MechanicManager MechanicalManager { get; init; }
     public RepairManager JunkRepairManager { get; init; }
     public NullValidation NullValidator { get; init; }
+    public DatabaseContextDapper DataContext { get; init; }
 }

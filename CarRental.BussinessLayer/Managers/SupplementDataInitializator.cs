@@ -19,6 +19,11 @@ public class SupplementDataInitializator
 
     // METHODS
 
+    public DatabaseContextDapper InitializeDataContext()
+    {
+        return new DatabaseContextDapper();
+    }
+
     public NullValidation InitializeNullValidator()
     {
         return new NullValidation();
