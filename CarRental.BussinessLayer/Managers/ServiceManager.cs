@@ -208,12 +208,12 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    public Car GetCarFromDatabase(Guid id, string connectionString)
-    {
-        SupplementData.DataContext.OpenConnection(connectionString);
+    //public Car GetCarFromDatabase(Guid id, string connectionString)
+    //{
+    //    SupplementData.DataContext.OpenConnection(connectionString);
         
-        return car;
-    }
+    //    return car;
+    //}
 
     public Car ChooseCarFromList(List<Car> cars, int index)
     {
