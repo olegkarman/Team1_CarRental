@@ -4,6 +4,10 @@ using CarRental.Data.Models.Gateway;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using FluentMigrator.Runner;
+using System.Reflection;
+
 
 namespace CarRental.Presentation;
 
@@ -31,14 +35,16 @@ class CarRentalPortal
 
         Console.WriteLine(connectionString);
 
+        Assembly datAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetName().Name == "CarRental.Data");
+
         // THIS MOMENT IS HARD TO UNDERSTAD. I HAVE COPY-PASTED CONFIGURATION FOR IHOST AND DAPPER HERE.
         IHost host = Host.CreateDefaultBuilder()
             .ConfigureServices
             (
                 (context, services) =>
                 {
-                    services.AddLogging(c => c.AddFluentMigrationConsole())
-                    .AddFluentMigrationCore()
+                    services.AddLogging(c => c.AddFluentMigratorConsole())
+                    .AddFluentMigratorCore()
                     .ConfigureRunner
                     (
                         c => c.AddSqlServer2012()
