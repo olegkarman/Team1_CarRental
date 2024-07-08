@@ -160,6 +160,15 @@ CREATE TABLE Repairs
 	-- CONNECTED TO: [Mechanics] (MANY - 1) V, [Cars] (MANY - 1) V DIRECTLY.
 );
 
+CREATE TABLE InspectionReports (
+    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    InspectionId UNIQUEIDENTIFIER NOT NULL,
+    InspectionDate DATETIME,
+    InspectorName NVARCHAR(255),
+    CarId UNIQUEIDENTIFIER NOT NULL,
+    Result INT
+);
+
 -- END OF MAIN ENTITIES
 
 -- ALTERATION SECTION
@@ -695,6 +704,14 @@ INSERT INTO Inspections
 		'67F84A48-B96B-4A16-BB38-6C641F8504CC',
 		'2024-10-08T14:12:33'
 	);
+
+INSERT INTO InspectionReports (Id, InspectionId, InspectionDate, InspectorName, CarId, Result)
+	VALUES
+	(NEWID(), NEWID(), '2023-04-01T10:00:00', 'John Doe', NEWID(), 1),
+	(NEWID(), NEWID(), '2023-04-02T11:00:00', 'Jane Smith', NEWID(), 2),
+	(NEWID(), NEWID(), '2023-04-03T09:30:00', 'Mike Johnson', NEWID(), 0),
+	(NEWID(), NEWID(), '2023-04-04T14:45:00', 'Emily Davis', NEWID(), 1),
+	(NEWID(), NEWID(), '2023-04-05T16:20:00', 'Chris Brown', NEWID(), 2);
 
 -- END OF INSERT SECTION
 
