@@ -3,6 +3,7 @@ using CarRental.Data.Models.Login;
 using CarRental.Data.Models.Gateway;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace CarRental.Presentation;
 
@@ -30,5 +31,22 @@ class CarRentalPortal
 
         Console.WriteLine(connectionString);
 
+        // THIS MOMENT IS HARD TO UNDERSTAD. I HAVE COPY-PASTED CONFIGURATION FOR IHOST AND DAPPER HERE.
+        IHost host = Host.CreateDefaultBuilder()
+            .ConfigureServices
+            (
+                (context, services) =>
+                {
+                    services.AddLogging(c => c.AddFluentMigrationConsole())
+                    .AddFluentMigrationCore()
+                    .ConfigureRunner
+                    (
+                        c => c.AddSqlServer2012()
+                        .WithGlobalConnectionString(connectionString)
+                        .ScanIn(datAssembly).For.Migrations()
+                    );
+                }
+            )
+            .Build();
     }
 }
