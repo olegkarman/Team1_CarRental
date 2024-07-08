@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using FluentMigrator.Runner;
 using System.Reflection;
+using CarRental.Presentation.Managers;
 
 
 namespace CarRental.Presentation;
@@ -54,5 +55,7 @@ class CarRentalPortal
                 }
             )
             .Build();
+
+        host.MigrateDatabase();
     }
 }
