@@ -44,7 +44,7 @@ public static class MigrationManager
         return host;
     }
 
-    public static IHost ShowMigrationsListConsole(this IHost host, long version)
+    public static IHost ShowMigrationsListConsole(this IHost host)
     {
         using (IServiceScope scope = host.Services.CreateScope())
         {
