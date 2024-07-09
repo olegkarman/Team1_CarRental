@@ -6,20 +6,51 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using FluentMigrator.Runner;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace CarRental.Presentation.Managers;
 
 public static class MigrationManager
 {
-    public static IHost MigrateDatabase(this IHost host)
+    // FIELDS
+
+    private static IMigrationRunner _migrationService;
+
+    // CONSTRUCTORS
+
+    // METHODS
+
+    public static IHost MigrateDatabaseUp(this IHost host)
     {
         using (IServiceScope scope = host.Services.CreateScope())
         {
-            IMigrationRunner migrationService = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+            _migrationService = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
 
-            migrationService.ListMigrations();
-            migrationService.MigrateUp();
-            migrationService.ListMigrations();
+            _migrationService.MigrateUp();
+        }
+
+        return host;
+    }
+
+    public static IHost MigrateDatabaseDown(this IHost host, long version)
+    {
+        using (IServiceScope scope = host.Services.CreateScope())
+        {
+            _migrationService = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+
+            _migrationService.MigrateDown(version);
+        }
+
+        return host;
+    }
+
+    public static IHost ShowMigrationsListConsole(this IHost host, long version)
+    {
+        using (IServiceScope scope = host.Services.CreateScope())
+        {
+            _migrationService = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+
+            _migrationService.ListMigrations();
         }
 
         return host;
