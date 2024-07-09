@@ -37,12 +37,14 @@ class CarRentalPortal
 
         Console.WriteLine(connectionString);
 
-        Assembly[] datAssembly = AppDomain.CurrentDomain.GetAssemblies(); //.SingleOrDefault(x => x.GetName().Name == "CarRental.Data"); //Assembly.GetCallingAssembly();
+        Assembly.Load("CarRentalData");
 
-        foreach (Assembly assembly in datAssembly)
-        {
-            Console.WriteLine(assembly.GetName().Name);
-        }
+        Assembly datAssembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(x => x.GetName().Name == "CarRentalData"); //Assembly.GetCallingAssembly();
+
+        //foreach (Assembly assembly in datAssembly)
+        //{
+        //    Console.WriteLine(assembly.GetName().Name);
+        //}
 
         // THIS MOMENT IS HARD TO UNDERSTAD. I HAVE COPY-PASTED CONFIGURATION FOR IHOST AND DAPPER HERE.
         IHost host = Host.CreateDefaultBuilder()

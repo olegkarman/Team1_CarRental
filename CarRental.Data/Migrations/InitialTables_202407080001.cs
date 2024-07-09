@@ -7,6 +7,8 @@ using FluentMigrator;
 
 namespace CarRental.Data.Migrations
 {
+    [Migration(202407080001)]
+
     public class InitialTables_202407080001 : Migration
     {
         public override void Up()
