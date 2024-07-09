@@ -18,6 +18,8 @@ public static class MigrationManager
             IMigrationRunner migrationService = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
 
             migrationService.ListMigrations();
+            migrationService.MigrateUp();
+            migrationService.ListMigrations();
         }
 
         return host;
