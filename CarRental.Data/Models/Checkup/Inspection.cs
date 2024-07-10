@@ -13,6 +13,7 @@ public class Inspection : IInspection
     // properties
     public Guid InspectionId { get; }
     public DateTime? InspectionDate => _inspectionDate;
+    // CHANGE TO/ADD INSPECTOR ID??? (IdNumber FROM USER CLASS.)
     public String? InspectorName { get; init; }
     public required Guid? CarId { get; init; }
     public InspectionStatusType? Result { get; set; }
