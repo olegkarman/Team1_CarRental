@@ -65,7 +65,7 @@ class CarRentalPortal
             .Build();
 
         host.ShowMigrationsListConsole();
-        //host.MigrateDatabaseUp();
-        //host.ShowMigrationsListConsole();
+        host.MigrateDatabaseUp();
+        host.ShowMigrationsListConsole();
     }
 }

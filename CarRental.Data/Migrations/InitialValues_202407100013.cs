@@ -9,7 +9,7 @@ namespace CarRentalData.Migrations
 {
     [Migration(202407100013)]
 
-    public class InitialTables_202407100013 : Migration
+    public class InitialValues_202407100013 : Migration
     {
         public override void Up()
         {

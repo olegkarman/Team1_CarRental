@@ -9,7 +9,7 @@ namespace CarRentalData.Migrations
 {
     [Migration(202407100010)]
 
-    public class InitialTables_202407100010 : Migration
+    public class InitialValues_202407100010 : Migration
     {
         public override void Up()
         {
@@ -27,6 +27,7 @@ namespace CarRentalData.Migrations
                                 OR Id = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8'
                                 OR Id = 'BCBAE3B2-581B-4E50-6590-F0F02E0F96A5'
                                 OR Id = 'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A'
+                                OR Id = 'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6'
                     )
                         BEGIN
                             INSERT INTO Deals
@@ -84,7 +85,16 @@ namespace CarRentalData.Migrations
                                     'OOA660S9FTS69AULA1CVNB2A1NJO57WSS',
                                     'purchase',
                                     'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A'
-	                            );
+	                            ),
+                                (
+                                    'Hawai-October',
+                                    'BF016BBD-0AF3-412A-B8CD-C6533DC7CF4A',
+                                    '57BED521-BE12-447B-AF3F-54466A9E8CEF',
+                                    96700,
+                                    'QOF1LCRL0JAVSNE71W3WYYM6EMLIK693D',
+                                    'purchase',
+                                    'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6'
+                                );
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: DATA INSCRIBED INTO TABLE Deals';
                         END
@@ -107,7 +117,8 @@ namespace CarRentalData.Migrations
                                 OR Id = '99AC3D72-D132-4F4B-6C96-B3B58249FF2D'
                                 OR Id = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8'
                                 OR Id = 'BCBAE3B2-581B-4E50-6590-F0F02E0F96A5'
-                                OR Id = 'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A';
+                                OR Id = 'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A'
+                                OR Id = 'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6';
                 "
             );
         }
