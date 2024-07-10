@@ -31,6 +31,7 @@ namespace CarRentalData.Migrations
                             CarId NVARCHAR(100) NOT NULL,
                             VinCode NVARCHAR(100) NULL,
                             CustomerId NVARCHAR(100) NOT NULL,
+                            Price FLOAT NOT NULL,
                             DealType NVARCHAR(50) NULL,
 			                Name NVARCHAR(250) NULL
                         );
