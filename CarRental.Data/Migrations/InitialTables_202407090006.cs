@@ -16,28 +16,29 @@ namespace CarRentalData.Migrations
             Execute.Sql
             (
                 @"
-                    IF NOT EXISTS
-                    (
-                        SELECT TABLE_NAME
-                            FROM INFORMATION_SCHEMA.TABLES
-                            WHERE TABLE_NAME = 'Deals'
-                    )
-                        BEGIN
-                            CREATE TABLE Deals
-                            (
-                                Id NVARCHAR(100) NOT NULL,
-                                CONSTRAINT PK_Deals_Id
-                                    PRIMARY KEY (Id),
-                                CarId NVARCHAR(100) NOT NULL,
-                                VinCode NVARCHAR(100) NULL,
-                                IdNumber NVARCHAR(100) NOT NULL,
-                                DealType NVARCHAR(50) NULL
-                            );
+                IF NOT EXISTS
+                (
+                    SELECT TABLE_NAME
+                        FROM INFORMATION_SCHEMA.TABLES
+                        WHERE TABLE_NAME = 'Deals'
+                )
+                    BEGIN
+                        CREATE TABLE Deals
+                        (
+                            Id NVARCHAR(100) NOT NULL,
+                            CONSTRAINT PK_Deals_Id
+                                PRIMARY KEY (Id),
+                            CarId NVARCHAR(100) NOT NULL,
+                            VinCode NVARCHAR(100) NULL,
+                            CustomerId NVARCHAR(100) NOT NULL,
+                            DealType NVARCHAR(50) NULL,
+			                Name NVARCHAR(250) NULL
+                        );
 
-                            PRINT 'MIGRATION APPLIED SUCCESSFULLY: TABLE Deals CREATED';
-                        END
-                    ELSE
-                        PRINT 'MIGRATION FAILED: TABLE Deals IS ALREADY EXIST';
+                        PRINT 'MIGRATION APPLIED SUCCESSFULLY: TABLE Deals CREATED';
+                    END
+                ELSE
+                    PRINT 'MIGRATION FAILED: TABLE Deals IS ALREADY EXIST';
                 "
             );
         }

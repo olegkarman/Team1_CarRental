@@ -22,7 +22,8 @@ namespace CarRental.BussinessLayer.Managers
             // NULL-VALIDATION SHOULD BE.
             // THIS IS WORK OF DEAL-MANAGER, NOT CUSTOMER MANAGER.
             // Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.PassportNumber, car.VinCode, car.CarId, "purchase", car.Price);
+            // CUSTOMER FIRST NAME — TRANSITIVE DEPENDANCY IN DB.
+            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
 
             // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
