@@ -33,7 +33,7 @@ class CarRentalPortal
             .AddJsonFile("appsettings.YarikSuper.json")
             .Build();
 
-        string connectionString = configurations.GetConnectionString("YParkhomenkoLocal");
+        string connectionString = configurations.GetConnectionString("YParkhomenko");
 
         Console.WriteLine(connectionString);
 
