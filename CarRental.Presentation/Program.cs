@@ -30,6 +30,7 @@ class CarRentalPortal
         DatabaseContextDapper dataContext = new DatabaseContextDapper();
 
         IConfigurationRoot configurations = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
             .AddJsonFile("appsettings.YarikSuper.json")
             .Build();
 
@@ -37,6 +38,7 @@ class CarRentalPortal
 
         Console.WriteLine(connectionString);
 
+        // TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
         Assembly.Load("CarRental.Data");
 
         Assembly datAssembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(x => x.GetName().Name == "CarRental.Data"); //Assembly.GetCallingAssembly();
