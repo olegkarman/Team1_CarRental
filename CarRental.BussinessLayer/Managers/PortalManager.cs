@@ -47,11 +47,14 @@ namespace CarRental.BussinessLayer.Managers
             };
         }
 
-        public void StartMainMenu()
+        public void StartMainMenu(string connectionString)
         {
             _carServiceManager.InitializeManagment();
 
-            this._carServiceManager.GetNewRandomCurrentCars(15);
+            _carServiceManager.GetNewRandomCurrentCars(15);
+
+            _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
+
 
             ShowMainMenu();
         }

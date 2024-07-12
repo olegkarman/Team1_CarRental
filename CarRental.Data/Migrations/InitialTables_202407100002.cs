@@ -39,7 +39,7 @@ namespace CarRentalData.Migrations
                                 Mileage FLOAT NULL,
                                 MaxFuelCapacity INT NULL,
                                 CurrentFuel FLOAT NULL,
-                                Year DATE NULL,
+                                Year INT NULL,
                                 IsFitForUse BIT NULL,
                                 Engine NVARCHAR(500) NULL,
                                 Transmission NVARCHAR(500) NULL,
