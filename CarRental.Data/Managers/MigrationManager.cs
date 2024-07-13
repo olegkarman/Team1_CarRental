@@ -7,8 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using FluentMigrator.Runner;
 using static System.Formats.Asn1.AsnWriter;
+using CarRental.Data.Migrations;
 
-namespace CarRental.Presentation.Managers;
+namespace CarRental.Data.Managers;
 
 public static class MigrationManager
 {

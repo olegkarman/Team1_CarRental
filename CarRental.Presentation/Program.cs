@@ -2,11 +2,11 @@
 // WHY WE CALL CONSTRUCTORS FROM DATA-LAYER IN PRESENTATION?
 using CarRental.Data.Models.Login;
 using CarRental.Data.Models.Gateway;
+using CarRental.Data.Managers;
+using CarRental.Data.Migrations;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using FluentMigrator.Runner;
 using System.Reflection;
 using CarRental.Presentation.Managers;
 
@@ -18,58 +18,61 @@ class CarRentalPortal
 {
     static void Main(string[] args)
     {
-        IConfigurationRoot configurations = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .AddJsonFile("appsettings.YarikSuper.json")
-            .Build();
+        // CONFIGURATION BLOCK
 
-        string connectionString = configurations.GetConnectionString("YParkhomenkoLocal");
+        ConfigManager configManager = new ConfigManager();
 
-        var consoleOutput = new ConsoleOutput();
-        ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
-        var login = new Login();
-        var loginManager = new LoginManager(login, consoleOutput);
-        var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
-        var portal = new Portal(user, isCustomer);
-        var portalManager = new PortalManager(portal, consoleOutput);
-        ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
-        portalManager.StartMainMenu(connectionString);
+        IConfigurationBuilder configurationBuilder = configManager.GetNewConfigurationBuilder();
 
-        //DatabaseContextDapper dataContext = new DatabaseContextDapper();
+        configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.json");
+        configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuper.json");
 
-        //Console.WriteLine(connectionString);
+        IConfigurationRoot configurations = configManager.BuildConfigurations(configurationBuilder);
 
-        //// TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
+        string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+
+        // END OF BLOCK
+
+        // THE BLOCK OF O. KARMANSKYY'S
+
+        //var consoleOutput = new ConsoleOutput();
+        //ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
+        //var login = new Login();
+        //var loginManager = new LoginManager(login, consoleOutput);
+        //var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
+        //var portal = new Portal(user, isCustomer);
+        //var portalManager = new PortalManager(portal, consoleOutput);
+        //ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
+        //portalManager.StartMainMenu(connectionString);
+
+        // END OF BLOCK
+
+        // MIGRATION BLOCK
+
+        Console.WriteLine(connectionString);
+
+        // TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
         //Assembly.Load("CarRental.Data");
 
-        //Assembly datAssembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(x => x.GetName().Name == "CarRental.Data"); //Assembly.GetCallingAssembly();
+        AssemblyManager assemblyManager = new AssemblyManager();
 
-        ////foreach (Assembly assembly in datAssembly)
-        ////{
-        ////    Console.WriteLine(assembly.GetName().Name);
-        ////}
+        assemblyManager.LoadAssembly(configurations["NameOfDataLayerAssembly"]);
 
-        //// THIS MOMENT IS HARD TO UNDERSTAD. I HAVE COPY-PASTED CONFIGURATION FOR IHOST AND DAPPER HERE.
-        //IHost host = Host.CreateDefaultBuilder()
-        //    .ConfigureServices
-        //    (
-        //        (context, services) =>
-        //        {
-        //            services.AddLogging(c => c.AddFluentMigratorConsole())
-        //            .AddFluentMigratorCore()
-        //            .ConfigureRunner
-        //            (
-        //                c => c.AddSqlServer2012()
-        //                .WithGlobalConnectionString(connectionString)
-        //                .ScanIn(datAssembly).For.Migrations()
-        //            );
-        //        }
-        //    )
-        //    .Build();
+        Assembly datAssembly = assemblyManager.GetAssemblyByNameFromAppDomain(configurations["NameOfDataLayerAssembly"]);
 
-        //host.ShowMigrationsListConsole();
-        ////host.MigrateDatabaseDown(202407100001);
+        HostManager hostManager = new HostManager();
+
+        IHostBuilder hostBuilder = hostManager.CreateDefaultBuilderForHost();
+
+        hostBuilder = hostManager.ConfigureSqlServer2012FluentMigrator(hostBuilder, datAssembly, connectionString);
+
+        IHost host = hostManager.BuildHost(hostBuilder);
+
+        host.ShowMigrationsListConsole();
+        //host.MigrateDatabaseDown(202407100001);
         //host.MigrateDatabaseUp();
         //host.ShowMigrationsListConsole();
+
+        // END OF MIGRATION BLOCK
     }
 }
