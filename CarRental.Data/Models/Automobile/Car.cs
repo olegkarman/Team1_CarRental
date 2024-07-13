@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Diagnostics.CodeAnalysis;
-using CarRental.Data.Checkup;
+using CarRental.Data.Models.Checkup;
 using CarRental.Data.Enums;
 using CarRental.Data.Models.RecordTypes;
 

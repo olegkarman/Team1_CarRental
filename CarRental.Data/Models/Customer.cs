@@ -11,6 +11,16 @@ public class Customer : User
     public string PassportNumber { get; init; }
     public required string DrivingLicenseNumber { get; set; }
 
+    // ADD DEFAULT CONSTRUCTOR (Y. PARKHOMENKO)
+    // DEFAULT CONSTRUCTOR IS NECCESSARY FOR OBJECT-INITIALIZATOR
+
+    public Customer()
+    {
+        
+    }
+
+    // END OF ADD
+
     [SetsRequiredMembers]
     public Customer(string? firstName, string? lastName, string passportNumber, string drivingLicenseNumber, DateTime dateOfBirth, string password, string userName) : base(firstName, lastName, dateOfBirth, password, userName)
     {

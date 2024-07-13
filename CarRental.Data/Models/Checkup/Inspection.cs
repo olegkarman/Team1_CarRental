@@ -4,7 +4,7 @@ using CarRental.Data.Interfaces;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 
-namespace CarRental.Data.Checkup;
+namespace CarRental.Data.Models.Checkup;
 
 public class Inspection : IInspection
 {

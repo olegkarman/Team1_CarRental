@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using CarRental.Presentation.Managers;
+using CarRental.Data.Models.Automobile;
+using CarRental.Data.Models.Checkup;
+using CarRental.Data.Models;
 
 
 
@@ -48,30 +51,79 @@ class CarRentalPortal
 
         // MIGRATION BLOCK
 
-        Console.WriteLine(connectionString);
+        //Console.WriteLine(connectionString);
 
         // TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
         //Assembly.Load("CarRental.Data");
 
-        AssemblyManager assemblyManager = new AssemblyManager();
+        //AssemblyManager assemblyManager = new AssemblyManager();
 
-        assemblyManager.LoadAssembly(configurations["NameOfDataLayerAssembly"]);
+        //assemblyManager.LoadAssembly(configurations["NameOfDataLayerAssembly"]);
 
-        Assembly datAssembly = assemblyManager.GetAssemblyByNameFromAppDomain(configurations["NameOfDataLayerAssembly"]);
+        //Assembly datAssembly = assemblyManager.GetAssemblyByNameFromAppDomain(configurations["NameOfDataLayerAssembly"]);
 
-        HostManager hostManager = new HostManager();
+        //HostManager hostManager = new HostManager();
 
-        IHostBuilder hostBuilder = hostManager.CreateDefaultBuilderForHost();
+        //IHostBuilder hostBuilder = hostManager.CreateDefaultBuilderForHost();
 
-        hostBuilder = hostManager.ConfigureSqlServer2012FluentMigrator(hostBuilder, datAssembly, connectionString);
+        //hostBuilder = hostManager.ConfigureSqlServer2012FluentMigrator(hostBuilder, datAssembly, connectionString);
 
-        IHost host = hostManager.BuildHost(hostBuilder);
+        //IHost host = hostManager.BuildHost(hostBuilder);
 
-        host.ShowMigrationsListConsole();
-        //host.MigrateDatabaseDown(202407100001);
-        //host.MigrateDatabaseUp();
         //host.ShowMigrationsListConsole();
+        ////host.MigrateDatabaseDown(202407100001);
+        ////host.MigrateDatabaseUp();
+        ////host.ShowMigrationsListConsole();
 
-        // END OF MIGRATION BLOCK
+        //// END OF MIGRATION BLOCK
+
+        // ORM BLOCK ('Dapper')
+
+        ServiceManager serviceManager = new ServiceManager();
+
+        Guid id = new Guid("A783A6FA-3C35-4CE1-ABC0-12F9D69636BE");
+
+        List<Car> cars = serviceManager.GetCarFromDatabase(id, connectionString);
+
+        foreach(Car car in cars)
+        {
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine(car);
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine(car.Owner);
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine(car.Engagement);
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            foreach (Inspection inspection in car.Inspections)
+            {
+                Console.WriteLine(inspection);
+            }
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            foreach(Repair repair in car.Repairs)
+            {
+                Console.WriteLine(repair);
+            }
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        }
+
+        // END OF ORM BLOCK
     }
 }

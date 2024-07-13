@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarRental.Data.Models
 {
-    public class UserTemp : User
+    public class CustomerTemp : Customer
     {
         // PROPERTIES
 
@@ -14,7 +14,7 @@ namespace CarRental.Data.Models
 
         // CONSTRUCTORS
 
-        public UserTemp()
+        public CustomerTemp()
         {
             
         }

@@ -13,6 +13,7 @@ using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using System.Drawing;
 using CarRental.Data.Models.RecordTypes;
+using CarRental.Data.Models.Checkup;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Diagnostics;
@@ -285,14 +286,33 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    //public Car GetCarFromDatabase(Guid id, string connectionString)
-    //{
-    //    SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+    public List<Car> GetCarFromDatabase(Guid id, string connectionString)
+    {
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
+        string SqlStoredProcedureName = "GetCar";
 
+        List<Car> cars = new List<Car>
+        (
+            connection.Query<Car, CustomerTemp, Deal, Inspection, Repair, Car>
+            (
 
-    //    return car;
-    //}
+               SqlStoredProcedureName,
+               (car, customerTemp, deal, inspection, repair) =>
+               {
+                   car.Owner = customerTemp;
+                   car.Engagement = deal;
+                   car.Inspections.Add(inspection);
+                   car.Repairs.Add(repair);
+
+                   return car;
+               },
+                   splitOn: "userIdNumber, dealId, dealName, inspectionInspectionId, repairId"
+            )
+        );
+
+        return cars;
+    }
 
     public Car ChooseCarFromList(List<Car> cars, int index)
     {
