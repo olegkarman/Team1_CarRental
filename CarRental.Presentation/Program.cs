@@ -3,7 +3,6 @@
 using CarRental.Data.Models.Login;
 using CarRental.Data.Models.Gateway;
 using CarRental.Data.Managers;
-using CarRental.Data.Migrations;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
