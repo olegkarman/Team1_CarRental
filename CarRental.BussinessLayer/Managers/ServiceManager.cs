@@ -287,8 +287,10 @@ public class ServiceManager : ICarManager
 
     //public Car GetCarFromDatabase(Guid id, string connectionString)
     //{
-    //    SupplementData.DataContext.OpenConnection(connectionString);
-        
+    //    SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+
+
     //    return car;
     //}
 

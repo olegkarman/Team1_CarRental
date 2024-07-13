@@ -13,6 +13,17 @@ public abstract class User
     public string Password { get; init; }
     public string UserName { get; init; }
     public string IdNumber { get; init; }
+
+    // ADD DEFAULT CONSTRUCTOR (Y. PARKHOMENKO)
+    // BETTER TO KEEP DEFAULT CONSTRUCTORS ALWAYS (FOR OBJECT-INITIALIZATOR)
+
+    public User()
+    {
+        
+    }
+
+    // END OF ADD
+
     protected User(string firstName, string lastName, DateTime dateOfBirth, string password, string userName)
     {
         FirstName = firstName;
