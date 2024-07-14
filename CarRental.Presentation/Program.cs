@@ -5,15 +5,10 @@ using CarRental.Data.Models.Gateway;
 using CarRental.Data.Managers;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using System.Reflection;
 using CarRental.Presentation.Managers;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models;
-using Dapper;   // FOR THE TEST PURPOSES ONLY!
-using CarRental.Data.Models.RecordTypes;
-using CarRental.Data.Dapper;
 
 
 
@@ -82,25 +77,10 @@ class CarRentalPortal
 
         // ORM TEST-BLOCK ('Dapper') -- WORK IN PROGRESS!
 
-        // // FIRST I WILL GATHER LOGIC HERE ARE, AND THEN IT DIVIDES OVER MANAGER-CLASSES.
+        DapperConfigurationManager dapperConfigManager = new DapperConfigurationManager();
 
-        //Func<Type, Dictionary<string, string>, string, PropertyInfo> funcProperty = new Func<Type, string, PropertyInfo>();
-
-        SqlMapper.AddTypeHandler(new GuidToStringTypeHandler());
-
-        SqlMapper.RemoveTypeMap(typeof(Guid));
-
-        CustomPropertyTypeMap carMap = new CustomPropertyTypeMap(typeof(Car), propertyInfo);
-        CustomPropertyTypeMap customerMap = new CustomPropertyTypeMap(typeof(CustomerTemp), propertyInfo);
-        CustomPropertyTypeMap dealMap = new CustomPropertyTypeMap(typeof(Deal), propertyInfo);
-        CustomPropertyTypeMap inspectionMap = new CustomPropertyTypeMap(typeof(Inspection), propertyInfo);
-        CustomPropertyTypeMap repairMap = new CustomPropertyTypeMap(typeof(Repair), propertyInfo);
-
-        SqlMapper.SetTypeMap(typeof(Car), carMap);
-        SqlMapper.SetTypeMap(typeof(CustomerTemp), customerMap);
-        SqlMapper.SetTypeMap(typeof(Deal), dealMap);
-        SqlMapper.SetTypeMap(typeof(Inspection), inspectionMap);
-        SqlMapper.SetTypeMap(typeof(Repair), repairMap);
+        dapperConfigManager.ConfigureGuidToStringMapping();
+        dapperConfigManager.SetCustomMappingForEntities();
 
         ServiceManager serviceManager = new ServiceManager();
         serviceManager.InitializeManagment();
@@ -130,110 +110,6 @@ class CarRentalPortal
             Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
         }
 
-        //foreach (Car car in cars)
-        //{
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine(car);
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine(car.Owner);
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine(car.Engagement);
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    foreach (Inspection inspection in car.Inspections)
-        //    {
-        //        Console.WriteLine(inspection);
-        //    }
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //    foreach (Repair repair in car.Repairs)
-        //    {
-        //        Console.WriteLine(repair);
-        //    }
-
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        //}
-
         // END OF ORM BLOCK
-    }
-
-    public static PropertyInfo propertyInfo(Type type, string attribName)
-    {
-        // BECAUSE THE METHOD IS STRONGLY TYPED, I CANNOT MOVE IT IN FROM THE OUTSIDE.
-        Dictionary<string, string> columnProperties = new Dictionary<string, string>
-        {
-            { "carCarId", "CarId" },
-            { "carVinCode", "VinCode" },
-            { "carNumberPlate", "NumberPlate" },
-            { "carBrand", "Brand" },
-            { "carModel", "Model" },
-            { "carPrice", "Price" },
-            { "carNumberOfSeats", "NumberOfSeats" },
-            { "carNumberOfDoors", "NumberOfDoors" },
-            { "carMileage", "Mileage" },
-            { "carMaxFuelCapacity", "MaxFuelCapacity" },
-            { "carCurrentFuel", "CurrentFuel" },
-            { "carYear", "Year" },
-            { "carIsFitForUse", "IsFitForUse" },
-            { "carEngine", "Engine" },
-            { "carTransmission", "Transmission" },
-            { "carInterior", "Interior" },
-            { "carWheels", "Wheels" },
-            { "carLights", "Lights" },
-            { "carSignal", "Signal" },
-            { "carColor", "Color" },
-            { "carStatusId", "Status" },
-            { "userIdNumber", "IdNumber" },
-            { "userFirstName", "FirstName" },
-            { "userLastName", "LastName" },
-            { "userDateOfBirth", "DateOfBirth" },
-            { "userUserName", "UserName" },
-            { "userPassword", "Password" },
-            { "userPassportNumber", "PassportNumber" },
-            { "userDrivingLicenseNumber", "DrivingLicenseNumber" },
-            { "userBasicDiscount", "BasicDiscount" },
-            { "userCategory", "Category" },
-            { "dealId", "Id" },
-            { "dealCarId", "CarId" },
-            { "dealVinCode", "VinCode" },
-            { "dealCustomerId", "CustomerId" },
-            { "dealPrice", "Price" },
-            { "dealDealType", "DealType" },
-            { "dealName", "Name" },
-            { "inspectionInspectionId", "InspectionId" },
-            { "inspectionCarId", "CarId" },
-            { "inspectionInspectorId", "InspectorId" },
-            { "inspectionInspectionDate", "InspectionDate" },
-            { "inspectionStatusId", "Result" },
-            { "repairId", "Id" },
-            { "repairDate", "Date" },
-            { "repairCarId", "CarId" },
-            { "repairMechanicId", "MechanicId" },
-            { "repairIsSuccessfull", "IsSuccessfull" },
-            { "repairTotalCost", "TotalCost" },
-            { "repairTechnicalInfo", "TechnicalInfo" }
-        };
-
-        if (columnProperties.ContainsKey(attribName))
-        {
-            return type.GetProperty(columnProperties[attribName]);
-        }
-
-        return type.GetProperty(attribName);
     }
 }
