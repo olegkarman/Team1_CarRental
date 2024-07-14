@@ -1334,3 +1334,28 @@ INSERT INTO InspectionReports (Id, InspectionId, InspectionDate, InspectorName, 
 -- END OF INSERT SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED THIRD END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED FOURTH START ------------------------------------------------
+
+-- ALTER SECTION
+-- 06-JUL-24
+-- DROP TRANSITIVE-DEPENDANT ATTRIBUTE FROM DEALS
+
+ALTER TABLE Deals
+	DROP COLUMN CustomerId;
+
+-- END OF ALTER SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED FOURTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED FIFTH START ------------------------------------------------
+
+-- ALTER SECTION
+-- 10-JUL-24
+
+ALTER TABLE Cars
+	ALTER COLUMN CustomerId NVARCHAR(100) NULL;
+
+-- END OF ALTER SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED FIFTH END ------------------------------------------------
