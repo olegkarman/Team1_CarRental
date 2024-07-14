@@ -5,10 +5,15 @@ using CarRental.Data.Models.Gateway;
 using CarRental.Data.Managers;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
 using CarRental.Presentation.Managers;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models;
+//using Dapper;   // FOR THE TEST PURPOSES ONLY!
+using CarRental.Data.Models.RecordTypes;
+using CarRental.Data.Dapper;
 
 
 
@@ -51,7 +56,7 @@ class CarRentalPortal
 
         //Console.WriteLine(connectionString);
 
-        // TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
+        ////TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
         //Assembly.Load("CarRental.Data");
 
         //AssemblyManager assemblyManager = new AssemblyManager();
