@@ -286,6 +286,8 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
+    // // FOR TEST PURPOSES RETURN TYPE IS List<Car> 
+
     public List<Car> GetCarFromDatabase(Guid id, string connectionString)
     {
         SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
