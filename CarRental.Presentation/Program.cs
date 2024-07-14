@@ -11,6 +11,8 @@ using CarRental.Presentation.Managers;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models;
+using Dapper;   // FOR THE TEST PURPOSES ONLY!
+using CarRental.Data.Models.RecordTypes;
 
 
 
@@ -79,6 +81,74 @@ class CarRentalPortal
 
         // ORM TEST-BLOCK ('Dapper') -- WORK IN PROGRESS!
 
+        // // FIRST I WILL GATHER LOGIC HERE ARE, AND THEN IT DIVIDES OVER MANAGER-CLASSES.
+
+        //Func<Type, Dictionary<string, string>, string, PropertyInfo> funcProperty = new Func<Type, string, PropertyInfo>();
+
+        CustomPropertyTypeMap carMap = new CustomPropertyTypeMap(typeof(Car), propertyInfo);
+        CustomPropertyTypeMap customerMap = new CustomPropertyTypeMap(typeof(CustomerTemp), propertyInfo);
+        CustomPropertyTypeMap dealMap = new CustomPropertyTypeMap(typeof(Deal), propertyInfo);
+        CustomPropertyTypeMap inspectionMap = new CustomPropertyTypeMap(typeof(Inspection), propertyInfo);
+        CustomPropertyTypeMap repairMap = new CustomPropertyTypeMap(typeof(Repair), propertyInfo);
+
+        SqlMapper.SetTypeMap(typeof(Car), carMap);
+        SqlMapper.SetTypeMap(typeof(CustomerTemp), customerMap);
+        SqlMapper.SetTypeMap(typeof(Deal), dealMap);
+        SqlMapper.SetTypeMap(typeof(Inspection), inspectionMap);
+        SqlMapper.SetTypeMap(typeof(Repair), repairMap);
+
+        ServiceManager serviceManager = new ServiceManager();
+        serviceManager.InitializeManagment();
+
+        Guid id = new Guid("A783A6FA-3C35-4CE1-ABC0-12F9D69636BE");
+
+        List<Car> cars = serviceManager.GetCarFromDatabase(id, connectionString);
+
+        foreach (Car car in cars)
+        {
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine(car);
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine(car.Owner);
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine(car.Engagement);
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            foreach (Inspection inspection in car.Inspections)
+            {
+                Console.WriteLine(inspection);
+            }
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+            foreach (Repair repair in car.Repairs)
+            {
+                Console.WriteLine(repair);
+            }
+
+            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        }
+
+        // END OF ORM BLOCK
+    }
+
+    public static PropertyInfo propertyInfo(Type type, string attribName)
+    {
+        // BECAUSE THE METHOD IS STRONGLY TYPED, I CANNOT MOVE IT IN FROM THE OUTSIDE.
         Dictionary<string, string> columnProperties = new Dictionary<string, string>
         {
             { "carCarId", "CarId" },
@@ -133,51 +203,11 @@ class CarRentalPortal
             { "repairTechnicalInfo", "TechnicalInfo" }
         };
 
-        ServiceManager serviceManager = new ServiceManager();
-
-        Guid id = new Guid("A783A6FA-3C35-4CE1-ABC0-12F9D69636BE");
-
-        List<Car> cars = serviceManager.GetCarFromDatabase(id, connectionString);
-
-        foreach(Car car in cars)
+        if (columnProperties.ContainsKey(attribName))
         {
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine(car);
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine(car.Owner);
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine(car.Engagement);
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            foreach (Inspection inspection in car.Inspections)
-            {
-                Console.WriteLine(inspection);
-            }
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-            foreach(Repair repair in car.Repairs)
-            {
-                Console.WriteLine(repair);
-            }
-
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+            return type.GetProperty(columnProperties[attribName]);
         }
 
-        // END OF ORM BLOCK
+        return type.GetProperty(attribName);
     }
 }

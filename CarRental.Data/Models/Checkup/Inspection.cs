@@ -8,11 +8,11 @@ namespace CarRental.Data.Models.Checkup;
 
 public class Inspection : IInspection
 {
-    private readonly DateTime _inspectionDate = DateTime.Now;
+    //private readonly DateTime _inspectionDate = DateTime.Now;
     
     // properties
-    public Guid InspectionId { get; }
-    public DateTime? InspectionDate => _inspectionDate;
+    public Guid InspectionId { get; init; }
+    public DateTime? InspectionDate { get; init; } // => _inspectionDate;
 
     // ADD (Y. PARKHOMENKO)
     public string InspectorId { get; init; }
@@ -32,6 +32,7 @@ public class Inspection : IInspection
     [SetsRequiredMembers]
     public Inspection(Inspector inspector, Car car, InspectionStatusType result) : this()
     {
+        InspectionDate = DateTime.Now;
         InspectionId = Guid.NewGuid();
         InspectorId = inspector.IdNumber;
         InspectorName = inspector.FirstName + " " + inspector.LastName;

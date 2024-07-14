@@ -293,12 +293,17 @@ public class ServiceManager : ICarManager
         SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
         string SqlStoredProcedureName = "GetCar";
+        string carId = id.ToString().ToUpper();
+
+        object parameter = new
+        {
+            Id = carId
+        };
 
         List<Car> cars = new List<Car>
         (
             connection.Query<Car, CustomerTemp, Deal, Inspection, Repair, Car>
             (
-
                SqlStoredProcedureName,
                (car, customerTemp, deal, inspection, repair) =>
                {
@@ -309,9 +314,12 @@ public class ServiceManager : ICarManager
 
                    return car;
                },
-                   splitOn: "userIdNumber, dealId, dealName, inspectionInspectionId, repairId"
+               parameter,
+               splitOn: "userIdNumber, dealId, dealName, inspectionInspectionId, repairId"
             )
         );
+
+        SupplementData.DataContext.CloseConnection(connection);
 
         return cars;
     }
