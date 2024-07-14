@@ -79,6 +79,60 @@ class CarRentalPortal
 
         // ORM TEST-BLOCK ('Dapper') -- WORK IN PROGRESS!
 
+        Dictionary<string, string> columnProperties = new Dictionary<string, string>
+        {
+            { "carCarId", "CarId" },
+            { "carVinCode", "VinCode" },
+            { "carNumberPlate", "NumberPlate" },
+            { "carBrand", "Brand" },
+            { "carModel", "Model" },
+            { "carPrice", "Price" },
+            { "carNumberOfSeats", "NumberOfSeats" },
+            { "carNumberOfDoors", "NumberOfDoors" },
+            { "carMileage", "Mileage" },
+            { "carMaxFuelCapacity", "MaxFuelCapacity" },
+            { "carCurrentFuel", "CurrentFuel" },
+            { "carYear", "Year" },
+            { "carIsFitForUse", "IsFitForUse" },
+            { "carEngine", "Engine" },
+            { "carTransmission", "TransMission" },
+            { "carInterior", "Interior" },
+            { "carWheels", "Wheels" },
+            { "carLights", "Lights" },
+            { "carSignal", "Signal" },
+            { "carColor", "Color" },
+            { "carStatusId", "Status" },
+            { "userIdNumber", "IdNumber" },
+            { "userFirstName", "FirstName" },
+            { "userLastName", "LastName" },
+            { "userDateOfBirth", "DateOfBirth" },
+            { "userUserName", "UserName" },
+            { "userPassword", "Password" },
+            { "userPassportNumber", "PassportNumber" },
+            { "userDrivingLicenseNumber", "DrivingLicenseNumber" },
+            { "userBasicDiscount", "BasicDiscount" },
+            { "userCategory", "Category" },
+            { "dealId", "Id" },
+            { "dealCarId", "CarId" },
+            { "dealVinCode", "VinCode" },
+            { "dealCustomerId", "CustomerId" },
+            { "dealPrice", "Price" },
+            { "dealDealType", "DealType" },
+            { "dealName", "Name" },
+            { "inspectionInspectionId", "InspectionId" },
+            { "inspectionCarId", "CarId" },
+            { "inspectionInspectorId", "InspectorId" },
+            { "inspectionInspectionDate", "InspectionDate" },
+            { "inspectionStatusId", "Result" },
+            { "repairId", "Id" },
+            { "repairDate", "Date" },
+            { "repairCarId", "CarId" },
+            { "repairMechanicId", "MechanicId" },
+            { "repairIsSuccessfull", "IsSuccessfull" },
+            { "repairTotalCost", "TotalCost" },
+            { "repairTechnicalInfo", "TechnicalInfo" }
+        };
+
         ServiceManager serviceManager = new ServiceManager();
 
         Guid id = new Guid("A783A6FA-3C35-4CE1-ABC0-12F9D69636BE");
