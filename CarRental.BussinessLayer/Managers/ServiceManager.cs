@@ -288,7 +288,7 @@ public class ServiceManager : ICarManager
 
     // // FOR TEST PURPOSES RETURN TYPE IS List<Car> 
 
-    public List<Car> GetCarFromDatabase(Guid id, string connectionString)
+    public Car GetCarFromDatabase(Guid id, string connectionString)
     {
         SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
@@ -319,9 +319,19 @@ public class ServiceManager : ICarManager
             )
         );
 
+        // LAMBDA-EXPRESSION APPROACH
+
+        //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
+
+        Car car = cars.First();
+
+        car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i.InspectionId).ToList();
+
+        car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r.Id).ToList();
+
         SupplementData.DataContext.CloseConnection(connection);
 
-        return cars;
+        return car;
     }
 
     public Car ChooseCarFromList(List<Car> cars, int index)
