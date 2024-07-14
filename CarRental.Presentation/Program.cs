@@ -35,7 +35,7 @@ class CarRentalPortal
 
         // END OF BLOCK
 
-        // THE BLOCK OF O. KARMANSKYY'S
+        // THE BLOCK OF O. KARMANSKYY'S (THE START OF THE MAIN APPLICATION MENU)
 
         //var consoleOutput = new ConsoleOutput();
         //ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
@@ -49,7 +49,7 @@ class CarRentalPortal
 
         // END OF BLOCK
 
-        // MIGRATION BLOCK
+        // MIGRATION-TEST BLOCK
 
         //Console.WriteLine(connectionString);
 
@@ -77,7 +77,7 @@ class CarRentalPortal
 
         //// END OF MIGRATION BLOCK
 
-        // ORM BLOCK ('Dapper')
+        // ORM TEST-BLOCK ('Dapper') -- WORK IN PROGRESS!
 
         ServiceManager serviceManager = new ServiceManager();
 
