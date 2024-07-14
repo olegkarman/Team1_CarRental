@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {

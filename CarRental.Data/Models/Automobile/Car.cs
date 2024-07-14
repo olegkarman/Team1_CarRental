@@ -8,6 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Models.Checkup;
 using CarRental.Data.Enums;
 using CarRental.Data.Models.RecordTypes;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.Data.Models.Automobile;
 

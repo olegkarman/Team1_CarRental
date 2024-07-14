@@ -8,6 +8,7 @@ using CarRental.Data.Enums;
 using CarRental.BussinessLayer.Validators;
 using CarRental.BussinessLayer.Services;
 using System.Xml.Linq;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {

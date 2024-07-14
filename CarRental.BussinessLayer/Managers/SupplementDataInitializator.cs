@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
-using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.BussinessLayer.Validators;

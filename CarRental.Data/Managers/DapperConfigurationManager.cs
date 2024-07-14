@@ -10,6 +10,7 @@ using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models;
 using Dapper;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.Data.Managers
 {

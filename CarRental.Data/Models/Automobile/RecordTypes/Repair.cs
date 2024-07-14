@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.Automobile;
 
-namespace CarRental.Data.Models
+namespace CarRental.Data.Models.Automobile.RecordTypes
 {
     public record class Repair
     {
         // FIELDS
 
         // PROPERTIES
-        
-        public string Id { get; init; }
+
+        public Guid Id { get; init; }
         public DateTime Date { get; init; }
         public Guid CarId { get; init; }
         public string? CarBrand { get; init; }
@@ -33,7 +33,7 @@ namespace CarRental.Data.Models
 
         public override string ToString()
         {
-            return $"{{ {nameof(this.Id)} = {Id} | {nameof(this.Date)} = {Date} | {nameof(this.CarId)} = {CarId} | {nameof(CarBrand)} = {this.CarBrand} | {nameof(CarModel)} = {this.CarModel} | {nameof(MechanicName)} = {this.MechanicName} | {nameof(TechnicalInfo)} = {this.TechnicalInfo} | {nameof(IsSuccessfull)} = {this.IsSuccessfull} | {nameof(TotalCost)} = {this.TotalCost} }}";
+            return $"{{ {nameof(Id)} = {Id} | {nameof(Date)} = {Date} | {nameof(CarId)} = {CarId} | {nameof(CarBrand)} = {CarBrand} | {nameof(CarModel)} = {CarModel} | {nameof(MechanicName)} = {MechanicName} | {nameof(TechnicalInfo)} = {TechnicalInfo} | {nameof(IsSuccessfull)} = {IsSuccessfull} | {nameof(TotalCost)} = {TotalCost} }}";
         }
     }
 }
