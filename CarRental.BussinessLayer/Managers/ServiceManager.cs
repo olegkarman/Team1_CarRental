@@ -1071,7 +1071,8 @@ public class ServiceManager : ICarManager
                 MechanicalManager = dataInit.InitializeMechanization(),
                 JunkRepairManager = dataInit.InitializeRepair(),
                 NullValidator = dataInit.InitializeNullValidator(),
-                DataContext = dataInit.InitializeDataContext()
+                DataContext = dataInit.InitializeDataContext(),
+                DapperConfigs = dataInit.InitializeDapperConfigs()
             };
         }
         catch (NullReferenceException exception)
