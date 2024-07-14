@@ -315,7 +315,7 @@ public class ServiceManager : ICarManager
                    return car;
                },
                parameter,
-               splitOn: "userIdNumber, dealId, dealName, inspectionInspectionId, repairId"
+               splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
             )
         );
 

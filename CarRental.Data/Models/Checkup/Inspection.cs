@@ -39,4 +39,15 @@ public class Inspection : IInspection
         CarId = car.CarId;
         Result = result;
     }
+
+    // ADD FOR TESTING PURPOSES AND NOT ONLY FOR THAT (Y. PARKHOMENKO)
+
+    // METHODS
+
+    public override string ToString()
+    {
+        return $"{{ {nameof(InspectionId)} = {InspectionId} | {nameof(InspectionDate)} = {InspectionDate} | {nameof(InspectorId)} = {InspectorId} | {nameof(InspectorName)} = {InspectorName} | {nameof(CarId)} = {CarId} | {nameof(Result)} = {Result} | }}";
+    }
+
+    // END OF ADD
 }

@@ -170,7 +170,7 @@ class CarRentalPortal
             { "carYear", "Year" },
             { "carIsFitForUse", "IsFitForUse" },
             { "carEngine", "Engine" },
-            { "carTransmission", "TransMission" },
+            { "carTransmission", "Transmission" },
             { "carInterior", "Interior" },
             { "carWheels", "Wheels" },
             { "carLights", "Lights" },
