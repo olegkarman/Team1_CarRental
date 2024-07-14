@@ -94,6 +94,12 @@ public class Car
 
     // CONSTRUCTORS
 
+    public Car()
+    {
+        Inspections = new List<Inspection>();
+        Repairs = new List<Repair>();
+    }
+
     // METHODS
 
     public override string ToString()

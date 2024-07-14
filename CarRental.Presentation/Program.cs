@@ -13,6 +13,7 @@ using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models;
 using Dapper;   // FOR THE TEST PURPOSES ONLY!
 using CarRental.Data.Models.RecordTypes;
+using CarRental.Data.Dapper;
 
 
 
@@ -84,6 +85,10 @@ class CarRentalPortal
         // // FIRST I WILL GATHER LOGIC HERE ARE, AND THEN IT DIVIDES OVER MANAGER-CLASSES.
 
         //Func<Type, Dictionary<string, string>, string, PropertyInfo> funcProperty = new Func<Type, string, PropertyInfo>();
+
+        SqlMapper.AddTypeHandler(new GuidToStringTypeHandler());
+
+        SqlMapper.RemoveTypeMap(typeof(Guid));
 
         CustomPropertyTypeMap carMap = new CustomPropertyTypeMap(typeof(Car), propertyInfo);
         CustomPropertyTypeMap customerMap = new CustomPropertyTypeMap(typeof(CustomerTemp), propertyInfo);
