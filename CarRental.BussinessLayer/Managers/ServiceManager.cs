@@ -693,6 +693,34 @@ public class ServiceManager : ICarManager
 
     // UPDATE
 
+    public void ChangeCarOwnershipInDatabase(Guid carGuid, string customerId, string connectionString)
+    {
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+        // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
+
+        string id = customerId.ToUpper();
+
+        string carId = carGuid.ToString().ToUpper();
+
+        object arguments = new
+        {
+            id = id,
+            carId = carId
+        };
+
+        string sqlStatement =
+        @"
+            UPDATE Cars
+                SET CustomerId = '@id'
+                WHERE CarId = '@carId';
+        ";
+
+        connection.Execute(sqlStatement, arguments);
+
+        SupplementData.DataContext.CloseConnection(connection);
+    }
+
     public void ChangeEngine (Car car, string engine)
     {
         SupplementData.NullValidator.CheckNull(car);

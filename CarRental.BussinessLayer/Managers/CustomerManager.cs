@@ -106,6 +106,10 @@ namespace CarRental.BussinessLayer.Managers
             serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER INSTEAD.
 
             AddCarInToCustomer(customer, car);
+
+            // THERE SHOULD BE UPDATE CAR-INSTANCE IN THE DATABASE.
+
+
         }
 
         public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager)
