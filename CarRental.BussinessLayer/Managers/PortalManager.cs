@@ -52,10 +52,13 @@ namespace CarRental.BussinessLayer.Managers
         {
             _carServiceManager.InitializeManagment();
 
+            // TO CONFIGURE ORM FOR Car-CLASS.
+            _carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
+            _carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
+
             _carServiceManager.GetNewRandomCurrentCars(15);
 
             _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
-
 
             ShowMainMenu();
         }
@@ -282,7 +285,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.PrintMessage($"Which car do you want to buy? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count)) // FIXED 15-VALUE CONST.
                 {
                     break;
                 }
@@ -315,7 +318,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.PrintMessage($"Which car do you want to inspect? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count)) // FIXED 'HARD-CODE' SO-CALLED.
                 {
                     break;
                 }
