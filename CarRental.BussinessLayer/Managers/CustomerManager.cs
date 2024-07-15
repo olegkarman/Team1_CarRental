@@ -31,6 +31,31 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
+        public void AddCustomerIntoDatabase(Customer customer, string connectionString)
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "CreateCustomer";
+
+            object arguments = new
+            {
+                IdNumber = customer.IdNumber,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                DateOfBirth = customer.DateOfBirth,
+                UserName = customer.UserName,
+                Password = customer.Password,
+                PassportNumber = customer.PassportNumber,
+                DrivingLicenseNumber = customer.DrivingLicenseNumber,
+                BasicDiscount = Customer.BasicDiscount
+                //Category = CustomerTemp.Category
+            };
+
+            connection.Execute(SqlStoredProcedureName, arguments);
+
+            DapperContext.CloseConnection(connection);
+        }
+
         public bool? IsCustomerInDatabase(string id, string connectionString)
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
@@ -43,6 +68,8 @@ namespace CarRental.BussinessLayer.Managers
             };
 
             int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+
+            DapperContext.CloseConnection(connection);
 
             if (result == 1)
             {

@@ -40,15 +40,15 @@ class CarRentalPortal
 
         // THE BLOCK OF O. KARMANSKYY'S (THE START OF THE MAIN APPLICATION MENU)
 
-        //var consoleOutput = new ConsoleOutput();
-        //ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
-        //var login = new Login();
-        //var loginManager = new LoginManager(login, consoleOutput);
-        //var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
-        //var portal = new Portal(user, isCustomer);
-        //var portalManager = new PortalManager(portal, consoleOutput);
-        //ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
-        //portalManager.StartMainMenu(connectionString);
+        var consoleOutput = new ConsoleOutput();
+        ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
+        var login = new Login();
+        var loginManager = new LoginManager(login, consoleOutput);
+        var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
+        var portal = new Portal(user, isCustomer);
+        var portalManager = new PortalManager(portal, consoleOutput);
+        ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
+        portalManager.StartMainMenu(connectionString);
 
         // END OF BLOCK
 
@@ -82,24 +82,24 @@ class CarRentalPortal
 
         // ORM TEST-BLOCK ('Dapper') -- WORK IN PROGRESS!
 
-        DapperConfigurationManager dapperConfigManager = new DapperConfigurationManager();
+        //DapperConfigurationManager dapperConfigManager = new DapperConfigurationManager();
 
-        dapperConfigManager.ConfigureGuidToStringMapping();
-        dapperConfigManager.SetCustomMappingForEntities();
+        //dapperConfigManager.ConfigureGuidToStringMapping();
+        //dapperConfigManager.SetCustomMappingForEntities();
 
-        ServiceManager serviceManager = new ServiceManager();
-        serviceManager.InitializeManagment();
+        //ServiceManager serviceManager = new ServiceManager();
+        //serviceManager.InitializeManagment();
 
-        CustomerManager customerManager = new CustomerManager();
+        //CustomerManager customerManager = new CustomerManager();
 
-        Guid carId = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
-        string customerId = "BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2";
+        //Guid carId = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
+        //string customerId = "BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2";
 
-        bool? isCarExist = serviceManager.IsCarInDatabase(carId, connectionString);
-        bool? isCustomerExist = customerManager.IsCustomerInDatabase(customerId, connectionString);
+        //bool? isCarExist = serviceManager.IsCarInDatabase(carId, connectionString);
+        //bool? isCustomerExist = customerManager.IsCustomerInDatabase(customerId, connectionString);
 
-        Console.WriteLine("IS CAR (1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5) IN DB: " + isCarExist);
-        Console.WriteLine("IS CUSTOMER (BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2) IN DB: " + isCustomerExist);
+        //Console.WriteLine("IS CAR (1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5) IN DB: " + isCarExist);
+        //Console.WriteLine("IS CUSTOMER (BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2) IN DB: " + isCustomerExist);
 
         //Car car = serviceManager.GetCarFromDatabase(id, connectionString);
 

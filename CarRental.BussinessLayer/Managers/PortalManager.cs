@@ -56,7 +56,17 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
             _carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
 
-            // CHECK IF USER IN THE DATABASE, IF NOT ADD.
+            if (_portalInstance.IsCustomer)
+            {
+                bool isCustomerInDb = (bool)_customerManager.IsCustomerInDatabase(_portalInstance.UserData.IdNumber, connectionString);
+
+                if (!isCustomerInDb)
+                {
+                    Customer customer = _portalInstance.UserData as Customer;
+
+                    _customerManager.AddCustomerIntoDatabase(customer, connectionString);
+                }
+            }
 
             _carServiceManager.GetNewRandomCurrentCars(15);
 
