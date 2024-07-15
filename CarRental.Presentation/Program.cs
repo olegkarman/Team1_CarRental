@@ -90,11 +90,16 @@ class CarRentalPortal
         ServiceManager serviceManager = new ServiceManager();
         serviceManager.InitializeManagment();
 
-        Guid id = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
+        CustomerManager customerManager = new CustomerManager();
 
-        bool? isCarExist = serviceManager.IsCarExistInDatabase(id, connectionString);
+        Guid carId = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
+        string customerId = "BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2";
 
-        Console.WriteLine(isCarExist);
+        bool? isCarExist = serviceManager.IsCarInDatabase(carId, connectionString);
+        bool? isCustomerExist = customerManager.IsCustomerInDatabase(customerId, connectionString);
+
+        Console.WriteLine("IS CAR (1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5) IN DB: " + isCarExist);
+        Console.WriteLine("IS CUSTOMER (BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2) IN DB: " + isCustomerExist);
 
         //Car car = serviceManager.GetCarFromDatabase(id, connectionString);
 

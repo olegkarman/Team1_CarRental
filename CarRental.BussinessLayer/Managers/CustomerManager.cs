@@ -7,16 +7,60 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.RecordTypes;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace CarRental.BussinessLayer.Managers
 {
     public class CustomerManager
     {
         // FIELDS
+
         private const string _noInfo = "NO INFORMATION";
+
+        // PROPERTIES
+
+        public DatabaseContextDapper DapperContext { get; init; }
         
-        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE???
-        
+        // CONSTRUCTORS
+
+        public CustomerManager()
+        {
+            DapperContext = new DatabaseContextDapper();
+        }
+
+        // METHODS
+
+        public bool? IsCustomerInDatabase(string id, string connectionString)
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "CheckIfCustomerEntryExist";
+
+            object parameter = new
+            {
+                Id = id
+            };
+
+            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
+
         public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager)
         {
             // NULL-VALIDATION SHOULD BE.

@@ -287,7 +287,7 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    public bool? IsCarExistInDatabase(Guid id, string connectionString)
+    public bool? IsCarInDatabase(Guid id, string connectionString)
     {
         SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
