@@ -88,7 +88,7 @@ namespace CarRental.BussinessLayer.Managers
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
-        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager)
+        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
             // NULL-VALIDATION SHOULD BE.
             // THIS IS WORK OF DEAL-MANAGER, NOT CUSTOMER MANAGER.
@@ -96,6 +96,8 @@ namespace CarRental.BussinessLayer.Managers
             // CUSTOMER FIRST NAME — TRANSITIVE DEPENDANCY IN DB.
             Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
+
+            dealManager.AddDealIntoDatabase(newDeal, connectionString);
 
             // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
             //customer.Deals.Add(newDeal);

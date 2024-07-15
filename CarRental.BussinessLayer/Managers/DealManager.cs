@@ -43,7 +43,7 @@ public class DealManager
 
         string SqlStoredProcedureName = "CreateDeal";
 
-        object parameters = new
+        object arguments = new
         {
             Id = deal.Id,
             CarId = deal.CarId,
@@ -54,7 +54,7 @@ public class DealManager
             Name = deal.Name
         };
 
-        connection.Execute(SqlStoredProcedureName, parameters);
+        connection.Execute(SqlStoredProcedureName, arguments);
 
         DapperContext.CloseConnection(connection);
     }

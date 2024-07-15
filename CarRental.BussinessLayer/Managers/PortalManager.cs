@@ -72,10 +72,10 @@ namespace CarRental.BussinessLayer.Managers
 
             _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
 
-            ShowMainMenu();
+            ShowMainMenu(connectionString);
         }
 
-        public void ShowMainMenu()
+        public void ShowMainMenu(string connectionString)
         {
             string patternInitialTrim = @"(?<=\{)(.*)(?=\})";
             string delimiterToSplit = "||";
@@ -129,7 +129,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "2":
                         if (_portalInstance.IsCustomer)
                         {
-                            BuyRentCarFlow();
+                            BuyRentCarFlow(connectionString);
                         }
                         else
                         {
@@ -139,7 +139,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "3":
                         if (_portalInstance.IsCustomer)
                         {
-                            BuyRentCarFlow(false);
+                            BuyRentCarFlow(connectionString, false);
                         }
                         else
                         {
@@ -243,7 +243,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.ClearUserUI();
                 break;
             }
-            ShowMainMenu();
+            ShowMainMenu(connectionString);
         }
 
         public void DisplayCars()
@@ -286,7 +286,7 @@ namespace CarRental.BussinessLayer.Managers
             );
         }
 
-        public void BuyRentCarFlow(bool buy = true)
+        public void BuyRentCarFlow(string connectionString, bool buy = true)
         {
             _outputManager.ClearUserUI();
             DisplayCars();
@@ -307,7 +307,7 @@ namespace CarRental.BussinessLayer.Managers
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager);
+                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, connectionString);
             }
             else
             {
@@ -316,7 +316,7 @@ namespace CarRental.BussinessLayer.Managers
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
             _outputManager.ClearUserUI();
-            ShowMainMenu();
+            ShowMainMenu(connectionString);
         }
 
         public void InspectCarFlow()
