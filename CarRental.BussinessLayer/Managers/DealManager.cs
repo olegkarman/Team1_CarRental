@@ -3,7 +3,11 @@
 //using System.IO;
 using System.Diagnostics;
 using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Models.Automobile;
+using CarRental.Data.Models;
 using CarRental.Data.Models.RecordTypes;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -19,17 +23,41 @@ public class DealManager
 
     // PROPERTIES
 
+    internal DatabaseContextDapper DapperContext { get; init; }
+
     // CONSTRUCTORS
 
     public DealManager()
     {
-        
+        DapperContext = new DatabaseContextDapper();
     }
 
     //public DealManager(IndexValidator idexValidator, UpdatedNameValidator nameValidator, DealValidation _)
     // METHODS
 
     // CREATE
+
+    public void AddDealIntoDatabase(Deal deal, string connectionString)
+    {
+        SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+        string SqlStoredProcedureName = "CreateDeal";
+
+        object parameters = new
+        {
+            Id = deal.Id,
+            CarId = deal.CarId,
+            VinCode = deal.VinCode,
+            CustomerId = deal.CustomerId,
+            Price = deal.Price,
+            DealType = deal.DealType,
+            Name = deal.Name
+        };
+
+        connection.Execute(SqlStoredProcedureName, parameters);
+
+        DapperContext.CloseConnection(connection);
+    }
 
     public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
     {
@@ -44,7 +72,7 @@ public class DealManager
             CarId = carId,
             // SOME VALIDATION IN THE Deal-CLASS.
             DealType = dealType,
-            Price = price,
+            Price = price
         };
 
         return deal;
