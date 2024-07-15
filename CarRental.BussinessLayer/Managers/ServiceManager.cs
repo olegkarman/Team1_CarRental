@@ -17,6 +17,7 @@ using CarRental.Data.Models.Checkup;
 using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Diagnostics;
+using System.Data;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -286,7 +287,41 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    // // FOR TEST PURPOSES RETURN TYPE IS List<Car> 
+    public bool? IsCarExistInDatabase(Guid id, string connectionString)
+    {
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+        string SqlStoredProcedureName = "CheckIfCarEntryExist";
+        string carId = id.ToString().ToUpper();
+
+        object parameter = new
+        {
+            Id = carId
+        };
+
+        //DynamicParameters dynamicParameters = new DynamicParameters();
+
+        //dynamicParameters.Add("RowCount", DbType.Int32, direction: ParameterDirection.Output);
+
+        int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+
+        //result = dynamicParameters.Get<int>("RowCount");
+
+        SupplementData.DataContext.CloseConnection(connection);
+
+        if (result == 1)
+        {
+            return true;
+        }
+        else if (result == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public Car GetCarFromDatabase(Guid id, string connectionString)
     {

@@ -92,28 +92,32 @@ class CarRentalPortal
 
         Guid id = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
 
-        Car car = serviceManager.GetCarFromDatabase(id, connectionString);
+        bool? isCarExist = serviceManager.CheckIfCarExistInDatabaseById(id, connectionString);
 
-        Console.WriteLine(car);
+        Console.WriteLine(isCarExist);
 
-        Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        //Car car = serviceManager.GetCarFromDatabase(id, connectionString);
 
-        foreach (Inspection inspection in car.Inspections)
-        {
-            Console.WriteLine($"List count = {car.Inspections.Count}");
-            Console.WriteLine(inspection);
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        }
+        //Console.WriteLine(car);
 
-        Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
 
-        foreach (Repair repair in car.Repairs)
-        {
-            Console.WriteLine(repair);
-            Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        }
+        //foreach (Inspection inspection in car.Inspections)
+        //{
+        //    Console.WriteLine($"List count = {car.Inspections.Count}");
+        //    Console.WriteLine(inspection);
+        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        //}
+
+        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+
+        //foreach (Repair repair in car.Repairs)
+        //{
+        //    Console.WriteLine(repair);
+        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
+        //}
 
         // END OF ORM BLOCK
     }
