@@ -92,7 +92,7 @@ class CarRentalPortal
 
         Guid id = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
 
-        bool? isCarExist = serviceManager.CheckIfCarExistInDatabaseById(id, connectionString);
+        bool? isCarExist = serviceManager.IsCarExistInDatabase(id, connectionString);
 
         Console.WriteLine(isCarExist);
 
