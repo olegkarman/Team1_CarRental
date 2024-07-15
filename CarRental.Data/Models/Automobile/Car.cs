@@ -89,8 +89,8 @@ public class Car
     public bool? IsFitForUse { get; set; }
 
     public Deal? Engagement { get; set; }
-    public List<Inspection>? Inspections { get; set; }
-    public List<Repair>? Repairs { get; set; }
+    public List<Inspection?>? Inspections { get; set; }
+    public List<Repair?>? Repairs { get; set; }
     public Customer? Owner { get; set; }
 
     // CONSTRUCTORS

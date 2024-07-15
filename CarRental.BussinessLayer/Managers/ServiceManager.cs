@@ -302,7 +302,7 @@ public class ServiceManager : ICarManager
 
         List<Car> cars = new List<Car>
         (
-            connection.Query<Car, CustomerTemp, Deal, Inspection, Repair, Car>
+            connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
             (
                SqlStoredProcedureName,
                (car, customerTemp, deal, inspection, repair) =>
@@ -325,9 +325,9 @@ public class ServiceManager : ICarManager
 
         Car car = cars.First();
 
-        car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i.InspectionId).ToList();
+        car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
 
-        car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r.Id).ToList();
+        car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
 
         SupplementData.DataContext.CloseConnection(connection);
 
