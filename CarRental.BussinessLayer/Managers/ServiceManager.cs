@@ -686,12 +686,40 @@ public class ServiceManager : ICarManager
     //{
     //    SupplementData.DataContext.OpenConnection(connectionString)
 
-        
+
 
     //    return car;
     //}
 
     // UPDATE
+
+    public void ChangeCarDealshipInDatabase(Guid carGuid, Guid dealId, string connectionString)
+    {
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+        // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
+
+        string id = dealId.ToString().ToUpper();
+
+        string carId = carGuid.ToString().ToUpper();
+
+        object arguments = new
+        {
+            id = id,
+            dealId = dealId
+        };
+
+        string sqlStatement =
+        @"
+            UPDATE Cars
+                SET DealId = '@id'
+                WHERE CarId = '@dealId';
+        ";
+
+        connection.Execute(sqlStatement, arguments);
+
+        SupplementData.DataContext.CloseConnection(connection);
+    }
 
     public void ChangeCarOwnershipInDatabase(Guid carGuid, string customerId, string connectionString)
     {
