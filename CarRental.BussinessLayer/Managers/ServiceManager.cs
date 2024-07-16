@@ -287,10 +287,58 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    //public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
-    //{
-        
-    //}
+    public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
+    {
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+        string SqlStoredProcedureName = "GetAllCarsOfCustomer";
+        string id = customerId.ToUpper();
+
+        object parameter = new
+        {
+            CustomerId = id
+        };
+
+        List<Car> cars = new List<Car>
+        (
+            connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+            (
+               SqlStoredProcedureName,
+               (car, customerTemp, deal, inspection, repair) =>
+               {
+                   car.Owner = customerTemp;
+                   car.Engagement = deal;
+                   car.Inspections.Add(inspection);
+                   car.Repairs.Add(repair);
+
+                   return car;
+               },
+               parameter,
+               splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
+            )
+        );
+
+        //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
+
+        List<IGrouping<Guid, Car>> groupedCars = new List<IGrouping<Guid, Car>>(cars.GroupBy(c => c.CarId));
+
+        List<Car> resultCars = new List<Car>();
+
+        foreach (IGrouping<Guid, Car> group in groupedCars)
+        {
+            Car car = group.First();
+
+            car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
+
+            car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+
+            resultCars.Add(car);
+        }
+
+        SupplementData.DataContext.CloseConnection(connection);
+
+        return resultCars;
+    }
 
     public bool? IsCarInDatabase(Guid id, string connectionString)
     {
