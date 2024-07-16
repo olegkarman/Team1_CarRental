@@ -39,6 +39,11 @@ namespace CarRental.BussinessLayer.Managers
 
             string id = customer.IdNumber.ToUpper();
 
+            // I SHOULD MOVE THIS LOGIC TO SEPARATE CLASS.
+            string encryptedPassword = customer.Password + "f328373f";
+
+            encryptedPassword = encryptedPassword.GetHashCode().ToString();
+
             object arguments = new
             {
                 IdNumber = id,
@@ -46,7 +51,7 @@ namespace CarRental.BussinessLayer.Managers
                 LastName = customer.LastName,
                 DateOfBirth = customer.DateOfBirth,
                 UserName = customer.UserName,
-                Password = customer.Password,
+                Password = encryptedPassword,
                 PassportNumber = customer.PassportNumber,
                 DrivingLicenseNumber = customer.DrivingLicenseNumber,
                 BasicDiscount = Customer.BasicDiscount
