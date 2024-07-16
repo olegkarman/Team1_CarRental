@@ -40,43 +40,43 @@ class CarRentalPortal
 
         // THE BLOCK OF O. KARMANSKYY'S (THE START OF THE MAIN APPLICATION MENU)
 
-        var consoleOutput = new ConsoleOutput();
-        ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
-        var login = new Login();
-        var loginManager = new LoginManager(login, consoleOutput);
-        var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
-        var portal = new Portal(user, isCustomer);
-        var portalManager = new PortalManager(portal, consoleOutput);
-        ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
-        portalManager.StartMainMenu(connectionString);
+        //var consoleOutput = new ConsoleOutput();
+        //ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
+        //var login = new Login();
+        //var loginManager = new LoginManager(login, consoleOutput);
+        //var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
+        //var portal = new Portal(user, isCustomer);
+        //var portalManager = new PortalManager(portal, consoleOutput);
+        //ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
+        //portalManager.StartMainMenu(connectionString);
 
         // END OF BLOCK
 
         // MIGRATION-TEST BLOCK
 
-        //Console.WriteLine(connectionString);
+        Console.WriteLine(connectionString);
 
-        ////TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
-        //Assembly.Load("CarRental.Data");
+        //TO LOAD ASSEMBLY INTO AppDoman WITHOUT DIRECT CALL A PIECE OF CODE FROM IT.
+        Assembly.Load("CarRental.Data");
 
-        //AssemblyManager assemblyManager = new AssemblyManager();
+        AssemblyManager assemblyManager = new AssemblyManager();
 
-        //assemblyManager.LoadAssembly(configurations["NameOfDataLayerAssembly"]);
+        assemblyManager.LoadAssembly(configurations["NameOfDataLayerAssembly"]);
 
-        //Assembly datAssembly = assemblyManager.GetAssemblyByNameFromAppDomain(configurations["NameOfDataLayerAssembly"]);
+        Assembly datAssembly = assemblyManager.GetAssemblyByNameFromAppDomain(configurations["NameOfDataLayerAssembly"]);
 
-        //HostManager hostManager = new HostManager();
+        HostManager hostManager = new HostManager();
 
-        //IHostBuilder hostBuilder = hostManager.CreateDefaultBuilderForHost();
+        IHostBuilder hostBuilder = hostManager.CreateDefaultBuilderForHost();
 
-        //hostBuilder = hostManager.ConfigureSqlServer2012FluentMigrator(hostBuilder, datAssembly, connectionString);
+        hostBuilder = hostManager.ConfigureSqlServer2012FluentMigrator(hostBuilder, datAssembly, connectionString);
 
-        //IHost host = hostManager.BuildHost(hostBuilder);
+        IHost host = hostManager.BuildHost(hostBuilder);
 
-        //host.ShowMigrationsListConsole();
-        ////host.MigrateDatabaseDown(202407100001);
-        ////host.MigrateDatabaseUp();
-        ////host.ShowMigrationsListConsole();
+        host.ShowMigrationsListConsole();
+        host.MigrateDatabaseDown(202407100001);
+        host.MigrateDatabaseUp();
+        host.ShowMigrationsListConsole();
 
         //// END OF MIGRATION BLOCK
 

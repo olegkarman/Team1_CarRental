@@ -22,19 +22,22 @@ namespace CarRentalData.Migrations
                     (
                         SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CheckIfCustomerEntryExist';
+                            WHERE ROUTINE_NAME = 'CheckIfCustomerEntryExist'
                     )
                         BEGIN
-                            CREATE PROCEDURE CheckIfCustomerEntryExist 
-                            (
-	                            @Id NVARCHAR(100)
-                            )
-	                            AS
-		                            SELECT COUNT(IdNumber)
-			                            FROM Users
-			                            WHERE IdNumber = @Id;
+                            EXECUTE
+                            ('
+                                CREATE PROCEDURE CheckIfCustomerEntryExist 
+                                (
+	                                @Id NVARCHAR(100)
+                                )
+	                                AS
+		                                SELECT COUNT(IdNumber)
+			                                FROM Users
+			                                WHERE IdNumber = @Id;
+                            ');
 
-                            PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CheckIfCustomerEntryExist CREATED';
+                          PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CheckIfCustomerEntryExist CREATED';
                         END
                     ELSE
                         PRINT 'MIGRATION FAILED: STORED PROCEDURE WITH NAME CheckIfCustomerEntryExist ALREADY EXISTS';
@@ -53,10 +56,10 @@ namespace CarRentalData.Migrations
 					(
 						SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CheckIfCustomerEntryExist';
+                            WHERE ROUTINE_NAME = 'CheckIfCustomerEntryExist'
 					)
 						BEGIN
-							DROP PRUCEDURE CheckIfCustomerEntryExist;
+							DROP PROCEDURE CheckIfCustomerEntryExist;
 
 							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CheckIfCustomerEntryExist DROPPED';
 						END

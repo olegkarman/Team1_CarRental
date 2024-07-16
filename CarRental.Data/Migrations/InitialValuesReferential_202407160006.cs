@@ -22,49 +22,52 @@ namespace CarRentalData.Migrations
                     (
                         SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CreateCustomer';
+                            WHERE ROUTINE_NAME = 'CreateCustomer'
                     )
                         BEGIN
-							CREATE PROCEDURE CreateCustomer
-							(
-								@IdNumber NVARCHAR(100),
-								@FirstName NVARCHAR(150),
-								@LastName NVARCHAR(150),
-								@DateOfBirth DATE,
-								@UserName NVARCHAR(150),
-								@Password NVARCHAR(250),
-								@PassportNumber NVARCHAR(100),
-								@DrivingLicenseNumber NVARCHAR(100),
-								@BasicDiscount FLOAT,
-								@Category NVARCHAR(250) = 'Customer'
-							)
-								AS
-									INSERT INTO Users
-									(
-										IdNumber,
-										FirstName,
-										LastName,
-										DateOfBirth,
-										UserName,
-										Password,
-										PassportNumber,
-										DrivingLicenseNumber,
-										BasicDiscount,
-										Category
-									)
-										VALUES
+							EXECUTE
+							('
+								CREATE PROCEDURE CreateCustomer
+								(
+									@IdNumber NVARCHAR(100),
+									@FirstName NVARCHAR(150),
+									@LastName NVARCHAR(150),
+									@DateOfBirth DATE,
+									@UserName NVARCHAR(150),
+									@Password NVARCHAR(250),
+									@PassportNumber NVARCHAR(100),
+									@DrivingLicenseNumber NVARCHAR(100),
+									@BasicDiscount FLOAT,
+									@Category NVARCHAR(250) = ''Customer''
+								)
+									AS
+										INSERT INTO Users
 										(
-											@IdNumber,
-											@FirstName,
-											@LastName,
-											@DateOfBirth,
-											@UserName,
-											@Password,
-											@PassportNumber,
-											@DrivingLicenseNumber,
-											@BasicDiscount,
-											@Category
-										);
+											IdNumber,
+											FirstName,
+											LastName,
+											DateOfBirth,
+											UserName,
+											Password,
+											PassportNumber,
+											DrivingLicenseNumber,
+											BasicDiscount,
+											Category
+										)
+											VALUES
+											(
+												@IdNumber,
+												@FirstName,
+												@LastName,
+												@DateOfBirth,
+												@UserName,
+												@Password,
+												@PassportNumber,
+												@DrivingLicenseNumber,
+												@BasicDiscount,
+												@Category
+											);
+								');
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CreateCustomer CREATED';
                         END
@@ -85,10 +88,10 @@ namespace CarRentalData.Migrations
 					(
 						SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CreateCustomer';
+                            WHERE ROUTINE_NAME = 'CreateCustomer'
 					)
 						BEGIN
-							DROP PRUCEDURE CreateCustomer;
+							DROP PROCEDURE CreateCustomer;
 
 							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CreateCustomer DROPPED';
 						END

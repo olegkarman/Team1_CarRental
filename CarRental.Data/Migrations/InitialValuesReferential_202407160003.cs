@@ -22,17 +22,20 @@ namespace CarRentalData.Migrations
                     (
                         SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CheckIfCarEntryExist';
+                            WHERE ROUTINE_NAME = 'CheckIfCarEntryExist'
                     )
                         BEGIN
-                            CREATE PROCEDURE CheckIfCarEntryExist 
-                            (
-	                            @Id NVARCHAR(100)
-                            )
-	                            AS
-		                            SELECT COUNT(CarId)
-			                            FROM Cars
-			                            WHERE CarId = @Id;
+                            EXECUTE
+                            ('
+                                CREATE PROCEDURE CheckIfCarEntryExist 
+                                (
+	                                @Id NVARCHAR(100)
+                                )
+	                                AS
+		                                SELECT COUNT(CarId)
+			                                FROM Cars
+			                                WHERE CarId = @Id;
+                            ');
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CheckIfCarEntryExist CREATED';
                         END
@@ -53,10 +56,10 @@ namespace CarRentalData.Migrations
 					(
 						SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CheckIfCarEntryExist';
+                            WHERE ROUTINE_NAME = 'CheckIfCarEntryExist'
 					)
 						BEGIN
-							DROP PRUCEDURE CheckIfCarEntryExist;
+							DROP PROCEDURE CheckIfCarEntryExist;
 
 							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CheckIfCarEntryExist DROPPED';
 						END

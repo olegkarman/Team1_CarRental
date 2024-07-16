@@ -22,40 +22,43 @@ namespace CarRentalData.Migrations
                     (
                         SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CreateDeal';
+                            WHERE ROUTINE_NAME = 'CreateDeal'
                     )
                         BEGIN
-							CREATE PROCEDURE CreateDeal
-							(
-								@Id NVARCHAR(100),
-								@CarId NVARCHAR(100),
-								@VinCode NVARCHAR(100),
-								@CustomerId NVARCHAR(100),
-								@Price FLOAT,
-								@DealType NVARCHAR(50),
-								@Name NVARCHAR(250)
-							)
-								AS
-									INSERT INTO Deals
-									(
-										Id,
-										CarId,
-										VinCode,
-										CustomerId,
-										Price,
-										DealType,
-										Name
-									)
-										VALUES
+							EXECUTE
+							('
+								CREATE PROCEDURE CreateDeal
+								(
+									@Id NVARCHAR(100),
+									@CarId NVARCHAR(100),
+									@VinCode NVARCHAR(100),
+									@CustomerId NVARCHAR(100),
+									@Price FLOAT,
+									@DealType NVARCHAR(50),
+									@Name NVARCHAR(250)
+								)
+									AS
+										INSERT INTO Deals
 										(
-											@Id,
-											@CarId,
-											@VinCode,
-											@CustomerId,
-											@Price,
-											@DealType,
-											@Name
-										);
+											Id,
+											CarId,
+											VinCode,
+											CustomerId,
+											Price,
+											DealType,
+											Name
+										)
+											VALUES
+											(
+												@Id,
+												@CarId,
+												@VinCode,
+												@CustomerId,
+												@Price,
+												@DealType,
+												@Name
+											);
+								');
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CreateDeal CREATED';
                         END
@@ -76,10 +79,10 @@ namespace CarRentalData.Migrations
 					(
 						SELECT ROUTINE_NAME
                             FROM INFORMATION_SCHEMA.ROUTINES
-                            WHERE ROUTINE_NAME = 'CreateDeal';
+                            WHERE ROUTINE_NAME = 'CreateDeal'
 					)
 						BEGIN
-							DROP PRUCEDURE CreateDeal;
+							DROP PROCEDURE CreateDeal;
 
 							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CreateDeal DROPPED';
 						END
