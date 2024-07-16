@@ -287,6 +287,11 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
+    //public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
+    //{
+        
+    //}
+
     public bool? IsCarInDatabase(Guid id, string connectionString)
     {
         SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
@@ -712,8 +717,8 @@ public class ServiceManager : ICarManager
         string sqlStatement =
         @"
             UPDATE Cars
-                SET DealId = '@id'
-                WHERE CarId = '@dealId';
+                SET DealId = @id
+                WHERE CarId = @dealId;
         ";
 
         connection.Execute(sqlStatement, arguments);
@@ -728,6 +733,7 @@ public class ServiceManager : ICarManager
         // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
 
         string id = customerId.ToUpper();
+        //string id = customerId;
 
         string carId = carGuid.ToString().ToUpper();
 
@@ -740,8 +746,8 @@ public class ServiceManager : ICarManager
         string sqlStatement =
         @"
             UPDATE Cars
-                SET CustomerId = '@id'
-                WHERE CarId = '@carId';
+                SET CustomerId = @id
+                WHERE CarId = @carId;
         ";
 
         connection.Execute(sqlStatement, arguments);

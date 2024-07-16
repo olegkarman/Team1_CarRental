@@ -37,9 +37,11 @@ namespace CarRental.BussinessLayer.Managers
 
             string SqlStoredProcedureName = "CreateCustomer";
 
+            string id = customer.IdNumber.ToUpper();
+
             object arguments = new
             {
-                IdNumber = customer.IdNumber,
+                IdNumber = id,
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 DateOfBirth = customer.DateOfBirth,
@@ -117,9 +119,9 @@ namespace CarRental.BussinessLayer.Managers
         public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
             //Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.PassportNumber, car.VinCode, car.CarId, "rental", car.Price);
+            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "rental", car.Price);
 
-            car.Status = Data.Enums.TransportStatus.Rented;
+            car.Status = Data.Enums.TransportStatus.Rented; // CALL CAR-MANAGER INSTED.
 
             dealManager.AddDealIntoDatabase(newDeal, connectionString);
 

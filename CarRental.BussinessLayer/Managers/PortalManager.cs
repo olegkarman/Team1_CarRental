@@ -56,6 +56,7 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
             _carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
 
+            // IF CUSTOMER IS NOT EXISTS IN A DATABSE, ADD IT THEN.
             if (_portalInstance.IsCustomer)
             {
                 bool isCustomerInDb = (bool)_customerManager.IsCustomerInDatabase(_portalInstance.UserData.IdNumber, connectionString);
@@ -71,6 +72,12 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.GetNewRandomCurrentCars(15);
 
             _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
+
+            // COPY CARS FROM A DATABASE TO THE CUSTOMERINSTANCE CORRESPONDING PROPERTY.
+            if (_portalInstance.IsCustomer)
+            {
+                
+            }
 
             ShowMainMenu(connectionString);
         }
