@@ -76,7 +76,9 @@ namespace CarRental.BussinessLayer.Managers
             // COPY CARS FROM A DATABASE TO THE CUSTOMERINSTANCE CORRESPONDING PROPERTY.
             if (_portalInstance.IsCustomer)
             {
-                
+                Customer customer = _portalInstance.UserData as Customer;
+
+                customer.Cars = _carServiceManager.GetAllCarsOfCustomerFromDatabase(_portalInstance.UserData.IdNumber, connectionString);
             }
 
             ShowMainMenu(connectionString);
@@ -258,7 +260,7 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.DisplayCarsInTable(_outputManager);
         }
 
-        // I THINK LOGIC OF DISPLAY SOMETHING IN CONSOLE SHOULD BE HERE ARE.
+        // I THINK LOGIC OF DISPLAY SOMETHING IN CONSOLE USING OUTPUT MANAGER SHOULD BE HERE ARE.
         public void DisplayCustomerCars
         (
             CustomerManager manager,
