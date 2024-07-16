@@ -103,21 +103,25 @@ namespace CarRental.BussinessLayer.Managers
             //customer.Deals.Add(newDeal);
             dealManager.AddDealInToList(customer.Deals, newDeal);
 
-            serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER INSTEAD.
+            serviceManager.AddDealToCar(car, newDeal); 
 
             AddCarInToCustomer(customer, car);
 
             // THERE SHOULD BE UPDATE CAR-INSTANCE IN THE DATABASE.
 
+            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
+            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
 
         }
 
-        public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager)
+        public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
             //Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
             Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.PassportNumber, car.VinCode, car.CarId, "rental", car.Price);
 
             car.Status = Data.Enums.TransportStatus.Rented;
+
+            dealManager.AddDealIntoDatabase(newDeal, connectionString);
 
             //customer.Deals.Add(newDeal);
             dealManager.AddDealInToList(customer.Deals, newDeal);
@@ -125,6 +129,9 @@ namespace CarRental.BussinessLayer.Managers
             serviceManager.AddDealToCar(car, newDeal);
 
             AddCarInToCustomer(customer, car);
+
+            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
+            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
         }
 
         public void ShowMyDeals(Customer customer)

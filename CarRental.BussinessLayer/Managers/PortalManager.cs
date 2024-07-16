@@ -311,7 +311,7 @@ namespace CarRental.BussinessLayer.Managers
             }
             else
             {
-                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager);
+                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, connectionString);
             }
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
