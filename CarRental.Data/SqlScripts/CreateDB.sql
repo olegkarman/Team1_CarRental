@@ -1,5 +1,5 @@
-CREATE DATABASE CarRentalDB;
-GO
+--CREATE DATABASE CarRentalDB;
+--GO
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED START ------------------------------------------------
 
@@ -29,7 +29,9 @@ CREATE TABLE InspectionStatuses
 CREATE TABLE Users
 (
 	-- ABSTRACT USER
-	IdNumber NVARCHAR(100) NOT NULL PRIMARY KEY,
+	IdNumber NVARCHAR(100) NOT NULL,
+	CONSTRAINT PK_Users_IdNumber
+		PRIMARY KEY (IdNumber),
 	FirstName NVARCHAR(150) NOT NULL,
 	LastName NVARCHAR(150) NOT NULL,
 	DateOfBirth Date NOT NULL,
@@ -54,8 +56,9 @@ CREATE TABLE Deals
 	CONSTRAINT PK_Deals_Name_CustomerId_TEST
 		PRIMARY KEY (Name, CustomerId),
 	IdNumber NVARCHAR(100) NOT NULL,
-	FOREIGN KEY (IdNumber)
-		REFERENCES Users (IdNumber),
+	CONSTRAINT FK_Deals_Users_CustomerId_IdNumber
+		FOREIGN KEY (IdNumber)
+			REFERENCES Users (IdNumber),
 	CarId NVARCHAR(100) NOT NULL,
 	Price FLOAT NOT NULL
 
@@ -64,7 +67,9 @@ CREATE TABLE Deals
 
 CREATE TABLE Mechanicists
 (
-	Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+	Id NVARCHAR(100) NOT NULL,
+	CONSTRAINT PK_Mechanicists_Id
+		PRIMARY KEY (Id),
 	Year INT NOT NULL,
 	Name NVARCHAR(150) NOT NULL,
 	Surename NVARCHAR(150) NOT NULL
@@ -112,12 +117,15 @@ CREATE TABLE Cars
 
 CREATE TABLE Inspections
 (
-	InspectionId NVARCHAR(100) NOT NULL PRIMARY KEY,
+	InspectionId NVARCHAR(100) NOT NULL,
+	CONSTRAINT PK_Inspections_InspectionId
+		PRIMARY KEY (InspectionId),
 	-- INSPECTION CONNECTION TO Car, (MANY - 1).
 	CarId NVARCHAR(100) NOT NULL,
 	VinCode NVARCHAR(100) NOT NULL,
-	FOREIGN KEY (CarId, VinCode)
-		REFERENCES Cars (CarId, VinCode),
+	CONSTRAINT FK_Inspection_Cars_CarId_VinCode_CarId_VinCode
+		FOREIGN KEY (CarId, VinCode)
+			REFERENCES Cars (CarId, VinCode),
 	-- INSPECTION CONNECTION TO STATUS ENUM.
 	Result NVARCHAR(50) NULL,
 	CONSTRAINT FK_Inspections_InspectionStatuses_Result_Status_TEST
@@ -137,18 +145,22 @@ CREATE TABLE Inspections
 
 CREATE TABLE Repairs
 (
-	Id NVARCHAR(500) NOT NULL PRIMARY KEY,
+	Id NVARCHAR(500) NOT NULL,
+	CONSTRAINT PK_Repairs_Id
+		PRIMARY KEY (Id),
 	Date DATETIME NOT NULL,
 	-- CONNECTION TO CARS (REPAIR HAS ONE CAR, CAR HAS MANY REPAIRS)
 	CarId NVARCHAR(100) NOT NULL,
 	VinCode NVARCHAR(100) NOT NULL,
-	FOREIGN KEY (CarId, VinCode)
-		REFERENCES Cars (CarId, VinCode),
+	CONSTRAINT FK_Repairs_Cars_CarId_VinCode_CarId_VinCode
+		FOREIGN KEY (CarId, VinCode)
+			REFERENCES Cars (CarId, VinCode),
 	MechanicName NVARCHAR(250) NULL,
 	MechanicId NVARCHAR(100) NOT NULL,
 	-- CONNECTION TO MECHANICISTS (ONE MECHANIC HAS MANY REPAIRS)
-	FOREIGN KEY (MechanicId)
-		REFERENCES Mechanicists (Id),
+	CONSTRAINT FK_Repairs_Mechanicists_MechanicId_Id
+		FOREIGN KEY (MechanicId)
+			REFERENCES Mechanicists (Id),
 	CarBrand NVARCHAR(500) NULL,
 	CarModel NVARCHAR(500) NULL,
 	-- TECHNICAL INFORMATION CAN CONSIST OF MUCH OF DATA.
@@ -791,7 +803,9 @@ DROP TABLE Customers
 
 CREATE TABLE Brands
 (
-	Model NVARCHAR(200) NOT NULL PRIMARY KEY,
+	Model NVARCHAR(200) NOT NULL,
+	CONSTRAINT PK_Brands_Model
+		PRIMARY KEY (Model),
 	Id NVARCHAR(100) NOT NULL,
 	BrandName NVARCHAR(200) NOT NULL
 	
@@ -1292,7 +1306,9 @@ UPDATE Users
 -- O. KARMANSKYY
 
 CREATE TABLE InspectionReports (
-    Id UNIQUEIDENTIFIER PRIMARY KEY,
+    Id UNIQUEIDENTIFIER
+	CONSTRAINT PK_InspectionReports_Id -- Y. PAKRHOMENKO RENAME PRIMARY KEY, EASY CHANGE.
+	 PRIMARY KEY (Id),
     InspectionId UNIQUEIDENTIFIER NOT NULL,
     InspectionDate DATETIME,
     InspectorName NVARCHAR(255),
@@ -1359,3 +1375,107 @@ ALTER TABLE Cars
 -- END OF ALTER SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED FIFTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED SIXTH START ------------------------------------------------
+
+-- CREATE SECTION
+-- 16-JUL-24
+
+CREATE TABLE Inspector
+(
+	Id INT NOT NULL,
+	FirstName NVARCHAR(50) NOT NULL,
+	LastName NVARCHAR(50) NOT NULL,
+	DateOfBirth DATE NOT NULL
+);
+
+-- END OF CREATE SECTION
+
+-- INSERT SECTION
+-- 16-JUL-24
+
+INSERT INTO Inspector
+(
+	Id,
+	FirstName,
+	LastName,
+	DateOfBirth
+)
+	VALUES
+		(
+			1,
+			'Adam',
+			'Smith',
+			CAST('1990-01-01' AS DATE)
+		),
+		(
+			2,
+			'Eva',
+			'Smith',
+			CAST('1991-01-02' AS DATE)
+		),
+		(
+			3,
+			'Mike',
+			'Smith',
+			CAST('1992-01-03' AS DATE)
+		);
+
+-- END OF INSERT SECTION
+
+-- START OF ALTER SECTION
+-- 16-JUL-24
+
+ALTER TABLE Inspector
+	ADD CONSTRAINT PK_Inspector_Id
+		PRIMARY KEY (Id);
+
+-- END OF ALTER SECTION
+
+-- START OF EXECUTION SECTION
+-- 18-JUL-24
+
+EXECUTE sp_rename 'Deals.IdNumber',
+	'CustomerId', 'COLUMN';
+
+-- END OF EXECUTION SECTION
+
+-- START OF ALTER SECTION
+-- 18-JUL-2024
+
+ALTER TABLE Inspections
+	ALTER COLUMN InspectionDate DATETIME NULL;
+
+-- END OF ALTER SECTION
+
+-- START OF UPDATE SECTION
+-- 18-JUL-24
+
+UPDATE Repairs
+	SET
+		TechnicalInfo = 'onsequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper u'
+	WHERE Id = '2643C170-65F3-4E8E-800D-35A93BD97A30';
+
+UPDATE Repairs
+	SET
+		TechnicalInfo = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,'
+	WHERE Id = 'A528B82E-E369-4888-9363-35275C27656B';
+
+UPDATE Repairs
+	SET
+		TechnicalInfo = 'icies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nulla'
+	WHERE Id = 'A6E435E7-44A5-4B40-8256-1A937B32A241';
+
+UPDATE Repairs
+	SET
+		TechnicalInfo = 'm quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc,'
+	WHERE Id = 'E9046A8D-F100-4ACA-9B7C-D8680C7A81DD';
+
+UPDATE Repairs
+	SET
+		TechnicalInfo = 'utrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipis'
+	WHERE Id = 'F5F60FA4-CCA6-4101-88B1-E8E8DF035C86';
+
+-- END OF UPDATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED SIXTH END ------------------------------------------------
