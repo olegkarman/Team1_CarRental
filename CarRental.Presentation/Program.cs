@@ -34,7 +34,7 @@ class CarRentalPortal
 
         IConfigurationRoot configurations = configManager.BuildConfigurations(configurationBuilder);
 
-        string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+        string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenko");
 
         //Console.WriteLine(Directory.GetCurrentDirectory());
 
@@ -76,7 +76,7 @@ class CarRentalPortal
         //IHost host = hostManager.BuildHost(hostBuilder);
 
         //host.ShowMigrationsListConsole();
-        //host.MigrateDatabaseDown(202407100001);
+        ////host.MigrateDatabaseDown(202407100001);
         //host.MigrateDatabaseUp();
         //host.ShowMigrationsListConsole();
 
