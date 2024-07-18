@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -47,16 +48,54 @@ namespace CarRental.BussinessLayer.Managers
             };
         }
 
-        public void StartMainMenu()
+        public void StartMainMenu(string connectionString)
         {
             _carServiceManager.InitializeManagment();
 
-            this._carServiceManager.GetNewRandomCurrentCars(15);
+            // TO CONFIGURE ORM FOR Car-CLASS.
+            _carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
+            _carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
 
-            ShowMainMenu();
+            // IF CUSTOMER IS NOT EXISTS IN A DATABSE, ADD IT THEN.
+            if (_portalInstance.IsCustomer)
+            {
+                bool isCustomerInDb = (bool)_customerManager.IsCustomerInDatabase(_portalInstance.UserData.IdNumber, connectionString);
+
+                if (!isCustomerInDb)
+                {
+                    Customer customer = _portalInstance.UserData as Customer;
+
+                    _customerManager.AddCustomerIntoDatabase(customer, connectionString);
+                }
+            }
+
+            _carServiceManager.GetNewRandomCurrentCars(15);
+
+            // BULKINSERT TEST-SECTION
+
+            //foreach (Car car in _carServiceManager.CurrentCars)
+            //{
+            //    Console.WriteLine(car);
+            //}
+
+            _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
+
+            // END OF TEST-SECTION
+
+            //_carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
+
+            // COPY CARS FROM A DATABASE TO THE CUSTOMERINSTANCE CORRESPONDING PROPERTY.
+            if (_portalInstance.IsCustomer)
+            {
+                Customer customer = _portalInstance.UserData as Customer;
+
+                customer.Cars = _carServiceManager.GetAllCarsOfCustomerFromDatabase(_portalInstance.UserData.IdNumber, connectionString);
+            }
+
+            ShowMainMenu(connectionString);
         }
 
-        public void ShowMainMenu()
+        public void ShowMainMenu(string connectionString)
         {
             string patternInitialTrim = @"(?<=\{)(.*)(?=\})";
             string delimiterToSplit = "||";
@@ -110,7 +149,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "2":
                         if (_portalInstance.IsCustomer)
                         {
-                            BuyRentCarFlow();
+                            BuyRentCarFlow(connectionString);
                         }
                         else
                         {
@@ -120,7 +159,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "3":
                         if (_portalInstance.IsCustomer)
                         {
-                            BuyRentCarFlow(false);
+                            BuyRentCarFlow(connectionString, false);
                         }
                         else
                         {
@@ -224,7 +263,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.ClearUserUI();
                 break;
             }
-            ShowMainMenu();
+            ShowMainMenu(connectionString);
         }
 
         public void DisplayCars()
@@ -232,7 +271,7 @@ namespace CarRental.BussinessLayer.Managers
             _carServiceManager.DisplayCarsInTable(_outputManager);
         }
 
-        // I THINK LOGIC OF DISPLAY SOMETHING IN CONSOLE SHOULD BE HERE ARE.
+        // I THINK LOGIC OF DISPLAY SOMETHING IN CONSOLE USING OUTPUT MANAGER SHOULD BE HERE ARE.
         public void DisplayCustomerCars
         (
             CustomerManager manager,
@@ -267,7 +306,7 @@ namespace CarRental.BussinessLayer.Managers
             );
         }
 
-        public void BuyRentCarFlow(bool buy = true)
+        public void BuyRentCarFlow(string connectionString, bool buy = true)
         {
             _outputManager.ClearUserUI();
             DisplayCars();
@@ -278,7 +317,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.PrintMessage($"Which car do you want to buy? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count)) // FIXED 15-VALUE CONST.
                 {
                     break;
                 }
@@ -288,16 +327,16 @@ namespace CarRental.BussinessLayer.Managers
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager);
+                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, connectionString);
             }
             else
             {
-                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager);
+                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, connectionString);
             }
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
             _outputManager.ClearUserUI();
-            ShowMainMenu();
+            ShowMainMenu(connectionString);
         }
 
         public void InspectCarFlow()
@@ -311,7 +350,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.PrintMessage($"Which car do you want to inspect? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count)) // FIXED 'HARD-CODE' SO-CALLED.
                 {
                     break;
                 }
