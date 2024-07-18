@@ -54,7 +54,7 @@ public class ConsoleOutput : IOutputManager
         string status;
 
         // HOW TO SEND ON THE PLACE OF NUMBER 17 PARAMETER SOME VARIABLE???
-        Console.WriteLine("{0, -3}|{1, -13}|{2, -15}|{3, -15}|{4, -18}|{5, -10}|{6, -10}|{7, -5}", "№", "BRAND", "MODEL", "NUMBERPLATE", "COLOUR", "YEAR", "STATUS", "IS READY");
+        Console.WriteLine("{0, -3}|{1, -13}|{2, -15}|{3, -15}|{4, -18}|{5, -10}|{6, -15}|{7, -5}", "№", "BRAND", "MODEL", "NUMBERPLATE", "COLOUR", "YEAR", "STATUS", "IS READY");
         Console.WriteLine("———————————————————————————————————————————————————————————————————————————————————————————————————");
 
         for (int index = 0; index < carsInfo.Length; index = index + 1)
@@ -92,7 +92,7 @@ public class ConsoleOutput : IOutputManager
 
                 isFitForUse = Regex.Match(tempInfo, statusSecondaryMatch).Value;
 
-                Console.WriteLine("{0, -3}|{1, -13}|{2, -15}|{3, -15}|{4, -18}|{5, -10}|{6, -10}|{7, -5}", index, brand, model, numberPlate, colour, year, status, isFitForUse);
+                Console.WriteLine("{0, -3}|{1, -13}|{2, -15}|{3, -15}|{4, -18}|{5, -10}|{6, -15}|{7, -5}", index, brand, model, numberPlate, colour, year, status, isFitForUse);
                 Console.WriteLine("———————————————————————————————————————————————————————————————————————————————————————————————————");
             }
         }

@@ -39,7 +39,7 @@ namespace CarRental.BussinessLayer.Managers
 
             string id = customer.IdNumber.ToUpper();
 
-            // I SHOULD MOVE THIS LOGIC TO SEPARATE CLASS.
+            // SHOULD MOVE THIS LOGIC TO SEPARATE CLASS.
             string encryptedPassword = customer.Password + "f328373f";
 
             encryptedPassword = encryptedPassword.GetHashCode().ToString();

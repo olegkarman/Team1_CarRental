@@ -1,0 +1,53 @@
+﻿<?xml version="1.0"?>
+<BCPFORMAT xmlns="http://schemas.microsoft.com/sqlserver/2004/bulkload/format" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<RECORD>
+		<FIELD ID="1" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="200" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="2" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="200" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="3" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="200" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="4" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="100" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="5" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="6" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="7" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="12"/>
+		<FIELD ID="8" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="12"/>
+		<FIELD ID="9" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="12"/>
+		<FIELD ID="10" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="30"/>
+		<FIELD ID="11" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="12"/>
+		<FIELD ID="12" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="30"/>
+		<FIELD ID="13" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="12"/>
+		<FIELD ID="14" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1"/>
+		<FIELD ID="15" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="16" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="17" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="18" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="19" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="20" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="21" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="1000" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="22" xsi:type="CharTerm" TERMINATOR="," MAX_LENGTH="200" COLLATION="Cyrillic_General_CI_AS"/>
+		<FIELD ID="23" xsi:type="CharTerm" TERMINATOR="\r\n" MAX_LENGTH="12"/>
+	</RECORD>
+	<ROW>
+		<COLUMN SOURCE="1" NAME="CarId" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="2" NAME="VinCode" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="3" NAME="CustomerId" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="4" NAME="NumberPlate" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="5" NAME="Brand" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="6" NAME="Model" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="7" NAME="Price" xsi:type="SQLINT"/>
+		<COLUMN SOURCE="8" NAME="NumberOfSeats" xsi:type="SQLINT"/>
+		<COLUMN SOURCE="9" NAME="NumberOfDoors" xsi:type="SQLINT"/>
+		<COLUMN SOURCE="10" NAME="Mileage" xsi:type="SQLFLT8"/>
+		<COLUMN SOURCE="11" NAME="MaxFuelCapacity" xsi:type="SQLINT"/>
+		<COLUMN SOURCE="12" NAME="CurrentFuel" xsi:type="SQLFLT8"/>
+		<COLUMN SOURCE="13" NAME="Year" xsi:type="SQLINT"/>
+		<COLUMN SOURCE="14" NAME="IsFitForUse" xsi:type="SQLBIT"/>
+		<COLUMN SOURCE="15" NAME="Engine" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="16" NAME="Transmission" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="17" NAME="Interior" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="18" NAME="Wheels" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="19" NAME="Lights" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="20" NAME="Signal" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="21" NAME="Color" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="22" NAME="DealId" xsi:type="SQLNVARCHAR"/>
+		<COLUMN SOURCE="23" NAME="StatusId" xsi:type="SQLINT"/>
+	</ROW>
+</BCPFORMAT>

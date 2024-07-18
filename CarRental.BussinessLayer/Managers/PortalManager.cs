@@ -71,7 +71,18 @@ namespace CarRental.BussinessLayer.Managers
 
             _carServiceManager.GetNewRandomCurrentCars(15);
 
-            _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
+            // BULKINSERT TEST-SECTION
+
+            //foreach (Car car in _carServiceManager.CurrentCars)
+            //{
+            //    Console.WriteLine(car);
+            //}
+
+            _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
+
+            // END OF TEST-SECTION
+
+            //_carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
 
             // COPY CARS FROM A DATABASE TO THE CUSTOMERINSTANCE CORRESPONDING PROPERTY.
             if (_portalInstance.IsCustomer)

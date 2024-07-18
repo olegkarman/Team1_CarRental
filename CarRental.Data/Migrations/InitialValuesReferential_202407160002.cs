@@ -13,8 +13,6 @@ namespace CarRentalData.Migrations
     {
         public override void Up()
         {
-            //IF AT LEAST SOME OF DATA EXIST, WILL BE NO ANY INSERT.
-            //NEED DELETE ALL DATA FIRST.
             Execute.Sql
             (
                 @"
@@ -113,8 +111,6 @@ namespace CarRentalData.Migrations
 
         public override void Down()
         {
-            // FOR DELETE STATEMENT IS NOT NEED CKECK OF EXISTANCE OF DATA,
-            // IT IS SCALAR WHICH RETURNS 0, OR NUMBER OF ROWS AFFECTED.
             Execute.Sql
             (
                 @"

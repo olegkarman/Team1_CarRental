@@ -285,6 +285,41 @@ public class ServiceManager : ICarManager
         }
     }
 
+    public void BulkAddCurrentCarsIntoDatabase(string connectionString)
+    {
+        BulkAddCarsIntoDatabase(CurrentCars, connectionString);
+    }
+
+    public void BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
+    {
+        string fileName = @"CarsBulk_YPARKHOMENKO.csv";
+
+        string carsInfo = RetriveCarsInfoFromList(cars);
+
+        carsInfo = SupplementData.TextProcessor.ParseOutputCarsInfo(carsInfo);
+
+        SupplementData.FileContext.WriteTextFileCurrentFolder(fileName, carsInfo);
+
+        string path = SupplementData.FileContext.CombineCurrentFolderFileName(fileName);
+
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+        string bulkSql =
+        @$"
+            BULK INSERT CarsBulk
+            FROM '{path}'
+            WITH
+            (
+                FIELDTERMINATOR = '|',
+                ROWTERMINATOR = '}}'
+            );
+        ";
+
+        connection.Execute(bulkSql);
+
+        SupplementData.DataContext.CloseConnection(connection);
+    }
+
     // RETRIVE
 
     public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
@@ -733,6 +768,23 @@ public class ServiceManager : ICarManager
         SupplementData.NullValidator.CheckNull(car);
 
         return $"{car.Engagement.ToString()}";
+    }
+
+    public string RetriveCurrentCarsInfo()
+    {
+        return RetriveCarsInfoFromList(CurrentCars);
+    }
+
+    public string RetriveCarsInfoFromList(List<Car> cars)
+    {
+        _carsInfo.Clear();
+
+        foreach (Car car in cars)
+        {
+            _carsInfo.Append(car.ToString());    
+        }
+
+        return _carsInfo.ToString();
     }
 
     //public Car RetriveCarFromDatabase(string connectionString)
@@ -1217,7 +1269,9 @@ public class ServiceManager : ICarManager
                 JunkRepairManager = dataInit.InitializeRepair(),
                 NullValidator = dataInit.InitializeNullValidator(),
                 DataContext = dataInit.InitializeDataContext(),
-                DapperConfigs = dataInit.InitializeDapperConfigs()
+                DapperConfigs = dataInit.InitializeDapperConfigs(),
+                FileContext = dataInit.InitializeFileManagement(),
+                TextProcessor = dataInit.InitializeTextProcessing()
             };
         }
         catch (NullReferenceException exception)

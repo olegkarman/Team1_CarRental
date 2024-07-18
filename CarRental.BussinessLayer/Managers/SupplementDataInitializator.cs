@@ -19,6 +19,16 @@ public class SupplementDataInitializator
 
     // METHODS
 
+    public TextProcessingService InitializeTextProcessing()
+    {
+        return new TextProcessingService();
+    }
+
+    public FileManager InitializeFileManagement()
+    {
+        return new FileManager();
+    }
+
     public DapperConfigurationManager InitializeDapperConfigs()
     {
         return new DapperConfigurationManager();
