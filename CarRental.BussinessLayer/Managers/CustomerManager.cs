@@ -7,39 +7,128 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.RecordTypes;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace CarRental.BussinessLayer.Managers
 {
     public class CustomerManager
     {
         // FIELDS
+
         private const string _noInfo = "NO INFORMATION";
+
+        // PROPERTIES
+
+        public DatabaseContextDapper DapperContext { get; init; }
         
-        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE???
-        
-        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager)
+        // CONSTRUCTORS
+
+        public CustomerManager()
+        {
+            DapperContext = new DatabaseContextDapper();
+        }
+
+        // METHODS
+
+        public void AddCustomerIntoDatabase(Customer customer, string connectionString)
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "CreateCustomer";
+
+            string id = customer.IdNumber.ToUpper();
+
+            // SHOULD MOVE THIS LOGIC TO SEPARATE CLASS.
+            string encryptedPassword = customer.Password + "f328373f";
+
+            encryptedPassword = encryptedPassword.GetHashCode().ToString();
+
+            object arguments = new
+            {
+                IdNumber = id,
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                DateOfBirth = customer.DateOfBirth,
+                UserName = customer.UserName,
+                Password = encryptedPassword,
+                PassportNumber = customer.PassportNumber,
+                DrivingLicenseNumber = customer.DrivingLicenseNumber,
+                BasicDiscount = Customer.BasicDiscount
+                //Category = CustomerTemp.Category
+            };
+
+            connection.Execute(SqlStoredProcedureName, arguments);
+
+            DapperContext.CloseConnection(connection);
+        }
+
+        public bool? IsCustomerInDatabase(string id, string connectionString)
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "CheckIfCustomerEntryExist";
+
+            object parameter = new
+            {
+                Id = id
+            };
+
+            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+
+            DapperContext.CloseConnection(connection);
+
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
+
+        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
             // NULL-VALIDATION SHOULD BE.
             // THIS IS WORK OF DEAL-MANAGER, NOT CUSTOMER MANAGER.
             // Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.PassportNumber, car.VinCode, car.CarId, "purchase", car.Price);
+            // CUSTOMER FIRST NAME — TRANSITIVE DEPENDANCY IN DB.
+            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
+
+            dealManager.AddDealIntoDatabase(newDeal, connectionString);
 
             // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
             //customer.Deals.Add(newDeal);
             dealManager.AddDealInToList(customer.Deals, newDeal);
 
-            serviceManager.AddDealToCar(car, newDeal);  // CALL THE CAR MANAGER INSTEAD.
+            serviceManager.AddDealToCar(car, newDeal); 
 
             AddCarInToCustomer(customer, car);
+
+            // THERE SHOULD BE UPDATE CAR-INSTANCE IN THE DATABASE.
+
+            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
+            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
+
         }
 
-        public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager)
+        public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
             //Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.PassportNumber, car.VinCode, car.CarId, "rental", car.Price);
+            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "rental", car.Price);
 
-            car.Status = Data.Enums.TransportStatus.Rented;
+            car.Status = Data.Enums.TransportStatus.Rented; // CALL CAR-MANAGER INSTED.
+
+            dealManager.AddDealIntoDatabase(newDeal, connectionString);
 
             //customer.Deals.Add(newDeal);
             dealManager.AddDealInToList(customer.Deals, newDeal);
@@ -47,6 +136,9 @@ namespace CarRental.BussinessLayer.Managers
             serviceManager.AddDealToCar(car, newDeal);
 
             AddCarInToCustomer(customer, car);
+
+            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
+            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
         }
 
         public void ShowMyDeals(Customer customer)

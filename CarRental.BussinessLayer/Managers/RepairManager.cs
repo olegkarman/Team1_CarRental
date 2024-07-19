@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -33,7 +34,7 @@ namespace CarRental.BussinessLayer.Managers
 
             Repair repair = new Repair
             {
-                 Id = car.Brand.ToUpper() + car.Model.ToUpper() + DateTime.Now.ToString().ToUpper() + mechanic.Id.ToString().Substring(33).ToUpper(),
+                 Id = Guid.NewGuid(),
                  Date = DateTime.Now,
                  CarId = car.CarId,
                  CarBrand = car.Brand,
@@ -70,11 +71,11 @@ namespace CarRental.BussinessLayer.Managers
             return repair;
         }
 
-        public Repair ChooseRepairFromList(List<Repair> repairs, string id)
+        public Repair ChooseRepairFromList(List<Repair> repairs, Guid id)
         {
             NullValidator.CheckNull(repairs);
 
-            Repair repair = repairs.Find(x => x.Id.Contains(id));
+            Repair repair = repairs.Find(x => (x.Id.CompareTo(id) == 0));
 
             NullValidator.CheckNull(repair);
 
@@ -98,11 +99,11 @@ namespace CarRental.BussinessLayer.Managers
             repairs.RemoveAt(index);
         }
 
-        public void DeleteRepairFromList(List<Repair> repairs, string id)
+        public void DeleteRepairFromList(List<Repair> repairs, Guid id)
         {
             NullValidator.CheckNull(repairs);
 
-            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id.Contains(id))));
+            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id.CompareTo(id) == 0)));
         }
     }
 }

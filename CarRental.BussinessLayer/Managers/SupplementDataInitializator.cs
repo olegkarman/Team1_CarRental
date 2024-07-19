@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
-using CarRental.Data.Models;
+using CarRental.Data.Managers;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.BussinessLayer.Validators;
@@ -18,6 +18,26 @@ public class SupplementDataInitializator
     // // HOLDS METHOD OF DATA-CLASSES INITIALIZATION.
 
     // METHODS
+
+    public TextProcessingService InitializeTextProcessing()
+    {
+        return new TextProcessingService();
+    }
+
+    public FileManager InitializeFileManagement()
+    {
+        return new FileManager();
+    }
+
+    public DapperConfigurationManager InitializeDapperConfigs()
+    {
+        return new DapperConfigurationManager();
+    }
+
+    public DatabaseContextDapper InitializeDataContext()
+    {
+        return new DatabaseContextDapper();
+    }
 
     public NullValidation InitializeNullValidator()
     {

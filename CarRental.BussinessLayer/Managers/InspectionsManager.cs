@@ -1,6 +1,6 @@
 ﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
-using CarRental.Data.Checkup;
+using CarRental.Data.Models.Checkup;
 
 namespace CarRental.BussinessLayer.Managers;
 public class InspectionsManager : IInspectionsManager
