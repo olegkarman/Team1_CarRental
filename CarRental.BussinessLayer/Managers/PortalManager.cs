@@ -48,7 +48,7 @@ namespace CarRental.BussinessLayer.Managers
             };
         }
 
-        public void StartMainMenu(string connectionString)
+        public void StartMainMenu(string connectionString, bool bulkInsertFlag)
         {
             _carServiceManager.InitializeManagment();
 
@@ -78,7 +78,14 @@ namespace CarRental.BussinessLayer.Managers
             //    Console.WriteLine(car);
             //}
 
-            _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
+            if (bulkInsertFlag)
+            {
+                _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
+            }
+            else
+            {
+                _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
+            }
 
             // END OF TEST-SECTION
 

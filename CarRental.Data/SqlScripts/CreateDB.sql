@@ -107,7 +107,7 @@ CREATE TABLE Cars
 	Mileage FLOAT NULL,
 	MaxFuelCapacity INT NULL,
 	CurrentFuel FLOAT NULL,
-	Year DATE NULL,
+	Year INT NULL,
 	IsFitForUse BIT NULL
 
 	-- ENTITY CONNECTIONS: [Deals] (1 — 1) V, [Inspections] (1 — MANY) V,
@@ -1446,6 +1446,9 @@ EXECUTE sp_rename 'Deals.IdNumber',
 ALTER TABLE Inspections
 	ALTER COLUMN InspectionDate DATETIME NULL;
 
+ALTER TABLE Cars
+	ALTER COLUMN Year INT NULL;
+
 -- END OF ALTER SECTION
 
 -- START OF UPDATE SECTION
@@ -1478,6 +1481,356 @@ UPDATE Repairs
 
 -- END OF UPDATE SECTION
 
+-- START OF CREATE SECTION
+-- 18-JUL-24
+EXECUTE
+('
+	CREATE PROCEDURE GetCar (@Id NVARCHAR(100))
+		AS
+			SELECT Cars.CarId AS carCarId,
+					Cars.VinCode AS carVinCode,
+					Cars.NumberPlate AS carNumberPlate,
+					Cars.Brand AS carBrand,
+					Cars.Model AS carModel,
+					Cars.Price AS carPrice,
+					Cars.NumberOfSeats AS carNumberOfSeats,
+					Cars.NumberOfDoors AS carNumberOfDoors,
+					Cars.Mileage AS carMileage,
+					Cars.MaxFuelCapacity AS carMaxFuelCapacity,
+					Cars.CurrentFuel AS carCurrentFuel,
+					Cars.Year AS carYear,
+					Cars.IsFitForUse AS carIsFitForUse,
+					Cars.Engine AS carEngine,
+					Cars.Transmission AS carTransmission,
+					Cars.Interior AS carInterior,
+					Cars.Wheels AS carWheels,
+					Cars.Lights AS carLights,
+					Cars.Signal AS carSignal,
+					Cars.Color AS carColor,
+					TransportStatuses.Number AS carStatusId,
+					Users.IdNumber AS userIdNumber,
+					Users.FirstName AS userFirstName,
+					Users.LastName AS userLastName,
+					Users.DateOfBirth AS userDateOfBirth,
+					Users.UserName AS userUserName,
+					Users.Password AS userPassword,
+					Users.PassportNumber AS userPassportNumber,
+					Users.DrivingLicenseNumber AS userDrivingLicenseNumber,
+					Users.BasicDiscount AS userBasicDiscount,
+					Users.Category AS userCategory,
+					Deals.Id AS dealId,
+					Deals.CarId AS dealCarId,
+					Deals.VinCode AS dealVinCode,
+					Deals.CustomerId AS dealCustomerId,
+					Deals.Price AS dealPrice,
+					Deals.DealType dealDealType,
+					Deals.Name AS dealName,
+					Inspections.InspectionId AS inspectionInspectionId,
+					Inspections.CarId AS inspectionCarId,
+					Inspections.VinCode AS inspectionVinCode,
+					Inspections.InspectorId AS inspectionInspectorId,
+					Inspections.InspectionDate AS inspectionInspectionDate,
+					Inspections.StatusId AS inspectionStatusId,
+					Repairs.Id AS repairId,
+					Repairs.Date AS repairDate,
+					Repairs.CarId repairCarId,
+					Repairs.VinCode AS repairVinCode,
+					Repairs.MechanicId AS repairMechanicId,
+					Repairs.IsSuccessfull AS repairIsSuccessfull,
+					Repairs.TotalCost AS repairTotalCost,
+					Repairs.TechnicalInfo AS repairTechnicalInfo
+			FROM Cars
+			LEFT JOIN Users
+				ON Cars.CustomerId = Users.IdNumber
+			LEFT JOIN Deals
+				ON Deals.CarId = Cars.CarId
+			LEFT JOIN Inspections
+				ON Inspections.CarId = Cars.CarId
+			LEFT JOIN Repairs
+				ON Repairs.CarId = Cars.CarId
+			LEFT JOIN TransportStatuses
+				ON Cars.StatusId = TransportStatuses.Id
+			WHERE Cars.CarId = @Id;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CreateCar
+	(
+		@carId NVARCHAR(100),
+		@vinCode NVARCHAR(100),
+		@numberPlate NVARCHAR(50),
+		@brand NVARCHAR(500),
+		@model NVARCHAR(500),
+		@price INT,
+		@numberOfSeats INT,
+		@numberOfDoors INT,
+		@mileage FLOAT,
+		@maxFuelCapacity INT,
+		@currentFuel FLOAT,
+		@year INT,
+		@isFitForUse BIT,
+		@engine NVARCHAR(500),
+		@transmission NVARCHAR(500),
+		@interior NVARCHAR(500),
+		@wheels NVARCHAR(500),
+		@lights NVARCHAR(500),
+		@signal NVARCHAR(500),
+		@color NVARCHAR(500),
+		@statusId INT
+	)
+		AS
+			INSERT INTO Cars
+			(
+				CarId,
+				VinCode,
+				NumberPlate,
+				Brand,
+				Model,
+				Price,
+				NumberOfSeats,
+				NumberOfDoors,
+				Mileage,
+				MaxFuelCapacity,
+				CurrentFuel,
+				Year,
+				IsFitForUse,
+				Engine,
+				Transmission,
+				Interior,
+				Wheels,
+				Lights,
+				Signal,
+				Color,
+				StatusId
+			)
+				VALUES
+				(
+					@carId,
+					@vinCode,
+					@numberPlate,
+					@brand,
+					@model,
+					@price,
+					@numberOfSeats,
+					@numberOfDoors,
+					@mileage,
+					@maxFuelCapacity,
+					@currentFuel,
+					@year,
+					@isFitForUse,
+					@engine,
+					@transmission,
+					@interior,
+					@wheels,
+					@lights,
+					@signal,
+					@color,
+					@statusId
+				);
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CheckIfCarEntryExist 
+	(
+		@Id NVARCHAR(100)
+	)
+		AS
+			SELECT COUNT(CarId)
+				FROM Cars
+				WHERE CarId = @Id;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE GetAllCarsOfCustomer (@CustomerId NVARCHAR(100))
+	AS
+		SELECT Cars.CarId AS carCarId,
+				Cars.VinCode AS carVinCode,
+				Cars.NumberPlate AS carNumberPlate,
+				Cars.Brand AS carBrand,
+				Cars.Model AS carModel,
+				Cars.Price AS carPrice,
+				Cars.NumberOfSeats AS carNumberOfSeats,
+				Cars.NumberOfDoors AS carNumberOfDoors,
+				Cars.Mileage AS carMileage,
+				Cars.MaxFuelCapacity AS carMaxFuelCapacity,
+				Cars.CurrentFuel AS carCurrentFuel,
+				Cars.Year AS carYear,
+				Cars.IsFitForUse AS carIsFitForUse,
+				Cars.Engine AS carEngine,
+				Cars.Transmission AS carTransmission,
+				Cars.Interior AS carInterior,
+				Cars.Wheels AS carWheels,
+				Cars.Lights AS carLights,
+				Cars.Signal AS carSignal,
+				Cars.Color AS carColor,
+				TransportStatuses.Number AS carStatusId,
+				Users.IdNumber AS userIdNumber,
+				Users.FirstName AS userFirstName,
+				Users.LastName AS userLastName,
+				Users.DateOfBirth AS userDateOfBirth,
+				Users.UserName AS userUserName,
+				Users.Password AS userPassword,
+				Users.PassportNumber AS userPassportNumber,
+				Users.DrivingLicenseNumber AS userDrivingLicenseNumber,
+				Users.BasicDiscount AS userBasicDiscount,
+				Users.Category AS userCategory,
+				Deals.Id AS dealId,
+				Deals.CarId AS dealCarId,
+				Deals.VinCode AS dealVinCode,
+				Deals.CustomerId AS dealCustomerId,
+				Deals.Price AS dealPrice,
+				Deals.DealType dealDealType,
+				Deals.Name AS dealName,
+				Inspections.InspectionId AS inspectionInspectionId,
+				Inspections.CarId AS inspectionCarId,
+				Inspections.VinCode AS inspectionVinCode,
+				Inspections.InspectorId AS inspectionInspectorId,
+				Inspections.InspectionDate AS inspectionInspectionDate,
+				Inspections.StatusId AS inspectionStatusId,
+				Repairs.Id AS repairId,
+				Repairs.Date AS repairDate,
+				Repairs.CarId repairCarId,
+				Repairs.VinCode AS repairVinCode,
+				Repairs.MechanicId AS repairMechanicId,
+				Repairs.IsSuccessfull AS repairIsSuccessfull,
+				Repairs.TotalCost AS repairTotalCost,
+				Repairs.TechnicalInfo AS repairTechnicalInfo
+		FROM Cars
+		LEFT JOIN Users
+			ON Cars.CustomerId = Users.IdNumber
+		LEFT JOIN Deals
+			ON Deals.CarId = Cars.CarId
+		LEFT JOIN Inspections
+			ON Inspections.CarId = Cars.CarId
+		LEFT JOIN Repairs
+			ON Repairs.CarId = Cars.CarId
+		LEFT JOIN TransportStatuses
+			ON Cars.StatusId = TransportStatuses.Id
+		WHERE Cars.CustomerId = @CustomerId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CheckIfCustomerEntryExist 
+	(
+		@Id NVARCHAR(100)
+	)
+		AS
+			SELECT COUNT(IdNumber)
+				FROM Users
+				WHERE IdNumber = @Id;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CreateCustomer
+	(
+		@IdNumber NVARCHAR(100),
+		@FirstName NVARCHAR(150),
+		@LastName NVARCHAR(150),
+		@DateOfBirth DATE,
+		@UserName NVARCHAR(150),
+		@Password NVARCHAR(250),
+		@PassportNumber NVARCHAR(100),
+		@DrivingLicenseNumber NVARCHAR(100),
+		@BasicDiscount FLOAT,
+		@Category NVARCHAR(250) = ''Customer''
+	)
+		AS
+			INSERT INTO Users
+			(
+				IdNumber,
+				FirstName,
+				LastName,
+				DateOfBirth,
+				UserName,
+				Password,
+				PassportNumber,
+				DrivingLicenseNumber,
+				BasicDiscount,
+				Category
+			)
+				VALUES
+				(
+					@IdNumber,
+					@FirstName,
+					@LastName,
+					@DateOfBirth,
+					@UserName,
+					@Password,
+					@PassportNumber,
+					@DrivingLicenseNumber,
+					@BasicDiscount,
+					@Category
+				);
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CreateDeal
+	(
+		@Id NVARCHAR(100),
+		@CarId NVARCHAR(100),
+		@VinCode NVARCHAR(100),
+		@CustomerId NVARCHAR(100),
+		@Price FLOAT,
+		@DealType NVARCHAR(50),
+		@Name NVARCHAR(250)
+	)
+		AS
+			INSERT INTO Deals
+			(
+				Id,
+				CarId,
+				VinCode,
+				CustomerId,
+				Price,
+				DealType,
+				Name
+			)
+				VALUES
+				(
+					@Id,
+					@CarId,
+					@VinCode,
+					@CustomerId,
+					@Price,
+					@DealType,
+					@Name
+				);
+');
+
+EXECUTE
+('
+	CREATE VIEW CarsBulk
+	AS
+		SELECT Brand,
+			Model,
+			Year,
+			Engine,
+			Transmission,
+			Wheels,
+			Interior,
+			Lights,
+			Signal,
+			NumberOfDoors,
+			NumberOfSeats,
+			Color,
+			VinCode,
+			Price,
+			IsFitForUse,
+			StatusId,
+			CarId,
+			NumberPlate
+		FROM Cars;
+');
+
+-- END OF CREATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED SIXTH END ------------------------------------------------
 ------------------------------------------------ T-SQL ALREADY EXECUTED SIXTH END ------------------------------------------------
 
 GO

@@ -15,7 +15,7 @@ public class ConfigManager
 
     public IConfigurationBuilder AddJson(IConfigurationBuilder configurations, string nameJsonConfigurationFile)
     {
-        configurations.AddJsonFile(nameJsonConfigurationFile);
+        configurations.AddJsonFile(nameJsonConfigurationFile, true);
 
         return configurations;
     }

@@ -18,6 +18,7 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 using System.Diagnostics;
 using System.Data;
+using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -211,6 +212,73 @@ public class ServiceManager : ICarManager
         }
     }
 
+    public void AddCarsIntoDatabase(List<Car> cars, string connectionString)
+    {
+        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+        foreach (Car car in cars)
+        {
+            string query = "CreateCar";
+
+            int? status = (int?)car.Status;
+            //int? statusId;
+
+            switch (status)
+            {
+                case 0:
+                    status = 6;
+                    break;
+                case 1:
+                    status = 1;
+                    break;
+                case 2:
+                    status = 3;
+                    break;
+                case 3:
+                    status = 4;
+                    break;
+                case 4:
+                    status = 2;
+                    break;
+                case 200:
+                    status = 5;
+                    break;
+            }
+
+            // I DO NOT UNDERSTAND THIS SYNTAXIS.
+            Object objectArguments = new
+            {
+                carId = car.CarId,
+                vinCode = car.VinCode,
+                //customerId = null, //car.Owner.IdNumber, // ANONYMOUS TYPE NULL PROBLEMS.
+                numberPlate = car.NumberPlate,
+                brand = car.Brand,
+                model = car.Model,
+                price = car.Price,
+                numberOfSeats = car.NumberOfSeats,
+                numberOfDoors = car.NumberOfDoors,
+                mileage = car.Mileage,
+                maxFuelCapacity = car.MaxFuelCapacity,
+                currentFuel = car.CurrentFuel,
+                year = car.Year,
+                isFitForUse = car.IsFitForUse,
+                engine = car.Engine,
+                transmission = car.Transmission,
+                interior = car.Interior,
+                wheels = car.Wheels,
+                lights = car.Lights,
+                signal = car.Signal,
+                color = car.Color,
+                //dealId = car.Engagement.Id,
+                statusId = status
+            };
+
+            connection.ExecuteScalar(query, objectArguments);
+        }
+
+        SupplementData.DataContext.CloseConnection(connection);
+    }
+
     public void AddCarIntoDatabase(Car car, string connectionString)
     {
         SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
@@ -279,10 +347,7 @@ public class ServiceManager : ICarManager
     {
         SupplementData.NullValidator.CheckNull(this.CurrentCars);
 
-        foreach (Car car in CurrentCars)
-        {
-            AddCarIntoDatabase(car, connectionString);
-        }
+        AddCarsIntoDatabase(CurrentCars, connectionString);
     }
 
     public void BulkAddCurrentCarsIntoDatabase(string connectionString)

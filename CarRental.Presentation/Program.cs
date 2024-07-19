@@ -31,10 +31,17 @@ class CarRentalPortal
 
         configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.json");
         configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuper.json");
+        //configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuperLocal.json");
 
         IConfigurationRoot configurations = configManager.BuildConfigurations(configurationBuilder);
 
-        string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+        //string connectionString = configManager.GetConnectionStringByName(configurations, "MDzivinska");
+
+        string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionString");
+
+        //string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+
+        bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
 
         //Console.WriteLine(Directory.GetCurrentDirectory());
 
@@ -50,7 +57,7 @@ class CarRentalPortal
         var portal = new Portal(user, isCustomer);
         var portalManager = new PortalManager(portal, consoleOutput);
         ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
-        portalManager.StartMainMenu(connectionString);
+        portalManager.StartMainMenu(connectionString, isBulkInsertAllowed);
 
         // END OF BLOCK
 
@@ -76,7 +83,7 @@ class CarRentalPortal
         //IHost host = hostManager.BuildHost(hostBuilder);
 
         //host.ShowMigrationsListConsole();
-        //host.MigrateDatabaseDown(202407100001);
+        ////host.MigrateDatabaseDown(202407100001);
         //host.MigrateDatabaseUp();
         //host.ShowMigrationsListConsole();
 
