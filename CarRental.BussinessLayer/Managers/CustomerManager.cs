@@ -74,7 +74,7 @@ namespace CarRental.BussinessLayer.Managers
                 Id = id
             };
 
-            var result = connection.Execute(SqlStoredProcedureName, parameter);
+            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
 
             DapperContext.CloseConnection(connection);
 
