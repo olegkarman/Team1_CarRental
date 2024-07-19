@@ -1479,3 +1479,19 @@ UPDATE Repairs
 -- END OF UPDATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED SIXTH END ------------------------------------------------
+
+GO
+CREATE PROCEDURE GetCustomerById
+(@Id int)
+as
+BEGIN
+select * from Users where UserId = @Id;
+END
+
+GO
+CREATE PROCEDURE DeleteCustomerById
+(@Id int)
+as
+BEGIN
+DELETE from Users where UserId = @Id;
+END
