@@ -34,7 +34,8 @@ class CarRentalPortal
 
         IConfigurationRoot configurations = configManager.BuildConfigurations(configurationBuilder);
 
-        string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenko");
+        string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+        bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
 
         //Console.WriteLine(Directory.GetCurrentDirectory());
 
@@ -50,7 +51,7 @@ class CarRentalPortal
         var portal = new Portal(user, isCustomer);
         var portalManager = new PortalManager(portal, consoleOutput);
         ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
-        portalManager.StartMainMenu(connectionString);
+        portalManager.StartMainMenu(connectionString, isBulkInsertAllowed);
 
         // END OF BLOCK
 
