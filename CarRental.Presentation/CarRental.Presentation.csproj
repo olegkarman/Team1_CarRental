@@ -5,7 +5,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Configurations>Debug;Release;YarikSuper</Configurations>
+    <Configurations>Debug;Release;YarikSuper;YarikSuperLocal</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.YarikSuper.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.YarikSuperLocal.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="CarsBulk_YPARKHOMENKO.csv">
