@@ -852,14 +852,14 @@ public class ServiceManager : ICarManager
         object arguments = new
         {
             id = id,
-            dealId = dealId
+            carId = carId
         };
 
         string sqlStatement =
         @"
             UPDATE Cars
                 SET DealId = @id
-                WHERE CarId = @dealId;
+                WHERE CarId = @carId;
         ";
 
         connection.Execute(sqlStatement, arguments);
