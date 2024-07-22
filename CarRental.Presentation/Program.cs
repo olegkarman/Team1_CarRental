@@ -37,7 +37,7 @@ class CarRentalPortal
 
         //string connectionString = configManager.GetConnectionStringByName(configurations, "MDzivinska");
 
-        string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionString");
+        string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionStringCloudClusters");
 
         //string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
 
