@@ -214,10 +214,89 @@ public class ServiceManager : ICarManager
 
     public void AddCarsIntoDatabase(List<Car> cars, string connectionString)
     {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        foreach (Car car in cars)
+        try
         {
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+            foreach (Car car in cars)
+            {
+                string query = "CreateCar";
+
+                int? status = (int?)car.Status;
+                //int? statusId;
+
+                switch (status)
+                {
+                    case 0:
+                        status = 6;
+                        break;
+                    case 1:
+                        status = 1;
+                        break;
+                    case 2:
+                        status = 3;
+                        break;
+                    case 3:
+                        status = 4;
+                        break;
+                    case 4:
+                        status = 2;
+                        break;
+                    case 200:
+                        status = 5;
+                        break;
+                }
+
+                // I DO NOT UNDERSTAND THIS SYNTAXIS.
+                var objectArguments = new
+                {
+                    carId = car.CarId,
+                    vinCode = car.VinCode,
+                    //customerId = null, //car.Owner.IdNumber, // ANONYMOUS TYPE NULL PROBLEMS.
+                    numberPlate = car.NumberPlate,
+                    brand = car.Brand,
+                    model = car.Model,
+                    price = car.Price,
+                    numberOfSeats = car.NumberOfSeats,
+                    numberOfDoors = car.NumberOfDoors,
+                    mileage = car.Mileage,
+                    maxFuelCapacity = car.MaxFuelCapacity,
+                    currentFuel = car.CurrentFuel,
+                    year = car.Year,
+                    isFitForUse = car.IsFitForUse,
+                    engine = car.Engine,
+                    transmission = car.Transmission,
+                    interior = car.Interior,
+                    wheels = car.Wheels,
+                    lights = car.Lights,
+                    signal = car.Signal,
+                    color = car.Color,
+                    //dealId = car.Engagement.Id,
+                    statusId = status
+                };
+
+                connection.ExecuteScalar(query, objectArguments);
+            }
+
+            SupplementData.DataContext.CloseConnection(connection);
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+
+    }
+
+    public void AddCarIntoDatabase(Car car, string connectionString)
+    {
+        try
+        {
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
             string query = "CreateCar";
 
             int? status = (int?)car.Status;
@@ -246,7 +325,7 @@ public class ServiceManager : ICarManager
             }
 
             // I DO NOT UNDERSTAND THIS SYNTAXIS.
-            Object objectArguments = new
+            var objectArguments = new
             {
                 carId = car.CarId,
                 vinCode = car.VinCode,
@@ -274,73 +353,17 @@ public class ServiceManager : ICarManager
             };
 
             connection.ExecuteScalar(query, objectArguments);
+
+            SupplementData.DataContext.CloseConnection(connection);
         }
-
-        SupplementData.DataContext.CloseConnection(connection);
-    }
-
-    public void AddCarIntoDatabase(Car car, string connectionString)
-    {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        string query = "CreateCar";
-
-        int? status = (int?)car.Status;
-        //int? statusId;
-
-        switch (status)
+        catch(SqlException)
         {
-            case 0:
-                status = 6;
-                break;
-            case 1:
-                status = 1;
-                break;
-            case 2:
-                status = 3;
-                break;
-            case 3:
-                status = 4;
-                break;
-            case 4:
-                status = 2;
-                break;
-            case 200:
-                status = 5;
-                break;
+            throw;
         }
-        
-        // I DO NOT UNDERSTAND THIS SYNTAXIS.
-        Object objectArguments = new
+        catch(InvalidOperationException)
         {
-            carId = car.CarId,
-            vinCode = car.VinCode,
-            //customerId = null, //car.Owner.IdNumber, // ANONYMOUS TYPE NULL PROBLEMS.
-            numberPlate = car.NumberPlate,
-            brand = car.Brand,
-            model = car.Model,
-            price = car.Price,
-            numberOfSeats = car.NumberOfSeats,
-            numberOfDoors = car.NumberOfDoors,
-            mileage = car.Mileage,
-            maxFuelCapacity = car.MaxFuelCapacity,
-            currentFuel = car.CurrentFuel,
-            year = car.Year,
-            isFitForUse = car.IsFitForUse,
-            engine = car.Engine,
-            transmission = car.Transmission,
-            interior = car.Interior,
-            wheels = car.Wheels,
-            lights = car.Lights,
-            signal = car.Signal,
-            color = car.Color,
-            //dealId = car.Engagement.Id,
-            statusId = status
-        };
-
-        connection.ExecuteScalar(query, objectArguments);
-
-        SupplementData.DataContext.CloseConnection(connection);
+            throw;
+        }
     }
 
     public void AddCurrentCarsIntoDatabase(string connectionString)
@@ -357,20 +380,22 @@ public class ServiceManager : ICarManager
 
     public void BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
     {
-        string fileName = @"CarsBulk_YPARKHOMENKO.csv";
+        try
+        {
+            string fileName = @"CarsBulk_YPARKHOMENKO.csv";
 
-        string carsInfo = RetriveCarsInfoFromList(cars);
+            string carsInfo = RetriveCarsInfoFromList(cars);
 
-        carsInfo = SupplementData.TextProcessor.ParseOutputCarsInfo(carsInfo);
+            carsInfo = SupplementData.TextProcessor.ParseOutputCarsInfo(carsInfo);
 
-        SupplementData.FileContext.WriteTextFileCurrentFolder(fileName, carsInfo);
+            SupplementData.FileContext.WriteTextFileCurrentFolder(fileName, carsInfo);
 
-        string path = SupplementData.FileContext.CombineCurrentFolderFileName(fileName);
+            string path = SupplementData.FileContext.CombineCurrentFolderFileName(fileName);
 
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-        string bulkSql =
-        @$"
+            string bulkSql =
+            @$"
             BULK INSERT CarsBulk
             FROM '{path}'
             WITH
@@ -380,146 +405,184 @@ public class ServiceManager : ICarManager
             );
         ";
 
-        connection.Execute(bulkSql);
+            connection.Execute(bulkSql);
 
-        SupplementData.DataContext.CloseConnection(connection);
+            SupplementData.DataContext.CloseConnection(connection);
+        }
+        catch(SqlException)
+        {
+            throw;
+        }
     }
 
     // RETRIVE
 
     public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
     {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        string SqlStoredProcedureName = "GetAllCarsOfCustomer";
-        string id = customerId.ToUpper();
-
-        object parameter = new
+        try
         {
-            CustomerId = id
-        };
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-        List<Car> cars = new List<Car>
-        (
-            connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+            string SqlStoredProcedureName = "GetAllCarsOfCustomer";
+            string id = customerId.ToUpper();
+
+            object parameter = new
+            {
+                CustomerId = id
+            };
+
+            List<Car> cars = new List<Car>
             (
-               SqlStoredProcedureName,
-               (car, customerTemp, deal, inspection, repair) =>
-               {
-                   car.Owner = customerTemp;
-                   car.Engagement = deal;
-                   car.Inspections.Add(inspection);
-                   car.Repairs.Add(repair);
+                connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+                (
+                   SqlStoredProcedureName,
+                   (car, customerTemp, deal, inspection, repair) =>
+                   {
+                       car.Owner = customerTemp;
+                       car.Engagement = deal;
+                       car.Inspections.Add(inspection);
+                       car.Repairs.Add(repair);
 
-                   return car;
-               },
-               parameter,
-               splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
-            )
-        );
+                       return car;
+                   },
+                   parameter,
+                   splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
+                )
+            );
 
-        //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
+            //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
 
-        List<IGrouping<Guid, Car>> groupedCars = new List<IGrouping<Guid, Car>>(cars.GroupBy(c => c.CarId));
+            List<IGrouping<Guid, Car>> groupedCars = new List<IGrouping<Guid, Car>>(cars.GroupBy(c => c.CarId));
 
-        List<Car> resultCars = new List<Car>();
+            List<Car> resultCars = new List<Car>();
 
-        foreach (IGrouping<Guid, Car> group in groupedCars)
-        {
-            Car car = group.First();
+            foreach (IGrouping<Guid, Car> group in groupedCars)
+            {
+                Car car = group.First();
 
-            car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
+                car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
 
-            car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+                car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
 
-            resultCars.Add(car);
+                resultCars.Add(car);
+            }
+
+            SupplementData.DataContext.CloseConnection(connection);
+
+            return resultCars;
         }
-
-        SupplementData.DataContext.CloseConnection(connection);
-
-        return resultCars;
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
     }
 
     public bool? IsCarInDatabase(Guid id, string connectionString)
     {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        string SqlStoredProcedureName = "CheckIfCarEntryExist";
-        string carId = id.ToString().ToUpper();
-
-        object parameter = new
+        try
         {
-            Id = carId
-        };
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-        //DynamicParameters dynamicParameters = new DynamicParameters();
+            string SqlStoredProcedureName = "CheckIfCarEntryExist";
+            string carId = id.ToString().ToUpper();
 
-        //dynamicParameters.Add("RowCount", DbType.Int32, direction: ParameterDirection.Output);
+            var parameter = new
+            {
+                Id = carId
+            };
 
-        int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+            //DynamicParameters dynamicParameters = new DynamicParameters();
 
-        //result = dynamicParameters.Get<int>("RowCount");
+            //dynamicParameters.Add("RowCount", DbType.Int32, direction: ParameterDirection.Output);
 
-        SupplementData.DataContext.CloseConnection(connection);
+            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
 
-        if (result == 1)
-        {
-            return true;
+            //result = dynamicParameters.Get<int>("RowCount");
+
+            SupplementData.DataContext.CloseConnection(connection);
+
+            if (result == 1)
+            {
+                return true;
+            }
+            else if (result == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return null;
+            }
         }
-        else if (result == 0)
+        catch (SqlException)
         {
-            return false;
+            throw;
         }
-        else
+        catch (InvalidOperationException)
         {
-            return null;
+            throw;
         }
     }
 
     public Car GetCarFromDatabase(Guid id, string connectionString)
     {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        string SqlStoredProcedureName = "GetCar";
-        string carId = id.ToString().ToUpper();
-
-        object parameter = new
+        try
         {
-            Id = carId
-        };
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-        List<Car> cars = new List<Car>
-        (
-            connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+            string SqlStoredProcedureName = "GetCar";
+            string carId = id.ToString().ToUpper();
+
+            var parameter = new
+            {
+                Id = carId
+            };
+
+            List<Car> cars = new List<Car>
             (
-               SqlStoredProcedureName,
-               (car, customerTemp, deal, inspection, repair) =>
-               {
-                   car.Owner = customerTemp;
-                   car.Engagement = deal;
-                   car.Inspections.Add(inspection);
-                   car.Repairs.Add(repair);
+                connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+                (
+                   SqlStoredProcedureName,
+                   (car, customerTemp, deal, inspection, repair) =>
+                   {
+                       car.Owner = customerTemp;
+                       car.Engagement = deal;
+                       car.Inspections.Add(inspection);
+                       car.Repairs.Add(repair);
 
-                   return car;
-               },
-               parameter,
-               splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
-            )
-        );
+                       return car;
+                   },
+                   parameter,
+                   splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
+                )
+            );
 
-        // LAMBDA-EXPRESSION APPROACH
+            // LAMBDA-EXPRESSION APPROACH
 
-        //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
+            //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
 
-        Car car = cars.First();
+            Car car = cars.First();
 
-        car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
+            car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
 
-        car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+            car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
 
-        SupplementData.DataContext.CloseConnection(connection);
+            SupplementData.DataContext.CloseConnection(connection);
 
-        return car;
+            return car;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
     }
 
     public Car ChooseCarFromList(List<Car> cars, int index)
@@ -841,59 +904,82 @@ public class ServiceManager : ICarManager
 
     public void ChangeCarDealshipInDatabase(Guid carGuid, Guid dealId, string connectionString)
     {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
-
-        string id = dealId.ToString().ToUpper();
-
-        string carId = carGuid.ToString().ToUpper();
-
-        object arguments = new
+        try
         {
-            id = id,
-            carId = carId
-        };
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-        string sqlStatement =
-        @"
+            // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
+
+            string id = dealId.ToString().ToUpper();
+
+            string carId = carGuid.ToString().ToUpper();
+
+            var arguments = new
+            {
+                id = id,
+                carId = carId
+            };
+
+            string sqlStatement =
+            @"
             UPDATE Cars
                 SET DealId = @id
                 WHERE CarId = @carId;
         ";
 
-        connection.Execute(sqlStatement, arguments);
+            connection.Execute(sqlStatement, arguments);
 
-        SupplementData.DataContext.CloseConnection(connection);
+            SupplementData.DataContext.CloseConnection(connection);
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+
     }
 
     public void ChangeCarOwnershipInDatabase(Guid carGuid, string customerId, string connectionString)
     {
-        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-        // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
-
-        string id = customerId.ToUpper();
-        //string id = customerId;
-
-        string carId = carGuid.ToString().ToUpper();
-
-        object arguments = new
+        try
         {
-            id = id,
-            carId = carId
-        };
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-        string sqlStatement =
-        @"
+            // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
+
+            string id = customerId.ToUpper();
+            //string id = customerId;
+
+            string carId = carGuid.ToString().ToUpper();
+
+            var arguments = new
+            {
+                id = id,
+                carId = carId
+            };
+
+            string sqlStatement =
+            @"
             UPDATE Cars
                 SET CustomerId = @id
                 WHERE CarId = @carId;
         ";
 
-        connection.Execute(sqlStatement, arguments);
+            connection.Execute(sqlStatement, arguments);
 
-        SupplementData.DataContext.CloseConnection(connection);
+            SupplementData.DataContext.CloseConnection(connection);
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
     }
 
     public void ChangeEngine (Car car, string engine)
