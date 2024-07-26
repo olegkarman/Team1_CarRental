@@ -92,6 +92,38 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
+        public Customer GetCustomerById(string id, string connectionString) 
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "GetCustomerById";
+
+            object parameter = new
+            {
+                Id = id
+            };
+
+            var customer = connection.Query(SqlStoredProcedureName, parameter);
+            DapperContext.CloseConnection(connection);
+            return customer.FirstOrDefault();
+
+        }
+        public void DeleteCustomerById(string id, string connectionString)
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "DeleteCustomerById";
+
+            object parameter = new
+            {
+                Id = id
+            };
+
+            connection.Execute(SqlStoredProcedureName, parameter);
+            DapperContext.CloseConnection(connection);
+        }
+
+
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
