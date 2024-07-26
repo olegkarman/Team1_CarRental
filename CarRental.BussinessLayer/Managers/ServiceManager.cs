@@ -212,10 +212,12 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public void AddCarsIntoDatabase(List<Car> cars, string connectionString)
+    public bool AddCarsIntoDatabase(List<Car> cars, string connectionString)
     {
         try
         {
+            bool addCars = false;
+
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
             foreach (Car car in cars)
@@ -279,6 +281,10 @@ public class ServiceManager : ICarManager
             }
 
             SupplementData.DataContext.CloseConnection(connection);
+
+            addCars = true;
+
+            return addCars;
         }
         catch (SqlException)
         {
@@ -291,10 +297,12 @@ public class ServiceManager : ICarManager
 
     }
 
-    public void AddCarIntoDatabase(Car car, string connectionString)
+    public bool AddCarIntoDatabase(Car car, string connectionString)
     {
         try
         {
+            bool addCar = false;
+
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
             string query = "CreateCar";
@@ -355,6 +363,10 @@ public class ServiceManager : ICarManager
             connection.ExecuteScalar(query, objectArguments);
 
             SupplementData.DataContext.CloseConnection(connection);
+
+            addCar = true;
+
+            return addCar;
         }
         catch(SqlException)
         {
@@ -378,10 +390,12 @@ public class ServiceManager : ICarManager
         BulkAddCarsIntoDatabase(CurrentCars, connectionString);
     }
 
-    public void BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
+    public bool BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
     {
         try
         {
+            bool addBulk = false;
+
             string fileName = @"CarsBulk_YPARKHOMENKO.csv";
 
             string carsInfo = RetriveCarsInfoFromList(cars);
@@ -408,6 +422,10 @@ public class ServiceManager : ICarManager
             connection.Execute(bulkSql);
 
             SupplementData.DataContext.CloseConnection(connection);
+
+            addBulk = true;
+
+            return addBulk;
         }
         catch(SqlException)
         {
@@ -902,10 +920,12 @@ public class ServiceManager : ICarManager
 
     // UPDATE
 
-    public void ChangeCarDealshipInDatabase(Guid carGuid, Guid dealId, string connectionString)
+    public bool ChangeCarDealshipInDatabase(Guid carGuid, Guid dealId, string connectionString)
     {
         try
         {
+            bool resultUpdateDealship = false;
+
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
             // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
@@ -930,6 +950,10 @@ public class ServiceManager : ICarManager
             connection.Execute(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
+
+            bool result = true;
+
+            return resultUpdateDealship;
         }
         catch (SqlException)
         {
@@ -942,10 +966,12 @@ public class ServiceManager : ICarManager
 
     }
 
-    public void ChangeCarOwnershipInDatabase(Guid carGuid, string customerId, string connectionString)
+    public bool ChangeCarOwnershipInDatabase(Guid carGuid, string customerId, string connectionString)
     {
         try
         {
+            bool updateOwnership = false;
+
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
             // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
@@ -971,6 +997,10 @@ public class ServiceManager : ICarManager
             connection.Execute(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
+
+            updateOwnership = true;
+
+            return updateOwnership;
         }
         catch (SqlException)
         {
