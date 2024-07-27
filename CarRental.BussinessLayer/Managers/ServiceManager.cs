@@ -478,9 +478,10 @@ public class ServiceManager : ICarManager
             {
                 Car car = group.First();
 
-                car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
+                // WHICH TO USE? Single() OR First() TO AVOID SOME PROBLEMS IN FUTURE?
+                car.Inspections = group.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
 
-                car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+                car.Repairs = group.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
 
                 resultCars.Add(car);
             }
@@ -920,11 +921,113 @@ public class ServiceManager : ICarManager
 
     // UPDATE
 
+    public bool ChangeCarStatusId(Guid carGuid, TransportStatus? status, string connectionString)
+    {
+        try
+        {
+            bool resultStatus = false;
+
+            int? statusId = (int?)status;
+
+            // DUPLICATE OF LOGIC? SHOULD I CREATE A METHOD?
+            switch (statusId)
+            {
+                case 0:
+                    statusId = 6;
+                    break;
+                case 1:
+                    statusId = 1;
+                    break;
+                case 2:
+                    statusId = 3;
+                    break;
+                case 3:
+                    statusId = 4;
+                    break;
+                case 4:
+                    statusId = 2;
+                    break;
+                case 200:
+                    statusId = 5;
+                    break;
+            }
+
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+            string carId = carGuid.ToString().ToUpper();
+
+            var arguments = new
+            {
+                statusId = statusId,
+                carId = carId
+            };
+
+            string sqlStatement = 
+            @"
+                UPDATE Cars
+                    SET StatusId = @statusId
+                    WHERE CarId = @carId;
+            ";
+
+            connection.Execute(sqlStatement, arguments);
+
+            SupplementData.DataContext.CloseConnection(connection);
+
+            resultStatus = true;
+
+            return resultStatus;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+    }
+
+    public bool ChangeCarIsFitForUse(Guid carGuid, bool isFitForUse, string connectionString)
+    {
+        try
+        {
+            bool resultIsFit = false;
+
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+            string carId = carGuid.ToString().ToUpper();
+
+            var arguments = new
+            {
+                isFitForUse = isFitForUse,
+                carId = carId
+            };
+
+            string sqlStatement = @"UpdateCarIsFitForUse";
+
+            connection.Execute(sqlStatement, arguments);
+
+            SupplementData.DataContext.CloseConnection(connection);
+
+            resultIsFit = true;
+
+            return resultIsFit;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+    }
+
     public bool ChangeCarDealshipInDatabase(Guid carGuid, Guid dealId, string connectionString)
     {
         try
         {
-            bool resultUpdateDealship = false;
+            bool resultDealship = false;
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
@@ -942,18 +1045,18 @@ public class ServiceManager : ICarManager
 
             string sqlStatement =
             @"
-            UPDATE Cars
-                SET DealId = @id
-                WHERE CarId = @carId;
-        ";
+                UPDATE Cars
+                    SET DealId = @id
+                    WHERE CarId = @carId;
+            ";
 
             connection.Execute(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
 
-            bool result = true;
+            resultDealship = true;
 
-            return resultUpdateDealship;
+            return resultDealship;
         }
         catch (SqlException)
         {
@@ -1215,7 +1318,7 @@ public class ServiceManager : ICarManager
         car.Owner = owner;
     }
 
-    public void Repair(Car car, Mechanic mechanic)
+    public void Repair(Car car, Mechanic mechanic, string connectionString)
     {
         SupplementData.NullValidator.CheckNull(car);
 
@@ -1238,13 +1341,13 @@ public class ServiceManager : ICarManager
 
                 car.Status = (TransportStatus)1;
 
-                InscribeRepair(car, mechanic, isSuccessfull);
+                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
             }
             else if (chance < 2)
             {
                 isSuccessfull = false;
 
-                InscribeRepair(car, mechanic, isSuccessfull);
+                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
             }
         }
         else if (!isFitForUse)
@@ -1255,22 +1358,22 @@ public class ServiceManager : ICarManager
             {
                 isSuccessfull = true;
 
-                car.IsFitForUse = true;
+                car.IsFitForUse = isSuccessfull;
 
-                InscribeRepair(car, mechanic, isSuccessfull);
+                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
             }
             else
             {
                 isSuccessfull = false;
 
-                InscribeRepair(car, mechanic, isSuccessfull);
+                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
             }
         }
     }
 
-    public void InscribeRepair(Car car, Mechanic mechanic, bool isSuccessfull)
+    public void InscribeRepair(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
     {
-        Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+        Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull, connectionString);
 
         AddRepairInToCar(car, repair);
 

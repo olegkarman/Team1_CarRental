@@ -510,13 +510,15 @@ namespace CarRental.BussinessLayer.Managers
             //Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetNewRandomMechanic();
 
             // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
-            _carServiceManager.Repair(car, mechanic);
+            _carServiceManager.Repair(car, mechanic, connectionString);
 
             bool isSuccessfull = (bool)car.IsFitForUse;
 
+            _carServiceManager.ChangeCarIsFitForUse(car.CarId, isSuccessfull, connectionString);
+
             if (isSuccessfull)
             {
-                _outputManager.PrintMessage("YOUR CAR IS REPAIRED SUCCESSFULLY!!!");
+                _outputManager.PrintMessage("YOUR CAR IS FUNCTIONAL!");
                 _outputManager.PrintMessage("");
                 _outputManager.PrintMessage(_carServiceManager.DisplayCar(car));
                 _outputManager.PrintMessage("");
@@ -524,6 +526,11 @@ namespace CarRental.BussinessLayer.Managers
 
                 foreach (Repair repair in car.Repairs)
                 {
+                    if (repair == null)
+                    {
+                        continue;
+                    }
+
                     _outputManager.PrintMessage(_carServiceManager.SupplementData.JunkRepairManager.ShowRepairInfo(repair));
                 }
 
@@ -533,7 +540,7 @@ namespace CarRental.BussinessLayer.Managers
             }
             else
             {
-                _outputManager.PrintMessage("YOUR CAR IS NOT REPAIRED!!!");
+                _outputManager.PrintMessage("FAIL!!!");
 
                 _outputManager.PrintMessage("");
                 _outputManager.PrintMessage("Press any key to continue...");

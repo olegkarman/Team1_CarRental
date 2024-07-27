@@ -104,6 +104,8 @@ namespace CarRental.BussinessLayer.Managers
             Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
 
+            serviceManager.ChangeCarStatusId(car.CarId, car.Status, connectionString);
+
             dealManager.AddDealIntoDatabase(newDeal, connectionString);
 
             // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
