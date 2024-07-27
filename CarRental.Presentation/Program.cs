@@ -39,7 +39,7 @@ class CarRentalPortal
 
         string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionStringCloudClusters");
 
-        //string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+        //string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionStringTest");
 
         bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
 

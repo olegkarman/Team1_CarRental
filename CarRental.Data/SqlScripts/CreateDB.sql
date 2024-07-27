@@ -1831,3 +1831,82 @@ EXECUTE
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED SIXTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED SEVENTH START ------------------------------------------------
+
+-- START OF CREATE SECTION
+-- 27-JUL-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetMechanic (@Id NVARCHAR(100))
+		AS
+			SELECT Mechanicists.Id AS mechanId,
+				Mechanicists.Name AS mechanName,
+				Mechanicists.Surename AS mechanSurename,
+				Mechanicists.Year AS mechanYear,
+				Repairs.Id AS repairId,
+				Repairs.Date AS repairDate,
+				Repairs.CarId AS repairCarId,
+				Repairs.VinCode AS repairVinCode,
+				Repairs.MechanicId repairMechanicId,
+				Repairs.IsSuccessfull AS repairIsSuccessfull,
+				Repairs.TotalCost repairTotalCost,
+				Repairs.TechnicalInfo AS repairTechnicalInfo
+			FROM Mechanicists
+			LEFT JOIN
+				Repairs ON Mechanicists.Id = Repairs.MechanicId
+			WHERE Mechanicists.Id = @Id;
+');
+
+
+EXECUTE
+('
+	CREATE PROCEDURE CreateRepair
+	(
+		@id NVARCHAR(500),
+		@date DATETIME,
+		@carId NVARCHAR(100),
+		@vinCode NVARCHAR(100),
+		@mechanicId NVARCHAR(100),
+		@isSuccessfull BIT,
+		@totalCost INT,
+		@technicalInfo TEXT
+	)
+		AS
+			INSERT INTO Repairs
+			(
+				Id,
+				Date,
+				CarId,
+				VinCode,
+				MechanicId,
+				IsSuccessfull,
+				TotalCost,
+				TechnicalInfo
+			)
+				VALUES
+				(
+					@id,
+					@date,
+					@carId,
+					@vinCode,
+					@mechanicId,
+					@isSuccessfull,
+					@totalCost,
+					@technicalInfo
+				);
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE UpdateCarIsFitForUse (@isFitForUse BIT, @carId NVARCHAR(100))
+		AS
+			UPDATE Cars
+				SET IsFitForUse = @isFitForUse
+				WHERE CarId = @carId;
+');
+
+-- END OF CREATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED SEVENTH END ------------------------------------------------

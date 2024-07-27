@@ -32,12 +32,14 @@ namespace CarRental.Data.Managers
             CustomPropertyTypeMap dealMap = new CustomPropertyTypeMap(typeof(Deal), PropertyInformation);
             CustomPropertyTypeMap inspectionMap = new CustomPropertyTypeMap(typeof(Inspection), PropertyInformation);
             CustomPropertyTypeMap repairMap = new CustomPropertyTypeMap(typeof(Repair), PropertyInformation);
+            CustomPropertyTypeMap mechanicMap = new CustomPropertyTypeMap(typeof(Mechanic), PropertyInformation);
 
             SqlMapper.SetTypeMap(typeof(Car), carMap);
             SqlMapper.SetTypeMap(typeof(CustomerTemp), customerMap);
             SqlMapper.SetTypeMap(typeof(Deal), dealMap);
             SqlMapper.SetTypeMap(typeof(Inspection), inspectionMap);
             SqlMapper.SetTypeMap(typeof(Repair), repairMap);
+            SqlMapper.SetTypeMap(typeof(Mechanic), mechanicMap);
         }
 
         public static PropertyInfo PropertyInformation(Type type, string attribName)
@@ -94,7 +96,11 @@ namespace CarRental.Data.Managers
             { "repairMechanicId", "MechanicId" },
             { "repairIsSuccessfull", "IsSuccessfull" },
             { "repairTotalCost", "TotalCost" },
-            { "repairTechnicalInfo", "TechnicalInfo" }
+            { "repairTechnicalInfo", "TechnicalInfo" },
+            { "mechanId", "Id" },
+            { "mechanName", "Name" },
+            { "mechanSurename", "Surename" },
+            { "mechanYear", "Year" }
         };
 
             if (columnProperties.ContainsKey(attribName))

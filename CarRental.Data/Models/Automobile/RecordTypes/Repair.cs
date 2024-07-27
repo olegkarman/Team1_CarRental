@@ -19,6 +19,7 @@ namespace CarRental.Data.Models.Automobile.RecordTypes
         public Guid Id { get; init; }
         public DateTime Date { get; init; }
         public Guid CarId { get; init; }
+        //public string VinCode { get; init; }
         public string? CarBrand { get; init; }
         public string? CarModel { get; init; }
         public string? MechanicName { get; init; }
@@ -31,9 +32,9 @@ namespace CarRental.Data.Models.Automobile.RecordTypes
 
         // METHODS
 
-        public override string ToString()
-        {
-            return $"{{ {nameof(Id)} = {Id} | {nameof(Date)} = {Date} | {nameof(CarId)} = {CarId} | {nameof(CarBrand)} = {CarBrand} | {nameof(CarModel)} = {CarModel} | {nameof(MechanicName)} = {MechanicName} | {nameof(TechnicalInfo)} = {TechnicalInfo} | {nameof(IsSuccessfull)} = {IsSuccessfull} | {nameof(TotalCost)} = {TotalCost} }}";
-        }
+        //public override string ToString()
+        //{
+        //    return $"{{ {nameof(Id)} = {Id} | {nameof(Date)} = {Date} | {nameof(CarId)} = {CarId} | {nameof(CarBrand)} = {CarBrand} | {nameof(CarModel)} = {CarModel} | {nameof(MechanicName)} = {MechanicName} | {nameof(TechnicalInfo)} = {TechnicalInfo} | {nameof(IsSuccessfull)} = {IsSuccessfull} | {nameof(TotalCost)} = {TotalCost} }}";
+        //}
     }
 }

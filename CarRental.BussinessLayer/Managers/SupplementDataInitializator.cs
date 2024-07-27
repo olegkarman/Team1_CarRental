@@ -106,7 +106,8 @@ public class SupplementDataInitializator
             AgeValidator = new AgeValidator(),
             NullValidator = new NullValidation(),
             IndexValidator = new IndexOfListValidation(),
-            PseudoRandom = new Random()
+            PseudoRandom = new Random(),
+            DataContext = new DatabaseContextDapper()
         };
 
         return mechanicManager;
@@ -118,6 +119,7 @@ public class SupplementDataInitializator
         {
             NullValidator = new NullValidation(),
             IndexValidator = new IndexOfListValidation(),
+            DataContext = new DatabaseContextDapper(),
 
             Repairs = new List<Repair>()
         };
