@@ -242,7 +242,8 @@ namespace CarRental.BussinessLayer.Managers
                                 yearMatch,
                                 statusMainMatch,
                                 statusSecondaryMatch,
-                                guidMatch
+                                guidMatch,
+                                connectionString
                             );
                         }
                         else
@@ -386,7 +387,8 @@ namespace CarRental.BussinessLayer.Managers
             string yearMatch,
             string statusMainMatch,
             string statusSecondaryMatch,
-            string guidMatch
+            string guidMatch,
+            string connectionString
         )
         {
             // I JUST MIMICED METHODS ABOVE. DECIDED TO NOT DIFFERENT SOLUTION.
@@ -467,9 +469,45 @@ namespace CarRental.BussinessLayer.Managers
             // LOOKING FOR CAR BY ITS GUID, INSTEAD OF INDEX.
             Car car = _carServiceManager.ChooseCarFromList(customer.Cars, guid);
 
-            // CREATE RANDOM MECHANIC.
-            
-            Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetNewRandomMechanic();
+            // CREATE/PICK FROM DATABASE RANDOM MECHANIC.
+
+            Guid yaroslav = new Guid("0BBEF7B3-CE96-4DC6-AF5D-899106C9BFD5");
+            Guid soldier = new Guid("4B445309-CBC5-4895-8E02-4BAA0001238A");
+            Guid theSummoner = new Guid("5FC4F1FD-396A-42B2-B4D4-8832091108AD");
+            Guid roxy = new Guid("685F0F5D-2328-40B5-A32D-6E9233D55B96");
+            Guid theMaster = new Guid("6ECCC761-9A37-46CD-BC24-C326D8BE544E");
+
+            Guid selectedMechanic;
+
+            Random random = new Random();
+
+            int mechanicSelector = random.Next(0, 5);
+
+            switch(mechanicSelector)
+            {
+                case 0:
+                    selectedMechanic = yaroslav;
+                    break;
+                case 1:
+                    selectedMechanic = soldier;
+                    break;
+                case 2:
+                    selectedMechanic = theSummoner;
+                    break;
+                case 3:
+                    selectedMechanic = roxy;
+                    break;
+                case 4:
+                    selectedMechanic = theMaster;
+                    break;
+                default:
+                    selectedMechanic = theMaster;
+                    break;
+            }
+
+            Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetMechanicFromDatabase(selectedMechanic, connectionString);
+
+            //Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetNewRandomMechanic();
 
             // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
             _carServiceManager.Repair(car, mechanic);

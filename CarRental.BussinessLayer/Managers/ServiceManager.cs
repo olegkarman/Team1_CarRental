@@ -410,14 +410,14 @@ public class ServiceManager : ICarManager
 
             string bulkSql =
             @$"
-            BULK INSERT CarsBulk
-            FROM '{path}'
-            WITH
-            (
-                FIELDTERMINATOR = '|',
-                ROWTERMINATOR = '}}'
-            );
-        ";
+                BULK INSERT CarsBulk
+                FROM '{path}'
+                WITH
+                (
+                    FIELDTERMINATOR = '|',
+                    ROWTERMINATOR = '}}'
+                );
+            ";
 
             connection.Execute(bulkSql);
 
@@ -1238,25 +1238,13 @@ public class ServiceManager : ICarManager
 
                 car.Status = (TransportStatus)1;
 
-                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
-
-                AddRepairInToCar(car, repair);
-
-                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
-
-                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                InscribeRepair(car, mechanic, isSuccessfull);
             }
             else if (chance < 2)
             {
                 isSuccessfull = false;
 
-                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
-
-                AddRepairInToCar(car, repair);
-
-                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
-
-                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                InscribeRepair(car, mechanic, isSuccessfull);
             }
         }
         else if (!isFitForUse)
@@ -1269,27 +1257,26 @@ public class ServiceManager : ICarManager
 
                 car.IsFitForUse = true;
 
-                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
-
-                AddRepairInToCar(car, repair);
-
-                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
-
-                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                InscribeRepair(car, mechanic, isSuccessfull);
             }
             else
             {
                 isSuccessfull = false;
 
-                Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
-
-                AddRepairInToCar(car, repair);
-
-                SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
-
-                SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+                InscribeRepair(car, mechanic, isSuccessfull);
             }
         }
+    }
+
+    public void InscribeRepair(Car car, Mechanic mechanic, bool isSuccessfull)
+    {
+        Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull);
+
+        AddRepairInToCar(car, repair);
+
+        SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
+
+        SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
     }
 
     public void AddRepairInToCar(Car car, Repair repair)

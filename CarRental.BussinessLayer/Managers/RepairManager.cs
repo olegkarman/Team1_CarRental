@@ -18,6 +18,7 @@ namespace CarRental.BussinessLayer.Managers
 
         internal NullValidation NullValidator { get; init; }
         internal IndexOfListValidation IndexValidator { get; init; }
+        internal DatabaseContextDapper DataContext { get; init; }
 
         // PROPERTIES
 
@@ -75,7 +76,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             NullValidator.CheckNull(repairs);
 
-            Repair repair = repairs.Find(x => (x.Id.CompareTo(id) == 0));
+            Repair repair = repairs.Find(x => (x.Id == id));
 
             NullValidator.CheckNull(repair);
 
@@ -103,7 +104,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             NullValidator.CheckNull(repairs);
 
-            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id.CompareTo(id) == 0)));
+            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id == id)));
         }
     }
 }

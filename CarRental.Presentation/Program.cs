@@ -30,16 +30,16 @@ class CarRentalPortal
         IConfigurationBuilder configurationBuilder = configManager.GetNewConfigurationBuilder();
 
         configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.json");
-        configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuper.json");
-        //configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuperLocal.json");
+        //configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuper.json");
+        configurationBuilder = configManager.AddJson(configurationBuilder, "appsettings.YarikSuperLocal.json");
 
         IConfigurationRoot configurations = configManager.BuildConfigurations(configurationBuilder);
 
         //string connectionString = configManager.GetConnectionStringByName(configurations, "MDzivinska");
 
-        string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionStringCloudClusters");
+        //string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionStringCloudClusters");
 
-        //string connectionString = configManager.GetConnectionStringByName(configurations, "YParkhomenkoLocal");
+        string connectionString = configManager.GetConnectionStringByName(configurations, "ConnectionString");
 
         bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
 
