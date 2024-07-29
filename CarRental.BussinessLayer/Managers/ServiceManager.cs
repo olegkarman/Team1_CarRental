@@ -216,7 +216,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            bool addCars = false;
+            bool isAddCars = false;
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
@@ -282,9 +282,13 @@ public class ServiceManager : ICarManager
 
             SupplementData.DataContext.CloseConnection(connection);
 
-            addCars = true;
+            int indexToCheck = _random.Next(0, cars.Count);
 
-            return addCars;
+            Guid guidToCheck = cars[indexToCheck].CarId;
+
+            isAddCars = IsCarInDatabase(guidToCheck, connectionString);
+
+            return isAddCars;
         }
         catch (SqlException)
         {
@@ -364,7 +368,7 @@ public class ServiceManager : ICarManager
 
             SupplementData.DataContext.CloseConnection(connection);
 
-            addCar = true;
+            addCar = IsCarInDatabase(car.CarId, connectionString);
 
             return addCar;
         }
