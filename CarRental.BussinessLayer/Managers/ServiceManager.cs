@@ -435,6 +435,39 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
+    public bool IsCarInDatabase(Guid guid, string connectionString)
+    {
+        try
+        {
+            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "CheckIfCarEntryExist";
+
+            string id = guid.ToString().ToUpper();
+
+            var parameter = new
+            {
+                Id = id
+            };
+
+            int sqlOutput = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+
+            SupplementData.DataContext.CloseConnection(connection);
+
+            bool result = (sqlOutput == 1) ? true : false;
+
+            return result;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+    }
+
     public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
     {
         try
@@ -500,52 +533,52 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public bool? IsCarInDatabase(Guid id, string connectionString)
-    {
-        try
-        {
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+    //public bool? IsCarInDatabase(Guid id, string connectionString)
+    //{
+    //    try
+    //    {
+    //        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CheckIfCarEntryExist";
-            string carId = id.ToString().ToUpper();
+    //        string SqlStoredProcedureName = "CheckIfCarEntryExist";
+    //        string carId = id.ToString().ToUpper();
 
-            var parameter = new
-            {
-                Id = carId
-            };
+    //        var parameter = new
+    //        {
+    //            Id = carId
+    //        };
 
-            //DynamicParameters dynamicParameters = new DynamicParameters();
+    //        //DynamicParameters dynamicParameters = new DynamicParameters();
 
-            //dynamicParameters.Add("RowCount", DbType.Int32, direction: ParameterDirection.Output);
+    //        //dynamicParameters.Add("RowCount", DbType.Int32, direction: ParameterDirection.Output);
 
-            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+    //        int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
 
-            //result = dynamicParameters.Get<int>("RowCount");
+    //        //result = dynamicParameters.Get<int>("RowCount");
 
-            SupplementData.DataContext.CloseConnection(connection);
+    //        SupplementData.DataContext.CloseConnection(connection);
 
-            if (result == 1)
-            {
-                return true;
-            }
-            else if (result == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        catch (SqlException)
-        {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-    }
+    //        if (result == 1)
+    //        {
+    //            return true;
+    //        }
+    //        else if (result == 0)
+    //        {
+    //            return false;
+    //        }
+    //        else
+    //        {
+    //            return null;
+    //        }
+    //    }
+    //    catch (SqlException)
+    //    {
+    //        throw;
+    //    }
+    //    catch (InvalidOperationException)
+    //    {
+    //        throw;
+    //    }
+    //}
 
     public Car GetCarFromDatabase(Guid id, string connectionString)
     {
