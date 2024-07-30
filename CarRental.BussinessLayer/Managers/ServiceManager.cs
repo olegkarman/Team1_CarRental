@@ -445,7 +445,7 @@ public class ServiceManager : ICarManager
         {
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CheckIfCarEntryExist";
+            string sqlStoredProcedureName = "CheckIfCarEntryExist";
 
             string id = guid.ToString().ToUpper();
 
@@ -454,7 +454,7 @@ public class ServiceManager : ICarManager
                 Id = id
             };
 
-            int sqlOutput = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+            int sqlOutput = connection.ExecuteScalar<int>(sqlStoredProcedureName, parameter);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -478,7 +478,7 @@ public class ServiceManager : ICarManager
         {
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "GetAllCarsOfCustomer";
+            string sqlStoredProcedureName = "GetAllCarsOfCustomer";
             string id = customerId.ToUpper();
 
             object parameter = new
@@ -490,7 +490,7 @@ public class ServiceManager : ICarManager
             (
                 connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
                 (
-                   SqlStoredProcedureName,
+                   sqlStoredProcedureName,
                    (car, customerTemp, deal, inspection, repair) =>
                    {
                        car.Owner = customerTemp;

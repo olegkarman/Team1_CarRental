@@ -53,7 +53,7 @@ namespace CarRental.BussinessLayer.Managers
             {
                 SqlConnection connection = DataContext.OpenConnection(connectionString);
 
-                string SqlStoredProcedureName = "GetMechanic";
+                string sqlStoredProcedureName = "GetMechanic";
 
                 string id = guid.ToString().ToUpper();
 
@@ -66,7 +66,7 @@ namespace CarRental.BussinessLayer.Managers
                 (
                     connection.Query<Mechanic, Repair?, Mechanic>
                     (
-                        SqlStoredProcedureName,
+                        sqlStoredProcedureName,
                         (mechanic, repair) =>
                         {
                             mechanic.Repairs.Add(repair);
