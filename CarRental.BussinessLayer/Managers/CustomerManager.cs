@@ -35,7 +35,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CreateCustomer";
+            string sqlStoredProcedureName = "CreateCustomer";
 
             string id = customer.IdNumber.ToUpper();
 
@@ -58,7 +58,7 @@ namespace CarRental.BussinessLayer.Managers
                 //Category = CustomerTemp.Category
             };
 
-            connection.Execute(SqlStoredProcedureName, arguments);
+            connection.Execute(sqlStoredProcedureName, arguments);
 
             DapperContext.CloseConnection(connection);
         }
@@ -67,14 +67,14 @@ namespace CarRental.BussinessLayer.Managers
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CheckIfCustomerEntryExist";
+            string sqlStoredProcedureName = "CheckIfCustomerEntryExist";
 
             object parameter = new
             {
                 Id = id
             };
 
-            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+            int result = connection.ExecuteScalar<int>(sqlStoredProcedureName, parameter);
 
             DapperContext.CloseConnection(connection);
 
