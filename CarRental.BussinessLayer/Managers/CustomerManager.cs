@@ -151,7 +151,6 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
-        // WITH HELP OF STRING BUILDER IT GOING TO BE EASIER FOR PERFORMANCE.
         public string ShowCars(Customer customer, ServiceManager serviceManager)
         {
             StringBuilder displayBuilder = new StringBuilder();

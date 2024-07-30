@@ -505,8 +505,6 @@ public class ServiceManager : ICarManager
                 )
             );
 
-            //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
-
             List<IGrouping<Guid, Car>> groupedCars = new List<IGrouping<Guid, Car>>(cars.GroupBy(c => c.CarId));
 
             List<Car> resultCars = new List<Car>();
@@ -515,7 +513,6 @@ public class ServiceManager : ICarManager
             {
                 Car car = group.First();
 
-                // WHICH TO USE? Single() OR First() TO AVOID SOME PROBLEMS IN FUTURE?
                 car.Inspections = group.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
 
                 car.Repairs = group.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
@@ -536,53 +533,6 @@ public class ServiceManager : ICarManager
             throw;
         }
     }
-
-    //public bool? IsCarInDatabase(Guid id, string connectionString)
-    //{
-    //    try
-    //    {
-    //        SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-    //        string SqlStoredProcedureName = "CheckIfCarEntryExist";
-    //        string carId = id.ToString().ToUpper();
-
-    //        var parameter = new
-    //        {
-    //            Id = carId
-    //        };
-
-    //        //DynamicParameters dynamicParameters = new DynamicParameters();
-
-    //        //dynamicParameters.Add("RowCount", DbType.Int32, direction: ParameterDirection.Output);
-
-    //        int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
-
-    //        //result = dynamicParameters.Get<int>("RowCount");
-
-    //        SupplementData.DataContext.CloseConnection(connection);
-
-    //        if (result == 1)
-    //        {
-    //            return true;
-    //        }
-    //        else if (result == 0)
-    //        {
-    //            return false;
-    //        }
-    //        else
-    //        {
-    //            return null;
-    //        }
-    //    }
-    //    catch (SqlException)
-    //    {
-    //        throw;
-    //    }
-    //    catch (InvalidOperationException)
-    //    {
-    //        throw;
-    //    }
-    //}
 
     public Car GetCarFromDatabase(Guid id, string connectionString)
     {
@@ -616,10 +566,6 @@ public class ServiceManager : ICarManager
                    splitOn: "userIdNumber, dealId, inspectionInspectionId, repairId"
                 )
             );
-
-            // LAMBDA-EXPRESSION APPROACH
-
-            //IEnumerable<IGrouping<Guid, Car>> groupedCars = cars.GroupBy(c => c.CarId);
 
             Car car = cars.First();
 
@@ -884,33 +830,6 @@ public class ServiceManager : ICarManager
         return _carsInfo.ToString();
     }
 
-    //public string CheckFuelCar(Car car)
-    //{
-    //    SupplementData.NullValidator.CheckNull(car);
-
-    //    _carsInfo.Clear();
-
-    //    try
-    //    {
-    //        float? division = (float?)SupplementData.Mechanic.CheckFuel(car) / car.MaxFuelCapacity;
-
-    //        division = (float)division * 100;
-
-    //        _carsInfo.Append($"{(int)division}%");
-
-    //        return _carsInfo.ToString();
-    //    }
-    //    catch (DivideByZeroException exception)
-    //    {
-    //        throw exception;
-    //    }
-    //}
-
-    //public string CheckFuelSelectedCar()
-    //{
-    //    return CheckFuelCar(SelectedCar);
-    //}
-
     public string ShowMileage(Car car)
     {
         SupplementData.NullValidator.CheckNull(car);
@@ -1068,8 +987,6 @@ public class ServiceManager : ICarManager
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-            // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
-
             string id = dealId.ToString().ToUpper();
 
             string carId = carGuid.ToString().ToUpper();
@@ -1114,10 +1031,7 @@ public class ServiceManager : ICarManager
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-            // ADD SOME VALIDATION AGAINST SO-CALLED SQL-INJECTION.
-
             string id = customerId.ToUpper();
-            //string id = customerId;
 
             string carId = carGuid.ToString().ToUpper();
 
@@ -1430,8 +1344,6 @@ public class ServiceManager : ICarManager
     {
         SupplementData.NullValidator.CheckNull(car);
 
-        // CHECK NULL DEAL
-
         car.Engagement = deal;
     }
 
@@ -1519,20 +1431,6 @@ public class ServiceManager : ICarManager
         DeleteAllCarsFromList(this.CurrentCars);
     }
 
-    //public void RefillCar(Car car)
-    //{
-    //    SupplementData.NullValidator.CheckNull(car);
-
-    //    SupplementData.Mechanic.Refill(car);
-    //}
-
-    //public void RefillSelectedCar()
-    //{
-    //    SupplementData.NullValidator.CheckNull(this.SelectedCar);
-
-    //    SupplementData.Mechanic.Refill(SelectedCar);
-    //}
-
     // METHODS
     // // INITIALIZATION
 
@@ -1540,7 +1438,6 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            // TO CREATE TEMPORARY INSTANCE WHICH HELP TO INITIALIZE DATA.
             SupplementDataInitializator dataInit = new SupplementDataInitializator();
 
             this.SupplementData = new ServiceManagerSupplements

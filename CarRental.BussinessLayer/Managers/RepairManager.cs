@@ -127,8 +127,6 @@ namespace CarRental.BussinessLayer.Managers
 
         public string ShowRepairInfo(Repair repair)
         {
-            //NullValidator.CheckNull(repair);
-
             return repair.ToString();
         }
 

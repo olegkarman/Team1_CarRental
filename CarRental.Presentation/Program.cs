@@ -84,51 +84,5 @@ class CarRentalPortal
         //host.ShowMigrationsListConsole();
 
         //// END OF MIGRATION BLOCK
-
-        // ORM TEST-BLOCK ('Dapper')
-
-        //DapperConfigurationManager dapperConfigManager = new DapperConfigurationManager();
-
-        //dapperConfigManager.ConfigureGuidToStringMapping();
-        //dapperConfigManager.SetCustomMappingForEntities();
-
-        //ServiceManager serviceManager = new ServiceManager();
-        //serviceManager.InitializeManagment();
-
-        //CustomerManager customerManager = new CustomerManager();
-
-        //Guid carId = new Guid("1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5");
-        //string customerId = "BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2";
-
-        //bool? isCarExist = serviceManager.IsCarInDatabase(carId, connectionString);
-        //bool? isCustomerExist = customerManager.IsCustomerInDatabase(customerId, connectionString);
-
-        //Console.WriteLine("IS CAR (1CDFCA3E-C354-4D66-B85A-58A6E8AE8EE5) IN DB: " + isCarExist);
-        //Console.WriteLine("IS CUSTOMER (BEC62BF5-35AB-45B0-A3AA-BA6A5F3EEBB2) IN DB: " + isCustomerExist);
-
-        //Car car = serviceManager.GetCarFromDatabase(id, connectionString);
-
-        //Console.WriteLine(car);
-
-        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //foreach (Inspection inspection in car.Inspections)
-        //{
-        //    Console.WriteLine($"List count = {car.Inspections.Count}");
-        //    Console.WriteLine(inspection);
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        //}
-
-        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        //Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-
-        //foreach (Repair repair in car.Repairs)
-        //{
-        //    Console.WriteLine(repair);
-        //    Console.WriteLine("—————————————————————————————————————————————————————————————————————————————————");
-        //}
-
-        // END OF ORM BLOCK
     }
 }

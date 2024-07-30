@@ -32,9 +32,5 @@ namespace CarRental.Data.Models.Automobile.RecordTypes
 
         // METHODS
 
-        //public override string ToString()
-        //{
-        //    return $"{{ {nameof(Id)} = {Id} | {nameof(Date)} = {Date} | {nameof(CarId)} = {CarId} | {nameof(CarBrand)} = {CarBrand} | {nameof(CarModel)} = {CarModel} | {nameof(MechanicName)} = {MechanicName} | {nameof(TechnicalInfo)} = {TechnicalInfo} | {nameof(IsSuccessfull)} = {IsSuccessfull} | {nameof(TotalCost)} = {TotalCost} }}";
-        //}
     }
 }

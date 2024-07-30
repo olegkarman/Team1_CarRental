@@ -92,7 +92,6 @@ public class DealManager
         return deal;
     }
 
-    // Name AND CustomerId ARE TWO PARTS OF PRIMARY KEY IN THE DATA BASE.
     public Deal ChooseDealFromList(List<Deal> deals, string name, string customerId)
     {
         _validator.CheckNull(deals);
