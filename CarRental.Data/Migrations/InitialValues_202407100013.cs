@@ -18,57 +18,47 @@ namespace CarRentalData.Migrations
                 @"
                     IF NOT EXISTS
                     (
-                        SELECT Id
+                        SELECT Number
                             FROM TransportStatuses
-                            WHERE Id = 1
-                                OR Id = 2
-                                OR Id = 3
-                                OR Id = 4
-                                OR Id = 5
-                                OR Id = 6
+                            WHERE Number = 0
+                                OR Number = 1
+                                OR Number = 2
+                                OR Number = 3
+                                OR Number = 4
+                                OR Number = 200
                     )
                         BEGIN
-                            SET IDENTITY_INSERT TransportStatuses ON;
-
                             INSERT INTO TransportStatuses
                             (
                                 Number,
-                                Status,
-                                Id
+                                Status
+                                --Id
                             )
                                 VALUES
 	                            (
                                     1,
-                                    'Available',
-                                    1
+                                    'Available'
 	                            ),
 	                            (
                                     4,
-                                    'InRepair',
-                                    2
+                                    'InRepair'
 	                            ),
 	                            (
                                     2,
-                                    'Rented',
-                                    3
+                                    'Rented'
 	                            ),
                                 (
                                     3,
-                                    'Sold',
-                                    4
+                                    'Sold'
                                 ),
                                 (
                                     200,
-                                    'Unavailable',
-                                    5
+                                    'Unavailable'
                                 ),
                                 (
                                     0,
-                                    'Unknown',
-                                    6
+                                    'Unknown'
                                 );
-
-                                SET IDENTITY_INSERT TransportStatuses OFF;
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: DATA INSCRIBED INTO TABLE TransportStatuses';
                         END
@@ -85,14 +75,28 @@ namespace CarRentalData.Migrations
                 @"
 					DELETE
 						FROM TransportStatuses
-                            WHERE Id = 1
-                                OR Id = 2
-                                OR Id = 3
-                                OR Id = 4
-                                OR Id = 5
-                                OR Id = 6;
+                            WHERE Number = 0
+                                OR Number = 1
+                                OR Number = 2
+                                OR Number = 3
+                                OR Number = 4
+                                OR Number = 200;
                 "
             );
+
+            //       Execute.Sql
+            //       (
+            //           @"
+            //DELETE
+            //	FROM TransportStatuses
+            //                       WHERE Id = 1
+            //                           OR Id = 2
+            //                           OR Id = 3
+            //                           OR Id = 4
+            //                           OR Id = 5
+            //                           OR Id = 6;
+            //           "
+            //       );
         }
     }
 }

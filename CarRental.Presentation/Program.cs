@@ -48,7 +48,7 @@ class CarRentalPortal
         ConsoleHelper.ConsoleHelper.ApplyConsoleStyles();
         var login = new Login();
         var loginManager = new LoginManager(login, consoleOutput);
-        var (user, isCustomer) = loginManager.StartLogin(); // THE CUSTOMER-MANAGER CREATES A CUSTOMER INSTANCE, NOT SOME PRESENTATION LAYER LOGIC. AT LEAST IT SHOULD... I THINK... O_o
+        var (user, isCustomer) = loginManager.StartLogin(); 
         var portal = new Portal(user, isCustomer);
         var portalManager = new PortalManager(portal, consoleOutput);
         ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
@@ -78,7 +78,8 @@ class CarRentalPortal
         //IHost host = hostManager.BuildHost(hostBuilder);
 
         //host.ShowMigrationsListConsole();
-        ////host.MigrateDatabaseDown(202407100001);
+        ////host.MigrateDatabaseDown(202407090001);
+        ////host.MigrateDatabaseUp(202407090002);
         //host.MigrateDatabaseUp();
         //host.ShowMigrationsListConsole();
 

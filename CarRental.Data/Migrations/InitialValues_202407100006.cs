@@ -103,7 +103,7 @@ namespace CarRentalData.Migrations
                                     'Low',
                                     'DarkOrchid ',
                                     'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8',
-                                    4
+                                    3
 		                        ),
 		                        (
 			                        '57BED521-BE12-447B-AF3F-54466A9E8CEF',
@@ -128,7 +128,7 @@ namespace CarRentalData.Migrations
                                     'Unknown',
                                     'DarkOrchid',
                                     'F0EB4C90-94F9-44C2-4A9C-C7ECBE902EA6',
-                                    4
+                                    3
 		                        ),
 		                        (
 			                        '9B09A4A5-0B13-4239-9E94-C3535E661566',
@@ -153,7 +153,7 @@ namespace CarRentalData.Migrations
                                     'Hight',
                                     'OrangeRed',
                                     '99AC3D72-D132-4F4B-6C96-B3B58249FF2D',
-                                    1
+                                    3
 		                        ),
 		                        (
 			                        'A783A6FA-3C35-4CE1-ABC0-12F9D69636BE',
@@ -178,7 +178,7 @@ namespace CarRentalData.Migrations
                                     'Moderate',
                                     'OldLace ',
                                     'E7A8AFDF-C117-46AB-57B3-86AB19E07C0A',
-                                    4
+                                    3
 		                        ),
 		                        (
 			                        'C01BD220-FE99-4E74-87AF-E3F6672A096E',
@@ -203,7 +203,7 @@ namespace CarRentalData.Migrations
                                     'Low',
                                     'RosyBrown',
                                     'BCBAE3B2-581B-4E50-6590-F0F02E0F96A5',
-                                    4
+                                    3
 		                        );
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: DATA INSCRIBED INTO TABLE Cars';
