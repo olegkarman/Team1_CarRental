@@ -93,7 +93,6 @@ namespace CarRental.BussinessLayer.Managers
         }
 
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
-        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
         public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
@@ -183,8 +182,6 @@ namespace CarRental.BussinessLayer.Managers
 
         public void AddCarInToCustomer(Customer customer, Car car)
         {
-            // SHOULD BE SOME VALIDATION THERE. NULL-VALIDATION FOR AN EXAMPLE, BUT FROM A SEPARATE VALIDATOR-CLASS.
-
             customer.Cars.Add(car);
         }
     }

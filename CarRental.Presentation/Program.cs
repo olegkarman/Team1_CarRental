@@ -10,7 +10,6 @@ using System.Reflection;
 using CarRental.Presentation.Managers;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Checkup;
-//using Dapper;   // FOR THE TEST PURPOSES ONLY!
 using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Dapper;
 using CarRental.Data.Models.Automobile.RecordTypes;

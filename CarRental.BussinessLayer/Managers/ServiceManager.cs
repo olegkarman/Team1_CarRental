@@ -511,11 +511,11 @@ public class ServiceManager : ICarManager
 
             foreach (IGrouping<Guid, Car> group in groupedCars)
             {
-                Car car = group.First();
+                Car? car = group.FirstOrDefault();
 
-                car.Inspections = group.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
+                car.Inspections = group.Select(c => c.Inspections.SingleOrDefault()).DistinctBy(i => i?.InspectionId).ToList();
 
-                car.Repairs = group.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+                car.Repairs = group.Select(c => c.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
 
                 resultCars.Add(car);
             }
@@ -534,7 +534,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public Car GetCarFromDatabase(Guid id, string connectionString)
+    public Car? GetCarFromDatabase(Guid id, string connectionString)
     {
         try
         {
@@ -567,11 +567,11 @@ public class ServiceManager : ICarManager
                 )
             );
 
-            Car car = cars.First();
+            Car car = cars.FirstOrDefault();
 
-            car.Inspections = cars.Select(c => c.Inspections.Single()).DistinctBy(i => i?.InspectionId).ToList();
+            car.Inspections = cars.Select(c => c.Inspections.SingleOrDefault()).DistinctBy(i => i?.InspectionId).ToList();
 
-            car.Repairs = cars.Select(c => c.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+            car.Repairs = cars.Select(c => c.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
 
             SupplementData.DataContext.CloseConnection(connection);
 

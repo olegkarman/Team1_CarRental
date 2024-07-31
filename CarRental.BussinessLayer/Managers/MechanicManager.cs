@@ -47,7 +47,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // CREATE
 
-        public Mechanic GetMechanicFromDatabase(Guid guid, string connectionString)
+        public Mechanic? GetMechanicFromDatabase(Guid guid, string connectionString)
         {
             try
             {
@@ -78,9 +78,9 @@ namespace CarRental.BussinessLayer.Managers
                     )
                 );
 
-                Mechanic mechanic = mechanics.First();
+                Mechanic? mechanic = mechanics.FirstOrDefault();
 
-                mechanic.Repairs = mechanics.Select(m => m.Repairs.Single()).DistinctBy(r => r?.Id).ToList();
+                mechanic.Repairs = mechanics.Select(m => m.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
 
                 DataContext.CloseConnection(connection);
 
