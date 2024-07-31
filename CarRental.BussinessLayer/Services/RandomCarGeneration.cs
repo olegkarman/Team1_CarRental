@@ -145,8 +145,33 @@ namespace CarRental.BussinessLayer.Services
 
         public TransportStatus GetNewStatus()
         {
-            // INVALID CAST EXCEPTION?
-            return (TransportStatus)_pseudoRandom.Next(0, 6);
+            int resultStatusNumber;
+
+            int generatedNumber = _pseudoRandom.Next(0, 6);
+
+            switch (generatedNumber)
+            {
+                case 1:
+                    resultStatusNumber = 1;
+                    break;
+                case 2:
+                    resultStatusNumber = 2;
+                    break;
+                case 3:
+                    resultStatusNumber = 3;
+                    break;
+                case 4:
+                    resultStatusNumber = 4;
+                    break;
+                case 5:
+                    resultStatusNumber = 200;
+                    break;
+                default:
+                    resultStatusNumber = 0;
+                    break;
+            }
+
+            return (TransportStatus)resultStatusNumber;
         }
 
         public bool GetNewIsFitForUse()

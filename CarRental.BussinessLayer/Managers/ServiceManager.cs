@@ -225,31 +225,7 @@ public class ServiceManager : ICarManager
                 string query = "CreateCar";
 
                 int? status = (int?)car.Status;
-                //int? statusId;
 
-                switch (status)
-                {
-                    case 0:
-                        status = 6;
-                        break;
-                    case 1:
-                        status = 1;
-                        break;
-                    case 2:
-                        status = 3;
-                        break;
-                    case 3:
-                        status = 4;
-                        break;
-                    case 4:
-                        status = 2;
-                        break;
-                    case 200:
-                        status = 5;
-                        break;
-                }
-
-                // I DO NOT UNDERSTAND THIS SYNTAXIS.
                 var objectArguments = new
                 {
                     carId = car.CarId,
@@ -314,27 +290,27 @@ public class ServiceManager : ICarManager
             int? status = (int?)car.Status;
             //int? statusId;
 
-            switch (status)
-            {
-                case 0:
-                    status = 6;
-                    break;
-                case 1:
-                    status = 1;
-                    break;
-                case 2:
-                    status = 3;
-                    break;
-                case 3:
-                    status = 4;
-                    break;
-                case 4:
-                    status = 2;
-                    break;
-                case 200:
-                    status = 5;
-                    break;
-            }
+            //switch (status)
+            //{
+            //    case 0:
+            //        status = 6;
+            //        break;
+            //    case 1:
+            //        status = 1;
+            //        break;
+            //    case 2:
+            //        status = 3;
+            //        break;
+            //    case 3:
+            //        status = 4;
+            //        break;
+            //    case 4:
+            //        status = 2;
+            //        break;
+            //    case 200:
+            //        status = 5;
+            //        break;
+            //}
 
             // I DO NOT UNDERSTAND THIS SYNTAXIS.
             var objectArguments = new
@@ -884,29 +860,6 @@ public class ServiceManager : ICarManager
             bool resultStatus = false;
 
             int? statusId = (int?)status;
-
-            // DUPLICATE OF LOGIC? SHOULD I CREATE A METHOD?
-            switch (statusId)
-            {
-                case 0:
-                    statusId = 6;
-                    break;
-                case 1:
-                    statusId = 1;
-                    break;
-                case 2:
-                    statusId = 3;
-                    break;
-                case 3:
-                    statusId = 4;
-                    break;
-                case 4:
-                    statusId = 2;
-                    break;
-                case 200:
-                    statusId = 5;
-                    break;
-            }
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
