@@ -53,15 +53,15 @@ namespace CarRentalData.Migrations
 									BEGIN
 										ALTER TABLE Cars
 											DROP CONSTRAINT FK_Cars_TransportStatuses_StatusId_Number;
-					
+
 										PRINT 'MRIGRATION IS SUCCESSFULL: FOR TABLE Cars COLUMN StatusId DROPPED FOREIGN KEY';
 									END
 					ELSE
 						PRINT 'MRIGRATION FAILED: FOR TABLE Cars COLUMN StatusId FOREIGN KEY FK_Cars_TransportStatuses_StatusId_Number IS NOT EXIST';
-                "
+			             "
 			);
 
-			//         Execute.Sql
+			//Execute.Sql
 			//(
 			//	@"
 			//		IF EXISTS

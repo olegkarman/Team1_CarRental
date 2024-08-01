@@ -1549,7 +1549,7 @@ EXECUTE
 			LEFT JOIN Repairs
 				ON Repairs.CarId = Cars.CarId
 			LEFT JOIN TransportStatuses
-				ON Cars.StatusId = TransportStatuses.Id
+				ON Cars.StatusId = TransportStatuses.Number
 			WHERE Cars.CarId = @Id;
 ');
 
@@ -1708,7 +1708,7 @@ EXECUTE
 		LEFT JOIN Repairs
 			ON Repairs.CarId = Cars.CarId
 		LEFT JOIN TransportStatuses
-			ON Cars.StatusId = TransportStatuses.Id
+			ON Cars.StatusId = TransportStatuses.Number
 		WHERE Cars.CustomerId = @CustomerId;
 ');
 
@@ -1910,3 +1910,64 @@ EXECUTE
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED SEVENTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED EIGHT START ------------------------------------------------
+
+-- ALTER SECTION START
+-- 01-AUG-24
+
+ALTER TABLE Cars
+	DROP CONSTRAINT FK_Cars_TransportStatuses_StatusId_Id;
+
+ALTER TABLE Inspections
+	DROP CONSTRAINT FK_Inspections_InspectionStatuses_StatusId_Id;
+
+ALTER TABLE TransportStatuses
+	DROP CONSTRAINT PK_TransportStatuses_Id;
+
+ALTER TABLE InspectionStatuses
+	DROP CONSTRAINT PK_InspectionStatuses_Id;
+
+ALTER TABLE TransportStatuses
+	DROP COLUMN Id;
+
+ALTER TABLE InspectionStatuses
+	DROP COLUMN Id;
+
+ALTER TABLE TransportStatuses
+	ADD CONSTRAINT PK_TransportStatuses_Number
+	PRIMARY KEY (Number);
+
+ALTER TABLE InspectionStatuses
+	ADD CONSTRAINT PK_InspectionStatuses_Number
+	PRIMARY KEY (Number);
+
+-- ALTER SECTION END
+
+-- UPDATE SECTION START
+-- 01-AUG-24
+
+UPDATE Cars
+	SET StatusId = 3;
+
+UPDATE Inspections
+	SET StatusId = 1;
+
+-- UPDATE SECTION END
+
+-- ALTER SECTION START
+-- 01-AUG-24
+
+ALTER TABLE Cars
+	ADD CONSTRAINT FK_Cars_TransportStatuses_StatusId_Number
+		FOREIGN KEY (StatusId)
+			REFERENCES TransportStatuses (Number);
+
+ALTER TABLE Inspections
+	ADD CONSTRAINT FK_Inspections_InspectionStatuses_StatusId_Number
+		FOREIGN KEY (StatusId)
+			REFERENCES InspectionStatuses (Number);
+
+-- ALTER SECTION END
+
+------------------------------------------------ T-SQL ALREADY EXECUTED EIGHT END ------------------------------------------------
