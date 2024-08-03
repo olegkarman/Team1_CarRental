@@ -100,18 +100,11 @@ namespace CarRental.BussinessLayer.Managers
             Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
 
-            serviceManager.ChangeCarStatusId(car.CarId, car.Status, connectionString);
-
-            //dealManager.AddDealIntoDatabase(newDeal, connectionString);
-
             dealManager.AddDealInToList(customer.Deals, newDeal);
 
             serviceManager.AddDealToCar(car, newDeal); 
 
             AddCarInToCustomer(customer, car);
-
-            //serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
-            //serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
 
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
