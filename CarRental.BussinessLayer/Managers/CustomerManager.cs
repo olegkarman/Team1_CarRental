@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models.RecordTypes;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using System.Diagnostics;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -94,32 +95,48 @@ namespace CarRental.BussinessLayer.Managers
 
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
-        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
+        public bool BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
         {
-            // NULL-VALIDATION SHOULD BE.
-            // THIS IS WORK OF DEAL-MANAGER, NOT CUSTOMER MANAGER.
-            // Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
-            // CUSTOMER FIRST NAME — TRANSITIVE DEPENDANCY IN DB.
             Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
             car.Status = Data.Enums.TransportStatus.Sold;
 
             serviceManager.ChangeCarStatusId(car.CarId, car.Status, connectionString);
 
-            dealManager.AddDealIntoDatabase(newDeal, connectionString);
+            //dealManager.AddDealIntoDatabase(newDeal, connectionString);
 
-            // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
-            //customer.Deals.Add(newDeal);
             dealManager.AddDealInToList(customer.Deals, newDeal);
 
             serviceManager.AddDealToCar(car, newDeal); 
 
             AddCarInToCustomer(customer, car);
 
-            // THERE SHOULD BE UPDATE CAR-INSTANCE IN THE DATABASE.
+            //serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
+            //serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
 
-            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
-            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
+            string sqlProcedureName = "BuyRentCar";
+
+            string dealId = newDeal.Id.ToString().ToUpper();
+            string carId = car.CarId.ToString().ToUpper();
+            string customerId = customer.IdNumber.ToString().ToUpper();
+
+            var arguments = new
+            {
+                @dealId = dealId,
+                @carId = carId,
+                @vinCode = car.VinCode,
+                @customerId = customerId,
+                @price = car.Price,
+                @dealType = "purchase",
+                @name = newDeal.Name
+            };
+
+            bool result = connection.Query<bool>(sqlProcedureName, arguments).SingleOrDefault();
+
+            DapperContext.CloseConnection(connection);
+
+            return result;
         }
 
         public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)

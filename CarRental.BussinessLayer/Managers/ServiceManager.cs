@@ -996,10 +996,10 @@ public class ServiceManager : ICarManager
 
             string sqlStatement =
             @"
-            UPDATE Cars
-                SET CustomerId = @id
-                WHERE CarId = @carId;
-        ";
+                UPDATE Cars
+                    SET CustomerId = @id
+                    WHERE CarId = @carId;
+            ";
 
             connection.Execute(sqlStatement, arguments);
 

@@ -1971,3 +1971,29 @@ ALTER TABLE Inspections
 -- ALTER SECTION END
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED EIGHT END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED NINTH START ------------------------------------------------
+
+-- BUY A CAR
+
+-- INPUT:
+
+-- NVARCHAR(100) customerId -- ID OF CUSTOMER
+
+-- carId NVARCHAR(100) -- ID OF CAR TO BUY
+
+-- OUTPUT:
+
+-- BIT isSuccessfull -- BOOL RESULT OF OPERATION
+
+-- INSTRUCTION:
+
+-- CREATE NEW DEAL
+
+-- UPDATE CAR ENTRY
+
+-- SELECT CUSTOMER ID IN CAR ENTRY AND DEAL ID
+
+-- RETURN isSuccessfull
+
+------------------------------------------------ T-SQL ALREADY EXECUTED NINTH END ------------------------------------------------
