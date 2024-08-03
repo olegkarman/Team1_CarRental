@@ -1974,26 +1974,54 @@ ALTER TABLE Inspections
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED NINTH START ------------------------------------------------
 
--- BUY A CAR
+-- CREATE SECTION START
+-- 03-AUG-2024
 
--- INPUT:
+EXECUTE
+('
+	CREATE PROCEDURE BuyRentCar
+	(
+		@dealId NVARCHAR(100),
+		@carId NVARCHAR(100),
+		@vinCode NVARCHAR(100),
+		@customerId NVARCHAR(100),
+		@price FLOAT,
+		@dealType NVARCHAR(50),
+		@name NVARCHAR(250),
+		@isSuccessful BIT = 0 OUTPUT
+	)
+		AS
+			BEGIN
+				EXECUTE CreateDeal
+					@Id = @dealId,
+					@CarId = @carId,
+					@VinCode = @vinCode,
+					@CustomerId = @customerId,
+					@Price = @price,
+					@DealType = @dealType,
+					@Name = @name;
 
--- NVARCHAR(100) customerId -- ID OF CUSTOMER
+				UPDATE Cars
+					SET CustomerId = @customerId,
+						DealId = @dealId,
+						StatusId = 3
+					WHERE CarId = @carId;
+			
+				BEGIN
+					IF EXISTS
+					(
+						SELECT CarId
+							FROM Cars
+							WHERE DealId = @dealId
+								AND CustomerId = @customerId
+					)
+						BEGIN
+							SET @isSuccessful = 1;
+						END
+				END
+			END
+');
 
--- carId NVARCHAR(100) -- ID OF CAR TO BUY
-
--- OUTPUT:
-
--- BIT isSuccessfull -- BOOL RESULT OF OPERATION
-
--- INSTRUCTION:
-
--- CREATE NEW DEAL
-
--- UPDATE CAR ENTRY
-
--- SELECT CUSTOMER ID IN CAR ENTRY AND DEAL ID
-
--- RETURN isSuccessfull
+-- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED NINTH END ------------------------------------------------
