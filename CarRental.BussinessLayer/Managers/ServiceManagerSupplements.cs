@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models.Automobile;
+using CarRental.Data.Managers;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.BussinessLayer.Managers;
 using CarRental.BussinessLayer.Validators;
@@ -24,4 +25,8 @@ public class ServiceManagerSupplements
     public MechanicManager MechanicalManager { get; init; }
     public RepairManager JunkRepairManager { get; init; }
     public NullValidation NullValidator { get; init; }
+    public DatabaseContextDapper DataContext { get; init; }
+    public DapperConfigurationManager DapperConfigs { get; init; }
+    public FileManager FileContext { get; init; }
+    public TextProcessingService TextProcessor { get; init; }
 }
