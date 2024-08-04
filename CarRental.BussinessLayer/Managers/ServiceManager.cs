@@ -16,6 +16,7 @@ using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Checkup;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using Z.Dapper.Plus;
 using System.Diagnostics;
 using System.Data;
 using System.Runtime.ConstrainedExecution;
@@ -374,38 +375,79 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            bool addBulk = false;
+            bool isAddBulk = false;
 
-            string fileName = @"CarsBulk_YPARKHOMENKO.csv";
+            //string fileName = @"CarsBulk_YPARKHOMENKO.csv";
 
-            string carsInfo = RetriveCarsInfoFromList(cars);
+            //string carsInfo = RetriveCarsInfoFromList(cars);
 
-            carsInfo = SupplementData.TextProcessor.ParseOutputCarsInfo(carsInfo);
+            //carsInfo = SupplementData.TextProcessor.ParseOutputCarsInfo(carsInfo);
 
-            SupplementData.FileContext.WriteTextFileCurrentFolder(fileName, carsInfo);
+            //SupplementData.FileContext.WriteTextFileCurrentFolder(fileName, carsInfo);
 
-            string path = SupplementData.FileContext.CombineCurrentFolderFileName(fileName);
+            //string path = SupplementData.FileContext.CombineCurrentFolderFileName(fileName);
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
-            string bulkSql =
-            @$"
-                BULK INSERT CarsBulk
-                FROM '{path}'
-                WITH
-                (
-                    FIELDTERMINATOR = '|',
-                    ROWTERMINATOR = '}}'
-                );
-            ";
+            //string bulkSql =
+            //@$"
+            //    BULK INSERT CarsBulk
+            //    FROM '{path}'
+            //    WITH
+            //    (
+            //        FIELDTERMINATOR = '|',
+            //        ROWTERMINATOR = '}}'
+            //    );
+            //";
 
-            connection.Execute(bulkSql);
+            //connection.Execute(bulkSql);
+
+            DapperPlusManager
+                .Entity<Car>()
+                .Table("Cars")
+                //.Map
+                //    (
+                //       car => new
+                //       {
+                //           CarId = car.CarId.ToString().ToUpper(), /*"00F690E5-989D-49B2-9162-037BC83F556B",*/
+                //           VinCode = car.VinCode,
+                //           //CustomerId = car.Owner.IdNumber.ToString().ToUpper(),
+                //           NumberPlate = car.NumberPlate,
+                //           Brand = car.Brand,
+                //           Model = car.Model,
+                //           Price = car.Price,
+                //           NumberOfSeats = car.NumberOfSeats,
+                //           NumberOfDoors = car.NumberOfDoors,
+                //           Mileage = car.Mileage,
+                //           MaxFuelCapacity = car.MaxFuelCapacity,
+                //           CurrentFuel = car.CurrentFuel,
+                //           Year = car.Year,
+                //           IsFitForUse = car.IsFitForUse,
+                //           Engine = car.Engine,
+                //           Transmission = car.Transmission,
+                //           Interior = car.Interior,
+                //           Wheels = car.Wheels,
+                //           Lights = car.Lights,
+                //           Signal = car.Signal,
+                //           Color = car.Color.ToString(),
+                //           //DealId = car.Engagement.Id.ToString().ToUpper(),
+                //           StatusId = (int)car.Status
+                //       }
+
+                //    );
+                .Map(car => car.CarId.ToString().ToUpper(), "CarId")
+                .Map(car => null, "CustomerId")
+                .Map(car => null, "DealId")
+                .Map(car => (int)car.Status, "StatusId")
+                .AutoMap();
+
+            connection.BulkInsert(cars);
 
             SupplementData.DataContext.CloseConnection(connection);
 
-            addBulk = true;
+            isAddBulk = true;
 
-            return addBulk;
+            return isAddBulk;
         }
         catch(SqlException)
         {
