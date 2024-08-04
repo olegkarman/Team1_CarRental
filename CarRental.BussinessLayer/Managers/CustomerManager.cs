@@ -75,7 +75,7 @@ namespace CarRental.BussinessLayer.Managers
                 Id = id
             };
 
-            int result = connection.ExecuteScalar<int>(sqlStoredProcedureName, parameter);
+            int result = connection.Query<int>(sqlStoredProcedureName, parameter).SingleOrDefault();
 
             DapperContext.CloseConnection(connection);
 
@@ -92,8 +92,6 @@ namespace CarRental.BussinessLayer.Managers
                 return null;
             }
         }
-
-        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
         public bool BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
