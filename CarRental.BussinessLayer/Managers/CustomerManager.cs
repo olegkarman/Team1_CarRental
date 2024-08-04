@@ -95,61 +95,52 @@ namespace CarRental.BussinessLayer.Managers
 
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
-        public bool BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
+        public bool BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
-            car.Status = Data.Enums.TransportStatus.Sold;
-
-            dealManager.AddDealInToList(customer.Deals, newDeal);
-
-            serviceManager.AddDealToCar(car, newDeal); 
-
-            AddCarInToCustomer(customer, car);
-
-            SqlConnection connection = DapperContext.OpenConnection(connectionString);
-
-            string sqlProcedureName = "BuyRentCar";
-
-            string dealId = newDeal.Id.ToString().ToUpper();
-            string carId = car.CarId.ToString().ToUpper();
-            string customerId = customer.IdNumber.ToString().ToUpper();
-
-            var arguments = new
+            try
             {
-                @dealId = dealId,
-                @carId = carId,
-                @vinCode = car.VinCode,
-                @customerId = customerId,
-                @price = car.Price,
-                @dealType = "purchase",
-                @name = newDeal.Name
-            };
+                Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, dealType, car.Price);
+                car.Status = Data.Enums.TransportStatus.Sold;
 
-            bool result = connection.Query<bool>(sqlProcedureName, arguments).SingleOrDefault();
+                dealManager.AddDealInToList(customer.Deals, newDeal);
 
-            DapperContext.CloseConnection(connection);
+                serviceManager.AddDealToCar(car, newDeal);
 
-            return result;
-        }
+                AddCarInToCustomer(customer, car);
 
-        public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
-        {
-            //Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "rental", car.Price);
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            car.Status = Data.Enums.TransportStatus.Rented; // CALL CAR-MANAGER INSTED.
+                string sqlProcedureName = "BuyRentCar";
 
-            dealManager.AddDealIntoDatabase(newDeal, connectionString);
+                string dealId = newDeal.Id.ToString().ToUpper();
+                string carId = car.CarId.ToString().ToUpper();
+                string customerId = customer.IdNumber.ToString().ToUpper();
 
-            //customer.Deals.Add(newDeal);
-            dealManager.AddDealInToList(customer.Deals, newDeal);
+                var arguments = new
+                {
+                    @dealId = dealId,
+                    @carId = carId,
+                    @vinCode = car.VinCode,
+                    @customerId = customerId,
+                    @price = car.Price,
+                    @dealType = dealType,
+                    @name = newDeal.Name
+                };
 
-            serviceManager.AddDealToCar(car, newDeal);
+                bool result = connection.Query<bool>(sqlProcedureName, arguments).SingleOrDefault();
 
-            AddCarInToCustomer(customer, car);
+                DapperContext.CloseConnection(connection);
 
-            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
-            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
+                return result;
+            }
+            catch(SqlException)
+            {
+                throw;
+            }
+            catch(InvalidOperationException)
+            {
+                throw;
+            }
         }
 
         public void ShowMyDeals(Customer customer)
