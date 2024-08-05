@@ -223,7 +223,7 @@ public class ServiceManager : ICarManager
 
             foreach (Car car in cars)
             {
-                string query = "CreateCar";
+                string sqlProcedureName = "CreateCar";
 
                 int? status = (int?)car.Status;
 
@@ -252,7 +252,7 @@ public class ServiceManager : ICarManager
                     statusId = status
                 };
 
-                connection.ExecuteScalar(query, objectArguments);
+                connection.ExecuteScalar(sqlProcedureName, objectArguments);
             }
 
             SupplementData.DataContext.CloseConnection(connection);
