@@ -231,7 +231,6 @@ public class ServiceManager : ICarManager
                 {
                     carId = car.CarId,
                     vinCode = car.VinCode,
-                    //customerId = null, //car.Owner.IdNumber, // ANONYMOUS TYPE NULL PROBLEMS.
                     numberPlate = car.NumberPlate,
                     brand = car.Brand,
                     model = car.Model,
@@ -250,7 +249,6 @@ public class ServiceManager : ICarManager
                     lights = car.Lights,
                     signal = car.Signal,
                     color = car.Color,
-                    //dealId = car.Engagement.Id,
                     statusId = status
                 };
 
@@ -289,36 +287,11 @@ public class ServiceManager : ICarManager
             string query = "CreateCar";
 
             int? status = (int?)car.Status;
-            //int? statusId;
 
-            //switch (status)
-            //{
-            //    case 0:
-            //        status = 6;
-            //        break;
-            //    case 1:
-            //        status = 1;
-            //        break;
-            //    case 2:
-            //        status = 3;
-            //        break;
-            //    case 3:
-            //        status = 4;
-            //        break;
-            //    case 4:
-            //        status = 2;
-            //        break;
-            //    case 200:
-            //        status = 5;
-            //        break;
-            //}
-
-            // I DO NOT UNDERSTAND THIS SYNTAXIS.
             var objectArguments = new
             {
                 carId = car.CarId,
                 vinCode = car.VinCode,
-                //customerId = null, //car.Owner.IdNumber, // ANONYMOUS TYPE NULL PROBLEMS.
                 numberPlate = car.NumberPlate,
                 brand = car.Brand,
                 model = car.Model,
@@ -337,7 +310,6 @@ public class ServiceManager : ICarManager
                 lights = car.Lights,
                 signal = car.Signal,
                 color = car.Color,
-                //dealId = car.Engagement.Id,
                 statusId = status
             };
 
@@ -377,68 +349,15 @@ public class ServiceManager : ICarManager
         {
             bool isAddBulk = false;
 
-            //string fileName = @"CarsBulk_YPARKHOMENKO.csv";
-
-            //string carsInfo = RetriveCarsInfoFromList(cars);
-
-            //carsInfo = SupplementData.TextProcessor.ParseOutputCarsInfo(carsInfo);
-
-            //SupplementData.FileContext.WriteTextFileCurrentFolder(fileName, carsInfo);
-
-            //string path = SupplementData.FileContext.CombineCurrentFolderFileName(fileName);
-
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            //string bulkSql =
-            //@$"
-            //    BULK INSERT CarsBulk
-            //    FROM '{path}'
-            //    WITH
-            //    (
-            //        FIELDTERMINATOR = '|',
-            //        ROWTERMINATOR = '}}'
-            //    );
-            //";
-
-            //connection.Execute(bulkSql);
 
             DapperPlusManager
                 .Entity<Car>()
                 .Table("Cars")
-                //.Map
-                //    (
-                //       car => new
-                //       {
-                //           CarId = car.CarId.ToString().ToUpper(), /*"00F690E5-989D-49B2-9162-037BC83F556B",*/
-                //           VinCode = car.VinCode,
-                //           //CustomerId = car.Owner.IdNumber.ToString().ToUpper(),
-                //           NumberPlate = car.NumberPlate,
-                //           Brand = car.Brand,
-                //           Model = car.Model,
-                //           Price = car.Price,
-                //           NumberOfSeats = car.NumberOfSeats,
-                //           NumberOfDoors = car.NumberOfDoors,
-                //           Mileage = car.Mileage,
-                //           MaxFuelCapacity = car.MaxFuelCapacity,
-                //           CurrentFuel = car.CurrentFuel,
-                //           Year = car.Year,
-                //           IsFitForUse = car.IsFitForUse,
-                //           Engine = car.Engine,
-                //           Transmission = car.Transmission,
-                //           Interior = car.Interior,
-                //           Wheels = car.Wheels,
-                //           Lights = car.Lights,
-                //           Signal = car.Signal,
-                //           Color = car.Color.ToString(),
-                //           //DealId = car.Engagement.Id.ToString().ToUpper(),
-                //           StatusId = (int)car.Status
-                //       }
-
-                //    );
                 .Map(car => car.CarId.ToString().ToUpper(), "CarId")
                 .Map(car => null, "CustomerId")
                 .Map(car => null, "DealId")
-                .Map(car => (int)car.Status, "StatusId")
+                .Map(car => (int?)car.Status, "StatusId")
                 .AutoMap();
 
             connection.BulkInsert(cars);
@@ -883,15 +802,6 @@ public class ServiceManager : ICarManager
 
         return _carsInfo.ToString();
     }
-
-    //public Car RetriveCarFromDatabase(string connectionString)
-    //{
-    //    SupplementData.DataContext.OpenConnection(connectionString)
-
-
-
-    //    return car;
-    //}
 
     // UPDATE
 

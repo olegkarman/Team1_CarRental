@@ -78,7 +78,7 @@ class CarRentalPortal
         //IHost host = hostManager.BuildHost(hostBuilder);
 
         //host.ShowMigrationsListConsole();
-        ////host.MigrateDatabaseDown(202407090001);
+        //host.MigrateDatabaseDown(202407160006);
         ////host.MigrateDatabaseUp(202407090002);
         //host.MigrateDatabaseUp();
         //host.ShowMigrationsListConsole();

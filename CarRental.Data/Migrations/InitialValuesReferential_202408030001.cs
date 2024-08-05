@@ -52,19 +52,6 @@ namespace CarRentalData.Migrations
 													DealId = @dealId,
 													StatusId = 3
 												WHERE CarId = @carId;
-			
-											BEGIN
-												IF EXISTS
-												(
-													SELECT CarId
-														FROM Cars
-														WHERE DealId = @dealId
-															AND CustomerId = @customerId
-												)
-													BEGIN
-														SET @isSuccessful = 1;
-													END
-											END
 										END
 							');
 

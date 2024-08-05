@@ -93,7 +93,7 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
-        public bool BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
+        public Deal BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
             try
             {
@@ -125,11 +125,11 @@ namespace CarRental.BussinessLayer.Managers
                     @name = newDeal.Name
                 };
 
-                bool result = connection.Query<bool>(sqlProcedureName, arguments).SingleOrDefault();
+                Deal deal = connection.Query<Deal>(sqlProcedureName, arguments).SingleOrDefault();
 
                 DapperContext.CloseConnection(connection);
 
-                return result;
+                return deal;
             }
             catch(SqlException)
             {
