@@ -30,7 +30,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // CREATE
 
-        public Repair GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
+        public Repair? GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
         {
             NullValidator.CheckNull(car);
             NullValidator.CheckNull(mechanic);
@@ -77,12 +77,11 @@ namespace CarRental.BussinessLayer.Managers
                     technicalInfo = repair.TechnicalInfo
                 };
 
-                connection.ExecuteScalar(storedProcedureName, objectArguments);
+                repair = connection.Query<Repair>(storedProcedureName, objectArguments).SingleOrDefault();
 
                 DataContext.CloseConnection(connection);
 
                 return repair;
-
             }
             catch (SqlException)
             {
@@ -127,8 +126,6 @@ namespace CarRental.BussinessLayer.Managers
 
         public string ShowRepairInfo(Repair repair)
         {
-            //NullValidator.CheckNull(repair);
-
             return repair.ToString();
         }
 

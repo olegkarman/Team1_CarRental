@@ -89,7 +89,7 @@ namespace CarRentalData.Migrations
 										LEFT JOIN Repairs
 											ON Repairs.CarId = Cars.CarId
 										LEFT JOIN TransportStatuses
-											ON Cars.StatusId = TransportStatuses.Id
+											ON Cars.StatusId = TransportStatuses.Number
 										WHERE Cars.CustomerId = @CustomerId;
 								');
 

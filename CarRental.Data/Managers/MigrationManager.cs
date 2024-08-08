@@ -21,6 +21,18 @@ public static class MigrationManager
 
     // METHODS
 
+    public static IHost MigrateDatabaseUp(this IHost host, long version)
+    {
+        using (IServiceScope scope = host.Services.CreateScope())
+        {
+            _migrationService = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+
+            _migrationService.MigrateUp(version);
+        }
+
+        return host;
+    }
+
     public static IHost MigrateDatabaseUp(this IHost host)
     {
         using (IServiceScope scope = host.Services.CreateScope())

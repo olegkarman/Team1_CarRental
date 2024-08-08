@@ -31,13 +31,11 @@ public class DealManager
     {
         DapperContext = new DatabaseContextDapper();
     }
-
-    //public DealManager(IndexValidator idexValidator, UpdatedNameValidator nameValidator, DealValidation _)
     // METHODS
 
     // CREATE
 
-    public void AddDealIntoDatabase(Deal deal, string connectionString)
+    public Deal AddDealIntoDatabase(Deal deal, string connectionString)
     {
         SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
@@ -54,9 +52,11 @@ public class DealManager
             Name = deal.Name
         };
 
-        connection.Execute(SqlStoredProcedureName, arguments);
+        Deal resultDeal = connection.Query<Deal>(SqlStoredProcedureName, arguments).SingleOrDefault();
 
         DapperContext.CloseConnection(connection);
+
+        return resultDeal;
     }
 
     public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
@@ -70,7 +70,6 @@ public class DealManager
             CustomerId = customerId,
             VinCode = vinCode,
             CarId = carId,
-            // SOME VALIDATION IN THE Deal-CLASS.
             DealType = dealType,
             Price = price
         };
@@ -92,7 +91,6 @@ public class DealManager
         return deal;
     }
 
-    // Name AND CustomerId ARE TWO PARTS OF PRIMARY KEY IN THE DATA BASE.
     public Deal ChooseDealFromList(List<Deal> deals, string name, string customerId)
     {
         _validator.CheckNull(deals);

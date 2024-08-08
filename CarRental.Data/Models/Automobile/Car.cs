@@ -20,7 +20,6 @@ public class Car
     // FIELDS
 
     private const string _noInfo = "NO INFORMATION";
-    //private readonly int? _year;
     private float? _mileage;   // AVTOPROBIG.
     private float? _currentFuel;
     private int? _maxFuelCapacity;

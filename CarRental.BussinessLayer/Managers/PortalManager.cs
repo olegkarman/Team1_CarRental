@@ -335,11 +335,11 @@ namespace CarRental.BussinessLayer.Managers
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                _customerManager.BuyCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, connectionString);
+                _customerManager.BuyRentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, "purchase", connectionString);
             }
             else
             {
-                _customerManager.RentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, connectionString);
+                _customerManager.BuyRentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, "rental", connectionString);
             }
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
