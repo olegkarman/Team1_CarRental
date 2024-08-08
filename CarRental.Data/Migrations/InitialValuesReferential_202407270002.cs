@@ -37,28 +37,41 @@ namespace CarRentalData.Migrations
 									@technicalInfo TEXT
 								)
 									AS
-										INSERT INTO Repairs
-										(
-											Id,
-											Date,
-											CarId,
-											VinCode,
-											MechanicId,
-											IsSuccessfull,
-											TotalCost,
-											TechnicalInfo
-										)
-											VALUES
+										BEGIN
+											INSERT INTO Repairs
 											(
-												@id,
-												@date,
-												@carId,
-												@vinCode,
-												@mechanicId,
-												@isSuccessfull,
-												@totalCost,
-												@technicalInfo
-											);
+												Id,
+												Date,
+												CarId,
+												VinCode,
+												MechanicId,
+												IsSuccessfull,
+												TotalCost,
+												TechnicalInfo
+											)
+												VALUES
+												(
+													@id,
+													@date,
+													@carId,
+													@vinCode,
+													@mechanicId,
+													@isSuccessfull,
+													@totalCost,
+													@technicalInfo
+												);
+
+											SELECT Id,
+													Date,
+													CarId,
+													VinCode,
+													MechanicId,
+													IsSuccessfull,
+													TotalCost,
+													TechnicalInfo
+												FROM Repairs
+												WHERE Id = @id;
+										END
 							');
 
 							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CreateRepair CREATED';

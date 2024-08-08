@@ -77,12 +77,11 @@ namespace CarRental.BussinessLayer.Managers
                     technicalInfo = repair.TechnicalInfo
                 };
 
-                connection.ExecuteScalar(storedProcedureName, objectArguments);
+                repair = connection.Query<Repair>(storedProcedureName, objectArguments).SingleOrDefault();
 
                 DataContext.CloseConnection(connection);
 
                 return repair;
-
             }
             catch (SqlException)
             {
