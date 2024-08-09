@@ -28,13 +28,13 @@ class CarRentalPortal
 
         IConfigurationRoot configurations = configurationBuilder
             .AddJsonFile("appsettings.json")
-            //.AddJsonFile("appsettings.YarikSuper.json")
-            .AddJsonFile("appsettings.YarikSuperLocal.json")
+            .AddJsonFile("appsettings.YarikSuper.json")
+            //.AddJsonFile("appsettings.YarikSuperLocal.json")
             .Build();
 
         //string connectionString = configurations.GetConnectionString("MDzivinska");
-        string connectionString = configurations.GetConnectionString("ConnectionStringTest");
-        //string connectionString = configurations.GetConnectionString("ConnectionStringCloudClusters");
+        //string connectionString = configurations.GetConnectionString("ConnectionStringTest");
+        string connectionString = configurations.GetConnectionString("ConnectionStringCloudClusters");
 
         bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
 
