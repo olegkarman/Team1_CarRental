@@ -13,8 +13,6 @@ namespace CarRentalData.Migrations
     {
         public override void Up()
         {
-            //IF AT LEAST SOME OF DATA EXIST, WILL BE NO ANY INSERT.
-            //NEED DELETE ALL DATA FIRST.
             Execute.Sql
             (
                 @"
@@ -45,7 +43,7 @@ namespace CarRentalData.Migrations
                                     'AL2IH1QPF9F2SLGQ601FEB09M6NGZLFO9',
                                     '67F84A48-B96B-4A16-BB38-6C641F8504CC',
                                     CAST('2024-10-03' AS Date),
-                                    2
+                                    1
 	                            ),
 	                            (
                                     '73879350-ECA4-4027-9A00-BC626BD53F2F',
@@ -53,7 +51,7 @@ namespace CarRentalData.Migrations
                                     'UG7KNG1SBAFEXORSVVMJIXRBOYBD3HK38', 
                                     '67F84A48-B96B-4A16-BB38-6C641F8504CC',
                                     CAST('1985-11-03' AS Date),
-                                    2
+                                    1
 	                            ),
 	                            (
                                     '8B412B47-80BB-4DA3-9883-6952E68D8F15',
@@ -61,7 +59,7 @@ namespace CarRentalData.Migrations
                                     'JUGKHGQCOFTXQKZVK2TZBJ9DE5UGEHTWE',
                                     '67F84A48-B96B-4A16-BB38-6C641F8504CC',
                                     CAST('2024-11-04' AS Date),
-                                    2
+                                    1
 	                            ),
 	                            (
                                     'D3C048F0-6752-4F0A-8CD9-B15F5D9CC730',
@@ -69,7 +67,7 @@ namespace CarRentalData.Migrations
                                     'X5JT7H0AXI3AAUQJ0524N2KQS9433RGUC',
                                     '67F84A48-B96B-4A16-BB38-6C641F8504CC',
                                     CAST('1984-11-03' AS Date),
-                                    2
+                                    1
 	                            ),
                                 (
                                     '5A51AF19-605D-4172-B8A1-A29181A5FFB8',
@@ -77,7 +75,7 @@ namespace CarRentalData.Migrations
                                     'CQGF7RQL2PK7GTX6DRI3HCBPNIYHKZGEK',
                                     '67F84A48-B96B-4A16-BB38-6C641F8504CC',
                                     CAST('2024-10-08' AS Date),
-                                    2
+                                    1
                                 );
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: DATA INSCRIBED INTO TABLE Inspections';
@@ -90,8 +88,6 @@ namespace CarRentalData.Migrations
 
         public override void Down()
         {
-            // FOR DELETE STATEMENT IS NOT NEED CKECK OF EXISTANCE OF DATA,
-            // IT IS SCALAR WHICH RETURNS 0, OR NUMBER OF ROWS AFFECTED.
             Execute.Sql
             (
                 @"

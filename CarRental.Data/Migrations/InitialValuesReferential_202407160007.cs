@@ -36,26 +36,38 @@ namespace CarRentalData.Migrations
 									@Name NVARCHAR(250)
 								)
 									AS
-										INSERT INTO Deals
-										(
-											Id,
-											CarId,
-											VinCode,
-											CustomerId,
-											Price,
-											DealType,
-											Name
-										)
-											VALUES
+										BEGIN
+											INSERT INTO Deals
 											(
-												@Id,
-												@CarId,
-												@VinCode,
-												@CustomerId,
-												@Price,
-												@DealType,
-												@Name
-											);
+												Id,
+												CarId,
+												VinCode,
+												CustomerId,
+												Price,
+												DealType,
+												Name
+											)
+												VALUES
+												(
+													@Id,
+													@CarId,
+													@VinCode,
+													@CustomerId,
+													@Price,
+													@DealType,
+													@Name
+												);
+
+											SELECT Id,
+												CarId,
+												VinCode,
+												CustomerId,
+												Price,
+												DealType,
+												Name
+											FROM Deals
+											WHERE Id = @Id;
+										END
 								');
 
                             PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE CreateDeal CREATED';
