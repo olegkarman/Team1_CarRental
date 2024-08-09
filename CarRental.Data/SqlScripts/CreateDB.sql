@@ -1906,6 +1906,17 @@ EXECUTE
 					@totalCost,
 					@technicalInfo
 				);
+
+			SELECT Id,
+					Date,
+					CarId,
+					VinCode,
+					MechanicId,
+					IsSuccessfull,
+					TotalCost,
+					TechnicalInfo
+				FROM Repairs
+				WHERE Id = @id;
 ');
 
 EXECUTE
