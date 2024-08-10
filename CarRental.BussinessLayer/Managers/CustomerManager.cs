@@ -32,7 +32,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
-        public void AddCustomerIntoDatabase(Customer customer, string connectionString)
+        public async Task AddCustomerIntoDatabase(Customer customer, string connectionString)
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
@@ -59,7 +59,7 @@ namespace CarRental.BussinessLayer.Managers
                 //Category = CustomerTemp.Category
             };
 
-            connection.Execute(sqlStoredProcedureName, arguments);
+            await connection.ExecuteAsync(sqlStoredProcedureName, arguments);
 
             DapperContext.CloseConnection(connection);
         }
@@ -93,6 +93,42 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
+        public async Task<Customer> GetCustomerById(string id, string connectionString) 
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            var sqlStoredProcedureName = "GetCustomerById";
+
+            object parameter = new
+            {
+                Id = id
+            };
+
+            var customer = await connection.QueryAsync(sqlStoredProcedureName, parameter);
+            DapperContext.CloseConnection(connection);
+            return customer.FirstOrDefault();
+
+        }
+        public void DeleteCustomerById(string id, string connectionString)
+        {
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            string SqlStoredProcedureName = "DeleteCustomerById";
+
+            object parameter = new
+            {
+                Id = id
+            };
+
+            connection.Execute(SqlStoredProcedureName, parameter);
+            DapperContext.CloseConnection(connection);
+        }
+
+
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
+        // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
+
+   
         public Deal BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
             try
