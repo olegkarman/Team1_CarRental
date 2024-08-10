@@ -7,9 +7,9 @@ using FluentMigrator;
 
 namespace CarRentalData.Migrations
 {
-    [Migration(202407080002)]
+    [Migration(202407090002)]
 
-    public class InitialTables_202407080002 : Migration
+    public class InitialTables_202407090002 : Migration
     {
         public override void Up()
         {
@@ -25,10 +25,9 @@ namespace CarRentalData.Migrations
                         BEGIN
                             CREATE TABLE TransportStatuses
                             (
-                                Id INT IDENTITY(1, 1) NOT NULL,
-                                CONSTRAINT PK_TransportStatuses_Id
-                                    PRIMARY KEY (Id),
                                 Number INT NOT NULL,
+                                CONSTRAINT PK_TransportStatuses_Number
+                                    PRIMARY KEY (Number),
                                 Status NVARCHAR(50) NOT NULL
                             );
 

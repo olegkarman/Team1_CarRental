@@ -33,7 +33,7 @@ public class HostManager
                         c => c.AddSqlServer2012()
                         .WithGlobalConnectionString(connectionString)
                         .ScanIn(assembly).For.Migrations()
-                        );
+                    );
                 }
             );
 

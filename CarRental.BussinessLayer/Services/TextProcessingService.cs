@@ -98,19 +98,19 @@ namespace CarRental.BussinessLayer.Services
                     carInfo = Regex.Replace(carInfo, status, "1");
                     break;
                 case "InRepair":
-                    carInfo = Regex.Replace(carInfo, status, "2");
-                    break;
-                case "Rented":
-                    carInfo = Regex.Replace(carInfo, status, "3");
-                    break;
-                case "Sold":
                     carInfo = Regex.Replace(carInfo, status, "4");
                     break;
+                case "Rented":
+                    carInfo = Regex.Replace(carInfo, status, "2");
+                    break;
+                case "Sold":
+                    carInfo = Regex.Replace(carInfo, status, "3");
+                    break;
                 case "Unavailable":
-                    carInfo = Regex.Replace(carInfo, status, "5");
+                    carInfo = Regex.Replace(carInfo, status, "200");
                     break;
                 case "Unknown":
-                    carInfo = Regex.Replace(carInfo, status, "6");
+                    carInfo = Regex.Replace(carInfo, status, "0");
                     break;
             }
             carInfo = Regex.Replace(carInfo, _carInfoBulkPatternAdditional, String.Empty);

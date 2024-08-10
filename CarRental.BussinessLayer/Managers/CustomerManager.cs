@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CarRental.Data.Models.RecordTypes;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using System.Diagnostics;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -35,7 +36,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CreateCustomer";
+            string sqlStoredProcedureName = "CreateCustomer";
 
             string id = customer.IdNumber.ToUpper();
 
@@ -58,7 +59,7 @@ namespace CarRental.BussinessLayer.Managers
                 //Category = CustomerTemp.Category
             };
 
-            connection.Execute(SqlStoredProcedureName, arguments);
+            connection.Execute(sqlStoredProcedureName, arguments);
 
             DapperContext.CloseConnection(connection);
         }
@@ -67,14 +68,14 @@ namespace CarRental.BussinessLayer.Managers
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CheckIfCustomerEntryExist";
+            string sqlStoredProcedureName = "CheckIfCustomerEntryExist";
 
             object parameter = new
             {
                 Id = id
             };
 
-            int result = connection.ExecuteScalar<int>(SqlStoredProcedureName, parameter);
+            int result = connection.Query<int>(sqlStoredProcedureName, parameter).SingleOrDefault();
 
             DapperContext.CloseConnection(connection);
 
@@ -128,49 +129,52 @@ namespace CarRental.BussinessLayer.Managers
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
         public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
+        public Deal BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
-            // NULL-VALIDATION SHOULD BE.
-            // THIS IS WORK OF DEAL-MANAGER, NOT CUSTOMER MANAGER.
-            // Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "purchase", car.Price);
-            // CUSTOMER FIRST NAME — TRANSITIVE DEPENDANCY IN DB.
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "purchase", car.Price);
-            car.Status = Data.Enums.TransportStatus.Sold;
+            try
+            {
+                Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, dealType, car.Price);
+                car.Status = Data.Enums.TransportStatus.Sold;
 
-            dealManager.AddDealIntoDatabase(newDeal, connectionString);
+                dealManager.AddDealInToList(customer.Deals, newDeal);
 
-            // FIRST CHANGE THE STATUS, THEN ADD A CAR-INSTANCE INTO DEAL, ETC...
-            //customer.Deals.Add(newDeal);
-            dealManager.AddDealInToList(customer.Deals, newDeal);
+                serviceManager.AddDealToCar(car, newDeal);
 
-            serviceManager.AddDealToCar(car, newDeal); 
+                AddCarInToCustomer(customer, car);
 
-            AddCarInToCustomer(customer, car);
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            // THERE SHOULD BE UPDATE CAR-INSTANCE IN THE DATABASE.
+                string sqlProcedureName = "BuyRentCar";
 
-            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
-            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
+                string dealId = newDeal.Id.ToString().ToUpper();
+                string carId = car.CarId.ToString().ToUpper();
+                string customerId = customer.IdNumber.ToString().ToUpper();
 
-        }
+                var arguments = new
+                {
+                    @dealId = dealId,
+                    @carId = carId,
+                    @vinCode = car.VinCode,
+                    @customerId = customerId,
+                    @price = car.Price,
+                    @dealType = dealType,
+                    @name = newDeal.Name
+                };
 
-        public void RentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
-        {
-            //Deal newDeal = new Deal(customer.PassportNumber, car.VinCode, "rental", car.Price);
-            Deal newDeal = dealManager.GetNewDeal(customer.FirstName, customer.IdNumber, car.VinCode, car.CarId, "rental", car.Price);
+                Deal deal = connection.Query<Deal>(sqlProcedureName, arguments).SingleOrDefault();
 
-            car.Status = Data.Enums.TransportStatus.Rented; // CALL CAR-MANAGER INSTED.
+                DapperContext.CloseConnection(connection);
 
-            dealManager.AddDealIntoDatabase(newDeal, connectionString);
-
-            //customer.Deals.Add(newDeal);
-            dealManager.AddDealInToList(customer.Deals, newDeal);
-
-            serviceManager.AddDealToCar(car, newDeal);
-
-            AddCarInToCustomer(customer, car);
-
-            serviceManager.ChangeCarOwnershipInDatabase(car.CarId, customer.IdNumber, connectionString);
-            serviceManager.ChangeCarDealshipInDatabase(car.CarId, newDeal.Id, connectionString);
+                return deal;
+            }
+            catch(SqlException)
+            {
+                throw;
+            }
+            catch(InvalidOperationException)
+            {
+                throw;
+            }
         }
 
         public void ShowMyDeals(Customer customer)
@@ -181,7 +185,6 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
-        // WITH HELP OF STRING BUILDER IT GOING TO BE EASIER FOR PERFORMANCE.
         public string ShowCars(Customer customer, ServiceManager serviceManager)
         {
             StringBuilder displayBuilder = new StringBuilder();
@@ -214,8 +217,6 @@ namespace CarRental.BussinessLayer.Managers
 
         public void AddCarInToCustomer(Customer customer, Car car)
         {
-            // SHOULD BE SOME VALIDATION THERE. NULL-VALIDATION FOR AN EXAMPLE, BUT FROM A SEPARATE VALIDATOR-CLASS.
-
             customer.Cars.Add(car);
         }
     }

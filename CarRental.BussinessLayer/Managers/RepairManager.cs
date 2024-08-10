@@ -7,6 +7,8 @@ using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models.Automobile.RecordTypes;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -18,6 +20,7 @@ namespace CarRental.BussinessLayer.Managers
 
         internal NullValidation NullValidator { get; init; }
         internal IndexOfListValidation IndexValidator { get; init; }
+        internal DatabaseContextDapper DataContext { get; init; }
 
         // PROPERTIES
 
@@ -27,10 +30,18 @@ namespace CarRental.BussinessLayer.Managers
 
         // CREATE
 
-        public Repair GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull)
+        public Repair? GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
         {
             NullValidator.CheckNull(car);
             NullValidator.CheckNull(mechanic);
+
+            char[] infoArray = car.ToString().ToCharArray();
+
+            Random random = new Random();
+
+            random.Shuffle<char>(infoArray);
+
+            string technicalInfo = new String(infoArray);
 
             Repair repair = new Repair
             {
@@ -41,14 +52,45 @@ namespace CarRental.BussinessLayer.Managers
                  CarModel = car.Model,
                  MechanicName = mechanic.Name,
                  MechanicId = mechanic.Id,
-                 TechnicalInfo = car.ToString(),
+                 TechnicalInfo = technicalInfo,
                  IsSuccessfull = isSuccessfull,
                  TotalCost = (car.Price / 3)
             };
 
             NullValidator.CheckNull(repair);
 
-            return repair;
+            try
+            {
+                SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+                string storedProcedureName = "CreateRepair";
+
+                var objectArguments = new
+                {
+                    id = repair.Id,
+                    date = repair.Date,
+                    carId = repair.CarId,
+                    vinCode = car.VinCode,
+                    mechanicId = repair.MechanicId,
+                    isSuccessfull = repair.IsSuccessfull,
+                    totalCost = repair.TotalCost,
+                    technicalInfo = repair.TechnicalInfo
+                };
+
+                repair = connection.Query<Repair>(storedProcedureName, objectArguments).SingleOrDefault();
+
+                DataContext.CloseConnection(connection);
+
+                return repair;
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
         }
 
         public void AddRepairInToList(List<Repair> repairs, Repair repair)
@@ -75,7 +117,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             NullValidator.CheckNull(repairs);
 
-            Repair repair = repairs.Find(x => (x.Id.CompareTo(id) == 0));
+            Repair repair = repairs.Find(x => (x.Id == id));
 
             NullValidator.CheckNull(repair);
 
@@ -84,8 +126,6 @@ namespace CarRental.BussinessLayer.Managers
 
         public string ShowRepairInfo(Repair repair)
         {
-            NullValidator.CheckNull(repair);
-
             return repair.ToString();
         }
 
@@ -103,7 +143,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             NullValidator.CheckNull(repairs);
 
-            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id.CompareTo(id) == 0)));
+            repairs.RemoveAt(repairs.IndexOf(repairs.Find(x => x.Id == id)));
         }
     }
 }

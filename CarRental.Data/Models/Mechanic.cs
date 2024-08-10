@@ -20,9 +20,14 @@ namespace CarRental.Data.Models
         public string Name { get; set; }
         public string Surename { get; set; }
 
-        public List<Repair> Repairs { get; set; }
+        public List<Repair?> Repairs { get; set; }
 
         // CONSTRUCTORS
+
+        public Mechanic()
+        {
+            Repairs = new List<Repair?>();
+        }
 
         // METHODS
 

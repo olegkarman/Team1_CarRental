@@ -5,10 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using CarRental.Data.Models;
 using CarRental.Data.Enums;
+using CarRental.Data.Managers;
 using CarRental.BussinessLayer.Validators;
 using CarRental.BussinessLayer.Services;
 using System.Xml.Linq;
 using CarRental.Data.Models.Automobile.RecordTypes;
+using Microsoft.Data.SqlClient;
+using CarRental.Data.Models.Automobile;
+using Dapper;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -17,12 +21,16 @@ namespace CarRental.BussinessLayer.Managers
         // FIELDS
 
         private const string _noInfo = "NO INFORMATION";
+
+        // PROPERTIES
+
         internal UpdatedNameValidator Validator { get; init; }
         internal TextProcessingService TextProcessor { get; init; }
         internal AgeValidator AgeValidator { get; init; }
         internal NullValidation NullValidator { get; init; }
         internal IndexOfListValidation IndexValidator { get; init; }
         internal Random PseudoRandom;
+        internal DatabaseContextDapper DataContext { get; init; }
 
         // PROPERTIES
 
@@ -38,6 +46,55 @@ namespace CarRental.BussinessLayer.Managers
         // METHODS
 
         // CREATE
+
+        public Mechanic? GetMechanicFromDatabase(Guid guid, string connectionString)
+        {
+            try
+            {
+                SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+                string sqlStoredProcedureName = "GetMechanic";
+
+                string id = guid.ToString().ToUpper();
+
+                var parameter = new
+                {
+                    Id = id
+                };
+
+                List<Mechanic> mechanics = new List<Mechanic>
+                (
+                    connection.Query<Mechanic, Repair?, Mechanic>
+                    (
+                        sqlStoredProcedureName,
+                        (mechanic, repair) =>
+                        {
+                            mechanic.Repairs.Add(repair);
+                            
+                            return mechanic;
+                        },
+                        parameter,
+                        splitOn: "repairId"
+                    )
+                );
+
+                Mechanic? mechanic = mechanics.FirstOrDefault();
+
+                mechanic.Repairs = mechanics.Select(m => m.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
+
+                DataContext.CloseConnection(connection);
+
+                return mechanic;
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+        }
 
         public Mechanic GetNewMechanic(int year, string name, string surename)
         {
