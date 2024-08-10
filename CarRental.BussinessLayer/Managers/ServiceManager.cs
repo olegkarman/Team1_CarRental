@@ -338,12 +338,12 @@ public class ServiceManager : ICarManager
         AddCarsIntoDatabase(CurrentCars, connectionString);
     }
 
-    public void BulkAddCurrentCarsIntoDatabase(string connectionString)
+    public async Task<bool> BulkAddCurrentCarsIntoDatabase(string connectionString)
     {
-        BulkAddCarsIntoDatabase(CurrentCars, connectionString);
+       return await BulkAddCarsIntoDatabase(CurrentCars, connectionString);
     }
 
-    public bool BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
+    public async Task<bool> BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
     {
         try
         {

@@ -48,7 +48,7 @@ namespace CarRental.BussinessLayer.Managers
             };
         }
 
-        public void StartMainMenu(string connectionString, bool bulkInsertFlag)
+        public async void StartMainMenu(string connectionString, bool bulkInsertFlag)
         {
             _carServiceManager.InitializeManagment();
 
@@ -71,25 +71,14 @@ namespace CarRental.BussinessLayer.Managers
 
             _carServiceManager.GetNewRandomCurrentCars(15);
 
-            // BULKINSERT TEST-SECTION
-
-            //foreach (Car car in _carServiceManager.CurrentCars)
-            //{
-            //    Console.WriteLine(car);
-            //}
-
             if (bulkInsertFlag)
             {
-                _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
+                await _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
             }
             else
             {
                 _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
             }
-
-            // END OF TEST-SECTION
-
-            //_carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
 
             // COPY CARS FROM A DATABASE TO THE CUSTOMERINSTANCE CORRESPONDING PROPERTY.
             if (_portalInstance.IsCustomer)
