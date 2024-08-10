@@ -3,6 +3,7 @@ using CarRental.Data.Models;
 using CarRental.BussinessLayer.Interfaces;
 using System;
 using System.Text;
+using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Validators;
 using System.Drawing;
@@ -15,6 +16,8 @@ namespace CarRental.BussinessLayer.Managers
 {
     public class PortalManager
     {
+        // FIELDS
+
         private Portal _portalInstance;
         private IOutputManager _outputManager;
         private ServiceManager _carServiceManager;
@@ -23,6 +26,8 @@ namespace CarRental.BussinessLayer.Managers
         private InspectionsManager _inspectionsManager;
         private DealManager _dealManager;
         private BrandManager _brandManager;
+
+        // CONSTRUCTORS
 
         public PortalManager() { }
         public PortalManager(Portal portal, IOutputManager outputManager)
@@ -48,7 +53,9 @@ namespace CarRental.BussinessLayer.Managers
             };
         }
 
-        public async void StartMainMenu(string connectionString, bool bulkInsertFlag)
+        // METHODS
+
+        public async Task StartMainMenuAsync(string connectionString, bool bulkInsertFlag)
         {
             _carServiceManager.InitializeManagment();
 
@@ -77,7 +84,7 @@ namespace CarRental.BussinessLayer.Managers
             }
             else
             {
-                _carServiceManager.AddCurrentCarsIntoDatabase(connectionString);
+                await _carServiceManager.AddCurrentCarsIntoDatabaseAsync(connectionString);
             }
 
             // COPY CARS FROM A DATABASE TO THE CUSTOMERINSTANCE CORRESPONDING PROPERTY.
@@ -85,13 +92,13 @@ namespace CarRental.BussinessLayer.Managers
             {
                 Customer customer = _portalInstance.UserData as Customer;
 
-                customer.Cars = _carServiceManager.GetAllCarsOfCustomerFromDatabase(_portalInstance.UserData.IdNumber, connectionString);
+                customer.Cars = await _carServiceManager.GetAllCarsOfCustomerFromDatabaseAsync(_portalInstance.UserData.IdNumber, connectionString);
             }
 
-            ShowMainMenu(connectionString);
+            await ShowMainMenuAsync(connectionString);
         }
 
-        public void ShowMainMenu(string connectionString)
+        public async Task ShowMainMenuAsync(string connectionString)
         {
             string patternInitialTrim = @"(?<=\{)(.*)(?=\})";
             string delimiterToSplit = "||";
@@ -145,7 +152,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "2":
                         if (_portalInstance.IsCustomer)
                         {
-                            BuyRentCarFlow(connectionString);
+                            await BuyRentCarFlowAsync(connectionString);
                         }
                         else
                         {
@@ -155,7 +162,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "3":
                         if (_portalInstance.IsCustomer)
                         {
-                            BuyRentCarFlow(connectionString, false);
+                            await BuyRentCarFlowAsync(connectionString, false);
                         }
                         else
                         {
@@ -216,7 +223,7 @@ namespace CarRental.BussinessLayer.Managers
                     case "6":
                         if (_portalInstance.IsCustomer)
                         {
-                            RepairCarFlow
+                            await RepairCarFlowAsync
                             (
                                 _customerManager,
                                 _portalInstance.UserData as Customer,
@@ -260,7 +267,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.ClearUserUI();
                 break;
             }
-            ShowMainMenu(connectionString);
+            await ShowMainMenuAsync(connectionString);
         }
 
         public void DisplayCars()
@@ -303,7 +310,7 @@ namespace CarRental.BussinessLayer.Managers
             );
         }
 
-        public void BuyRentCarFlow(string connectionString, bool buy = true)
+        public async Task BuyRentCarFlowAsync(string connectionString, bool buy = true)
         {
             _outputManager.ClearUserUI();
             DisplayCars();
@@ -314,7 +321,7 @@ namespace CarRental.BussinessLayer.Managers
                 _outputManager.PrintMessage($"Which car do you want to buy? Select from 1 to {_carServiceManager.CurrentCars.Count}");
                 string input = _outputManager.GetUserPrompt();
 
-                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count)) // FIXED 15-VALUE CONST.
+                if (int.TryParse(input, out index) && (index >= 1) && (index <= _carServiceManager.CurrentCars.Count))
                 {
                     break;
                 }
@@ -324,16 +331,16 @@ namespace CarRental.BussinessLayer.Managers
             var car = _carServiceManager.GetCarFromCurrentCars(index - 1);
             if (buy)
             {
-                _customerManager.BuyRentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, "purchase", connectionString);
+                Deal deal = await _customerManager.BuyRentCarAsync(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, "purchase", connectionString);
             }
             else
             {
-                _customerManager.BuyRentCar(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, "rental", connectionString);
+                Deal deal = await _customerManager.BuyRentCarAsync(car, _portalInstance.UserData as Customer, this._carServiceManager, this._dealManager, "rental", connectionString);
             }
             _outputManager.PrintMessage($"You have successfully {(buy ? "bought" : "rented")} a car");
             _carServiceManager.DeleteCarFromCurrentCars(index - 1);
             _outputManager.ClearUserUI();
-            ShowMainMenu(connectionString);
+            await ShowMainMenuAsync(connectionString);
         }
 
         public void InspectCarFlow()
@@ -361,7 +368,7 @@ namespace CarRental.BussinessLayer.Managers
             _outputManager.GetUserPrompt();
         }
 
-        public void RepairCarFlow
+        public async Task RepairCarFlowAsync
         (
             CustomerManager manager,
             Customer customer,
@@ -414,12 +421,10 @@ namespace CarRental.BussinessLayer.Managers
                 return;
             }
 
-            // DO I MAKE DUPLICATE OF MY OWN LOGIC???
             string inputInfo = manager.ShowCars(customer, _carServiceManager);
 
             string[] carsInfo = inputInfo.Split(delimiterToSplit); 
 
-            // UPPER BORDER OF COUNT VALIDATION??? MAYBE I WILL.
             for (int index = 0; index < carsInfo.Length; index = index + 1)
             {
                 if (string.IsNullOrEmpty(carsInfo[index]))
@@ -455,11 +460,9 @@ namespace CarRental.BussinessLayer.Managers
 
             Guid guid = new Guid(iD);
 
-            // LOOKING FOR CAR BY ITS GUID, INSTEAD OF INDEX.
             Car car = _carServiceManager.ChooseCarFromList(customer.Cars, guid);
 
             // CREATE/PICK FROM DATABASE RANDOM MECHANIC.
-
             Guid yaroslav = new Guid("0BBEF7B3-CE96-4DC6-AF5D-899106C9BFD5");
             Guid soldier = new Guid("4B445309-CBC5-4895-8E02-4BAA0001238A");
             Guid theSummoner = new Guid("5FC4F1FD-396A-42B2-B4D4-8832091108AD");
@@ -494,12 +497,10 @@ namespace CarRental.BussinessLayer.Managers
                     break;
             }
 
-            Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetMechanicFromDatabase(selectedMechanic, connectionString);
-
-            //Mechanic mechanic = _carServiceManager.SupplementData.MechanicalManager.GetNewRandomMechanic();
+            Mechanic mechanic = await _carServiceManager.SupplementData.MechanicalManager.GetMechanicFromDatabaseAsync(selectedMechanic, connectionString);
 
             // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
-            _carServiceManager.Repair(car, mechanic, connectionString);
+            await _carServiceManager.RepairAsync(car, mechanic, connectionString);
 
             bool isSuccessfull = (bool)car.IsFitForUse;
 

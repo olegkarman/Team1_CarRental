@@ -213,7 +213,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public bool AddCarsIntoDatabase(List<Car> cars, string connectionString)
+    public async Task<bool> AddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
     {
         try
         {
@@ -252,7 +252,7 @@ public class ServiceManager : ICarManager
                     statusId = status
                 };
 
-                connection.ExecuteScalar(sqlProcedureName, objectArguments);
+                await connection.ExecuteScalarAsync(sqlProcedureName, objectArguments);
             }
 
             SupplementData.DataContext.CloseConnection(connection);
@@ -261,7 +261,7 @@ public class ServiceManager : ICarManager
 
             Guid guidToCheck = cars[indexToCheck].CarId;
 
-            isAddCars = IsCarInDatabase(guidToCheck, connectionString);
+            isAddCars = await IsCarInDatabaseAsync(guidToCheck, connectionString);
 
             return isAddCars;
         }
@@ -276,11 +276,11 @@ public class ServiceManager : ICarManager
 
     }
 
-    public bool AddCarIntoDatabase(Car car, string connectionString)
+    public async Task<bool> AddCarIntoDatabaseAsync(Car car, string connectionString)
     {
         try
         {
-            bool addCar = false;
+            bool isAddCar = false;
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
@@ -313,13 +313,13 @@ public class ServiceManager : ICarManager
                 statusId = status
             };
 
-            connection.ExecuteScalar(query, objectArguments);
+            await connection.ExecuteScalarAsync(query, objectArguments);
 
             SupplementData.DataContext.CloseConnection(connection);
 
-            addCar = IsCarInDatabase(car.CarId, connectionString);
+            isAddCar = await IsCarInDatabaseAsync(car.CarId, connectionString);
 
-            return addCar;
+            return isAddCar;
         }
         catch(SqlException)
         {
@@ -331,11 +331,11 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public void AddCurrentCarsIntoDatabase(string connectionString)
+    public async Task<bool> AddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
         SupplementData.NullValidator.CheckNull(this.CurrentCars);
 
-        AddCarsIntoDatabase(CurrentCars, connectionString);
+        return await AddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
     public async Task<bool> BulkAddCurrentCarsIntoDatabaseAsync(string connectionString)
@@ -360,7 +360,7 @@ public class ServiceManager : ICarManager
                 .Map(car => (int?)car.Status, "StatusId")
                 .AutoMap();
 
-            connection.BulkInsertAsync(cars);
+            await connection.BulkInsertAsync(cars);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -376,7 +376,7 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    public bool IsCarInDatabase(Guid guid, string connectionString)
+    public async Task<bool> IsCarInDatabaseAsync(Guid guid, string connectionString)
     {
         try
         {
@@ -391,7 +391,7 @@ public class ServiceManager : ICarManager
                 Id = id
             };
 
-            int sqlOutput = connection.ExecuteScalar<int>(sqlStoredProcedureName, parameter);
+            int sqlOutput = await connection.ExecuteScalarAsync<int>(sqlStoredProcedureName, parameter);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -409,7 +409,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public List<Car> GetAllCarsOfCustomerFromDatabase(string customerId, string connectionString)
+    public async Task<List<Car>> GetAllCarsOfCustomerFromDatabaseAsync(string customerId, string connectionString)
     {
         try
         {
@@ -425,7 +425,7 @@ public class ServiceManager : ICarManager
 
             List<Car> cars = new List<Car>
             (
-                connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+                await connection.QueryAsync<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
                 (
                    sqlStoredProcedureName,
                    (car, customerTemp, deal, inspection, repair) =>
@@ -471,7 +471,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public Car? GetCarFromDatabase(Guid id, string connectionString)
+    public async Task<Car?> GetCarFromDatabaseAsync(Guid id, string connectionString)
     {
         try
         {
@@ -487,7 +487,7 @@ public class ServiceManager : ICarManager
 
             List<Car> cars = new List<Car>
             (
-                connection.Query<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
+                await connection.QueryAsync<Car, CustomerTemp?, Deal?, Inspection?, Repair?, Car>
                 (
                    SqlStoredProcedureName,
                    (car, customerTemp, deal, inspection, repair) =>
@@ -884,7 +884,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public bool ChangeCarDealshipInDatabase(Guid carGuid, Guid dealId, string connectionString)
+    public async Task<bool> ChangeCarDealshipInDatabaseAsync(Guid carGuid, Guid dealId, string connectionString)
     {
         try
         {
@@ -909,7 +909,7 @@ public class ServiceManager : ICarManager
                     WHERE CarId = @carId;
             ";
 
-            connection.Execute(sqlStatement, arguments);
+            await connection.ExecuteAsync(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -928,7 +928,7 @@ public class ServiceManager : ICarManager
 
     }
 
-    public bool ChangeCarOwnershipInDatabase(Guid carGuid, string customerId, string connectionString)
+    public async Task<bool> ChangeCarOwnershipInDatabaseAsync(Guid carGuid, string customerId, string connectionString)
     {
         try
         {
@@ -953,7 +953,7 @@ public class ServiceManager : ICarManager
                     WHERE CarId = @carId;
             ";
 
-            connection.Execute(sqlStatement, arguments);
+            await connection.ExecuteAsync(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -1174,7 +1174,7 @@ public class ServiceManager : ICarManager
         car.Owner = owner;
     }
 
-    public void Repair(Car car, Mechanic mechanic, string connectionString)
+    public async Task RepairAsync(Car car, Mechanic mechanic, string connectionString)
     {
         SupplementData.NullValidator.CheckNull(car);
 
@@ -1197,13 +1197,13 @@ public class ServiceManager : ICarManager
 
                 car.Status = (TransportStatus)1;
 
-                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
+                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
             }
             else if (chance < 2)
             {
                 isSuccessfull = false;
 
-                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
+                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
             }
         }
         else if (!isFitForUse)
@@ -1216,20 +1216,20 @@ public class ServiceManager : ICarManager
 
                 car.IsFitForUse = isSuccessfull;
 
-                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
+                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
             }
             else
             {
                 isSuccessfull = false;
 
-                InscribeRepair(car, mechanic, isSuccessfull, connectionString);
+                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
             }
         }
     }
 
-    public void InscribeRepair(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
+    public async Task InscribeRepairAsync(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
     {
-        Repair repair = SupplementData.JunkRepairManager.GetNewRepair(car, mechanic, isSuccessfull, connectionString);
+        Repair repair = await SupplementData.JunkRepairManager.GetNewRepairAsync(car, mechanic, isSuccessfull, connectionString);
 
         AddRepairInToCar(car, repair);
 

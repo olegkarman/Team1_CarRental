@@ -30,7 +30,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // CREATE
 
-        public Repair? GetNewRepair(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
+        public async Task<Repair?> GetNewRepairAsync(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
         {
             NullValidator.CheckNull(car);
             NullValidator.CheckNull(mechanic);
@@ -77,7 +77,9 @@ namespace CarRental.BussinessLayer.Managers
                     technicalInfo = repair.TechnicalInfo
                 };
 
-                repair = connection.Query<Repair>(storedProcedureName, objectArguments).SingleOrDefault();
+                List<Repair> repairs = new List<Repair>(await connection.QueryAsync<Repair>(storedProcedureName, objectArguments));
+
+                repair = repairs.SingleOrDefault();
 
                 DataContext.CloseConnection(connection);
 

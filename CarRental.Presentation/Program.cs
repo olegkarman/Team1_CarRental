@@ -20,7 +20,7 @@ namespace CarRental.Presentation;
 
 class CarRentalPortal
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         // CONFIGURATION BLOCK
 
@@ -52,7 +52,7 @@ class CarRentalPortal
         var portal = new Portal(user, isCustomer);
         var portalManager = new PortalManager(portal, consoleOutput);
         ConsoleHelper.ConsoleHelper.ClearConsoleWithDelay(2);
-        portalManager.StartMainMenu(connectionString, isBulkInsertAllowed);
+        await portalManager.StartMainMenuAsync(connectionString, isBulkInsertAllowed);
 
         // END OF BLOCK
 

@@ -40,7 +40,6 @@ namespace CarRental.BussinessLayer.Managers
 
             string id = customer.IdNumber.ToUpper();
 
-            // SHOULD MOVE THIS LOGIC TO SEPARATE CLASS.
             string encryptedPassword = customer.Password + "f328373f";
 
             encryptedPassword = encryptedPassword.GetHashCode().ToString();
@@ -93,7 +92,7 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
-        public Deal BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
+        public async Task<Deal> BuyRentCarAsync(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
             try
             {
@@ -125,7 +124,10 @@ namespace CarRental.BussinessLayer.Managers
                     @name = newDeal.Name
                 };
 
-                Deal deal = connection.Query<Deal>(sqlProcedureName, arguments).SingleOrDefault();
+                // SingleOrDefault()-METHOD DOES NOT WORK WITH await KEYWORD.
+                List<Deal> deals = new List<Deal>(await connection.QueryAsync<Deal>(sqlProcedureName, arguments));
+
+                Deal deal = deals.SingleOrDefault();
 
                 DapperContext.CloseConnection(connection);
 
@@ -153,7 +155,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             StringBuilder displayBuilder = new StringBuilder();
 
-            if (customer.Cars != null)  // ACTUALLY VALIDATION IS BETTER TO SPARE INTO A SEPARATE CLASS, BUT I DO NOT WANT TOO MUCH REWRITE THE CLASS WHICH IS NOT MINE.
+            if (customer.Cars != null)
             {
                 foreach (Car? car in customer.Cars)
                 {
