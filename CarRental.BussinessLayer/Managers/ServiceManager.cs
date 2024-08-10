@@ -338,12 +338,12 @@ public class ServiceManager : ICarManager
         AddCarsIntoDatabase(CurrentCars, connectionString);
     }
 
-    public async Task<bool> BulkAddCurrentCarsIntoDatabase(string connectionString)
+    public async Task<bool> BulkAddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
-       return await BulkAddCarsIntoDatabase(CurrentCars, connectionString);
+       return await BulkAddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
-    public async Task<bool> BulkAddCarsIntoDatabase(List<Car> cars, string connectionString)
+    public async Task<bool> BulkAddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
     {
         try
         {
@@ -360,7 +360,7 @@ public class ServiceManager : ICarManager
                 .Map(car => (int?)car.Status, "StatusId")
                 .AutoMap();
 
-            connection.BulkInsert(cars);
+            connection.BulkInsertAsync(cars);
 
             SupplementData.DataContext.CloseConnection(connection);
 

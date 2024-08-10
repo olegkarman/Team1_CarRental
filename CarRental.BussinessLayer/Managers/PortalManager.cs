@@ -73,7 +73,7 @@ namespace CarRental.BussinessLayer.Managers
 
             if (bulkInsertFlag)
             {
-                await _carServiceManager.BulkAddCurrentCarsIntoDatabase(connectionString);
+                await _carServiceManager.BulkAddCurrentCarsIntoDatabaseAsync(connectionString);
             }
             else
             {
