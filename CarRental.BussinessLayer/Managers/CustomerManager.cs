@@ -32,7 +32,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
-        public void AddCustomerIntoDatabase(Customer customer, string connectionString)
+        public async Task AddCustomerIntoDatabase(Customer customer, string connectionString)
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
@@ -59,7 +59,7 @@ namespace CarRental.BussinessLayer.Managers
                 //Category = CustomerTemp.Category
             };
 
-            connection.Execute(sqlStoredProcedureName, arguments);
+            await connection.ExecuteAsync(sqlStoredProcedureName, arguments);
 
             DapperContext.CloseConnection(connection);
         }
@@ -93,18 +93,18 @@ namespace CarRental.BussinessLayer.Managers
             }
         }
 
-        public Customer GetCustomerById(string id, string connectionString) 
+        public async Task<Customer> GetCustomerById(string id, string connectionString) 
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "GetCustomerById";
+            var sqlStoredProcedureName = "GetCustomerById";
 
             object parameter = new
             {
                 Id = id
             };
 
-            var customer = connection.Query(SqlStoredProcedureName, parameter);
+            var customer = await connection.QueryAsync(sqlStoredProcedureName, parameter);
             DapperContext.CloseConnection(connection);
             return customer.FirstOrDefault();
 
@@ -128,7 +128,7 @@ namespace CarRental.BussinessLayer.Managers
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
         // WHERE IS SO-CALLED 'CRUD' FOR THE CUSTOMER-INSTANCE??? NEVERMIND...
 
-        public void BuyCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string connectionString)
+   
         public Deal BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
             try
