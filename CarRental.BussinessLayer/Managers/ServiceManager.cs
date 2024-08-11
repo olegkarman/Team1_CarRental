@@ -213,7 +213,7 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public async Task<bool> AddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
+    public async ValueTask<bool> AddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
     {
         try
         {
@@ -273,10 +273,14 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
 
     }
 
-    public async Task<bool> AddCarIntoDatabaseAsync(Car car, string connectionString)
+    public async ValueTask<bool> AddCarIntoDatabaseAsync(Car car, string connectionString)
     {
         try
         {
@@ -329,21 +333,25 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
     }
 
-    public async Task<bool> AddCurrentCarsIntoDatabaseAsync(string connectionString)
+    public async ValueTask<bool> AddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
         SupplementData.NullValidator.CheckNull(this.CurrentCars);
 
         return await AddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
-    public async Task<bool> BulkAddCurrentCarsIntoDatabaseAsync(string connectionString)
+    public async ValueTask<bool> BulkAddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
        return await BulkAddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
-    public async Task<bool> BulkAddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
+    public async ValueTask<bool> BulkAddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
     {
         try
         {
@@ -372,11 +380,15 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
     }
 
     // RETRIVE
 
-    public async Task<bool> IsCarInDatabaseAsync(Guid guid, string connectionString)
+    public async ValueTask<bool> IsCarInDatabaseAsync(Guid guid, string connectionString)
     {
         try
         {
@@ -404,6 +416,10 @@ public class ServiceManager : ICarManager
             throw;
         }
         catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
         {
             throw;
         }
@@ -469,6 +485,10 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
     }
 
     public async Task<Car?> GetCarFromDatabaseAsync(Guid id, string connectionString)
@@ -519,6 +539,10 @@ public class ServiceManager : ICarManager
             throw;
         }
         catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
         {
             throw;
         }
@@ -805,7 +829,7 @@ public class ServiceManager : ICarManager
 
     // UPDATE
 
-    public bool ChangeCarStatusId(Guid carGuid, TransportStatus? status, string connectionString)
+    public async ValueTask<bool> ChangeCarStatusIdAsync(Guid carGuid, TransportStatus? status, string connectionString)
     {
         try
         {
@@ -830,7 +854,7 @@ public class ServiceManager : ICarManager
                     WHERE CarId = @carId;
             ";
 
-            connection.Execute(sqlStatement, arguments);
+            await connection.ExecuteAsync(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -846,9 +870,13 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
     }
 
-    public bool ChangeCarIsFitForUse(Guid carGuid, bool isFitForUse, string connectionString)
+    public async ValueTask<bool> ChangeCarIsFitForUseAsync(Guid carGuid, bool isFitForUse, string connectionString)
     {
         try
         {
@@ -866,7 +894,7 @@ public class ServiceManager : ICarManager
 
             string sqlStatement = @"UpdateCarIsFitForUse";
 
-            connection.Execute(sqlStatement, arguments);
+            await connection.ExecuteAsync(sqlStatement, arguments);
 
             SupplementData.DataContext.CloseConnection(connection);
 
@@ -882,9 +910,13 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
     }
 
-    public async Task<bool> ChangeCarDealshipInDatabaseAsync(Guid carGuid, Guid dealId, string connectionString)
+    public async ValueTask<bool> ChangeCarDealshipInDatabaseAsync(Guid carGuid, Guid dealId, string connectionString)
     {
         try
         {
@@ -925,14 +957,18 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (AggregateException)
+        {
+            throw;
+        }
 
     }
 
-    public async Task<bool> ChangeCarOwnershipInDatabaseAsync(Guid carGuid, string customerId, string connectionString)
+    public async ValueTask<bool> ChangeCarOwnershipInDatabaseAsync(Guid carGuid, string customerId, string connectionString)
     {
         try
         {
-            bool updateOwnership = false;
+            bool isUpdateOwnership = false;
 
             SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
@@ -957,15 +993,19 @@ public class ServiceManager : ICarManager
 
             SupplementData.DataContext.CloseConnection(connection);
 
-            updateOwnership = true;
+            isUpdateOwnership = true;
 
-            return updateOwnership;
+            return isUpdateOwnership;
         }
         catch (SqlException)
         {
             throw;
         }
         catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch(AggregateException)
         {
             throw;
         }

@@ -93,6 +93,10 @@ namespace CarRental.BussinessLayer.Managers
             {
                 throw;
             }
+            catch (AggregateException)
+            {
+                throw;
+            }
         }
 
         public void AddRepairInToList(List<Repair> repairs, Repair repair)

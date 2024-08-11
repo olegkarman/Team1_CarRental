@@ -66,13 +66,13 @@ namespace CarRental.BussinessLayer.Managers
             // IF CUSTOMER IS NOT EXISTS IN A DATABSE, ADD IT THEN.
             if (_portalInstance.IsCustomer)
             {
-                bool isCustomerInDb = (bool)_customerManager.IsCustomerInDatabase(_portalInstance.UserData.IdNumber, connectionString);
+                bool isCustomerInDb = await _customerManager.IsCustomerInDatabaseAsync(_portalInstance.UserData.IdNumber, connectionString);
 
                 if (!isCustomerInDb)
                 {
                     Customer customer = _portalInstance.UserData as Customer;
 
-                    _customerManager.AddCustomerIntoDatabase(customer, connectionString);
+                    await _customerManager.AddCustomerIntoDatabaseAsync(customer, connectionString);
                 }
             }
 
@@ -504,7 +504,7 @@ namespace CarRental.BussinessLayer.Managers
 
             bool isSuccessfull = (bool)car.IsFitForUse;
 
-            _carServiceManager.ChangeCarIsFitForUse(car.CarId, isSuccessfull, connectionString);
+            await _carServiceManager.ChangeCarIsFitForUseAsync(car.CarId, isSuccessfull, connectionString);
 
             if (isSuccessfull)
             {

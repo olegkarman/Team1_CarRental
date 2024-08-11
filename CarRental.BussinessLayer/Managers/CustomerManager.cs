@@ -32,63 +32,70 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
-        public void AddCustomerIntoDatabase(Customer customer, string connectionString)
+        public async Task AddCustomerIntoDatabaseAsync(Customer customer, string connectionString)
         {
-            SqlConnection connection = DapperContext.OpenConnection(connectionString);
-
-            string sqlStoredProcedureName = "CreateCustomer";
-
-            string id = customer.IdNumber.ToUpper();
-
-            string encryptedPassword = customer.Password + "f328373f";
-
-            encryptedPassword = encryptedPassword.GetHashCode().ToString();
-
-            object arguments = new
+            try
             {
-                IdNumber = id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                DateOfBirth = customer.DateOfBirth,
-                UserName = customer.UserName,
-                Password = encryptedPassword,
-                PassportNumber = customer.PassportNumber,
-                DrivingLicenseNumber = customer.DrivingLicenseNumber,
-                BasicDiscount = Customer.BasicDiscount
-                //Category = CustomerTemp.Category
-            };
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            connection.Execute(sqlStoredProcedureName, arguments);
+                string sqlStoredProcedureName = "CreateCustomer";
 
-            DapperContext.CloseConnection(connection);
+                string id = customer.IdNumber.ToUpper();
+
+                string encryptedPassword = customer.Password + "f328373f";
+
+                encryptedPassword = encryptedPassword.GetHashCode().ToString();
+
+                object arguments = new
+                {
+                    IdNumber = id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    DateOfBirth = customer.DateOfBirth,
+                    UserName = customer.UserName,
+                    Password = encryptedPassword,
+                    PassportNumber = customer.PassportNumber,
+                    DrivingLicenseNumber = customer.DrivingLicenseNumber,
+                    BasicDiscount = Customer.BasicDiscount
+                    //Category = CustomerTemp.Category
+                };
+
+                await connection.ExecuteAsync(sqlStoredProcedureName, arguments);
+
+                DapperContext.CloseConnection(connection);
+            }
+            catch (AggregateException)
+            {
+                throw;
+            }
         }
 
-        public bool? IsCustomerInDatabase(string id, string connectionString)
+        public async ValueTask<bool> IsCustomerInDatabaseAsync(string id, string connectionString)
         {
-            SqlConnection connection = DapperContext.OpenConnection(connectionString);
-
-            string sqlStoredProcedureName = "CheckIfCustomerEntryExist";
-
-            object parameter = new
+            try
             {
-                Id = id
-            };
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            int result = connection.Query<int>(sqlStoredProcedureName, parameter).SingleOrDefault();
+                string sqlStoredProcedureName = "CheckIfCustomerEntryExist";
 
-            DapperContext.CloseConnection(connection);
+                object parameter = new
+                {
+                    Id = id
+                };
 
-            if (result == 1)
-            {
-                return true;
+                List<int> results = new List<int>(await connection.QueryAsync<int>(sqlStoredProcedureName, parameter));
+
+                int result = results.SingleOrDefault();
+
+                DapperContext.CloseConnection(connection);
+
+                bool isCustomerEntryExist = (result == 1) ? true : false;
+
+                return isCustomerEntryExist;
             }
-            else if (result == 0)
+            catch (AggregateException)
             {
-                return false;
-            }
-            else
-            {
-                return null;
+                throw;
             }
         }
 
