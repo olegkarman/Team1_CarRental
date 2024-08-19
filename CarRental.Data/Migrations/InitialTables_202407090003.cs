@@ -25,10 +25,9 @@ namespace CarRentalData.Migrations
                         BEGIN
                             CREATE TABLE InspectionStatuses
                             (
-                                Id INT IDENTITY(1, 1) NOT NULL,
-                                CONSTRAINT PK_InspectionStatuses_Id
-                                    PRIMARY KEY (Id),
                                 Number INT NOT NULL,
+                                CONSTRAINT PK_InspectionStatuses_Number
+                                    PRIMARY KEY (Number),
                                 Status NVARCHAR(50) NOT NULL
                             );
 
