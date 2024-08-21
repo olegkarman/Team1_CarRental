@@ -68,6 +68,12 @@ namespace CarRental.BussinessLayer.Managers
             {
                 throw;
             }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
+                throw;
+            }
         }
 
         public async ValueTask<bool> IsCustomerInDatabaseAsync(string id, string connectionString)
@@ -95,6 +101,12 @@ namespace CarRental.BussinessLayer.Managers
             }
             catch (AggregateException)
             {
+                throw;
+            }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
                 throw;
             }
         }
@@ -146,6 +158,12 @@ namespace CarRental.BussinessLayer.Managers
             }
             catch(InvalidOperationException)
             {
+                throw;
+            }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
                 throw;
             }
         }

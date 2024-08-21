@@ -277,7 +277,12 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
 
+            throw;
+        }
     }
 
     public async ValueTask<bool> AddCarIntoDatabaseAsync(Car car, string connectionString)
@@ -337,6 +342,12 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
     }
 
     public async ValueTask<bool> AddCurrentCarsIntoDatabaseAsync(string connectionString)
@@ -384,6 +395,12 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
     }
 
     // RETRIVE
@@ -421,6 +438,12 @@ public class ServiceManager : ICarManager
         }
         catch (AggregateException)
         {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
             throw;
         }
     }
@@ -489,6 +512,12 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
     }
 
     public async Task<Car?> GetCarFromDatabaseAsync(Guid id, string connectionString)
@@ -544,6 +573,12 @@ public class ServiceManager : ICarManager
         }
         catch (AggregateException)
         {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
             throw;
         }
     }
@@ -874,6 +909,12 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
     }
 
     public async ValueTask<bool> ChangeCarIsFitForUseAsync(Guid carGuid, bool isFitForUse, string connectionString)
@@ -912,6 +953,12 @@ public class ServiceManager : ICarManager
         }
         catch (AggregateException)
         {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
             throw;
         }
     }
@@ -961,7 +1008,12 @@ public class ServiceManager : ICarManager
         {
             throw;
         }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
 
+            throw;
+        }
     }
 
     public async ValueTask<bool> ChangeCarOwnershipInDatabaseAsync(Guid carGuid, string customerId, string connectionString)
@@ -1007,6 +1059,12 @@ public class ServiceManager : ICarManager
         }
         catch(AggregateException)
         {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
             throw;
         }
     }
@@ -1210,60 +1268,80 @@ public class ServiceManager : ICarManager
     {
         SupplementData.NullValidator.CheckNull(car);
 
-        // I SHOULD CHECK CUSTOMER OVER NULL.
         car.Owner = owner;
     }
 
     public async Task RepairAsync(Car car, Mechanic mechanic, string connectionString)
     {
-        SupplementData.NullValidator.CheckNull(car);
-
-        bool isSuccessfull;
-
-        SupplementData.NullValidator.CheckNull(car.IsFitForUse);
-
-        bool isFitForUse = (bool)car.IsFitForUse;
-
-        int chance;
-
-        if ((car.Status == (TransportStatus)0) || (car.Status == (TransportStatus)4) || (car.Status == (TransportStatus)200))
+        try
         {
-            // REPRESENT NOT 100% PROBABILITY TO REPAIR THE CAR.
-            chance = _random.Next(0, 11);
+            SupplementData.NullValidator.CheckNull(car);
 
-            if (chance > 1)
+            bool isSuccessfull;
+
+            SupplementData.NullValidator.CheckNull(car.IsFitForUse);
+
+            bool isFitForUse = (bool)car.IsFitForUse;
+
+            int chance;
+
+            if ((car.Status == (TransportStatus)0) || (car.Status == (TransportStatus)4) || (car.Status == (TransportStatus)200))
             {
-                isSuccessfull = true;
+                // REPRESENT NOT 100% PROBABILITY TO REPAIR THE CAR.
+                chance = _random.Next(0, 11);
 
-                car.Status = (TransportStatus)1;
+                if (chance > 1)
+                {
+                    isSuccessfull = true;
 
-                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
+                    car.Status = (TransportStatus)1;
+
+                    await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
+                }
+                else if (chance < 2)
+                {
+                    isSuccessfull = false;
+
+                    await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
+                }
             }
-            else if (chance < 2)
+            else if (!isFitForUse)
             {
-                isSuccessfull = false;
+                chance = _random.Next(0, 11);
 
-                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
+                if (chance > 1)
+                {
+                    isSuccessfull = true;
+
+                    car.IsFitForUse = isSuccessfull;
+
+                    await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
+                }
+                else
+                {
+                    isSuccessfull = false;
+
+                    await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
+                }
             }
         }
-        else if (!isFitForUse)
+        catch (SqlException)
         {
-            chance = _random.Next(0, 11);
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
 
-            if (chance > 1)
-            {
-                isSuccessfull = true;
-
-                car.IsFitForUse = isSuccessfull;
-
-                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
-            }
-            else
-            {
-                isSuccessfull = false;
-
-                await InscribeRepairAsync(car, mechanic, isSuccessfull, connectionString);
-            }
+            throw;
         }
     }
 

@@ -98,6 +98,12 @@ namespace CarRental.BussinessLayer.Managers
             {
                 throw;
             }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
+                throw;
+            }
         }
 
         public Mechanic GetNewMechanic(int year, string name, string surename)
