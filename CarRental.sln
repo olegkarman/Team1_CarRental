@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.BussinessLayer", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRental.Data", "CarRental.Data\CarRental.Data.csproj", "{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRental.WebApi", "CarRental.WebApi\CarRental.WebApi.csproj", "{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,14 @@ Global
 		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.YarikSuper|Any CPU.Build.0 = YarikSuper|Any CPU
 		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.YarikSuperLocal|Any CPU.ActiveCfg = YarikSuperLocal|Any CPU
 		{FC6FB697-5CBC-4A9E-B538-518DB6FFBF15}.YarikSuperLocal|Any CPU.Build.0 = YarikSuperLocal|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.YarikSuper|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.YarikSuper|Any CPU.Build.0 = Debug|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.YarikSuperLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B46809-F99E-42E0-8DF4-AB1A7FDF4255}.YarikSuperLocal|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
