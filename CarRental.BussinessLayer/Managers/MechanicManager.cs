@@ -47,7 +47,7 @@ namespace CarRental.BussinessLayer.Managers
 
         // CREATE
 
-        public Mechanic? GetMechanicFromDatabase(Guid guid, string connectionString)
+        public async Task<Mechanic?> GetMechanicFromDatabaseAsync(Guid guid, string connectionString)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace CarRental.BussinessLayer.Managers
 
                 List<Mechanic> mechanics = new List<Mechanic>
                 (
-                    connection.Query<Mechanic, Repair?, Mechanic>
+                    await connection.QueryAsync<Mechanic, Repair?, Mechanic>
                     (
                         sqlStoredProcedureName,
                         (mechanic, repair) =>
@@ -92,6 +92,16 @@ namespace CarRental.BussinessLayer.Managers
             }
             catch (InvalidOperationException)
             {
+                throw;
+            }
+            catch (AggregateException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
                 throw;
             }
         }

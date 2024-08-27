@@ -32,68 +32,86 @@ namespace CarRental.BussinessLayer.Managers
 
         // METHODS
 
-        public void AddCustomerIntoDatabase(Customer customer, string connectionString)
+        public async Task AddCustomerIntoDatabaseAsync(Customer customer, string connectionString)
         {
-            SqlConnection connection = DapperContext.OpenConnection(connectionString);
-
-            string sqlStoredProcedureName = "CreateCustomer";
-
-            string id = customer.IdNumber.ToUpper();
-
-            // SHOULD MOVE THIS LOGIC TO SEPARATE CLASS.
-            string encryptedPassword = customer.Password + "f328373f";
-
-            encryptedPassword = encryptedPassword.GetHashCode().ToString();
-
-            object arguments = new
+            try
             {
-                IdNumber = id,
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                DateOfBirth = customer.DateOfBirth,
-                UserName = customer.UserName,
-                Password = encryptedPassword,
-                PassportNumber = customer.PassportNumber,
-                DrivingLicenseNumber = customer.DrivingLicenseNumber,
-                BasicDiscount = Customer.BasicDiscount
-                //Category = CustomerTemp.Category
-            };
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            connection.Execute(sqlStoredProcedureName, arguments);
+                string sqlStoredProcedureName = "CreateCustomer";
 
-            DapperContext.CloseConnection(connection);
-        }
+                string id = customer.IdNumber.ToUpper();
 
-        public bool? IsCustomerInDatabase(string id, string connectionString)
-        {
-            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+                string encryptedPassword = customer.Password + "f328373f";
 
-            string sqlStoredProcedureName = "CheckIfCustomerEntryExist";
+                encryptedPassword = encryptedPassword.GetHashCode().ToString();
 
-            object parameter = new
-            {
-                Id = id
-            };
+                object arguments = new
+                {
+                    IdNumber = id,
+                    FirstName = customer.FirstName,
+                    LastName = customer.LastName,
+                    DateOfBirth = customer.DateOfBirth,
+                    UserName = customer.UserName,
+                    Password = encryptedPassword,
+                    PassportNumber = customer.PassportNumber,
+                    DrivingLicenseNumber = customer.DrivingLicenseNumber,
+                    BasicDiscount = Customer.BasicDiscount
+                    //Category = CustomerTemp.Category
+                };
 
-            int result = connection.Query<int>(sqlStoredProcedureName, parameter).SingleOrDefault();
+                await connection.ExecuteAsync(sqlStoredProcedureName, arguments);
 
-            DapperContext.CloseConnection(connection);
-
-            if (result == 1)
-            {
-                return true;
+                DapperContext.CloseConnection(connection);
             }
-            else if (result == 0)
+            catch (AggregateException)
             {
-                return false;
+                throw;
             }
-            else
+            catch (Exception)
             {
-                return null;
+                // SOME LOGGING LOGIC
+
+                throw;
             }
         }
 
-        public Deal BuyRentCar(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
+        public async ValueTask<bool> IsCustomerInDatabaseAsync(string id, string connectionString)
+        {
+            try
+            {
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+                string sqlStoredProcedureName = "CheckIfCustomerEntryExist";
+
+                object parameter = new
+                {
+                    Id = id
+                };
+
+                List<int> results = new List<int>(await connection.QueryAsync<int>(sqlStoredProcedureName, parameter));
+
+                int result = results.SingleOrDefault();
+
+                DapperContext.CloseConnection(connection);
+
+                bool isCustomerEntryExist = (result == 1) ? true : false;
+
+                return isCustomerEntryExist;
+            }
+            catch (AggregateException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
+                throw;
+            }
+        }
+
+        public async Task<Deal> BuyRentCarAsync(Car car, Customer customer, ServiceManager serviceManager, DealManager dealManager, string dealType, string connectionString)
         {
             try
             {
@@ -125,7 +143,10 @@ namespace CarRental.BussinessLayer.Managers
                     @name = newDeal.Name
                 };
 
-                Deal deal = connection.Query<Deal>(sqlProcedureName, arguments).SingleOrDefault();
+                // SingleOrDefault()-METHOD DOES NOT WORK WITH await KEYWORD.
+                List<Deal> deals = new List<Deal>(await connection.QueryAsync<Deal>(sqlProcedureName, arguments));
+
+                Deal deal = deals.SingleOrDefault();
 
                 DapperContext.CloseConnection(connection);
 
@@ -137,6 +158,12 @@ namespace CarRental.BussinessLayer.Managers
             }
             catch(InvalidOperationException)
             {
+                throw;
+            }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
                 throw;
             }
         }
@@ -153,7 +180,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             StringBuilder displayBuilder = new StringBuilder();
 
-            if (customer.Cars != null)  // ACTUALLY VALIDATION IS BETTER TO SPARE INTO A SEPARATE CLASS, BUT I DO NOT WANT TOO MUCH REWRITE THE CLASS WHICH IS NOT MINE.
+            if (customer.Cars != null)
             {
                 foreach (Car? car in customer.Cars)
                 {

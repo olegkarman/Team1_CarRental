@@ -35,28 +35,41 @@ public class DealManager
 
     // CREATE
 
-    public Deal AddDealIntoDatabase(Deal deal, string connectionString)
+    public async Task<Deal> AddDealIntoDatabaseAsync(Deal deal, string connectionString)
     {
-        SqlConnection connection = DapperContext.OpenConnection(connectionString);
-
-        string SqlStoredProcedureName = "CreateDeal";
-
-        object arguments = new
+        try
         {
-            Id = deal.Id,
-            CarId = deal.CarId,
-            VinCode = deal.VinCode,
-            CustomerId = deal.CustomerId,
-            Price = deal.Price,
-            DealType = deal.DealType,
-            Name = deal.Name
-        };
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-        Deal resultDeal = connection.Query<Deal>(SqlStoredProcedureName, arguments).SingleOrDefault();
+            string SqlStoredProcedureName = "CreateDeal";
 
-        DapperContext.CloseConnection(connection);
+            object arguments = new
+            {
+                Id = deal.Id,
+                CarId = deal.CarId,
+                VinCode = deal.VinCode,
+                CustomerId = deal.CustomerId,
+                Price = deal.Price,
+                DealType = deal.DealType,
+                Name = deal.Name
+            };
 
-        return resultDeal;
+            Deal resultDeal = new List<Deal>(await connection.QueryAsync<Deal>(SqlStoredProcedureName, arguments)).SingleOrDefault();
+
+            DapperContext.CloseConnection(connection);
+
+            return resultDeal;
+        }
+        catch(AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
     }
 
     public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
