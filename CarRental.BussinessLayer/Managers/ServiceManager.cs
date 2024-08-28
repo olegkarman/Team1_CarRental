@@ -87,7 +87,7 @@ public class ServiceManager : ICarManager
 
             Car car = cars.SingleOrDefault();
 
-            SimpleCarDto simpleCar = new SimpleCarDto
+            var simpleCar = new SimpleCarDto
             {
                 CarId = car.CarId.ToString().ToUpper(),
                 VinCode = car.VinCode,
