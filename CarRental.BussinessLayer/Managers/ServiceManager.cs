@@ -71,9 +71,10 @@ public class ServiceManager : ICarManager
         {
             SqlConnection connection = dapperContext.OpenConnection(connectionString);
 
-            string sqlProcedureName = "CreateSimpleCar";
+            string sqlProcedureInsert = "CreateSimpleCar";
+            string sqlProcedureSelect = "GetSimpleCar";
 
-            var arguments = new
+            var argumentsInsert = new
             {
                 carId,
                 vinCode,
@@ -83,7 +84,14 @@ public class ServiceManager : ICarManager
                 price
             };
 
-            IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureName, arguments);
+            var argumentsSelect = new
+            {
+                carId
+            };
+
+            await connection.ExecuteAsync(sqlProcedureInsert, argumentsInsert);
+
+            IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureSelect, argumentsSelect);
 
             Car car = cars.SingleOrDefault();
 

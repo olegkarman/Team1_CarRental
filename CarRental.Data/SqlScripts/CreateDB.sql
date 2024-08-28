@@ -2084,8 +2084,6 @@ EXECUTE
 					@model,
 					@price
 				);
-
-				EXECUTE GetSimpleCar @carId;
 			END
 ');
 

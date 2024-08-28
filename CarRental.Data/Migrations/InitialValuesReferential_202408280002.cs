@@ -54,8 +54,6 @@ namespace CarRentalData.Migrations
 												@model,
 												@price
 											);
-
-											EXECUTE GetSimpleCar @carId;
 										END
 							');
 
