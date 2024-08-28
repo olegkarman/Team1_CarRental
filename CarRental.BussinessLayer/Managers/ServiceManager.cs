@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Drawing;
 using System.Threading.Tasks;
 using CarRental.BussinessLayer.ExtensionMethods;
 using CarRental.BussinessLayer.Interfaces;
+using CarRental.BussinessLayer.DTOs;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using System.Drawing;
 using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Checkup;
 using Microsoft.Data.SqlClient;
@@ -53,6 +54,70 @@ public class ServiceManager : ICarManager
     // METHODS
 
     // CREATE
+
+    public async Task<SimpleCarDto> CreateCar
+    (
+        DatabaseContextDapper dapperContext,
+        string connectionString,
+        string carId,
+        string vinCode,
+        string numberPlate,
+        string brand,
+        string model,
+        int price
+    )
+    {
+        try
+        {
+            SqlConnection connection = dapperContext.OpenConnection(connectionString);
+
+            string sqlProcedureName = "CreateSimpleCar";
+
+            var arguments = new
+            {
+                carId,
+                vinCode,
+                numberPlate,
+                brand,
+                model,
+                price
+            };
+
+            IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureName, arguments);
+
+            Car car = cars.SingleOrDefault();
+
+            SimpleCarDto simpleCar = new SimpleCarDto
+            {
+                CarId = car.CarId.ToString().ToUpper(),
+                VinCode = car.VinCode,
+                NumberPlate = car.NumberPlate,
+                Brand = car.Brand,
+                Model = car.Model,
+                Price = car.Price
+            };
+
+            return simpleCar;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
+    }
 
     public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
     {

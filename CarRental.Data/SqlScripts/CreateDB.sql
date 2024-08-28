@@ -2033,3 +2033,62 @@ EXECUTE
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED NINTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED TENTH START ------------------------------------------------
+
+-- CREATE SECTION
+-- 28-AUG-24
+
+EXECUTE
+('
+	CREATE PROCEDURE GetSimpleCar (@carId NVARCHAR(100))
+		AS
+			SELECT CarId,
+					VinCode,
+					NumberPlate,
+					Brand,
+					Model,
+					Price
+				FROM Cars
+				WHERE CarId = @carId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CreateSimpleCar
+	(
+		@carId NVARCHAR(100),
+		@vinCode NVARCHAR(100),
+		@numberPlate NVARCHAR(50),
+		@brand NVARCHAR(500),
+		@model NVARCHAR(500),
+		@price INT
+	)
+		AS
+			BEGIN
+				INSERT INTO Cars
+				(
+					CarId,
+					VinCode,
+					NumberPlate,
+					Brand,
+					Model,
+					Price
+				)
+				VALUES
+				(
+					@carId,
+					@vinCode,
+					@numberPlate,
+					@brand,
+					@model,
+					@price
+				);
+
+				EXECUTE GetSimpleCar @carId;
+			END
+');
+
+-- END OF CREATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED TENTH END ------------------------------------------------
