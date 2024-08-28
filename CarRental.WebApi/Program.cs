@@ -1,3 +1,4 @@
+using CarRental.BussinessLayer.Managers;
 
 namespace CarRental.WebApi
 {
@@ -5,6 +6,15 @@ namespace CarRental.WebApi
     {
         public static void Main(string[] args)
         {
+            // TO CONFIGURE ORM FOR Car-CLASS.
+
+            var carServiceManager = new ServiceManager();
+
+            carServiceManager.InitializeManagment();
+
+            carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
+            carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
