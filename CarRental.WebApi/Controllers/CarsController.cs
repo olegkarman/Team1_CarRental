@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CarRental.BussinessLayer.Managers;
 using CarRental.BussinessLayer.DTOs;
+using CarRental.BussinessLayer.Interfaces;
 using CarRental.WebApi.DTOs;
 
 namespace CarRental.WebApi.Controllers
@@ -10,12 +11,12 @@ namespace CarRental.WebApi.Controllers
     {
         // FIELDS
 
-        private ServiceManager _carManager;
+        private ICarManager _carManager;
         private IConfiguration _configuration;
 
         // CONSTRUCTORS
 
-        public CarsController(ServiceManager carManager, IConfiguration configuration)
+        public CarsController(ICarManager carManager, IConfiguration configuration)
         {
             _carManager = carManager;
             _configuration = configuration;
@@ -24,10 +25,10 @@ namespace CarRental.WebApi.Controllers
         // METHODS
 
         [HttpGet]
-        [Route("cars/{carId}")]
+        [Route("cars/simple/{carId}")]
         public async Task<GetSimpleCarDto> GetSimpleCar([FromRoute]string carId)
         {
-            _carManager.InitializeManagment();
+            //_carManager.InitializeManagment();
 
             string? connectionString = _configuration.GetConnectionString("Local");
 

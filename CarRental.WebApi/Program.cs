@@ -1,4 +1,5 @@
 using CarRental.BussinessLayer.Managers;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.WebApi
 {
@@ -6,15 +7,6 @@ namespace CarRental.WebApi
     {
         public static void Main(string[] args)
         {
-            // TO CONFIGURE ORM FOR Car-CLASS.
-
-            var carServiceManager = new ServiceManager();
-
-            carServiceManager.InitializeManagment();
-
-            carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
-            carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
-
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -23,7 +15,8 @@ namespace CarRental.WebApi
             // Learn more about configuring Swagger/OpenAPI at aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddTransient<ServiceManager>(x => new ServiceManager());
+            builder.Services.AddSingleton<ICarManager, ServiceManager>();
+            //builder.Services.AddTransient<ServiceManager>(x => new ServiceManager());
 
             var app = builder.Build();
 
@@ -38,8 +31,12 @@ namespace CarRental.WebApi
 
             app.UseAuthorization();
 
-
             app.MapControllers();
+
+            var carManager = app.Services.GetRequiredService<ICarManager>();
+
+            carManager.InitializeManagment();
+            carManager.ConfigureOrm();
 
             app.Run();
         }

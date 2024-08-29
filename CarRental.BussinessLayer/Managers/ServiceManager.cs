@@ -34,6 +34,7 @@ public class ServiceManager : ICarManager
     private const string _noInfo = "NO INFORMATION";
     private StringBuilder _carsInfo;
     private Random _random;
+    private DatabaseContextDapper _dapperContext;
 
 
     // PROPERTTES
@@ -49,6 +50,8 @@ public class ServiceManager : ICarManager
         this._random = new Random();
         this._carsInfo = new StringBuilder();
         this.CurrentCars = new List<Car>();
+
+        _dapperContext = new DatabaseContextDapper();
     }
 
     // METHODS
@@ -484,7 +487,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            DatabaseContextDapper dapperContext = SupplementData.DataContext;
+            var dapperContext = SupplementData.DataContext;
 
             SqlConnection connection = dapperContext.OpenConnection(connectionString);
 
@@ -1610,5 +1613,11 @@ public class ServiceManager : ICarManager
         {
             throw exception;
         }
+    }
+
+    public void ConfigureOrm()
+    {
+        SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
+        SupplementData.DapperConfigs.SetCustomMappingForEntities();
     }
 }
