@@ -27,9 +27,11 @@ namespace CarRental.WebApi.Controllers
         [Route("cars/{carId}")]
         public async Task<GetSimpleCarDto> GetSimpleCar([FromRoute]string carId)
         {
-            string connectionString = _configuration.GetConnectionString("Test");
+            _carManager.InitializeManagment();
 
-            SimpleCarDto simpleCarDto = await _carManager.GetSimpleCarById(carId, connectionString);
+            string? connectionString = _configuration.GetConnectionString("Local");
+
+            SimpleCarDto? simpleCarDto = await _carManager.GetSimpleCarById(carId, connectionString);
 
             var getSimpleCarDto = new GetSimpleCarDto
             {

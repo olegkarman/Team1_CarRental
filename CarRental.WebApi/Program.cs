@@ -23,6 +23,7 @@ namespace CarRental.WebApi
             // Learn more about configuring Swagger/OpenAPI at aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddTransient<ServiceManager>(x => new ServiceManager());
 
             var app = builder.Build();
 
