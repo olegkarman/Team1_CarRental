@@ -105,6 +105,8 @@ public class ServiceManager : ICarManager
                 Price = car.Price
             };
 
+            dapperContext.CloseConnection(connection);
+
             return simpleCar;
         }
         catch (SqlException)
@@ -477,6 +479,59 @@ public class ServiceManager : ICarManager
     }
 
     // RETRIVE
+
+    public async Task<SimpleCarDto> GetSimpleCarById(/*DatabaseContextDapper dapperContext,*/ string carId, string connectionString)
+    {
+        try
+        {
+            DatabaseContextDapper dapperContext = SupplementData.DataContext;
+
+            SqlConnection connection = dapperContext.OpenConnection(connectionString);
+
+            string sqlProcedureSelect = "GetSimpleCar";
+
+            var argumentsSelect = new
+            {
+                carId
+            };
+
+            IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureSelect, argumentsSelect);
+
+            Car car = cars.SingleOrDefault();
+
+            var simpleCar = new SimpleCarDto
+            {
+                CarId = car.CarId.ToString().ToUpper(),
+                VinCode = car.VinCode,
+                NumberPlate = car.NumberPlate,
+                Brand = car.Brand,
+                Model = car.Model,
+                Price = car.Price
+            };
+
+            dapperContext.CloseConnection(connection);
+
+            return simpleCar;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
+    }
 
     public async ValueTask<bool> IsCarInDatabaseAsync(Guid guid, string connectionString)
     {
