@@ -6,7 +6,7 @@ using CarRental.WebApi.DTOs;
 namespace CarRental.WebApi.Controllers
 {
     [ApiController]
-    public class SimpleCarsController : ControllerBase
+    public class CarsController : ControllerBase
     {
         // FIELDS
 
@@ -15,7 +15,7 @@ namespace CarRental.WebApi.Controllers
 
         // CONSTRUCTORS
 
-        public SimpleCarsController(ServiceManager carManager, IConfiguration configuration)
+        public CarsController(ServiceManager carManager, IConfiguration configuration)
         {
             _carManager = carManager;
             _configuration = configuration;
