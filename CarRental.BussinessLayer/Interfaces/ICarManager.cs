@@ -13,4 +13,14 @@ public interface ICarManager
     public void ConfigureOrm();
 
     public Task<SimpleCarDto> GetSimpleCarById(string carId, string connectionString);
+
+    public Task<SimpleCarDto> CreateSimpleCar
+    (
+        string connectionString,
+        string vinCode,
+        string numberPlate,
+        string brand,
+        string model,
+        int price
+    );
 }

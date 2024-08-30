@@ -58,11 +58,9 @@ public class ServiceManager : ICarManager
 
     // CREATE
 
-    public async Task<SimpleCarDto> CreateCar
+    public async Task<SimpleCarDto> CreateSimpleCar
     (
-        DatabaseContextDapper dapperContext,
         string connectionString,
-        string carId,
         string vinCode,
         string numberPlate,
         string brand,
@@ -72,10 +70,12 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            SqlConnection connection = dapperContext.OpenConnection(connectionString);
+            SqlConnection connection = _dapperContext.OpenConnection(connectionString);
 
             string sqlProcedureInsert = "CreateSimpleCar";
             string sqlProcedureSelect = "GetSimpleCar";
+
+            string carId = Guid.NewGuid().ToString().ToUpper();
 
             var argumentsInsert = new
             {
@@ -108,7 +108,7 @@ public class ServiceManager : ICarManager
                 Price = car.Price
             };
 
-            dapperContext.CloseConnection(connection);
+            _dapperContext.CloseConnection(connection);
 
             return simpleCar;
         }

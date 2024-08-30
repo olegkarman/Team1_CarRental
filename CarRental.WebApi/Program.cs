@@ -16,7 +16,6 @@ namespace CarRental.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddSingleton<ICarManager, ServiceManager>();
-            //builder.Services.AddTransient<ServiceManager>(x => new ServiceManager());
 
             var app = builder.Build();
 
