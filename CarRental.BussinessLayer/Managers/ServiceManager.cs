@@ -1544,6 +1544,32 @@ public class ServiceManager : ICarManager
 
     // DELETE
 
+    public async ValueTask<bool> DeleteSimpleCar(string connectionString, string carId)
+    {
+        var sqlProcedureDelete = "DeleteSimpleCar";
+
+        var arguments = new
+        {
+            carId
+        };
+
+        var sqlProcedureCheck = "CheckIfCarExist";
+
+        SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+
+        await connection.ExecuteAsync(sqlProcedureDelete, arguments);
+
+        IEnumerable<bool> bits = await connection.QueryAsync<bool>(sqlProcedureCheck, arguments);
+
+        _dapperContext.CloseConnection(connection);
+
+        bool isExist = bits.SingleOrDefault();
+
+        bool isSuccessful = !isExist;
+
+        return isSuccessful;
+    }
+
     public void DeleteCarFromList(List<Car> list, int index)
     {
         try

@@ -101,5 +101,16 @@ namespace CarRental.WebApi.Controllers
 
             return getSimpleCarDto;
         }
+
+        [HttpDelete]
+        [Route("{carId}")]
+        public async ValueTask<bool> DeleteCar([FromRoute]string carId)
+        {
+            string? connectionString = _configuration.GetConnectionString("Local");
+
+            bool isSuccessful = await _carManager.DeleteSimpleCar(connectionString, carId);
+
+            return isSuccessful;
+        }
     }
 }

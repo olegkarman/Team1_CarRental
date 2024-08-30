@@ -31,4 +31,6 @@ public interface ICarManager
         string numberPlate,
         int price
     );
+
+    public ValueTask<bool> DeleteSimpleCar(string connectionString, string carId);
 }
