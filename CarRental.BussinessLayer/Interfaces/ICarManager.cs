@@ -23,4 +23,12 @@ public interface ICarManager
         string model,
         int price
     );
+
+    public Task<SimpleCarDto> UpdateNumberPlatePriceSimpleCar
+    (
+        string connectionString,
+        string carId,
+        string numberPlate,
+        int price
+    );
 }

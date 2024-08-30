@@ -995,6 +995,47 @@ public class ServiceManager : ICarManager
 
     // UPDATE
 
+    public async Task<SimpleCarDto> UpdateNumberPlatePriceSimpleCar(string connectionString, string carId, string numberPlate, int price)
+    {
+        SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+
+        var sqlProcedureUpdate = "UpdateNumberPlatePriceCar";
+
+        var argumentsUpdate = new
+        {
+            carId,
+            numberPlate,
+            price
+        };
+
+        await connection.ExecuteAsync(sqlProcedureUpdate, argumentsUpdate);
+
+        var sqlProcedureSelect = "GetSimpleCar";
+
+        var argumentsSelect = new
+        {
+            carId
+        };
+
+        IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureSelect, argumentsSelect);
+
+        Car car = cars.SingleOrDefault();
+
+        var simpleCarDto = new SimpleCarDto
+        {
+            CarId = car.CarId.ToString().ToUpper(),
+            VinCode = car.VinCode,
+            NumberPlate = car.NumberPlate,
+            Brand = car.Brand,
+            Model = car.Model,
+            Price = car.Price
+        };
+
+        _dapperContext.CloseConnection(connection);
+
+        return simpleCarDto;
+    }
+
     public async ValueTask<bool> ChangeCarStatusIdAsync(Guid carGuid, TransportStatus? status, string connectionString)
     {
         try

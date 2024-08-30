@@ -39,7 +39,6 @@ namespace CarRental.WebApi.Controllers
                 createSimpleCarDto.Brand,
                 createSimpleCarDto.Model,
                 createSimpleCarDto.Price
-                
             );
 
             var getSimpleCarDto = new GetSimpleCarDto
@@ -62,6 +61,33 @@ namespace CarRental.WebApi.Controllers
             string? connectionString = _configuration.GetConnectionString("Local");
 
             SimpleCarDto? simpleCarDto = await _carManager.GetSimpleCarById(carId, connectionString);
+
+            var getSimpleCarDto = new GetSimpleCarDto
+            {
+                CarId = simpleCarDto.CarId,
+                VinCode = simpleCarDto.VinCode,
+                NumberPlate = simpleCarDto.NumberPlate,
+                Brand = simpleCarDto.Brand,
+                Model = simpleCarDto.Model,
+                Price = simpleCarDto.Price
+            };
+
+            return getSimpleCarDto;
+        }
+
+        [HttpPatch]
+        [Route("simple/{carId}")]
+        public async Task<GetSimpleCarDto> UpdatePlatePriceSimpleCar([FromRoute]string carId, [FromBody]UpdateSimpleCarDto updateSimpleCarDto)
+        {
+            string? connectionString = _configuration.GetConnectionString("Local");
+
+            SimpleCarDto? simpleCarDto = await _carManager.UpdateNumberPlatePriceSimpleCar
+            (
+                connectionString,
+                carId,
+                updateSimpleCarDto.NumberPlate,
+                updateSimpleCarDto.Price
+            );
 
             var getSimpleCarDto = new GetSimpleCarDto
             {
