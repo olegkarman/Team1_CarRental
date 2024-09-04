@@ -2090,3 +2090,71 @@ EXECUTE
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED TENTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH START ------------------------------------------------
+
+-- START OF CREATE SECTION
+-- 05-SEPT-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE CheckIfCarExist (@carId NVARCHAR(100))
+	AS
+		BEGIN
+			DECLARE @isExist BIT
+
+			IF EXISTS
+			(
+				SELECT CarId
+					FROM Cars
+					WHERE CarId = @carId
+			)
+				BEGIN
+					SET @isExist = 1;
+				END
+			ELSE
+				BEGIN
+					SET @isExist = 0;
+				END
+
+			SELECT @isExist AS isExist;
+		END
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE DeleteSimpleCar (@carId NVARCHAR(100))
+		AS
+			BEGIN
+				DELETE
+					FROM Repairs
+					WHERE CarId = @carId;
+
+				DELETE
+					FROM Inspections
+					WHERE CarId = @carId;
+			
+				DELETE
+					FROM Cars
+					WHERE CarId = @carId;
+			END
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE UpdateNumberPlatePriceCar
+	(
+		@carId NVARCHAR(100),
+		@numberPlate NVARCHAR(50),
+		@price INT
+	)
+	AS
+		UPDATE Cars
+			SET NumberPlate = @numberPlate,
+				Price = @price
+			WHERE CarId = @carId;
+');
+
+-- END OF CREATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH END ------------------------------------------------
