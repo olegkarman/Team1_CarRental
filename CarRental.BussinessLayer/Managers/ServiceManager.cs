@@ -483,7 +483,109 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
-    public async Task<SimpleCarDto> GetSimpleCarById(/*DatabaseContextDapper dapperContext,*/ string carId, string connectionString)
+    public async Task<CustomerDto> GetCustomerByIdAsync(string connectionString, string id, string category = "Customer")
+    {
+        try
+        {
+            id = id.ToUpper();
+
+            string procedureName = "GetCustomer";
+
+            var arguments = new
+            {
+                customerId = id.ToUpper(),
+                customerCategory = category
+            };
+
+            SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+
+            IEnumerable<CustomerTemp> customers = await connection.QueryAsync<CustomerTemp, Car?, Deal?, Inspection?, Repair?, CustomerTemp>
+            (
+                procedureName,
+                (customer, car, deal, inspection, repair) =>
+                {
+                    //car.Owner = customer;
+                    car.Engagement = deal;
+                    car.Inspections.Add(inspection);
+                    car.Repairs.Add(repair);
+
+                    customer.Cars.Add(car);
+                    customer.Deals.Add(deal);
+
+                    return customer;
+                },
+                arguments,
+                splitOn: "carCarId, dealId, inspectionInspectionId, repairId"
+            );
+
+            CustomerTemp customer = customers.FirstOrDefault();
+
+            var customerTemp = new CustomerTemp
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                DateOfBirth = customer.DateOfBirth,
+                Password = customer.Password,
+                UserName = customer.UserName,
+                IdNumber = customer.IdNumber,
+                PassportNumber = customer.PassportNumber,
+                DrivingLicenseNumber = customer.DrivingLicenseNumber
+            };
+
+            customerTemp.Deals = customers.Select(c => c.Deals.FirstOrDefault()).DistinctBy(d => d.Id).ToList();
+            //customerTemp.Cars = customers.Select(c => c.Cars.FirstOrDefault()).DistinctBy(car => car.CarId).ToList();
+
+            IEnumerable<IGrouping<Guid, Car>> groupedCars = customers.Select(c => c.Cars.FirstOrDefault()).GroupBy(c => c.CarId);
+
+            foreach (IGrouping<Guid, Car> group in groupedCars)
+            {
+                Car? car = group.FirstOrDefault();
+
+                car.Inspections = group.Select(c => c.Inspections.SingleOrDefault()).DistinctBy(i => i?.InspectionId).ToList();
+
+                car.Repairs = group.Select(c => c.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
+
+                customerTemp.Cars.Add(car);
+            }
+
+            _dapperContext.CloseConnection(connection);
+
+            //CustomerTemp customer = customers.SingleOrDefault();
+
+            var customerDto = new CustomerDto
+            {
+                FirstName = customerTemp.FirstName,
+                LastName = customerTemp.LastName,
+                DateOfBirth = customerTemp.DateOfBirth,
+                Password = customerTemp.Password,
+                UserName = customerTemp.UserName,
+                IdNumber = customerTemp.IdNumber,
+                PassportNumber = customerTemp.PassportNumber,
+                DrivingLicenseNumber = customerTemp.DrivingLicenseNumber,
+
+                Deals = customerTemp.Deals,
+                Cars = customerTemp.Cars
+            };
+
+            return customerDto;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
+    }
+
+    public async Task<SimpleCarDto> GetSimpleCarByIdAsync(/*DatabaseContextDapper dapperContext,*/ string carId, string connectionString)
     {
         try
         {

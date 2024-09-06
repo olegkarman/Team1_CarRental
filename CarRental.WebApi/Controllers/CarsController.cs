@@ -60,7 +60,7 @@ namespace CarRental.WebApi.Controllers
         {
             string? connectionString = _configuration.GetConnectionString("Local");
 
-            SimpleCarDto? simpleCarDto = await _carManager.GetSimpleCarById(carId, connectionString);
+            SimpleCarDto? simpleCarDto = await _carManager.GetSimpleCarByIdAsync(carId, connectionString);
 
             var getSimpleCarDto = new GetSimpleCarDto
             {

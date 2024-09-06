@@ -2155,6 +2155,15 @@ EXECUTE
 			WHERE CarId = @carId;
 ');
 
+-- START OF UPDATE SANCTIONS
+-- 2024-SEP-05
+
+UPDATE Deals
+	SET CustomerId = '7D8752F4-E040-4B2D-9422-32A4C0C10789'
+	WHERE Id = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8';
+
+-- END OF UPDATE SECTION
+
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH END ------------------------------------------------

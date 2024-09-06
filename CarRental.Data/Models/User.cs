@@ -5,8 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarRental.Data.Models;
+
 public abstract class User
 {
+    // PROPERTIES
+    
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
@@ -14,15 +17,12 @@ public abstract class User
     public string UserName { get; init; }
     public string IdNumber { get; init; }
 
-    // ADD DEFAULT CONSTRUCTOR (Y. PARKHOMENKO)
-    // BETTER TO KEEP DEFAULT CONSTRUCTORS ALWAYS (FOR OBJECT-INITIALIZATOR)
+    // CONSTRUCTORS
 
     public User()
     {
         
     }
-
-    // END OF ADD
 
     protected User(string firstName, string lastName, DateTime dateOfBirth, string password, string userName)
     {
@@ -33,6 +33,9 @@ public abstract class User
         UserName = userName;
         IdNumber = Guid.NewGuid().ToString();
     }
+
+    // METHODS
+
     public bool ValidateCredentials(string login, string password)
     {
         if (login == UserName && password == Password)

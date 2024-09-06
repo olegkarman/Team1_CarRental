@@ -33,7 +33,7 @@ class CarRentalPortal
             .Build();
 
         //string connectionString = configurations.GetConnectionString("MDzivinska");
-        string connectionString = configurations.GetConnectionString("ConnectionStringTest");
+        string connectionString = configurations.GetConnectionString("LocalTest");
         //string connectionString = configurations.GetConnectionString("ConnectionStringCloudClusters");
 
         bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
