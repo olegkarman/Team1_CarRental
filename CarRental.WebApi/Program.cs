@@ -75,6 +75,18 @@ namespace CarRental.WebApi
             carManager.InitializeManagment();
             carManager.ConfigureOrm();
 
+            app.Use
+            (
+                async (http, next) =>
+                {
+                    Console.WriteLine($"HTTP REQ-METHOD: {http.Request.Method}\nHTTP ROUTE: {http.Request.Path}");
+
+                    await next();
+
+                    Console.WriteLine($"HTTP RES-SCODE: {http.Response.StatusCode}\nDATA TYPE: {http.Response.ContentType}");
+                }
+            );
+
             app.Run();
         }
     }
