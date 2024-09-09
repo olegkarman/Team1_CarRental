@@ -2155,7 +2155,7 @@ EXECUTE
 			WHERE CarId = @carId;
 ');
 
--- START OF UPDATE SANCTIONS
+-- START OF UPDATE SECTION
 -- 2024-SEP-05
 
 UPDATE Deals
@@ -2163,6 +2163,82 @@ UPDATE Deals
 	WHERE Id = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8';
 
 -- END OF UPDATE SECTION
+
+-- START OF CREATE SECTION
+-- 09-SEP-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetCustomer
+	(
+		@customerId NVARCHAR(100),
+		@customerCategory NVARCHAR(50) = ''Customer''
+	)
+	AS
+		SELECT Users.IdNumber AS userIdNumber,
+				Users.FirstName AS userFirstName,
+				Users.LastName AS userLastName,
+				Users.DateOfBirth AS userDateOfBirth,
+				Users.UserName AS userUserName,
+				Users.Password AS userPassword,
+				Users.PassportNumber AS userPassportNumber,
+				Users.DrivingLicenseNumber AS userDrivingLicenseNumber,
+				Users.BasicDiscount AS userBasicDiscount,
+				Users.Category AS userCategory,
+				Cars.CarId AS carCarId,
+				Cars.VinCode AS carVinCode,
+				Cars.NumberPlate AS carNumberPlate,
+				Cars.Brand AS carBrand,
+				Cars.Model AS carModel,
+				Cars.Price AS carPrice,
+				Cars.NumberOfSeats AS carNumberOfSeats,
+				Cars.NumberOfDoors AS carNumberOfDoors,
+				Cars.Mileage AS carMileage,
+				Cars.MaxFuelCapacity AS carMaxFuelCapacity,
+				Cars.CurrentFuel AS carCurrentFuel,
+				Cars.Year AS carYear,
+				Cars.IsFitForUse AS carIsFitForUse,
+				Cars.Engine AS carEngine,
+				Cars.Transmission AS carTransmission,
+				Cars.Interior AS carInterior,
+				Cars.Wheels AS carWheels,
+				Cars.Lights AS carLights,
+				Cars.Signal AS carSignal,
+				Cars.Color AS carColor,
+				Cars.StatusId AS carStatusId,
+				Deals.Id AS dealId,
+				Deals.CarId AS dealCarId,
+				Deals.VinCode AS dealVinCode,
+				Deals.CustomerId AS dealCustomerId,
+				Deals.Price AS dealPrice,
+				Deals.DealType dealDealType,
+				Deals.Name AS dealName,
+				Inspections.InspectionId AS inspectionInspectionId,
+				Inspections.CarId AS inspectionCarId,
+				Inspections.VinCode AS inspectionVinCode,
+				Inspections.InspectorId AS inspectionInspectorId,
+				Inspections.InspectionDate AS inspectionInspectionDate,
+				Inspections.StatusId AS inspectionStatusId,
+				Repairs.Id AS repairId,
+				Repairs.Date AS repairDate,
+				Repairs.CarId repairCarId,
+				Repairs.VinCode AS repairVinCode,
+				Repairs.MechanicId AS repairMechanicId,
+				Repairs.IsSuccessfull AS repairIsSuccessfull,
+				Repairs.TotalCost AS repairTotalCost,
+				Repairs.TechnicalInfo AS repairTechnicalInfo
+		FROM Users
+		LEFT JOIN Cars
+			ON Users.IdNumber = Cars.CustomerId 
+		LEFT JOIN Deals
+			ON Deals.CarId = Cars.CarId 
+		LEFT JOIN Inspections
+			ON Inspections.CarId = Cars.CarId 
+		LEFT JOIN Repairs
+			ON Repairs.CarId = Cars.CarId 
+		WHERE Users.IdNumber = @customerId
+			AND Users.Category = @customerCategory;
+');
 
 -- END OF CREATE SECTION
 
