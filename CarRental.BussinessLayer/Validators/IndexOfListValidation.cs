@@ -7,10 +7,11 @@ using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.Data.Models.RecordTypes;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Validators
 {
-    public class IndexOfListValidation
+    public class IndexOfListValidation : IIndexValidation
     {
         // METHODS
 
@@ -20,6 +21,16 @@ namespace CarRental.BussinessLayer.Validators
             {
                 throw new IndexOutOfRangeException();
             }
+        }
+
+        public void ValidateList<T>(List<T> models)
+        {
+            // LOGIC OF VALDIATION (IN FUTURE UPDATES).
+        }
+
+        public void ValidateDictionary<T>(Dictionary<T, string> dictionary)
+        {
+            // LOGIC OF VALIDATION.
         }
     }
 }

@@ -54,9 +54,9 @@ public class SupplementDataInitializator
         return new IndexOfListValidation();
     }
 
-    public PatternCharMaps InitializeCharacterMaps()
+    public PatternCharMapsDto InitializeCharacterMaps()
     {
-        return new PatternCharMaps();
+        return new PatternCharMapsDto();
     }
 
     public RandomCarGeneration InitializeRandomCarGenerator()

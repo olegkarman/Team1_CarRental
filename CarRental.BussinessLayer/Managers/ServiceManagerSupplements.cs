@@ -21,7 +21,7 @@ public class ServiceManagerSupplements
     public RandomCarGeneration RandomCarGenerator { get; init; }
     public VehicleValidation Validator { get; init; }
     public IndexOfListValidation IndexValidator { get; init; }
-    public PatternCharMaps CharMaps { get; init; }
+    public PatternCharMapsDto CharMaps { get; init; }
     public MechanicManager MechanicalManager { get; init; }
     public RepairManager JunkRepairManager { get; init; }
     public NullValidation NullValidator { get; init; }

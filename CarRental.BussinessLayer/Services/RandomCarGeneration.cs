@@ -5,10 +5,11 @@ using System.Text;
 using System.Drawing;
 using System.Threading.Tasks;
 using CarRental.Data.Enums;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Services
 {
-    public class RandomCarGeneration
+    public class RandomCarGeneration : IRandomCarGeneration
     {
         // FIELDS
 
@@ -40,12 +41,12 @@ namespace CarRental.BussinessLayer.Services
 
         // METHODS
 
-        internal Guid GetNewCarId()
+        public Guid GetNewCarId()
         {
             return Guid.NewGuid();
         }
 
-        internal string GetNewVinCode()
+        public string GetNewVinCode()
         {
             return GetIdentificator();
         }
@@ -60,7 +61,7 @@ namespace CarRental.BussinessLayer.Services
             return Brands[_pseudoRandom.Next(0, Brands.Length)];
         }
 
-        internal string GetNewNumberPlate()
+        public string GetNewNumberPlate()
         {
             return GetIdentificator().Substring(0, 9).Insert(2, "-").Insert(8, "-");
         }

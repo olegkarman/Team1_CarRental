@@ -9,10 +9,11 @@ using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models.Automobile.RecordTypes;
 using Microsoft.Data.SqlClient;
 using Dapper;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Managers
 {
-    public class RepairManager
+    public class RepairManager : IRepairManager
     {
         // FIELDS
 

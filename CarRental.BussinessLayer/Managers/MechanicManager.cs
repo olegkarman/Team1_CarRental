@@ -13,10 +13,11 @@ using CarRental.Data.Models.Automobile.RecordTypes;
 using Microsoft.Data.SqlClient;
 using CarRental.Data.Models.Automobile;
 using Dapper;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Managers
 {
-    public class MechanicManager
+    public class MechanicManager : IMechanicManager
     {
         // FIELDS
 

@@ -5,10 +5,11 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Services
 {
-    public class TextProcessingService
+    public class TextProcessingService : ITextProcessing
     {
         // THE FIELDS, NOT PROPERTIES. NOT PROPERTIES... MICROSOFT NAMING CONVENCTION USED.
 
