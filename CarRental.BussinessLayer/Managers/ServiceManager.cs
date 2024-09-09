@@ -40,7 +40,7 @@ public class ServiceManager : ICarManager
     // PROPERTTES
 
     internal List<Car>? CurrentCars { get; private set; }
-    internal Car? SelectedCar { get; private set; }
+
     public ServiceManagerSupplements SupplementData { get; private set; }
 
     // CONSTRUCTORS
@@ -130,25 +130,6 @@ public class ServiceManager : ICarManager
 
             throw;
         }
-    }
-
-    public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
-    {
-        SupplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
-
-        Car car = new Car
-        {
-            CarId = carId,
-            VinCode = vinCode,
-            Model = model,
-            Brand = brand,
-            NumberPlate = numberPlate,
-            Price = price
-        };
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        return car;
     }
 
     public Car GetNewCar
@@ -264,19 +245,6 @@ public class ServiceManager : ICarManager
         SupplementData.NullValidator.CheckNull(car);
 
         return car;
-    }
-
-    public List<Car> MakeNewListOfCars()
-    {
-        return new List<Car>();
-    }
-
-    public void AddCarInToList(List<Car> cars, Car car)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-        SupplementData.NullValidator.CheckNull(car);
-
-        cars.Add(car);
     }
 
     public void GetNewRandomCurrentCars(int count)
@@ -876,136 +844,9 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public void SelectCarFromCurrentCars(int index)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        this.SelectedCar = ChooseCarFromList(CurrentCars, index);
-    }
-
-    public void SelectCarFromCurrentCars(string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        this.SelectedCar = ChooseCarFromList(CurrentCars, model);
-    }
-
-    public void SelectCarFromCurrentCars(Guid guid)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        this.SelectedCar = ChooseCarFromList(CurrentCars, guid);
-    }
-
     public Car GetCarFromCurrentCars(int index)
     {
         return ChooseCarFromList(CurrentCars, index);
-    }
-
-    public Car GetCarFromCurrentCars(Guid guid)
-    {
-        return ChooseCarFromList(CurrentCars, guid);
-    }
-
-    public void TakeCarFromCurrentCars(int index)
-    {
-        SelectedCar = ChooseCarFromList(CurrentCars, index);
-        CurrentCars.RemoveAt(index);
-    }
-
-    public void TakeCarFromCurrentCars(Guid guid)
-    {
-        SelectedCar = ChooseCarFromList(CurrentCars, guid);
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, guid)));
-    }
-
-    public void MoveCarFromCurrentCarsToSelected(string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-
-        Car car;
-
-        SupplementData.NullValidator.CheckNull(CurrentCars);
-
-        car = ChooseCarFromList(CurrentCars, model);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        this.SelectedCar = car;
-
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, model)));
-    }
-
-    public void MoveCarFromCurrentCarsToSelected(Guid guid)
-    {
-        Car car;
-
-        SupplementData.NullValidator.CheckNull(CurrentCars);
-
-        car = ChooseCarFromList(CurrentCars, guid);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        this.SelectedCar = car;
-
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, guid)));
-    }
-
-    public string DisplaySelectedCar()
-    {
-        try
-        {
-            return this.SelectedCar.ToString();
-        }
-        catch (ArgumentNullException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public string DisplayCarFromList(List<Car> cars, int index)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-
-        return ChooseCarFromList(cars, index).ToString();
-    }
-
-    public string DisplayCarFromList(List<Car> cars, string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-        SupplementData.NullValidator.CheckNull(cars);
-
-        return ChooseCarFromList(cars, model).ToString();
-    }
-
-    public string DisplayCarFromList(List<Car> cars, Guid guid)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-
-        return ChooseCarFromList(cars, guid).ToString();
-    }
-
-    public string DisplayCarFromCurrentCars(int index)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        return ChooseCarFromList(this.CurrentCars, index).ToString();
-    }
-
-    public string DisplayCarFromCurrentCars(string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        return ChooseCarFromList(this.CurrentCars, model).ToString();
-    }
-
-    public string DisplayCarFromCurrentCars(Guid guid)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        return ChooseCarFromList(this.CurrentCars, guid).ToString();
     }
 
     public string DisplayCar(Car car)
@@ -1015,14 +856,7 @@ public class ServiceManager : ICarManager
         return $"{nameof(car)} | {car.ToString()}";
     }
 
-    // TO DISPLAY LIST OF CARS IN TABLE
-    // //
-    // // ~THIS METHOD ADDED AND EDITED NOT BY YPARKHOMENKO~
-    // //
-    // // ADVICE BY YPARKHOMENKO: DO NOT USE STRING CONCATINATION IN LOOPS, USE StringBuilder-CLASS FUNCTIONALITY INSTEAD.
-    // // BETTER TO USE STRING OUTPUT RATHER THAN THE CONSOLE OUTPUT.
-    // //
-
+    // O KARMANSKYI
     public void DisplayCarsInTable(IOutputManager outputManager)
     {
         // ADD NULL CHECK-UP
@@ -1054,42 +888,6 @@ public class ServiceManager : ICarManager
         foreach (Car car in CurrentCars)
         {
             _carsInfo.Append($"({CurrentCars.IndexOf(car)})~~| {car.Brand} -- {car.Model} -- YEAR: {car.Year}\n-- PRICE: {car.Price} EUR -- STATUS: {car.Status} -- IS FIT FOR USE?: {car.IsFitForUse} -- NUMBER: {car.NumberPlate} -- VINCODE: {car.VinCode} |~~\n");
-        }
-
-        return _carsInfo.ToString();
-    }
-
-    public string ShowMileage(Car car)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        return car.Mileage.ToString();
-    }
-
-    public string ShowMileageSelectedCar()
-    {
-        return ShowMileage(this.SelectedCar);
-    }
-
-    public string ShowDeal(Car car)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        return $"{car.Engagement.ToString()}";
-    }
-
-    public string RetriveCurrentCarsInfo()
-    {
-        return RetriveCarsInfoFromList(CurrentCars);
-    }
-
-    public string RetriveCarsInfoFromList(List<Car> cars)
-    {
-        _carsInfo.Clear();
-
-        foreach (Car car in cars)
-        {
-            _carsInfo.Append(car.ToString());    
         }
 
         return _carsInfo.ToString();
@@ -1137,60 +935,7 @@ public class ServiceManager : ICarManager
 
         return simpleCarDto;
     }
-
-    public async ValueTask<bool> ChangeCarStatusIdAsync(Guid carGuid, TransportStatus? status, string connectionString)
-    {
-        try
-        {
-            bool resultStatus = false;
-
-            int? statusId = (int?)status;
-
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            string carId = carGuid.ToString().ToUpper();
-
-            var arguments = new
-            {
-                statusId = statusId,
-                carId = carId
-            };
-
-            string sqlStatement = 
-            @"
-                UPDATE Cars
-                    SET StatusId = @statusId
-                    WHERE CarId = @carId;
-            ";
-
-            await connection.ExecuteAsync(sqlStatement, arguments);
-
-            SupplementData.DataContext.CloseConnection(connection);
-
-            resultStatus = true;
-
-            return resultStatus;
-        }
-        catch (SqlException)
-        {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-        catch (AggregateException)
-        {
-            throw;
-        }
-        catch (Exception)
-        {
-            // SOME LOGGING LOGIC
-
-            throw;
-        }
-    }
-
+ 
     public async ValueTask<bool> ChangeCarIsFitForUseAsync(Guid carGuid, bool isFitForUse, string connectionString)
     {
         try
@@ -1235,314 +980,6 @@ public class ServiceManager : ICarManager
 
             throw;
         }
-    }
-
-    public async ValueTask<bool> ChangeCarDealshipInDatabaseAsync(Guid carGuid, Guid dealId, string connectionString)
-    {
-        try
-        {
-            bool resultDealship = false;
-
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            string id = dealId.ToString().ToUpper();
-
-            string carId = carGuid.ToString().ToUpper();
-
-            var arguments = new
-            {
-                id = id,
-                carId = carId
-            };
-
-            string sqlStatement =
-            @"
-                UPDATE Cars
-                    SET DealId = @id
-                    WHERE CarId = @carId;
-            ";
-
-            await connection.ExecuteAsync(sqlStatement, arguments);
-
-            SupplementData.DataContext.CloseConnection(connection);
-
-            resultDealship = true;
-
-            return resultDealship;
-        }
-        catch (SqlException)
-        {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-        catch (AggregateException)
-        {
-            throw;
-        }
-        catch (Exception)
-        {
-            // SOME LOGGING LOGIC
-
-            throw;
-        }
-    }
-
-    public async ValueTask<bool> ChangeCarOwnershipInDatabaseAsync(Guid carGuid, string customerId, string connectionString)
-    {
-        try
-        {
-            bool isUpdateOwnership = false;
-
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            string id = customerId.ToUpper();
-
-            string carId = carGuid.ToString().ToUpper();
-
-            var arguments = new
-            {
-                id = id,
-                carId = carId
-            };
-
-            string sqlStatement =
-            @"
-                UPDATE Cars
-                    SET CustomerId = @id
-                    WHERE CarId = @carId;
-            ";
-
-            await connection.ExecuteAsync(sqlStatement, arguments);
-
-            SupplementData.DataContext.CloseConnection(connection);
-
-            isUpdateOwnership = true;
-
-            return isUpdateOwnership;
-        }
-        catch (SqlException)
-        {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-        catch(AggregateException)
-        {
-            throw;
-        }
-        catch (Exception)
-        {
-            // SOME LOGGING LOGIC
-
-            throw;
-        }
-    }
-
-    public void ChangeEngine (Car car, string engine)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(engine);
-
-        car.Engine = engine;
-    }
-
-    public void ChangeTransmission(Car car, string transmission)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(transmission);
-
-        car.Transmission = transmission;
-    }
-
-    public void ChangeInterior(Car car, string interior)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(interior);
-
-        car.Interior = interior;
-    }
-
-    public void ChangeWheels(Car car, string wheels)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(wheels);
-
-        car.Wheels = wheels;
-    }
-
-    public void ChangeLights(Car car, string lights)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(lights);
-
-        car.Lights = lights;
-    }
-
-    public void ChangeSignal(Car car, string signal)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(signal);
-
-        car.Signal = signal;
-    }
-
-    public void ChangeColor(Car car, KnownColor color)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckType(color);
-
-        car.Color = color;
-    }
-
-    public void ChangePrice(Car car, int price)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckPrice(price);
-
-        car.Price = price;
-    }
-
-    public void ChangeNumberPlate(Car car, string numberPlate)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(numberPlate);
-
-        car.NumberPlate = numberPlate;
-    }
-
-    public void ChangeNumberOfSeats(Car car, int number)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(number);
-
-        car.NumberOfSeats = number;
-    }
-
-    public void ChangeNumberDoors(Car car, int number)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(number);
-
-        car.NumberOfDoors = number;
-    }
-
-    public void ChangeMileage(Car car, float mileage)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(mileage);
-
-        car.Mileage = mileage;
-    }
-
-    public void ChangeMaxFuelCapacity(Car car, int capacity)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(capacity);
-
-        car.MaxFuelCapacity = capacity;
-    }
-
-    public void ChangeCurrentFuel(Car car, float capacity)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(capacity);
-
-        car.CurrentFuel = capacity;
-    }
-
-    public void ChangeFitForUse(Car car, bool isUse)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        car.IsFitForUse = isUse;
-    }
-
-    public void ChangeCarStatus(Car car, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType(status);
-
-        car.Status = status;
-    }
-
-    public void ChangeCarStatus(Car car, int status)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType((TransportStatus)status);
-
-        car.Status = (TransportStatus)status;
-    }
-
-    public void ChangeCurrentCarStatus(int index, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        Car car = ChooseCarFromList(CurrentCars, index);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType(status);
-
-        CurrentCars[index].Status = status;
-    }
-
-    public void ChangeCurrentCarStatus(Guid guid, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        Car car = ChooseCarFromList(CurrentCars, guid);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType(status);
-
-        // THIS IS A REFEREBCE TYPE, THE CHANGE WILL AFFECT CAR INSTANCE IN THE LIST.
-        car.Status = status;
-    }
-
-    public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-        SupplementData.Validator.CheckType(status);
-        
-        foreach(Car car in cars)
-        {
-            car.Status = status;
-        }
-    }
-
-    public void ChangeCurrentCarsStatus(TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        SupplementData.Validator.CheckType(status);
-
-        foreach (Car car in CurrentCars)
-        {
-            car.Status = status;
-        }
-    }
-
-    public void ChangeSelectedCarStatus(TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.SelectedCar);
-        SupplementData.Validator.CheckType(status);
-
-        this.SelectedCar.Status = status;
-    }
-
-    public void ChangerOwner(Car car, Customer owner)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        car.Owner = owner;
     }
 
     public async Task RepairAsync(Car car, Mechanic mechanic, string connectionString)
@@ -1686,72 +1123,9 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public void DeleteCarFromList(List<Car> cars, string model)
-    {
-        try
-        {
-            SupplementData.Validator.CheckNullEmpty(model);
-            SupplementData.NullValidator.CheckNull(cars);
-
-            cars.RemoveAt(cars.IndexOf(ChooseCarFromList(cars, model)));
-        }
-        catch (KeyNotFoundException exception)
-        {
-            throw exception;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public void DeleteCarFromList(List<Car> cars, Guid guid)
-    {
-        try
-        {
-            SupplementData.NullValidator.CheckNull(cars);
-
-            cars.RemoveAt(cars.IndexOf(ChooseCarFromList(cars, guid)));
-        }
-        catch (KeyNotFoundException exception)
-        {
-            throw exception;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (Exception exception)
-        {
-            throw exception;
-        }
-    }
-
     public void DeleteCarFromCurrentCars(int index)
     {
         DeleteCarFromList(this.CurrentCars, index);
-    }
-
-    public void DeleteCarFromCurrentCars(string model)
-    {
-        DeleteCarFromList(this.CurrentCars, model);
-    }
-
-    public void DeleteCarFromCurrentCars(Guid guid)
-    {
-        DeleteCarFromList(this.CurrentCars, guid);
-    }
-
-    public void DeleteAllCarsFromList(List<Car> cars)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-
-        cars.Clear();
-    }
-
-    public void DeleteAllCarsFromCurrentCars()
-    {
-        DeleteAllCarsFromList(this.CurrentCars);
     }
 
     // METHODS
