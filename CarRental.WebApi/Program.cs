@@ -1,8 +1,7 @@
-using CarRental.BussinessLayer.Managers;
-using CarRental.BussinessLayer.Interfaces;
 using System.Reflection;
+using CarRental.BussinessLayer.Interfaces;
+using CarRental.BussinessLayer.Managers;
 using FluentMigrator.Runner;
-using Microsoft.Extensions.Hosting;
 
 namespace CarRental.WebApi
 {

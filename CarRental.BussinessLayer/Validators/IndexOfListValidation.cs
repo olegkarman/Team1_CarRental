@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models.Automobile.RecordTypes;
-using CarRental.Data.Models.RecordTypes;
-using CarRental.BussinessLayer.Interfaces;
+﻿using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Validators
 {

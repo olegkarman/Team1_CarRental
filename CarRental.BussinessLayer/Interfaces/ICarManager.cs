@@ -1,11 +1,9 @@
-﻿using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models;
-using CarRental.BussinessLayer.DTOs;
+﻿using CarRental.BussinessLayer.DTOs;
 
 namespace CarRental.BussinessLayer.Interfaces;
 
 public interface ICarManager
-{                     
+{
     public void InitializeManagment();
     public void ConfigureOrm();
 

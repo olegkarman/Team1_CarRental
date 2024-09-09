@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Enums;
-using CarRental.Data.Managers;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models.Automobile.RecordTypes;
+﻿using CarRental.BussinessLayer.Services;
 using CarRental.BussinessLayer.Validators;
-using CarRental.BussinessLayer.Services;
+using CarRental.Data.Managers;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -93,7 +86,7 @@ public class SupplementDataInitializator
             Signals = ["Unknown", "Low", "Moderate", "Hight", "ExtremelyHight"]
 
         };
-        
+
         return randomGenerator;
     }
 

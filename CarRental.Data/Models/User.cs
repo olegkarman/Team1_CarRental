@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarRental.Data.Models;
+﻿namespace CarRental.Data.Models;
 
 public abstract class User
 {
     // PROPERTIES
-    
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }
@@ -21,7 +15,7 @@ public abstract class User
 
     public User()
     {
-        
+
     }
 
     protected User(string firstName, string lastName, DateTime dateOfBirth, string password, string userName)

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Services
@@ -47,7 +42,7 @@ namespace CarRental.BussinessLayer.Services
         public string ParseOutputCarsInfo(string carsInfo)
         {
             StringBuilder builder = new StringBuilder();
-            
+
             carsInfo = Regular.Replace(carsInfo, String.Empty);
             carsInfo = Regex.Replace(carsInfo, @"\|\|\|", String.Empty);
 
@@ -62,7 +57,7 @@ namespace CarRental.BussinessLayer.Services
                 else
                 {
                     infoCars[index] = ParseOutputCarInfo(infoCars[index]);
-                    
+
                     builder.Append(infoCars[index]);
                     builder.Append(@"}");
                 }

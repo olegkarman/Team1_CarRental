@@ -1,15 +1,9 @@
-﻿using CarRental.Data.Models.Automobile;
+﻿using System.Text;
 using CarRental.Data.Models;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.RecordTypes;
-using Microsoft.Data.SqlClient;
 using Dapper;
-using System.Diagnostics;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -22,7 +16,7 @@ namespace CarRental.BussinessLayer.Managers
         // PROPERTIES
 
         public DatabaseContextDapper DapperContext { get; init; }
-        
+
         // CONSTRUCTORS
 
         public CustomerManager()
@@ -152,11 +146,11 @@ namespace CarRental.BussinessLayer.Managers
 
                 return deal;
             }
-            catch(SqlException)
+            catch (SqlException)
             {
                 throw;
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
                 throw;
             }

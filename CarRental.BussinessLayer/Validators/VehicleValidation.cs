@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Interfaces;
-using CarRental.Data.Enums;
-using System.Drawing;
-using System.Runtime.ConstrainedExecution;
+﻿using System.Drawing;
 using CarRental.BussinessLayer.Interfaces;
+using CarRental.Data.Enums;
 
 namespace CarRental.BussinessLayer.Validators
 {

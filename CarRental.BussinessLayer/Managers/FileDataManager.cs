@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.BussinessLayer.Interfaces;
+﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Managers;
 
 namespace CarRental.BussinessLayer.Managers
@@ -22,7 +17,7 @@ namespace CarRental.BussinessLayer.Managers
 
             if (File.Exists(path))
             {
-                attributes = File.GetAttributes(path).ToString();    
+                attributes = File.GetAttributes(path).ToString();
             }
             else
             {

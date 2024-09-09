@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Data;
 using System.Drawing;
-using System.Threading.Tasks;
-using CarRental.BussinessLayer.ExtensionMethods;
-using CarRental.BussinessLayer.Interfaces;
+using System.Text;
 using CarRental.BussinessLayer.DTOs;
+using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
-using CarRental.Data.Interfaces;
-using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
+using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Checkup;
-using Microsoft.Data.SqlClient;
+using CarRental.Data.Models.RecordTypes;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Z.Dapper.Plus;
-using System.Diagnostics;
-using System.Data;
-using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -376,11 +367,11 @@ public class ServiceManager : ICarManager
 
             return isAddCar;
         }
-        catch(SqlException)
+        catch (SqlException)
         {
             throw;
         }
-        catch(InvalidOperationException)
+        catch (InvalidOperationException)
         {
             throw;
         }
@@ -405,7 +396,7 @@ public class ServiceManager : ICarManager
 
     public async ValueTask<bool> BulkAddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
-       return await BulkAddCarsIntoDatabaseAsync(CurrentCars, connectionString);
+        return await BulkAddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
     public async ValueTask<bool> BulkAddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
@@ -433,7 +424,7 @@ public class ServiceManager : ICarManager
 
             return isAddBulk;
         }
-        catch(SqlException)
+        catch (SqlException)
         {
             throw;
         }
@@ -935,7 +926,7 @@ public class ServiceManager : ICarManager
 
         return simpleCarDto;
     }
- 
+
     public async ValueTask<bool> ChangeCarIsFitForUseAsync(Guid carGuid, bool isFitForUse, string connectionString)
     {
         try

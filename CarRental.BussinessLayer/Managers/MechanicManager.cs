@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models;
-using CarRental.Data.Enums;
-using CarRental.Data.Managers;
-using CarRental.BussinessLayer.Validators;
+﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.BussinessLayer.Services;
-using System.Xml.Linq;
+using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Enums;
+using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using Microsoft.Data.SqlClient;
-using CarRental.Data.Models.Automobile;
 using Dapper;
-using CarRental.BussinessLayer.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -71,7 +63,7 @@ namespace CarRental.BussinessLayer.Managers
                         (mechanic, repair) =>
                         {
                             mechanic.Repairs.Add(repair);
-                            
+
                             return mechanic;
                         },
                         parameter,
@@ -117,7 +109,7 @@ namespace CarRental.BussinessLayer.Managers
             {
                 throw new FormatException(nameof(name));
             }
-            else if(!Validator.ValidateNameDefault(surename))
+            else if (!Validator.ValidateNameDefault(surename))
             {
                 throw new FormatException(nameof(surename));
             }
@@ -185,7 +177,7 @@ namespace CarRental.BussinessLayer.Managers
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, Guid guid)
         {
             NullValidator.CheckNull(mechanics);
-            
+
             Mechanic mechanic = mechanics.Find(x => x.Id.CompareTo(guid) == 0);
 
             NullValidator.CheckNull(mechanic);

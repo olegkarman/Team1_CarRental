@@ -1,6 +1,4 @@
 ﻿using CarRental.Data.Enums;
-using CarRental.Data.Models;
-using CarRental.Data.Models.Automobile;
 
 namespace CarRental.Data.Interfaces;
 public interface IInspection

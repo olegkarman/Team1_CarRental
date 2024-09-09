@@ -1,18 +1,8 @@
 ﻿using CarRental.BussinessLayer.Managers;
-// WHY WE CALL CONSTRUCTORS FROM DATA-LAYER IN PRESENTATION?
-using CarRental.Data.Models.Login;
 using CarRental.Data.Models.Gateway;
-using CarRental.Data.Managers;
+using CarRental.Data.Models.Login;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using System.Reflection;
-using CarRental.Presentation.Managers;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models.Checkup;
-using CarRental.Data.Models.RecordTypes;
-using CarRental.Data.Dapper;
-using CarRental.Data.Models.Automobile.RecordTypes;
 
 
 

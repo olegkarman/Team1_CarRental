@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CarRental.BussinessLayer.Managers;
-using CarRental.BussinessLayer.DTOs;
+﻿using CarRental.BussinessLayer.DTOs;
 using CarRental.BussinessLayer.Interfaces;
 using CarRental.WebApi.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.WebApi.Controllers
 {
@@ -27,7 +26,7 @@ namespace CarRental.WebApi.Controllers
 
         [HttpPost]
         [Route("simple")]
-        public async Task<GetSimpleCarDto> CreateSimpleCar([FromBody]CreateSimpleCarDto createSimpleCarDto)
+        public async Task<GetSimpleCarDto> CreateSimpleCar([FromBody] CreateSimpleCarDto createSimpleCarDto)
         {
             string? connectionString = _configuration.GetConnectionString("Local");
 
@@ -56,7 +55,7 @@ namespace CarRental.WebApi.Controllers
 
         [HttpGet]
         [Route("simple/{carId}")]
-        public async Task<GetSimpleCarDto> GetSimpleCar([FromRoute]string carId)
+        public async Task<GetSimpleCarDto> GetSimpleCar([FromRoute] string carId)
         {
             string? connectionString = _configuration.GetConnectionString("Local");
 
@@ -77,7 +76,7 @@ namespace CarRental.WebApi.Controllers
 
         [HttpPatch]
         [Route("simple/{carId}")]
-        public async Task<GetSimpleCarDto> UpdatePlatePriceSimpleCar([FromRoute]string carId, [FromBody]UpdateSimpleCarDto updateSimpleCarDto)
+        public async Task<GetSimpleCarDto> UpdatePlatePriceSimpleCar([FromRoute] string carId, [FromBody] UpdateSimpleCarDto updateSimpleCarDto)
         {
             string? connectionString = _configuration.GetConnectionString("Local");
 
@@ -104,7 +103,7 @@ namespace CarRental.WebApi.Controllers
 
         [HttpDelete]
         [Route("{carId}")]
-        public async ValueTask<bool> DeleteCar([FromRoute]string carId)
+        public async ValueTask<bool> DeleteCar([FromRoute] string carId)
         {
             string? connectionString = _configuration.GetConnectionString("Local");
 

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models.Automobile;
+﻿using CarRental.BussinessLayer.Services;
+using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Managers;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using CarRental.BussinessLayer.Managers;
-using CarRental.BussinessLayer.Validators;
-using CarRental.BussinessLayer.Services;
 
 namespace CarRental.BussinessLayer.Managers;
 

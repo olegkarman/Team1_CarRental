@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
 using FluentMigrator.Runner;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 
 namespace CarRental.Presentation.Managers;
@@ -43,7 +38,7 @@ public class HostManager
     public IHost BuildHost(IHostBuilder hostBuilder)
     {
         IHost host = hostBuilder.Build();
-        
+
         return host;
     }
 }

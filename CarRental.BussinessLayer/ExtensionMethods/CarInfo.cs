@@ -1,9 +1,5 @@
-﻿using System;
-using System.Reflection;
-using CarRental.Data.Enums;
+﻿using System.Text;
 using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models.RecordTypes;
-using System.Text;
 
 namespace CarRental.BussinessLayer.ExtensionMethods;
 
@@ -77,7 +73,7 @@ internal static class CarInfo
         // foreeach CANNOT ACCESS THE ELEMENTS OF AN ARRAY, SO for-LOOP IS USED.
         for (int index = 0; index < techInfoStrings.Length; index = index + 1)
         {
-            if(string.IsNullOrEmpty(techInfoStrings[index]))
+            if (string.IsNullOrEmpty(techInfoStrings[index]))
             {
                 techInfoStrings[index] = _noInfo;
             }
@@ -98,7 +94,7 @@ internal static class CarInfo
 
         if (car.Mileage != null)
         {
-            mileage = car.Mileage.ToString(); 
+            mileage = car.Mileage.ToString();
         }
         else
         {

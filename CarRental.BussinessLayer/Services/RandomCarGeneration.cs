@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Drawing;
 using System.Text;
-using System.Drawing;
-using System.Threading.Tasks;
-using CarRental.Data.Enums;
 using CarRental.BussinessLayer.Interfaces;
+using CarRental.Data.Enums;
 
 namespace CarRental.BussinessLayer.Services
 {

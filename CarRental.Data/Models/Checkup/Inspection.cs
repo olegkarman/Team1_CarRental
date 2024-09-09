@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using CarRental.Data.Enums;
 using CarRental.Data.Interfaces;
-using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 
 namespace CarRental.Data.Models.Checkup;
@@ -9,7 +8,7 @@ namespace CarRental.Data.Models.Checkup;
 public class Inspection : IInspection
 {
     //private readonly DateTime _inspectionDate = DateTime.Now;
-    
+
     // properties
     public Guid InspectionId { get; init; }
     public DateTime? InspectionDate { get; init; } // => _inspectionDate;
@@ -25,7 +24,7 @@ public class Inspection : IInspection
     // EDIT (Y. PARKHOMENKO)
     public Inspection()
     {
-        
+
     }
     // END OF EDIT
 

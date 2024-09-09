@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CarRental.Data.Enums;
+﻿namespace CarRental.Data.Enums;
 
 public enum TransportStatus : byte
 {

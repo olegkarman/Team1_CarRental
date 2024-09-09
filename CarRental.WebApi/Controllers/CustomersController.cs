@@ -1,8 +1,5 @@
-﻿using CarRental.BussinessLayer.Interfaces;
-using CarRental.BussinessLayer.DTOs;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models;
-using CarRental.WebApi.DTOs;
+﻿using CarRental.BussinessLayer.DTOs;
+using CarRental.BussinessLayer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarRental.WebApi.Controllers
@@ -28,7 +25,7 @@ namespace CarRental.WebApi.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<CustomerDto> GetCustomerAsync([FromRoute]string id)
+        public async Task<CustomerDto> GetCustomerAsync([FromRoute] string id)
         {
             string? connectionString = _configuration.GetConnectionString("Local");
 

@@ -1,13 +1,11 @@
-﻿using CarRental.Data.Models.Checkup;
-using CarRental.Data.Models;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace CarRental.Data.Models
 {
 
     public class Inspector : User
     {
-     //   private static readonly List<Inspection> s_inspections = new List<Inspection>();
+        //   private static readonly List<Inspection> s_inspections = new List<Inspection>();
         public DateTime EmploymentDate { get; init; } //Додати readonly поле (string Year)
 
         [SetsRequiredMembers]

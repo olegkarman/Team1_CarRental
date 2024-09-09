@@ -1,16 +1,11 @@
-﻿using CarRental.Data.Models.Gateway;
-using CarRental.Data.Models;
+﻿using System.Text.RegularExpressions;
 using CarRental.BussinessLayer.Interfaces;
-using System;
-using System.Text;
-using CarRental.Data.Models.RecordTypes;
-using CarRental.Data.Models.Automobile;
 using CarRental.BussinessLayer.Validators;
-using System.Drawing;
-using System.Globalization;
-using System.Reflection;
-using System.Text.RegularExpressions;
+using CarRental.Data.Models;
+using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
+using CarRental.Data.Models.Gateway;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -423,7 +418,7 @@ namespace CarRental.BussinessLayer.Managers
 
             string inputInfo = manager.ShowCars(customer, _carServiceManager);
 
-            string[] carsInfo = inputInfo.Split(delimiterToSplit); 
+            string[] carsInfo = inputInfo.Split(delimiterToSplit);
 
             for (int index = 0; index < carsInfo.Length; index = index + 1)
             {
@@ -475,7 +470,7 @@ namespace CarRental.BussinessLayer.Managers
 
             int mechanicSelector = random.Next(0, 5);
 
-            switch(mechanicSelector)
+            switch (mechanicSelector)
             {
                 case 0:
                     selectedMechanic = yaroslav;

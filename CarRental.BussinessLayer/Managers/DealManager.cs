@@ -1,13 +1,9 @@
-﻿using System;
-//using System.Text.Json;
+﻿//using System.Text.Json;
 //using System.IO;
-using System.Diagnostics;
 using CarRental.BussinessLayer.Validators;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models;
 using CarRental.Data.Models.RecordTypes;
-using Microsoft.Data.SqlClient;
 using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -60,7 +56,7 @@ public class DealManager
 
             return resultDeal;
         }
-        catch(AggregateException)
+        catch (AggregateException)
         {
             throw;
         }
@@ -75,7 +71,7 @@ public class DealManager
     public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
     {
         name = name + Guid.NewGuid().ToString().Substring(24);
-        
+
         Deal deal = new Deal
         {
             Id = Guid.NewGuid(),

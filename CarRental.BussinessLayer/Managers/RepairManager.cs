@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarRental.BussinessLayer.Interfaces;
+using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
-using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using Microsoft.Data.SqlClient;
 using Dapper;
-using CarRental.BussinessLayer.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -46,16 +41,16 @@ namespace CarRental.BussinessLayer.Managers
 
             Repair repair = new Repair
             {
-                 Id = Guid.NewGuid(),
-                 Date = DateTime.Now,
-                 CarId = car.CarId,
-                 CarBrand = car.Brand,
-                 CarModel = car.Model,
-                 MechanicName = mechanic.Name,
-                 MechanicId = mechanic.Id,
-                 TechnicalInfo = technicalInfo,
-                 IsSuccessfull = isSuccessfull,
-                 TotalCost = (car.Price / 3)
+                Id = Guid.NewGuid(),
+                Date = DateTime.Now,
+                CarId = car.CarId,
+                CarBrand = car.Brand,
+                CarModel = car.Model,
+                MechanicName = mechanic.Name,
+                MechanicId = mechanic.Id,
+                TechnicalInfo = technicalInfo,
+                IsSuccessfull = isSuccessfull,
+                TotalCost = (car.Price / 3)
             };
 
             NullValidator.CheckNull(repair);
@@ -120,7 +115,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             NullValidator.CheckNull(repairs);
             IndexValidator.ValidateIndexOfList(repairs, index);
-            
+
             Repair repair = repairs[index];
 
             return repair;

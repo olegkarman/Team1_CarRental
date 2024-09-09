@@ -7,7 +7,7 @@ namespace CarRental.Data.Models;
 public class Customer : User
 {
     // FIELDS
-    
+
     public const float BasicDiscount = 0.5f;
 
     // PROPERTIES
@@ -37,8 +37,8 @@ public class Customer : User
 
     // METHODS
 
-   public override string ToString()
-   {
+    public override string ToString()
+    {
         return $"{{ {nameof(FirstName)} = {this.FirstName} | {nameof(LastName)} = {this.LastName} | {nameof(DateOfBirth)} = {this.DateOfBirth} | {nameof(UserName)} = {this.UserName} | {nameof(IdNumber)} = {this.IdNumber} | }}";
-   }
+    }
 }
