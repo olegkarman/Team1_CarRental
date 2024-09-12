@@ -19,7 +19,7 @@ namespace CarRental.BussinessLayer.Validators
             // LOGIC OF VALDIATION (IN FUTURE UPDATES).
         }
 
-        public void ValidateDictionary<T>(Dictionary<T, string> dictionary)
+        public void ValidateDictionary(Dictionary<string, string> dictionary)
         {
             // LOGIC OF VALIDATION.
         }
