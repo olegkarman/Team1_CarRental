@@ -66,7 +66,6 @@ namespace CarRental.BussinessLayer.Services
         {
             return _pseudoRandom.Next(5000, 350001);
         }
-        //    _carServiceManager.CurrentCars.Add(_carServiceManager.GetNewCar(guid, vinCode, model, brand, numberPlate, price));
 
         public string GetNewEngine()
         {

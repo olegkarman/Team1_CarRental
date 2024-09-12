@@ -17,13 +17,13 @@ namespace CarRental.BussinessLayer.Managers
 
         // PROPERTIES
 
-        internal UpdatedNameValidator Validator { get; init; }
-        internal TextProcessingService TextProcessor { get; init; }
-        internal AgeValidator AgeValidator { get; init; }
-        internal NullValidation NullValidator { get; init; }
-        internal IndexOfListValidation IndexValidator { get; init; }
-        internal Random PseudoRandom;
-        internal DatabaseContextDapper DataContext { get; init; }
+        internal INameValidation Validator { get; init; }
+        internal ITextProcessing TextProcessor { get; init; }
+        internal IAgeValidation AgeValidator { get; init; }
+        internal INullValidation NullValidator { get; init; }
+        internal IIndexValidation IndexValidator { get; init; }
+        internal IDataContext DataContext { get; init; }
+        internal Random PseudoRandom { get; init; }
 
         // PROPERTIES
 
@@ -34,6 +34,26 @@ namespace CarRental.BussinessLayer.Managers
         public MechanicManager()
         {
             this.PseudoRandom = new Random();
+        }
+
+        public MechanicManager
+        (
+            INameValidation nameValidator,
+            ITextProcessing textProcessor,
+            IAgeValidation ageValidator,
+            INullValidation nullValidator,
+            IIndexValidation indexValidator,
+            IDataContext dapperContext
+        )
+        {
+            Validator = nameValidator;
+            TextProcessor = textProcessor;
+            AgeValidator = ageValidator;
+            NullValidator = nullValidator;
+            IndexValidator = indexValidator;
+            DataContext = dapperContext;
+
+            PseudoRandom = new Random();
         }
 
         // METHODS

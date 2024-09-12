@@ -1,6 +1,5 @@
 ﻿using CarRental.BussinessLayer.Services;
 using CarRental.BussinessLayer.Validators;
-using CarRental.Data.Managers;
 using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers;
@@ -17,9 +16,9 @@ public class SupplementDataInitializator
         return new TextProcessingService();
     }
 
-    public FileManager InitializeFileManagement()
+    public FileDataManager InitializeFileManagement()
     {
-        return new FileManager();
+        return new FileDataManager();
     }
 
     public DapperConfigurationManager InitializeDapperConfigs()
@@ -54,7 +53,7 @@ public class SupplementDataInitializator
 
     public RandomCarGeneration InitializeRandomCarGenerator()
     {
-        RandomCarGeneration randomGenerator = new RandomCarGeneration
+        var randomGenerator = new RandomCarGeneration
         {
             Models =
             [

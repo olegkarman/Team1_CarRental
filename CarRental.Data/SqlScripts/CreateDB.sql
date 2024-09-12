@@ -2240,6 +2240,25 @@ EXECUTE
 			AND Users.Category = @customerCategory;
 ');
 
+EXECUTE
+('
+	CREATE PROCEDURE GetSimpleCustomer (@idNumber NVARCHAR(100), @category NVARCHAR(50))
+	AS
+		SELECT IdNumber,
+				FirstName,
+				LastName,
+				DateOfBirth,
+				Password,
+				UserName,
+				BasicDiscount,
+				PassportNumber,
+				DrivingLicenseNumber,
+				Category
+		FROM Users
+		WHERE IdNumber = @idNumber
+			AND Category = @category;
+');
+
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH END ------------------------------------------------

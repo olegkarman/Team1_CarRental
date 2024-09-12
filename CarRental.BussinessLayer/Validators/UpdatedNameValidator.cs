@@ -1,8 +1,9 @@
 ﻿using System.Text.RegularExpressions;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Validators
 {
-    internal class UpdatedNameValidator
+    public class UpdatedNameValidator : INameValidation
     {
         // FIELDS
 

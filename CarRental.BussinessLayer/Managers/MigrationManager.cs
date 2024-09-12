@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CarRental.Data.Managers;
+namespace CarRental.BussinessLayer.Managers;
 
 public static class MigrationManager
 {

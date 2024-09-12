@@ -125,7 +125,7 @@ public class DealManager
 
     // UPDATE
 
-    public void AddDealInToList(List<Deal> deals, Deal deal)
+    public void AddDealInToList(List<Deal?> deals, Deal deal)
     {
         _validator.CheckNull(deals);
         _validator.CheckNull(deal);
@@ -135,7 +135,7 @@ public class DealManager
 
     // DELETE
 
-    public void DeleteDealFromList(List<Deal> deals, int index)
+    public void DeleteDealFromList(List<Deal?> deals, int index)
     {
         _validator.CheckNull(deals);
         _indexValidator.ValidateIndexOfList(deals, index);
@@ -143,7 +143,7 @@ public class DealManager
         deals.RemoveAt(index);
     }
 
-    public void DeleteDealFromList(List<Deal> deals, string name, string customerId)
+    public void DeleteDealFromList(List<Deal?> deals, string name, string customerId)
     {
         _validator.CheckNull(deals);
         _nameValidator.CheckNullEmpty(name, customerId);

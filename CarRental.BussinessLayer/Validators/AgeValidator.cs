@@ -1,6 +1,8 @@
-﻿namespace CarRental.BussinessLayer.Validators
+﻿using CarRental.BussinessLayer.Interfaces;
+
+namespace CarRental.BussinessLayer.Validators
 {
-    public class AgeValidator
+    public class AgeValidator : IAgeValidation
     {
         // METHODS
 
@@ -16,6 +18,18 @@
             }
         }
 
-        // // ADD VALIDATE BIRTH MONTH, BIRTH DATE.
+        public bool ValidateMonth(int month)
+        {
+            // VALIDATION LOGIC.
+
+            throw new NotImplementedException();
+        }
+
+        public bool ValidateDay(int day)
+        {
+            // VALIDATION LOGIC.
+
+            throw new NotImplementedException();
+        }
     }
 }

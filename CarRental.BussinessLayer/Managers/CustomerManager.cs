@@ -2,6 +2,7 @@
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.RecordTypes;
+using CarRental.BussinessLayer.DTOs;
 using Dapper;
 using Microsoft.Data.SqlClient;
 
@@ -25,6 +26,87 @@ namespace CarRental.BussinessLayer.Managers
         }
 
         // METHODS
+
+        public async Task<SimpleCustomerDto> CreateCustomer
+        (
+            string firstName,
+            string lastName,
+            DateTime dateOfBirth,
+            string userName,
+            string idNumber,
+            string password,
+            string passportNumber,
+            string drivingLicenseNumber,
+            string connectionString,
+            string category = "Customer"
+        )
+        {
+            try
+            {
+                var sqlProcedureCreate = "CreateCustomer";
+                var sqlProcedureSelect = "GetSimpleCustomer";
+
+                string id = idNumber.ToUpper();
+
+                string encryptedPassword = password + "f328373f";
+
+                encryptedPassword = encryptedPassword.GetHashCode().ToString();
+
+                object argumentsCreate = new
+                {
+                    IdNumber = id,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    DateOfBirth = dateOfBirth,
+                    UserName = userName,
+                    Password = encryptedPassword,
+                    PassportNumber = passportNumber,
+                    DrivingLicenseNumber = drivingLicenseNumber,
+                    BasicDiscount = Customer.BasicDiscount,
+                    Category = category
+                };
+
+                object argumentsSelect = new
+                {
+                    idNumber = id,
+                    category = category
+                };
+
+                SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+                await connection.ExecuteAsync(sqlProcedureCreate, argumentsCreate);
+
+                IEnumerable<CustomerTemp> customers = await connection.QueryAsync<CustomerTemp>(sqlProcedureSelect, argumentsSelect);
+
+                DapperContext.CloseConnection(connection);
+
+                CustomerTemp customerTemp = customers.FirstOrDefault();
+
+                var customer = new SimpleCustomerDto
+                {
+                    IdNumber = customerTemp.IdNumber,
+                    FirstName = customerTemp.FirstName,
+                    LastName = customerTemp.LastName,
+                    DateOfBirth = customerTemp.DateOfBirth,
+                    UserName = customerTemp.UserName,
+                    PassportNumber = customerTemp.PassportNumber,
+                    DrivingLicenseNumber = customerTemp.DrivingLicenseNumber,
+                    BasicDiscount = CustomerTemp.BasicDiscount
+                };
+
+                return customer;
+            }
+            catch (AggregateException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                // SOME LOGGING LOGIC
+
+                throw;
+            }
+        }
 
         public async Task AddCustomerIntoDatabaseAsync(Customer customer, string connectionString)
         {

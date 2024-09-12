@@ -34,6 +34,18 @@ public class ServiceManager : ICarManager
 
     public ServiceManagerSupplements SupplementData { get; private set; }
 
+    public IRandomCarGeneration RandomCarGenerator { get; init; }
+    public IVehicleValidation Validator { get; init; }
+    public IIndexValidation IndexValidator { get; init; }
+    public ICharMaps CharMaps { get; init; }
+    public IMechanicManager MechanicalManager { get; init; }
+    public IRepairManager JunkRepairManager { get; init; }
+    public INullValidation NullValidator { get; init; }
+    public IDataContext DataContext { get; init; }
+    public IDapperConfiguration DapperConfigs { get; init; }
+    public IFileContext FileContext { get; init; }
+    public ITextProcessing TextProcessor { get; init; }
+
     // CONSTRUCTORS
 
     public ServiceManager()
@@ -43,6 +55,38 @@ public class ServiceManager : ICarManager
         this.CurrentCars = new List<Car>();
 
         _dapperContext = new DatabaseContextDapper();
+    }
+
+    public ServiceManager
+    (
+        IRandomCarGeneration randomCarGenerator,
+        IVehicleValidation validator,
+        IIndexValidation indexValidator,
+        ICharMaps charMaps,
+        IMechanicManager mechanicalManager,
+        IRepairManager junkRepairManager,
+        INullValidation nullValidator,
+        IDataContext dataContext,
+        IDapperConfiguration dapperConfigs,
+        IFileContext fileContext,
+        ITextProcessing textProcessor 
+    )
+    {
+        RandomCarGenerator = randomCarGenerator;
+        Validator = validator;
+        IndexValidator = indexValidator;
+        CharMaps = charMaps;
+        MechanicalManager = mechanicalManager;
+        JunkRepairManager = junkRepairManager;
+        NullValidator = nullValidator;
+        DataContext = dataContext;
+        DapperConfigs = dapperConfigs;
+        FileContext = fileContext;
+        TextProcessor = textProcessor;
+
+        _random = new Random();
+        _carsInfo = new StringBuilder();
+        CurrentCars = new List<Car>();
     }
 
     // METHODS
@@ -61,7 +105,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
             string sqlProcedureInsert = "CreateSimpleCar";
             string sqlProcedureSelect = "GetSimpleCar";
@@ -99,7 +143,7 @@ public class ServiceManager : ICarManager
                 Price = car.Price
             };
 
-            _dapperContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             return simpleCar;
         }
@@ -456,7 +500,7 @@ public class ServiceManager : ICarManager
                 customerCategory = category
             };
 
-            SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
             IEnumerable<CustomerTemp> customers = await connection.QueryAsync<CustomerTemp, Car?, Deal?, Inspection?, Repair?, CustomerTemp>
             (
@@ -507,7 +551,7 @@ public class ServiceManager : ICarManager
                 customerTemp.Cars.Add(car);
             }
 
-            _dapperContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             //CustomerTemp customer = customers.SingleOrDefault();
 
@@ -888,7 +932,7 @@ public class ServiceManager : ICarManager
 
     public async Task<SimpleCarDto> UpdateNumberPlatePriceSimpleCar(string connectionString, string carId, string numberPlate, int price)
     {
-        SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+        SqlConnection connection = DataContext.OpenConnection(connectionString);
 
         var sqlProcedureUpdate = "UpdateNumberPlatePriceCar";
 
@@ -922,7 +966,7 @@ public class ServiceManager : ICarManager
             Price = car.Price
         };
 
-        _dapperContext.CloseConnection(connection);
+        DataContext.CloseConnection(connection);
 
         return simpleCarDto;
     }
@@ -1085,13 +1129,13 @@ public class ServiceManager : ICarManager
 
         var sqlProcedureCheck = "CheckIfCarExist";
 
-        SqlConnection connection = _dapperContext.OpenConnection(connectionString);
+        SqlConnection connection = DataContext.OpenConnection(connectionString);
 
         await connection.ExecuteAsync(sqlProcedureDelete, arguments);
 
         IEnumerable<bool> bits = await connection.QueryAsync<bool>(sqlProcedureCheck, arguments);
 
-        _dapperContext.CloseConnection(connection);
+        DataContext.CloseConnection(connection);
 
         bool isExist = bits.SingleOrDefault();
 
@@ -1126,7 +1170,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            SupplementDataInitializator dataInit = new SupplementDataInitializator();
+            var dataInit = new SupplementDataInitializator();
 
             this.SupplementData = new ServiceManagerSupplements
             {
@@ -1151,7 +1195,7 @@ public class ServiceManager : ICarManager
 
     public void ConfigureOrm()
     {
-        SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
-        SupplementData.DapperConfigs.SetCustomMappingForEntities();
+        DapperConfigs.ConfigureGuidToStringMapping();
+        DapperConfigs.SetCustomMappingForEntities();
     }
 }

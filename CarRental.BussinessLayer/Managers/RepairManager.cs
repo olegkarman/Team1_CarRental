@@ -14,13 +14,29 @@ namespace CarRental.BussinessLayer.Managers
 
         // PROPERTIES
 
-        internal NullValidation NullValidator { get; init; }
-        internal IndexOfListValidation IndexValidator { get; init; }
-        internal DatabaseContextDapper DataContext { get; init; }
+        internal INullValidation NullValidator { get; init; }
+        internal IIndexValidation IndexValidator { get; init; }
+        internal IDataContext DataContext { get; init; }
 
         // PROPERTIES
 
-        public List<Repair> Repairs { get; set; }
+        public List<Repair?> Repairs { get; set; }
+
+        // CONSTRUCTORS
+
+        public RepairManager()
+        {
+
+        }
+
+        public RepairManager(INullValidation nullValidator, IIndexValidation indexValidator, IDataContext dapperContext)
+        {
+            NullValidator = nullValidator;
+            IndexValidator = indexValidator;
+            DataContext = dapperContext;
+
+            Repairs = new List<Repair?>();
+        }
 
         // METHODS
 

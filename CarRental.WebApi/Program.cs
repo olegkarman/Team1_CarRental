@@ -1,7 +1,10 @@
 using System.Reflection;
 using CarRental.BussinessLayer.Interfaces;
 using CarRental.BussinessLayer.Managers;
+using CarRental.BussinessLayer.Services;
+using CarRental.BussinessLayer.Validators;
 using FluentMigrator.Runner;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.WebApi
 {
@@ -17,7 +20,88 @@ namespace CarRental.WebApi
             // Learn more about configuring Swagger/OpenAPI at aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddSingleton<ICarManager, ServiceManager>();
+
+            builder.Services.AddSingleton<IRandomCarGeneration, RandomCarGeneration>();
+            builder.Services.AddSingleton<INameValidation, UpdatedNameValidator>();
+            builder.Services.AddSingleton<IAgeValidation, AgeValidator>();
+            builder.Services.AddSingleton<IVehicleValidation, VehicleValidation>();
+            builder.Services.AddSingleton<IIndexValidation, IndexOfListValidation>();
+            builder.Services.AddSingleton<ICharMaps, PatternCharMapsDto>();
+            builder.Services.AddSingleton<IMechanicManager, MechanicManager>
+            (
+                provider =>
+                {
+                    var nameValidator = provider.GetRequiredService<INameValidation>();
+                    var textProcessor = provider.GetRequiredService<ITextProcessing>();
+                    var ageValidator = provider.GetRequiredService<IAgeValidation>();
+                    var nullValidator = provider.GetRequiredService<INullValidation>();
+                    var indexValidator = provider.GetRequiredService<IIndexValidation>();
+                    var dataContext = provider.GetRequiredService<IDataContext>();
+
+                    return new MechanicManager
+                    (
+                        nameValidator,
+                        textProcessor,
+                        ageValidator,
+                        nullValidator,
+                        indexValidator,
+                        dataContext
+                    );
+                }
+            );
+            builder.Services.AddSingleton<IRepairManager, RepairManager>
+            (
+                provider =>
+                {
+                    var nullValidator = provider.GetRequiredService<INullValidation>();
+                    var indexValidator = provider.GetRequiredService<IIndexValidation>();
+                    var dataContext = provider.GetRequiredService<IDataContext>();
+
+                    return new RepairManager
+                    (
+                        nullValidator,
+                        indexValidator,
+                        dataContext
+                    );
+                }
+            );
+            builder.Services.AddSingleton<INullValidation, NullValidation>();
+            builder.Services.AddSingleton<IDataContext, DatabaseContextDapper>();
+            builder.Services.AddSingleton<IDapperConfiguration, DapperConfigurationManager>();
+            builder.Services.AddSingleton<IFileContext, FileDataManager>();
+            builder.Services.AddSingleton<ITextProcessing, TextProcessingService>();
+            builder.Services.AddSingleton<ICarManager, ServiceManager>
+            (
+                provider =>
+                {
+                    var randomCarGenerator = provider.GetRequiredService<IRandomCarGeneration>();
+                    var vehicleValidation = provider.GetRequiredService<IVehicleValidation>();
+                    var indexOfListValidation = provider.GetRequiredService<IIndexValidation>();
+                    var patternCharMapsDto = provider.GetRequiredService<ICharMaps>();
+                    var mechanicManager = provider.GetRequiredService<IMechanicManager>();
+                    var repairManager = provider.GetRequiredService<IRepairManager>();
+                    var nullValidation = provider.GetRequiredService<INullValidation>();
+                    var databaseContextDapper = provider.GetRequiredService<IDataContext>();
+                    var dapperConfigurationManager = provider.GetRequiredService<IDapperConfiguration>();
+                    var fileDataManager = provider.GetRequiredService<IFileContext>();
+                    var textProcessingService = provider.GetRequiredService<ITextProcessing>();
+
+                    return new ServiceManager
+                    (
+                        randomCarGenerator,
+                        vehicleValidation,
+                        indexOfListValidation,
+                        patternCharMapsDto,
+                        mechanicManager,
+                        repairManager,
+                        nullValidation,
+                        databaseContextDapper,
+                        dapperConfigurationManager,
+                        fileDataManager,
+                        textProcessingService
+                    );
+                }
+            );
 
             builder.Configuration
                 .AddJsonFile("appsettings.YarikSuper.json");
@@ -72,18 +156,22 @@ namespace CarRental.WebApi
             // SINGLETON
             var carManager = app.Services.GetRequiredService<ICarManager>();
 
-            carManager.InitializeManagment();
+            //carManager.InitializeManagment();
             carManager.ConfigureOrm();
 
             app.Use
             (
                 async (http, next) =>
                 {
-                    Console.WriteLine($"HTTP REQ-METHOD: {http.Request.Method}\nHTTP ROUTE: {http.Request.Path}");
+                    Console.WriteLine("=========================>");
+
+                    Console.WriteLine($"HTTP REQ-METHOD: {http.Request.Method}\nHTTP REQ-ROUTE: {http.Request.Path}");
 
                     await next();
 
-                    Console.WriteLine($"HTTP RES-SCODE: {http.Response.StatusCode}\nDATA TYPE: {http.Response.ContentType}");
+                    Console.WriteLine("<=========================");
+
+                    Console.WriteLine($"HTTP RES-SCODE: {http.Response.StatusCode}\nHTTP RES-DATA TYPE: {http.Response.ContentType}");
                 }
             );
 

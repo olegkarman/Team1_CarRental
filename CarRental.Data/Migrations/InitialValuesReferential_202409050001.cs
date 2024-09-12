@@ -15,12 +15,12 @@ namespace CarRentalData.Migrations
 					(
 						SELECT ROUTINE_NAME
 							FROM INFORMATION_SCHEMA.ROUTINES
-							WHERE ROUTINE_NAME = 'GetCustomer'
+							WHERE ROUTINE_NAME = 'GetSimpleCustomer'
 					)
 						BEGIN
 							EXECUTE
 							('
-								CREATE PROCEDURE GetSimpleCustomer (@id NVARCHAR(100))
+								CREATE PROCEDURE GetSimpleCustomer (@idNumber NVARCHAR(100), @category NVARCHAR(50))
 								AS
 									SELECT IdNumber,
 											FirstName,
@@ -33,14 +33,14 @@ namespace CarRentalData.Migrations
 											DrivingLicenseNumber,
 											Category
 									FROM Users
-									WHERE IdNumber = @id
-										AND Category = 'Customer';
+									WHERE IdNumber = @idNumber
+										AND Category = @category;
 							');
 
-							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE GetCustomer CREATED';
+							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE GetSimpleCustomer CREATED';
 						END
 					ELSE
-						PRINT 'MIGRATION FAILED: STORED PROCEDURE WITH NAME GetCustomer ALREADY EXISTS';
+						PRINT 'MIGRATION FAILED: STORED PROCEDURE WITH NAME GetSimpleCustomer ALREADY EXISTS';
                 "
             );
         }
@@ -54,16 +54,16 @@ namespace CarRentalData.Migrations
 					(
 						SELECT ROUTINE_NAME
 							FROM INFORMATION_SCHEMA.ROUTINES
-							WHERE ROUTINE_NAME = 'GetCustomer'
+							WHERE ROUTINE_NAME = 'GetSimpleCustomer'
 					)
 						BEGIN
-							DROP PROCEDURE GetCustomer;
+							DROP PROCEDURE GetSimpleCustomer;
 
-							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE GetCustomer DROPPED';
+							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE GetSimpleCustomer DROPPED';
 						END
 					ELSE
 						BEGIN
-							PRINT 'MIGRATION FAILED: STORED PROCEDURE WITH NAME GetCustomer IS NOT EXIST';
+							PRINT 'MIGRATION FAILED: STORED PROCEDURE WITH NAME GetSimpleCustomer IS NOT EXIST';
 						END
                 "
             );

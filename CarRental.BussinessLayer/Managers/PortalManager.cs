@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using CarRental.BussinessLayer.Interfaces;
+using CarRental.BussinessLayer.Services;
 using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
@@ -29,7 +30,21 @@ namespace CarRental.BussinessLayer.Managers
         {
             _portalInstance = portal;
             _outputManager = outputManager;
-            _carServiceManager = new ServiceManager();
+            _carServiceManager = new ServiceManager
+            (
+                new RandomCarGeneration(),
+                new VehicleValidation(),
+                new IndexOfListValidation(),
+                new PatternCharMapsDto(),
+                new MechanicManager(),
+                new RepairManager(),
+                new NullValidation(),
+                new DatabaseContextDapper(),
+                new DapperConfigurationManager(),
+                new FileDataManager(),
+                new TextProcessingService()
+            );
+
             _inspectorCars = new InspectorCars();
             _customerManager = new CustomerManager();
             _inspectionsManager = new InspectionsManager();
