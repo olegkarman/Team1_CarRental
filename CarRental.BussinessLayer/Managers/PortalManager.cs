@@ -36,8 +36,23 @@ namespace CarRental.BussinessLayer.Managers
                 new VehicleValidation(),
                 new IndexOfListValidation(),
                 new PatternCharMapsDto(),
-                new MechanicManager(),
-                new RepairManager(),
+                new MechanicManager
+                (
+                    new UpdatedNameValidator(),
+                    new TextProcessingService(),
+                    new AgeValidator(),
+                    new NullValidation(),
+                    new IndexOfListValidation(),
+                    new DatabaseContextDapper()
+                ),
+
+                new RepairManager
+                (
+                    new NullValidation(),
+                    new IndexOfListValidation(),
+                    new DatabaseContextDapper()
+                ),
+
                 new NullValidation(),
                 new DatabaseContextDapper(),
                 new DapperConfigurationManager(),
@@ -67,11 +82,14 @@ namespace CarRental.BussinessLayer.Managers
 
         public async Task StartMainMenuAsync(string connectionString, bool bulkInsertFlag)
         {
-            _carServiceManager.InitializeManagment();
-
             // TO CONFIGURE ORM FOR Car-CLASS.
-            _carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
-            _carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
+            _carServiceManager.DapperConfigs.ConfigureGuidToStringMapping();
+            _carServiceManager.DapperConfigs.SetCustomMappingForEntities();
+
+            using (var initializator = new SupplementDataInitializator())
+            {
+                initializator.ConfigureRandomGeneration(_carServiceManager.RandomCarGenerator);
+            }   
 
             // IF CUSTOMER IS NOT EXISTS IN A DATABSE, ADD IT THEN.
             if (_portalInstance.IsCustomer)
@@ -507,7 +525,7 @@ namespace CarRental.BussinessLayer.Managers
                     break;
             }
 
-            Mechanic mechanic = await _carServiceManager.SupplementData.MechanicalManager.GetMechanicFromDatabaseAsync(selectedMechanic, connectionString);
+            Mechanic mechanic = await _carServiceManager.MechanicalManager.GetMechanicFromDatabaseAsync(selectedMechanic, connectionString);
 
             // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
             await _carServiceManager.RepairAsync(car, mechanic, connectionString);
@@ -531,7 +549,7 @@ namespace CarRental.BussinessLayer.Managers
                         continue;
                     }
 
-                    _outputManager.PrintMessage(_carServiceManager.SupplementData.JunkRepairManager.ShowRepairInfo(repair));
+                    _outputManager.PrintMessage(_carServiceManager.JunkRepairManager.ShowRepairInfo(repair));
                 }
 
                 _outputManager.PrintMessage("");
