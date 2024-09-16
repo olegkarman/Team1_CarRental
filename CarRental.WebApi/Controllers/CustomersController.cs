@@ -29,7 +29,7 @@ namespace CarRental.WebApi.Controllers
         [Route("{id}")]
         public async Task<GetCustomerDto> GetCustomerAsync([FromRoute] string id)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             CustomerDto customersTemp = await _customerManager.GetCustomerByIdAsync(connectionString, id, "Customer");
 
@@ -54,7 +54,7 @@ namespace CarRental.WebApi.Controllers
         [Route("authentification/{id}")]
         public async Task<IActionResult> IsCustomerExists([FromRoute]string id)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             bool isCustomerExist = await _customerManager.IsCustomerInDatabaseAsync(id, connectionString);
 
@@ -72,7 +72,7 @@ namespace CarRental.WebApi.Controllers
         [Route("authorization/{id}")]
         public async Task<IActionResult> CheckCredentials([FromRoute]string id, [FromBody]GetCredentialCustomerDto credentialCustomer)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             bool isValid = await _customerManager.CheckCredentialsAsync(id, credentialCustomer.UserName, credentialCustomer.Password, connectionString);
 

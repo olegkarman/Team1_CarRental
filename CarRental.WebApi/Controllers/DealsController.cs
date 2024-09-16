@@ -30,7 +30,7 @@ namespace CarRental.WebApi.Controllers
         [Route("{dealId}")]
         public async Task<GetDealDto> RetriveDealByIdAsync([FromRoute]string dealId)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             DealDto dealDto = await _dealManager.GetDealByIdAsync(connectionString, dealId);
 
@@ -51,7 +51,7 @@ namespace CarRental.WebApi.Controllers
         [HttpPost]
         public async Task<GetDealDto> CreateNewDealAsync([FromBody]DealCredentials dealCredentials)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             DealDto dealDto = await _dealManager.GetNewDealAsync
             (

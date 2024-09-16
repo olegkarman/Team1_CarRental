@@ -1,11 +1,11 @@
 ﻿using CarRental.BussinessLayer.Managers;
+using CarRental.Presentation.Managers;
 using CarRental.Data.Models.Gateway;
 using CarRental.Data.Models.Login;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
-
-
-
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
 namespace CarRental.Presentation;
 
 class CarRentalPortal
@@ -18,13 +18,13 @@ class CarRentalPortal
 
         IConfigurationRoot configurations = configurationBuilder
             .AddJsonFile("appsettings.json")
-            //.AddJsonFile("appsettings.YarikSuper.json")
-            .AddJsonFile("appsettings.YarikSuperLocal.json")
+            .AddJsonFile("appsettings.YarikSuper.json")
+            //.AddJsonFile("appsettings.YarikSuperLocal.json")
             .Build();
 
         //string connectionString = configurations.GetConnectionString("MDzivinska");
-        string connectionString = configurations.GetConnectionString("LocalTest");
-        //string connectionString = configurations.GetConnectionString("ConnectionStringCloudClusters");
+        //string connectionString = configurations.GetConnectionString("LocalTest");
+        string connectionString = configurations.GetConnectionString("ConnectionStringCloudClusters");
 
         bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");
 

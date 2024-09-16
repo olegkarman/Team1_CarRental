@@ -23,7 +23,7 @@ namespace CarRentalData.Migrations
 								CREATE PROCEDURE GetCustomer
 								(
 									@customerId NVARCHAR(100),
-									@customerCategory NVARCHAR(50) = 'Customer'
+									@customerCategory NVARCHAR(50) = ''Customer''
 								)
 								AS
 									SELECT Users.IdNumber AS userIdNumber,

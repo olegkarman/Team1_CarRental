@@ -114,7 +114,7 @@ namespace CarRental.WebApi
 
             Assembly assembly = AppDomain.CurrentDomain.GetAssemblies().SingleOrDefault(x => x.GetName().Name == assemblyName);
 
-            string connectionString = builder.Configuration.GetConnectionString("Local");
+            string connectionString = builder.Configuration.GetConnectionString("CloudClusters");
 
             builder.Host.ConfigureServices
             (
@@ -151,8 +151,8 @@ namespace CarRental.WebApi
 
                 //migrationManager.ListMigrations();
                 //migrationManager.MigrateDown(202407090001);
-                //migrationManager.MigrateUp();
-                migrationManager.ListMigrations();
+                migrationManager.MigrateUp();
+                //migrationManager.ListMigrations();
             }
 
             // SINGLETON

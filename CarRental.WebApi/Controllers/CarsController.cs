@@ -28,7 +28,7 @@ namespace CarRental.WebApi.Controllers
         [Route("simple")]
         public async Task<GetSimpleCarDto> CreateSimpleCar([FromBody] CreateSimpleCarDto createSimpleCarDto)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             SimpleCarDto simpleCarDto = await _carManager.CreateSimpleCar
             (
@@ -57,7 +57,7 @@ namespace CarRental.WebApi.Controllers
         [Route("simple/{carId}")]
         public async Task<GetSimpleCarDto> GetSimpleCar([FromRoute] string carId)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             SimpleCarDto? simpleCarDto = await _carManager.GetSimpleCarByIdAsync(carId, connectionString);
 
@@ -78,7 +78,7 @@ namespace CarRental.WebApi.Controllers
         [Route("simple/{carId}")]
         public async Task<GetSimpleCarDto> UpdatePlatePriceSimpleCar([FromRoute] string carId, [FromBody] UpdateSimpleCarDto updateSimpleCarDto)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             SimpleCarDto? simpleCarDto = await _carManager.UpdateNumberPlatePriceSimpleCar
             (
@@ -105,7 +105,7 @@ namespace CarRental.WebApi.Controllers
         [Route("{carId}")]
         public async ValueTask<bool> DeleteCar([FromRoute] string carId)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             bool isSuccessful = await _carManager.DeleteSimpleCar(connectionString, carId);
 
@@ -116,7 +116,7 @@ namespace CarRental.WebApi.Controllers
         [Route("buy/{id}")]
         public async Task<GetBuyCarDto> BuyCar([FromRoute]string id, [FromBody]BuyCarCredentials buyCarCredentials)
         {
-            string? connectionString = _configuration.GetConnectionString("Local");
+            string? connectionString = _configuration.GetConnectionString("CloudClusters");
 
             BuyCarDto carDto = await _carManager.UpdateBuyCar(connectionString, id, buyCarCredentials.CustomerId, buyCarCredentials.DealId, buyCarCredentials.StatusId);
 

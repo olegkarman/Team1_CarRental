@@ -25,7 +25,7 @@ namespace CarRentalData.Migrations
 									SELECT UserName, Password
 										FROM Users
 										WHERE IdNumber = @customerId
-											AND Category = 'Customer';
+											AND Category = ''Customer'';
 							');
 
 							PRINT 'MIGRATION APPLIED SUCCESSFULLY: STORED PROCEDURE GetCredentialsOfCustomer CREATED';
