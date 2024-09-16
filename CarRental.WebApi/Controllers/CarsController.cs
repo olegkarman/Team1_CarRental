@@ -111,5 +111,43 @@ namespace CarRental.WebApi.Controllers
 
             return isSuccessful;
         }
+
+        [HttpPatch]
+        [Route("buy/{id}")]
+        public async Task<GetBuyCarDto> BuyCar([FromRoute]string id, [FromBody]BuyCarCredentials buyCarCredentials)
+        {
+            string? connectionString = _configuration.GetConnectionString("Local");
+
+            BuyCarDto carDto = await _carManager.UpdateBuyCar(connectionString, id, buyCarCredentials.CustomerId, buyCarCredentials.DealId, buyCarCredentials.StatusId);
+
+            var getBuyCarDto = new GetBuyCarDto
+            {
+                CarId = carDto.CarId,
+                VinCode = carDto.VinCode,
+                Model = carDto.Model,
+                Brand = carDto.Brand,
+                NumberPlate = carDto.NumberPlate,
+                Price = carDto.Price,
+                Engine = carDto.Engine,
+                Transmission = carDto.Transmission,
+                Interior = carDto.Interior,
+                Wheels = carDto.Wheels,
+                Lights = carDto.Lights,
+                Signal = carDto.Signal,
+                Color = carDto.Color,
+                NumberOfSeats = carDto.NumberOfSeats,
+                NumberOfDoors = carDto.NumberOfDoors,
+                Mileage = carDto.Mileage,
+                MaxFuelCapacity = carDto.MaxFuelCapacity,
+                CurrentFuel = carDto.CurrentFuel,
+                Year = carDto.Year,
+                StatusId = carDto.StatusId,
+                IsFitForUse = carDto.IsFitForUse,
+                DealId = carDto.DealId,
+                CustomerId = carDto.CustomerId
+            };
+
+            return getBuyCarDto;
+        }
     }
 }

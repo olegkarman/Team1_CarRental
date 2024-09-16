@@ -30,4 +30,6 @@ public interface ICarManager
     public ValueTask<bool> DeleteSimpleCar(string connectionString, string carId);
 
     public Task<CustomerDto> GetCustomerByIdAsync(string connectionString, string id, string category);
+
+    public Task<BuyCarDto> UpdateBuyCar(string connectionString, string carId, string customerId, string dealId, int statusId);
 }

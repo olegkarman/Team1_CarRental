@@ -2261,4 +2261,103 @@ EXECUTE
 
 -- END OF CREATE SECTION
 
+-- START OF CREATE SECTION
+-- 15-SEP-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetRepair (@repairId NVARCHAR(500))
+	AS
+		SELECT Id,
+				Date,
+				CarId,
+				VinCode,
+				MechanicId,
+				TechnicalInfo,
+				IsSuccessfull,
+				TotalCost
+		FROM Repairs
+		WHERE Id = @repairId;
+');
+
+-- END OF CREATE SECTION
+
+-- START OF CREATE SECTION
+-- 16-SEP-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetCredentialsOfCustomer (@customerId NVARCHAR(100))
+	AS
+		SELECT UserName, Password
+			FROM Users
+			WHERE IdNumber = @customerId
+				AND Category = ''Customer'';
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE UpdateCarCustomerDealStatus
+	(
+		@carId NVARCHAR(100),
+		@customerId NVARCHAR(100),
+		@dealId NVARCHAR(100),
+		@statusId INT
+	)
+	AS
+		UPDATE Cars
+			SET CustomerId = @customerId,
+				DealId = @dealId,
+				StatusId = @StatusId
+			WHERE CarId = @carId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE GetBuyCar (@carId NVARCHAR(100))
+	AS
+		SELECT CarId,
+				VinCode,
+				CustomerId,
+				NumberPlate,
+				Brand,
+				Model,
+				Price,
+				NumberOfSeats,
+				NumberOfDoors,
+				Mileage,
+				MaxFuelCapacity,
+				CurrentFuel,
+				Year,
+				IsFitForUse,
+				Engine,
+				Transmission,
+				Interior,
+				Wheels,
+				Lights,
+				Signal,
+				Color,
+				DealId,
+				StatusId
+			FROM Cars
+			WHERE CarId = @carId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE GetDeal (@dealId NVARCHAR(100))
+	AS
+		SELECT Id,
+				CarId,
+				VinCode,
+				CustomerId,
+				Price,
+				DealType,
+				Name
+			FROM Deals
+			WHERE Id = @dealId;
+');
+
+-- END OF CREATE SECTION
+
 ------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH END ------------------------------------------------

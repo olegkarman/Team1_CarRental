@@ -61,14 +61,14 @@ namespace CarRental.BussinessLayer.Managers
             );
 
             _inspectorCars = new InspectorCars();
-            _customerManager = new CustomerManager();
+            _customerManager = new CustomerManager(new DatabaseContextDapper());
             _inspectionsManager = new InspectionsManager();
 
             _dealManager = new DealManager
             {
-                _indexValidator = new IndexOfListValidation(),
-                _nameValidator = new UpdatedNameValidator(),
-                _validator = new NullValidation()
+                IndexValidator = new IndexOfListValidation(),
+                NameValidator = new UpdatedNameValidator(),
+                Validator = new NullValidation()
             };
 
             _brandManager = new BrandManager

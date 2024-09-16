@@ -5,7 +5,7 @@ namespace CarRental.BussinessLayer.Interfaces
 {
     public interface ICustomerManager
     {
-        public Task AddCustomerIntoDatabaseAsync(Customer customer, string connectionString);
+        public ValueTask<bool> AddCustomerIntoDatabaseAsync(Customer customer, string connectionString);
 
         public Task<SimpleCustomerDto> CreateCustomer
         (
@@ -20,5 +20,11 @@ namespace CarRental.BussinessLayer.Interfaces
             string connectionString,
             string category = "Customer"
         );
+
+        public Task<CustomerDto> GetCustomerByIdAsync(string connectionString, string id, string category);
+
+        public ValueTask<bool> IsCustomerInDatabaseAsync(string id, string connectionString);
+
+        public ValueTask<bool> CheckCredentialsAsync(string id, string userName, string password, string connectionString);
     }
 }

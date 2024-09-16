@@ -27,6 +27,8 @@ namespace CarRental.WebApi
             builder.Services.AddSingleton<IVehicleValidation, VehicleValidation>();
             builder.Services.AddSingleton<IIndexValidation, IndexOfListValidation>();
             builder.Services.AddSingleton<ICharMaps, PatternCharMapsDto>();
+            builder.Services.AddSingleton<ICustomerManager, CustomerManager>();
+            builder.Services.AddSingleton<IDealManager, DealManager>();
             builder.Services.AddSingleton<IMechanicManager, MechanicManager>
             (
                 provider =>

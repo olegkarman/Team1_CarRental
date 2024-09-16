@@ -932,6 +932,38 @@ public class ServiceManager : ICarManager
 
     // UPDATE
 
+    public async Task<BuyCarDto> UpdateBuyCar(string connectionString, string carId, string customerId, string dealId, int statusId)
+    {
+        var sqlProcedureUpdate = "UpdateCarCustomerDealStatus";
+
+        var argumentsUpdate = new
+        {
+            carId,
+            customerId,
+            dealId,
+            statusId
+        };
+
+        var sqlProcedureSelect = "GetBuyCar";
+
+        var argumentsSelect = new
+        {
+            carId
+        };
+
+        SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+        await connection.ExecuteAsync(sqlProcedureUpdate, argumentsUpdate);
+
+        IEnumerable<BuyCarDto> cars = await connection.QueryAsync<BuyCarDto>(sqlProcedureSelect, argumentsSelect);
+
+        DataContext.CloseConnection(connection);
+
+        BuyCarDto car = cars.SingleOrDefault();
+
+        return car;
+    }
+
     public async Task<SimpleCarDto> UpdateNumberPlatePriceSimpleCar(string connectionString, string carId, string numberPlate, int price)
     {
         var sqlProcedureUpdate = "UpdateNumberPlatePriceCar";
@@ -1095,7 +1127,21 @@ public class ServiceManager : ICarManager
 
     public async Task InscribeRepairAsync(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
     {
-        Repair repair = await JunkRepairManager.GetNewRepairAsync(car, mechanic, isSuccessfull, connectionString);
+        RepairDto? repairDto = await JunkRepairManager.GetNewRepairAsync(car, mechanic, isSuccessfull, connectionString);
+
+        var repair = new Repair
+        {
+            Id = repairDto.Id,
+            Date = repairDto.Date,
+            CarId = repairDto.CarId,
+            CarBrand = car.Brand,
+            CarModel = car.Model,
+            MechanicName = mechanic.Name,
+            MechanicId = mechanic.Id,
+            TechnicalInfo = repairDto.TechnicalInfo,
+            IsSuccessfull = repairDto.IsSuccessfull,
+            TotalCost = repairDto.TotalCost
+        };
 
         AddRepairInToCar(car, repair);
 

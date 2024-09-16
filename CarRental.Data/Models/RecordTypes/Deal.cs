@@ -37,12 +37,12 @@
 
         }
 
-        public Deal(string CustomerId, Guid CarId, string type, float Price)
+        public Deal(string customerId, Guid carId, string type, float price)
         {
             DealType = type;
-            this.Price = Price;
-            this.CarId = CarId;
-            this.CustomerId = CustomerId;
+            Price = price;
+            CarId = carId;
+            CustomerId = customerId;
 
             /*Dictionary<int, Tuple<string, string, string, float, DateTime>> dealInfo =
                 new Dictionary<int, Tuple<string, string, string, float, DateTime>>();
