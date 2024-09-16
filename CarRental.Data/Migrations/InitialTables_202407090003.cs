@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace CarRentalData.Migrations
 {
     [Migration(202407090003)]
-    
+
     public class InitialTables_202407090003 : Migration
     {
         public override void Up()

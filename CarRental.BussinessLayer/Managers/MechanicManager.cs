@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models;
-using CarRental.Data.Enums;
-using CarRental.Data.Managers;
-using CarRental.BussinessLayer.Validators;
+﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.BussinessLayer.Services;
-using System.Xml.Linq;
+using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Enums;
+using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using Microsoft.Data.SqlClient;
-using CarRental.Data.Models.Automobile;
 using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.BussinessLayer.Managers
 {
-    public class MechanicManager
+    public class MechanicManager : IMechanicManager
     {
         // FIELDS
 
@@ -24,13 +17,13 @@ namespace CarRental.BussinessLayer.Managers
 
         // PROPERTIES
 
-        internal UpdatedNameValidator Validator { get; init; }
-        internal TextProcessingService TextProcessor { get; init; }
-        internal AgeValidator AgeValidator { get; init; }
-        internal NullValidation NullValidator { get; init; }
-        internal IndexOfListValidation IndexValidator { get; init; }
-        internal Random PseudoRandom;
-        internal DatabaseContextDapper DataContext { get; init; }
+        internal INameValidation Validator { get; init; }
+        internal ITextProcessing TextProcessor { get; init; }
+        internal IAgeValidation AgeValidator { get; init; }
+        internal INullValidation NullValidator { get; init; }
+        internal IIndexValidation IndexValidator { get; init; }
+        internal IDataContext DataContext { get; init; }
+        internal Random PseudoRandom { get; init; }
 
         // PROPERTIES
 
@@ -41,6 +34,26 @@ namespace CarRental.BussinessLayer.Managers
         public MechanicManager()
         {
             this.PseudoRandom = new Random();
+        }
+
+        public MechanicManager
+        (
+            INameValidation nameValidator,
+            ITextProcessing textProcessor,
+            IAgeValidation ageValidator,
+            INullValidation nullValidator,
+            IIndexValidation indexValidator,
+            IDataContext dapperContext
+        )
+        {
+            Validator = nameValidator;
+            TextProcessor = textProcessor;
+            AgeValidator = ageValidator;
+            NullValidator = nullValidator;
+            IndexValidator = indexValidator;
+            DataContext = dapperContext;
+
+            PseudoRandom = new Random();
         }
 
         // METHODS
@@ -70,7 +83,7 @@ namespace CarRental.BussinessLayer.Managers
                         (mechanic, repair) =>
                         {
                             mechanic.Repairs.Add(repair);
-                            
+
                             return mechanic;
                         },
                         parameter,
@@ -116,7 +129,7 @@ namespace CarRental.BussinessLayer.Managers
             {
                 throw new FormatException(nameof(name));
             }
-            else if(!Validator.ValidateNameDefault(surename))
+            else if (!Validator.ValidateNameDefault(surename))
             {
                 throw new FormatException(nameof(surename));
             }
@@ -184,7 +197,7 @@ namespace CarRental.BussinessLayer.Managers
         public Mechanic ChooseMechanicFromList(List<Mechanic> mechanics, Guid guid)
         {
             NullValidator.CheckNull(mechanics);
-            
+
             Mechanic mechanic = mechanics.Find(x => x.Id.CompareTo(guid) == 0);
 
             NullValidator.CheckNull(mechanic);

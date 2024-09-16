@@ -1,67 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarRental.BussinessLayer.Interfaces;
+using CarRental.BussinessLayer.DTOs;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
-using CarRental.BussinessLayer.Validators;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using Microsoft.Data.SqlClient;
 using Dapper;
+using Microsoft.Data.SqlClient;
 
 namespace CarRental.BussinessLayer.Managers
 {
-    public class RepairManager
+    public class RepairManager : IRepairManager
     {
         // FIELDS
 
         // PROPERTIES
 
-        internal NullValidation NullValidator { get; init; }
-        internal IndexOfListValidation IndexValidator { get; init; }
-        internal DatabaseContextDapper DataContext { get; init; }
+        internal INullValidation NullValidator { get; init; }
+        internal IIndexValidation IndexValidator { get; init; }
+        internal IDataContext DataContext { get; init; }
 
         // PROPERTIES
 
-        public List<Repair> Repairs { get; set; }
+        public List<Repair?> Repairs { get; set; }
+
+        // CONSTRUCTORS
+
+        public RepairManager()
+        {
+
+        }
+
+        public RepairManager(INullValidation nullValidator, IIndexValidation indexValidator, IDataContext dapperContext)
+        {
+            NullValidator = nullValidator;
+            IndexValidator = indexValidator;
+            DataContext = dapperContext;
+
+            Repairs = new List<Repair?>();
+        }
 
         // METHODS
 
         // CREATE
 
-        public async Task<Repair?> GetNewRepairAsync(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
+        public async Task<RepairDto?> GetNewRepairAsync(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
         {
-            NullValidator.CheckNull(car);
-            NullValidator.CheckNull(mechanic);
-
-            char[] infoArray = car.ToString().ToCharArray();
-
-            Random random = new Random();
-
-            random.Shuffle<char>(infoArray);
-
-            string technicalInfo = new String(infoArray);
-
-            Repair repair = new Repair
-            {
-                 Id = Guid.NewGuid(),
-                 Date = DateTime.Now,
-                 CarId = car.CarId,
-                 CarBrand = car.Brand,
-                 CarModel = car.Model,
-                 MechanicName = mechanic.Name,
-                 MechanicId = mechanic.Id,
-                 TechnicalInfo = technicalInfo,
-                 IsSuccessfull = isSuccessfull,
-                 TotalCost = (car.Price / 3)
-            };
-
-            NullValidator.CheckNull(repair);
-
             try
             {
-                SqlConnection connection = DataContext.OpenConnection(connectionString);
+                NullValidator.CheckNull(car);
+                NullValidator.CheckNull(mechanic);
+
+                char[] infoArray = car.ToString().ToCharArray();
+
+                Random random = new Random();
+
+                random.Shuffle<char>(infoArray);
+
+                string technicalInfo = new String(infoArray);
+
+                var repair = new Repair
+                {
+                    Id = Guid.NewGuid(),
+                    Date = DateTime.Now,
+                    CarId = car.CarId,
+                    CarBrand = car.Brand,
+                    CarModel = car.Model,
+                    MechanicName = mechanic.Name,
+                    MechanicId = mechanic.Id,
+                    TechnicalInfo = technicalInfo,
+                    IsSuccessfull = isSuccessfull,
+                    TotalCost = (car.Price / 3)
+                };
+
+                NullValidator.CheckNull(repair);
 
                 string storedProcedureName = "CreateRepair";
 
@@ -77,13 +87,26 @@ namespace CarRental.BussinessLayer.Managers
                     technicalInfo = repair.TechnicalInfo
                 };
 
-                List<Repair> repairs = new List<Repair>(await connection.QueryAsync<Repair>(storedProcedureName, objectArguments));
+                SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+                IEnumerable<Repair> repairs = await connection.QueryAsync<Repair>(storedProcedureName, objectArguments);
 
                 repair = repairs.SingleOrDefault();
 
                 DataContext.CloseConnection(connection);
 
-                return repair;
+                var repairDto = new RepairDto
+                {
+                    Id = repair.Id,
+                    Date = repair.Date,
+                    CarId = repair.CarId,
+                    MechanicId = repair.MechanicId,
+                    TechnicalInfo = repair.TechnicalInfo,
+                    IsSuccessfull = repair.IsSuccessfull,
+                    TotalCost = repair.TotalCost
+                };
+
+                return repairDto;
             }
             catch (SqlException)
             {
@@ -119,7 +142,7 @@ namespace CarRental.BussinessLayer.Managers
         {
             NullValidator.CheckNull(repairs);
             IndexValidator.ValidateIndexOfList(repairs, index);
-            
+
             Repair repair = repairs[index];
 
             return repair;

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Diagnostics.CodeAnalysis;
-using CarRental.Data.Models.Checkup;
+﻿using System.Drawing;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Automobile.RecordTypes;
+using CarRental.Data.Models.Checkup;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.Data.Models.Automobile;
 

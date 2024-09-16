@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentMigrator;
+﻿using FluentMigrator;
 
 namespace CarRentalData.Migrations
 {
@@ -42,9 +37,9 @@ namespace CarRentalData.Migrations
 
         public override void Down()
         {
-			Execute.Sql
-			(
-				@"
+            Execute.Sql
+            (
+                @"
 					IF EXISTS
 						(SELECT TABLE_NAME, CONSTRAINT_NAME
 							FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE
@@ -59,26 +54,26 @@ namespace CarRentalData.Migrations
 					ELSE
 						PRINT 'MRIGRATION FAILED: FOR TABLE Cars COLUMN StatusId FOREIGN KEY FK_Cars_TransportStatuses_StatusId_Number IS NOT EXIST';
 			             "
-			);
+            );
 
-			//Execute.Sql
-			//(
-			//	@"
-			//		IF EXISTS
-			//			(SELECT TABLE_NAME, CONSTRAINT_NAME
-			//				FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE
-			//				WHERE TABLE_NAME = 'Cars'
-			//					AND CONSTRAINT_NAME = 'FK_Cars_TransportStatuses_StatusId_Id')
-			//						BEGIN
-			//							ALTER TABLE Cars
-			//								DROP CONSTRAINT FK_Cars_TransportStatuses_StatusId_Id;
+            //Execute.Sql
+            //(
+            //	@"
+            //		IF EXISTS
+            //			(SELECT TABLE_NAME, CONSTRAINT_NAME
+            //				FROM INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE
+            //				WHERE TABLE_NAME = 'Cars'
+            //					AND CONSTRAINT_NAME = 'FK_Cars_TransportStatuses_StatusId_Id')
+            //						BEGIN
+            //							ALTER TABLE Cars
+            //								DROP CONSTRAINT FK_Cars_TransportStatuses_StatusId_Id;
 
-			//							PRINT 'MRIGRATION IS SUCCESSFULL: FOR TABLE Cars COLUMN StatusId DROPPED FOREIGN KEY';
-			//						END
-			//		ELSE
-			//			PRINT 'MRIGRATION FAILED: FOR TABLE Cars COLUMN StatusId FOREIGN KEY FK_Cars_TransportStatuses_StatusId_Id IS NOT EXIST';
-			//             "
-			//);
-		}
+            //							PRINT 'MRIGRATION IS SUCCESSFULL: FOR TABLE Cars COLUMN StatusId DROPPED FOREIGN KEY';
+            //						END
+            //		ELSE
+            //			PRINT 'MRIGRATION FAILED: FOR TABLE Cars COLUMN StatusId FOREIGN KEY FK_Cars_TransportStatuses_StatusId_Id IS NOT EXIST';
+            //             "
+            //);
+        }
     }
 }

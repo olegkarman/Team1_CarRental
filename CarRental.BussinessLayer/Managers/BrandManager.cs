@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models.Automobile.RecordTypes;
+﻿using System.Text;
 using CarRental.BussinessLayer.Validators;
-using System.Xml.Linq;
+using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -81,7 +76,7 @@ namespace CarRental.BussinessLayer.Managers
 
             StringBuilder modelsBuilder = new StringBuilder();
 
-            foreach(string model in brand.Models)
+            foreach (string model in brand.Models)
             {
                 modelsBuilder.Append(model);
                 modelsBuilder.Append(" | ");

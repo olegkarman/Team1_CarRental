@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Drawing;
 using System.Text;
-using System.Drawing;
-using System.Threading.Tasks;
+using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
 
 namespace CarRental.BussinessLayer.Services
 {
-    public class RandomCarGeneration
+    public class RandomCarGeneration : IRandomCarGeneration
     {
         // FIELDS
 
@@ -18,14 +15,14 @@ namespace CarRental.BussinessLayer.Services
 
         // PROPERTIES
 
-        internal string[] Models { get; init; }
-        internal string[] Brands { get; init; }
-        internal string[] Engines { get; init; }
-        internal string[] Transmissions { get; init; }
-        internal string[] Interiors { get; init; }
-        internal string[] Wheels { get; init; }
-        internal string[] Lights { get; init; }
-        internal string[] Signals { get; init; }
+        public string[] Models { get; set; }
+        public string[] Brands { get; set; }
+        public string[] Engines { get; set; }
+        public string[] Transmissions { get; set; }
+        public string[] Interiors { get; set; }
+        public string[] Wheels { get; set; }
+        public string[] Lights { get; set; }
+        public string[] Signals { get; set; }
 
         // PROPERTIES
 
@@ -40,36 +37,35 @@ namespace CarRental.BussinessLayer.Services
 
         // METHODS
 
-        internal Guid GetNewCarId()
+        public Guid GetNewCarId()
         {
             return Guid.NewGuid();
         }
 
-        internal string GetNewVinCode()
+        public string GetNewVinCode()
         {
             return GetIdentificator();
         }
 
-        internal string GetNewModelName()
+        public string GetNewModelName()
         {
             return Models[_pseudoRandom.Next(0, Models.Length)];
         }
 
-        internal string GetNewBrandName()
+        public string GetNewBrandName()
         {
             return Brands[_pseudoRandom.Next(0, Brands.Length)];
         }
 
-        internal string GetNewNumberPlate()
+        public string GetNewNumberPlate()
         {
             return GetIdentificator().Substring(0, 9).Insert(2, "-").Insert(8, "-");
         }
 
-        internal int GetNewPrice()
+        public int GetNewPrice()
         {
             return _pseudoRandom.Next(5000, 350001);
         }
-        //    _carServiceManager.CurrentCars.Add(_carServiceManager.GetNewCar(guid, vinCode, model, brand, numberPlate, price));
 
         public string GetNewEngine()
         {
@@ -107,9 +103,9 @@ namespace CarRental.BussinessLayer.Services
             {
                 return (KnownColor)_pseudoRandom.Next(28, 175);
             }
-            catch (InvalidCastException exception)
+            catch (InvalidCastException)
             {
-                throw exception;
+                throw;
             }
         }
 

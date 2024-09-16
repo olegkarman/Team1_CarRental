@@ -1,35 +1,51 @@
-﻿using System;
-//using System.Text.Json;
+﻿//using System.Text.Json;
 //using System.IO;
-using System.Diagnostics;
+using CarRental.BussinessLayer.Interfaces;
+using CarRental.BussinessLayer.DTOs;
 using CarRental.BussinessLayer.Validators;
+using CarRental.Data.Models.RecordTypes;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
-using CarRental.Data.Models.RecordTypes;
-using Microsoft.Data.SqlClient;
-using Dapper;
+using System.Diagnostics;
 
 namespace CarRental.BussinessLayer.Managers;
 
-public class DealManager
+public class DealManager : IDealManager
 {
     // FIELDS
 
     private const string _invalidName = "INVALID";
 
-    internal IndexOfListValidation _indexValidator;
-    internal UpdatedNameValidator _nameValidator;
-    internal NullValidation _validator;
+    public IIndexValidation IndexValidator { get; init; }
+    public INameValidation NameValidator { get; init; }
+    public INullValidation Validator { get; init; }
 
     // PROPERTIES
 
-    internal DatabaseContextDapper DapperContext { get; init; }
+    internal IDataContext DapperContext { get; init; }
 
     // CONSTRUCTORS
 
     public DealManager()
     {
-        DapperContext = new DatabaseContextDapper();
+        
+    }
+
+    public DealManager
+    (
+        IIndexValidation indexValidator,
+        INameValidation nameValidator,
+        INullValidation nullValidator,
+        IDataContext dapperContext
+    )
+    {
+        IndexValidator = indexValidator;
+        NameValidator = nameValidator;
+        Validator = nullValidator;
+
+        DapperContext = dapperContext;
     }
     // METHODS
 
@@ -41,7 +57,7 @@ public class DealManager
         {
             SqlConnection connection = DapperContext.OpenConnection(connectionString);
 
-            string SqlStoredProcedureName = "CreateDeal";
+            string sqlStoredProcedureName = "CreateDeal";
 
             object arguments = new
             {
@@ -54,13 +70,15 @@ public class DealManager
                 Name = deal.Name
             };
 
-            Deal resultDeal = new List<Deal>(await connection.QueryAsync<Deal>(SqlStoredProcedureName, arguments)).SingleOrDefault();
+            IEnumerable<Deal> resultDeals = await connection.QueryAsync<Deal>(sqlStoredProcedureName, arguments);
 
             DapperContext.CloseConnection(connection);
 
+            Deal resultDeal = resultDeals.SingleOrDefault();
+
             return resultDeal;
         }
-        catch(AggregateException)
+        catch (AggregateException)
         {
             throw;
         }
@@ -75,7 +93,7 @@ public class DealManager
     public Deal GetNewDeal(string name, string customerId, string vinCode, Guid carId, string dealType, float price)
     {
         name = name + Guid.NewGuid().ToString().Substring(24);
-        
+
         Deal deal = new Deal
         {
             Id = Guid.NewGuid(),
@@ -90,77 +108,183 @@ public class DealManager
         return deal;
     }
 
+    public async Task<DealDto> GetNewDealAsync
+    (
+        string connectionString,
+        string name,
+        string customerId,
+        string vinCode,
+        Guid carId,
+        string dealType,
+        float price
+    )
+    {
+        try
+        {
+            name = name + Guid.NewGuid().ToString().Substring(24);
+
+            Guid id = Guid.NewGuid();
+
+            var sqlInsert = "CreateDeal";
+            var sqlSelect = "GetDeal";
+
+            var argumentsInsert = new
+            {
+                Id = id,
+                Name = name,
+                CustomerId = customerId,
+                VinCode = vinCode,
+                CarId = carId,
+                DealType = dealType,
+                Price = price
+            };
+
+            var argumentsSelect = new
+            {
+                dealId = id.ToString().ToUpper()
+            };
+
+            SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+            await connection.ExecuteAsync(sqlInsert, argumentsInsert);
+
+            IEnumerable<Deal> deals = await connection.QueryAsync<Deal>(sqlSelect, argumentsSelect); 
+
+            DapperContext.CloseConnection(connection);
+
+            Deal deal = deals.SingleOrDefault();
+
+            var dealDto = new DealDto
+            {
+                Id = deal.Id,
+                Name = deal.Name,
+                CustomerId = deal.CustomerId,
+                VinCode = deal.VinCode,
+                CarId = deal.CarId,
+                DealType = deal.DealType,
+                Price = deal.Price
+            };
+
+            return dealDto;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
+    }
+
     // RETRIVE
+
+    public async Task<DealDto> GetDealByIdAsync(string connectionString, string dealId)
+    {
+        var sqlSelect = "GetDeal";
+
+        dealId = dealId.ToUpper();
+
+        var arguments = new
+        {
+            dealId
+        };
+
+        SqlConnection connection = DapperContext.OpenConnection(connectionString);
+
+        IEnumerable<Deal> deals = await connection.QueryAsync<Deal>(sqlSelect, arguments);
+
+        DapperContext.CloseConnection(connection);
+
+        Deal deal = deals.FirstOrDefault();
+
+        var dealDto = new DealDto
+        {
+            Id = deal.Id,
+            Name = deal.Name,
+            CustomerId = deal.CustomerId,
+            VinCode = deal.VinCode,
+            CarId = deal.CarId,
+            DealType = deal.DealType,
+            Price = deal.Price
+        };
+
+        return dealDto;
+    }
 
     public Deal ChooseDealFromList(List<Deal> deals, int index)
     {
-        _validator.CheckNull(deals);
-        _indexValidator.ValidateIndexOfList(deals, index);
+        Validator.CheckNull(deals);
+        IndexValidator.ValidateIndexOfList(deals, index);
 
         Deal deal = deals[index];
 
-        _validator.CheckNull(deal);
+        Validator.CheckNull(deal);
 
         return deal;
     }
 
     public Deal ChooseDealFromList(List<Deal> deals, string name, string customerId)
     {
-        _validator.CheckNull(deals);
-        _nameValidator.CheckNullEmpty(name, customerId);
+        Validator.CheckNull(deals);
+        NameValidator.CheckNullEmpty(name, customerId);
 
         Deal deal = deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId)));
 
-        _validator.CheckNull(deal);
+        Validator.CheckNull(deal);
 
         return deal;
     }
 
     public Deal ChooseDealFromList(List<Deal> deals, Guid id)
     {
-        _validator.CheckNull(deals);
+        Validator.CheckNull(deals);
 
         Deal deal = deals.Find(x => (x.Id.CompareTo(id) == 0));
 
-        _validator.CheckNull(deal);
+        Validator.CheckNull(deal);
 
         return deal;
     }
 
     // UPDATE
 
-    public void AddDealInToList(List<Deal> deals, Deal deal)
+    public void AddDealInToList(List<Deal?> deals, Deal deal)
     {
-        _validator.CheckNull(deals);
-        _validator.CheckNull(deal);
+        Validator.CheckNull(deals);
+        Validator.CheckNull(deal);
 
         deals.Add(deal);
     }
 
     // DELETE
 
-    public void DeleteDealFromList(List<Deal> deals, int index)
+    public void DeleteDealFromList(List<Deal?> deals, int index)
     {
-        _validator.CheckNull(deals);
-        _indexValidator.ValidateIndexOfList(deals, index);
+        Validator.CheckNull(deals);
+        IndexValidator.ValidateIndexOfList(deals, index);
 
         deals.RemoveAt(index);
     }
 
-    public void DeleteDealFromList(List<Deal> deals, string name, string customerId)
+    public void DeleteDealFromList(List<Deal?> deals, string name, string customerId)
     {
-        _validator.CheckNull(deals);
-        _nameValidator.CheckNullEmpty(name, customerId);
+        Validator.CheckNull(deals);
+        NameValidator.CheckNullEmpty(name, customerId);
 
         int index = deals.IndexOf(deals.Find(x => (x.Name.Contains(name) && x.CustomerId.Contains(customerId))));
 
         deals.RemoveAt(index);
     }
 
+    // MOVE IT INTO A SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
+
     /*private string fileName;
     private string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    // MOVE IT INTO A SEPARATE MANAGER. 'CRUD'-OPERATIONS SHOULD BE INSTEAD. (YPARKHOMENKO)
+    
     public DealManager()
     {
         string projectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;

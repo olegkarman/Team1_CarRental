@@ -1,16 +1,11 @@
 ﻿using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
-using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CarRental.Data.Models.Checkup;
 
 namespace CarRental.BussinessLayer.Managers;
-public class InspectionService: IInspectionService
+public class InspectionService : IInspectionService
 {
     public Inspection CreateInspection(Inspector inspector, Car car, InspectionStatusType result)
     {

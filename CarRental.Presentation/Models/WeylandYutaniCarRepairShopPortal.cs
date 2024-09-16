@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models.Automobile;
-using CarRental.BussinessLayer.Managers;
+﻿using CarRental.BussinessLayer.Managers;
 
 
 // HILLEL, C# PRO COURSE, TEACHER: MARIIA DZIVINSKA

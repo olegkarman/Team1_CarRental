@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Data;
+using System.Drawing;
 using System.Text;
-using System.Threading.Tasks;
-using CarRental.BussinessLayer.ExtensionMethods;
+using CarRental.BussinessLayer.DTOs;
 using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
-using CarRental.Data.Interfaces;
-using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models;
+using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
-using System.Drawing;
-using CarRental.Data.Models.RecordTypes;
 using CarRental.Data.Models.Checkup;
-using Microsoft.Data.SqlClient;
+using CarRental.Data.Models.RecordTypes;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Z.Dapper.Plus;
-using System.Diagnostics;
-using System.Data;
-using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Managers;
 
@@ -33,13 +25,26 @@ public class ServiceManager : ICarManager
     private const string _noInfo = "NO INFORMATION";
     private StringBuilder _carsInfo;
     private Random _random;
+    private DatabaseContextDapper _dapperContext;
 
 
     // PROPERTTES
 
     internal List<Car>? CurrentCars { get; private set; }
-    internal Car? SelectedCar { get; private set; }
+
     public ServiceManagerSupplements SupplementData { get; private set; }
+
+    public IRandomCarGeneration RandomCarGenerator { get; init; }
+    public IVehicleValidation Validator { get; init; }
+    public IIndexValidation IndexValidator { get; init; }
+    public ICharMaps CharMaps { get; init; }
+    public IMechanicManager MechanicalManager { get; init; }
+    public IRepairManager JunkRepairManager { get; init; }
+    public INullValidation NullValidator { get; init; }
+    public IDataContext DataContext { get; init; }
+    public IDapperConfiguration DapperConfigs { get; init; }
+    public IFileContext FileContext { get; init; }
+    public ITextProcessing TextProcessor { get; init; }
 
     // CONSTRUCTORS
 
@@ -48,29 +53,118 @@ public class ServiceManager : ICarManager
         this._random = new Random();
         this._carsInfo = new StringBuilder();
         this.CurrentCars = new List<Car>();
+
+        _dapperContext = new DatabaseContextDapper();
+    }
+
+    public ServiceManager
+    (
+        IRandomCarGeneration randomCarGenerator,
+        IVehicleValidation validator,
+        IIndexValidation indexValidator,
+        ICharMaps charMaps,
+        IMechanicManager mechanicalManager,
+        IRepairManager junkRepairManager,
+        INullValidation nullValidator,
+        IDataContext dataContext,
+        IDapperConfiguration dapperConfigs,
+        IFileContext fileContext,
+        ITextProcessing textProcessor 
+    )
+    {
+        RandomCarGenerator = randomCarGenerator;
+        Validator = validator;
+        IndexValidator = indexValidator;
+        CharMaps = charMaps;
+        MechanicalManager = mechanicalManager;
+        JunkRepairManager = junkRepairManager;
+        NullValidator = nullValidator;
+        DataContext = dataContext;
+        DapperConfigs = dapperConfigs;
+        FileContext = fileContext;
+        TextProcessor = textProcessor;
+
+        _random = new Random();
+        _carsInfo = new StringBuilder();
+        CurrentCars = new List<Car>();
     }
 
     // METHODS
 
     // CREATE
 
-    public Car GetNewCar(Guid carId, string vinCode, string model, string brand, string numberPlate, int price)
+    public async Task<SimpleCarDto> CreateSimpleCar
+    (
+        string connectionString,
+        string vinCode,
+        string numberPlate,
+        string brand,
+        string model,
+        int price
+    )
     {
-        SupplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
-
-        Car car = new Car
+        try
         {
-            CarId = carId,
-            VinCode = vinCode,
-            Model = model,
-            Brand = brand,
-            NumberPlate = numberPlate,
-            Price = price
-        };
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
-        SupplementData.NullValidator.CheckNull(car);
+            string sqlProcedureInsert = "CreateSimpleCar";
+            string sqlProcedureSelect = "GetSimpleCar";
 
-        return car;
+            string carId = Guid.NewGuid().ToString().ToUpper();
+
+            var argumentsInsert = new
+            {
+                carId,
+                vinCode,
+                numberPlate,
+                brand,
+                model,
+                price
+            };
+
+            var argumentsSelect = new
+            {
+                carId
+            };
+
+            await connection.ExecuteAsync(sqlProcedureInsert, argumentsInsert);
+
+            IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureSelect, argumentsSelect);
+
+            Car car = cars.SingleOrDefault();
+
+            var simpleCar = new SimpleCarDto
+            {
+                CarId = car.CarId.ToString().ToUpper(),
+                VinCode = car.VinCode,
+                NumberPlate = car.NumberPlate,
+                Brand = car.Brand,
+                Model = car.Model,
+                Price = car.Price
+            };
+
+            DataContext.CloseConnection(connection);
+
+            return simpleCar;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
     }
 
     public Car GetNewCar
@@ -99,7 +193,7 @@ public class ServiceManager : ICarManager
     )
     {
         // CHECK ONLY NECCESSARY COMPONENTS.
-        SupplementData.Validator.CheckNull(vinCode, model, brand, numberPlate);
+        Validator.CheckNull(vinCode, model, brand, numberPlate);
 
         Car car = new Car
         {
@@ -127,35 +221,35 @@ public class ServiceManager : ICarManager
             Repairs = new List<Repair>()
         };
 
-        SupplementData.NullValidator.CheckNull(car);
+        NullValidator.CheckNull(car);
 
         return car;
     }
 
     public Car GetNewRandomCar()
     {
-        Guid carId = SupplementData.RandomCarGenerator.GetNewCarId();
-        string vinCode = SupplementData.RandomCarGenerator.GetNewVinCode();
-        string model = SupplementData.RandomCarGenerator.GetNewModelName();
-        string brand = SupplementData.RandomCarGenerator.GetNewBrandName();
-        string numberPlate = SupplementData.RandomCarGenerator.GetNewNumberPlate();
-        int price = SupplementData.RandomCarGenerator.GetNewPrice();
+        Guid carId = RandomCarGenerator.GetNewCarId();
+        string vinCode = RandomCarGenerator.GetNewVinCode();
+        string model = RandomCarGenerator.GetNewModelName();
+        string brand = RandomCarGenerator.GetNewBrandName();
+        string numberPlate = RandomCarGenerator.GetNewNumberPlate();
+        int price = RandomCarGenerator.GetNewPrice();
 
-        string engine = SupplementData.RandomCarGenerator.GetNewEngine();
-        string transmission = SupplementData.RandomCarGenerator.GetNewTransmission();
-        string interior = SupplementData.RandomCarGenerator.GetNewInterior();
-        string wheels = SupplementData.RandomCarGenerator.GetNewWheels();
-        string lights = SupplementData.RandomCarGenerator.GetNewLights();
-        string signal = SupplementData.RandomCarGenerator.GetNewSignal();
-        KnownColor color = SupplementData.RandomCarGenerator.GetNewColor();
-        int numberOfSeats = SupplementData.RandomCarGenerator.GetNewNumberOfSeats();
-        int numberOfDoors = SupplementData.RandomCarGenerator.GetNewNumberOfDoors();
-        int year = SupplementData.RandomCarGenerator.GetNewYear();
-        float mileage = SupplementData.RandomCarGenerator.GetNewMileage();
-        int maxFuelCapacity = SupplementData.RandomCarGenerator.GetNewMaxFuelCapacity();
-        float currentFuel = SupplementData.RandomCarGenerator.GetNewCurrentFuel();
-        TransportStatus status = SupplementData.RandomCarGenerator.GetNewStatus();
-        bool isFitForUse = SupplementData.RandomCarGenerator.GetNewIsFitForUse();
+        string engine = RandomCarGenerator.GetNewEngine();
+        string transmission = RandomCarGenerator.GetNewTransmission();
+        string interior = RandomCarGenerator.GetNewInterior();
+        string wheels = RandomCarGenerator.GetNewWheels();
+        string lights = RandomCarGenerator.GetNewLights();
+        string signal = RandomCarGenerator.GetNewSignal();
+        KnownColor color = RandomCarGenerator.GetNewColor();
+        int numberOfSeats = RandomCarGenerator.GetNewNumberOfSeats();
+        int numberOfDoors = RandomCarGenerator.GetNewNumberOfDoors();
+        int year = RandomCarGenerator.GetNewYear();
+        float mileage = RandomCarGenerator.GetNewMileage();
+        int maxFuelCapacity = RandomCarGenerator.GetNewMaxFuelCapacity();
+        float currentFuel = RandomCarGenerator.GetNewCurrentFuel();
+        TransportStatus status = RandomCarGenerator.GetNewStatus();
+        bool isFitForUse = RandomCarGenerator.GetNewIsFitForUse();
 
         Car car = new Car
         {
@@ -183,27 +277,14 @@ public class ServiceManager : ICarManager
             Repairs = new List<Repair>()
         };
 
-        SupplementData.NullValidator.CheckNull(car);
+        NullValidator.CheckNull(car);
 
         return car;
     }
 
-    public List<Car> MakeNewListOfCars()
-    {
-        return new List<Car>();
-    }
-
-    public void AddCarInToList(List<Car> cars, Car car)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-        SupplementData.NullValidator.CheckNull(car);
-
-        cars.Add(car);
-    }
-
     public void GetNewRandomCurrentCars(int count)
     {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
+        NullValidator.CheckNull(this.CurrentCars);
 
         this.CurrentCars.Clear();
 
@@ -219,7 +300,7 @@ public class ServiceManager : ICarManager
         {
             bool isAddCars = false;
 
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
             foreach (Car car in cars)
             {
@@ -255,7 +336,7 @@ public class ServiceManager : ICarManager
                 await connection.ExecuteScalarAsync(sqlProcedureName, objectArguments);
             }
 
-            SupplementData.DataContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             int indexToCheck = _random.Next(0, cars.Count);
 
@@ -291,7 +372,7 @@ public class ServiceManager : ICarManager
         {
             bool isAddCar = false;
 
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+            
 
             string query = "CreateCar";
 
@@ -322,19 +403,21 @@ public class ServiceManager : ICarManager
                 statusId = status
             };
 
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
+
             await connection.ExecuteScalarAsync(query, objectArguments);
 
-            SupplementData.DataContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             isAddCar = await IsCarInDatabaseAsync(car.CarId, connectionString);
 
             return isAddCar;
         }
-        catch(SqlException)
+        catch (SqlException)
         {
             throw;
         }
-        catch(InvalidOperationException)
+        catch (InvalidOperationException)
         {
             throw;
         }
@@ -352,14 +435,14 @@ public class ServiceManager : ICarManager
 
     public async ValueTask<bool> AddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
+        NullValidator.CheckNull(this.CurrentCars);
 
         return await AddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
     public async ValueTask<bool> BulkAddCurrentCarsIntoDatabaseAsync(string connectionString)
     {
-       return await BulkAddCarsIntoDatabaseAsync(CurrentCars, connectionString);
+        return await BulkAddCarsIntoDatabaseAsync(CurrentCars, connectionString);
     }
 
     public async ValueTask<bool> BulkAddCarsIntoDatabaseAsync(List<Car> cars, string connectionString)
@@ -368,7 +451,7 @@ public class ServiceManager : ICarManager
         {
             bool isAddBulk = false;
 
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
             DapperPlusManager
                 .Entity<Car>()
@@ -381,13 +464,13 @@ public class ServiceManager : ICarManager
 
             await connection.BulkInsertAsync(cars);
 
-            SupplementData.DataContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             isAddBulk = true;
 
             return isAddBulk;
         }
-        catch(SqlException)
+        catch (SqlException)
         {
             throw;
         }
@@ -405,12 +488,165 @@ public class ServiceManager : ICarManager
 
     // RETRIVE
 
+    public async Task<CustomerDto> GetCustomerByIdAsync(string connectionString, string id, string category = "Customer")
+    {
+        try
+        {
+            id = id.ToUpper();
+
+            string procedureName = "GetCustomer";
+
+            var arguments = new
+            {
+                customerId = id.ToUpper(),
+                customerCategory = category
+            };
+
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+            IEnumerable<CustomerTemp> customers = await connection.QueryAsync<CustomerTemp, Car?, Deal?, Inspection?, Repair?, CustomerTemp>
+            (
+                procedureName,
+                (customer, car, deal, inspection, repair) =>
+                {
+                    //car.Owner = customer;
+                    car.Engagement = deal;
+                    car.Inspections.Add(inspection);
+                    car.Repairs.Add(repair);
+
+                    customer.Cars.Add(car);
+                    customer.Deals.Add(deal);
+
+                    return customer;
+                },
+                arguments,
+                splitOn: "carCarId, dealId, inspectionInspectionId, repairId"
+            );
+
+            CustomerTemp customer = customers.FirstOrDefault();
+
+            var customerTemp = new CustomerTemp
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                DateOfBirth = customer.DateOfBirth,
+                Password = customer.Password,
+                UserName = customer.UserName,
+                IdNumber = customer.IdNumber,
+                PassportNumber = customer.PassportNumber,
+                DrivingLicenseNumber = customer.DrivingLicenseNumber
+            };
+
+            customerTemp.Deals = customers.Select(c => c.Deals.FirstOrDefault()).DistinctBy(d => d.Id).ToList();
+            //customerTemp.Cars = customers.Select(c => c.Cars.FirstOrDefault()).DistinctBy(car => car.CarId).ToList();
+
+            IEnumerable<IGrouping<Guid, Car>> groupedCars = customers.Select(c => c.Cars.FirstOrDefault()).GroupBy(c => c.CarId);
+
+            foreach (IGrouping<Guid, Car> group in groupedCars)
+            {
+                Car? car = group.FirstOrDefault();
+
+                car.Inspections = group.Select(c => c.Inspections.SingleOrDefault()).DistinctBy(i => i?.InspectionId).ToList();
+
+                car.Repairs = group.Select(c => c.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
+
+                customerTemp.Cars.Add(car);
+            }
+
+            DataContext.CloseConnection(connection);
+
+            //CustomerTemp customer = customers.SingleOrDefault();
+
+            var customerDto = new CustomerDto
+            {
+                FirstName = customerTemp.FirstName,
+                LastName = customerTemp.LastName,
+                DateOfBirth = customerTemp.DateOfBirth,
+                Password = customerTemp.Password,
+                UserName = customerTemp.UserName,
+                IdNumber = customerTemp.IdNumber,
+                PassportNumber = customerTemp.PassportNumber,
+                DrivingLicenseNumber = customerTemp.DrivingLicenseNumber,
+
+                Deals = customerTemp.Deals,
+                Cars = customerTemp.Cars
+            };
+
+            return customerDto;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
+    }
+
+    public async Task<SimpleCarDto> GetSimpleCarByIdAsync(/*DatabaseContextDapper dapperContext,*/ string carId, string connectionString)
+    {
+        try
+        {
+            var dapperContext = DataContext;
+
+            SqlConnection connection = dapperContext.OpenConnection(connectionString);
+
+            string sqlProcedureSelect = "GetSimpleCar";
+
+            var argumentsSelect = new
+            {
+                carId
+            };
+
+            IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureSelect, argumentsSelect);
+
+            Car car = cars.SingleOrDefault();
+
+            var simpleCar = new SimpleCarDto
+            {
+                CarId = car.CarId.ToString().ToUpper(),
+                VinCode = car.VinCode,
+                NumberPlate = car.NumberPlate,
+                Brand = car.Brand,
+                Model = car.Model,
+                Price = car.Price
+            };
+
+            dapperContext.CloseConnection(connection);
+
+            return simpleCar;
+        }
+        catch (SqlException)
+        {
+            throw;
+        }
+        catch (InvalidOperationException)
+        {
+            throw;
+        }
+        catch (AggregateException)
+        {
+            throw;
+        }
+        catch (Exception)
+        {
+            // SOME LOGGING LOGIC
+
+            throw;
+        }
+    }
+
     public async ValueTask<bool> IsCarInDatabaseAsync(Guid guid, string connectionString)
     {
         try
         {
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
             string sqlStoredProcedureName = "CheckIfCarEntryExist";
 
             string id = guid.ToString().ToUpper();
@@ -420,9 +656,11 @@ public class ServiceManager : ICarManager
                 Id = id
             };
 
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
+
             int sqlOutput = await connection.ExecuteScalarAsync<int>(sqlStoredProcedureName, parameter);
 
-            SupplementData.DataContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             bool result = (sqlOutput == 1) ? true : false;
 
@@ -452,8 +690,6 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
             string sqlStoredProcedureName = "GetAllCarsOfCustomer";
             string id = customerId.ToUpper();
 
@@ -461,6 +697,8 @@ public class ServiceManager : ICarManager
             {
                 CustomerId = id
             };
+
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
             List<Car> cars = new List<Car>
             (
@@ -481,6 +719,8 @@ public class ServiceManager : ICarManager
                 )
             );
 
+            DataContext.CloseConnection(connection);
+
             List<IGrouping<Guid, Car>> groupedCars = new List<IGrouping<Guid, Car>>(cars.GroupBy(c => c.CarId));
 
             List<Car> resultCars = new List<Car>();
@@ -495,8 +735,6 @@ public class ServiceManager : ICarManager
 
                 resultCars.Add(car);
             }
-
-            SupplementData.DataContext.CloseConnection(connection);
 
             return resultCars;
         }
@@ -524,8 +762,6 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
             string SqlStoredProcedureName = "GetCar";
             string carId = id.ToString().ToUpper();
 
@@ -533,6 +769,8 @@ public class ServiceManager : ICarManager
             {
                 Id = carId
             };
+
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
 
             List<Car> cars = new List<Car>
             (
@@ -553,13 +791,13 @@ public class ServiceManager : ICarManager
                 )
             );
 
+            DataContext.CloseConnection(connection);
+
             Car car = cars.FirstOrDefault();
 
             car.Inspections = cars.Select(c => c.Inspections.SingleOrDefault()).DistinctBy(i => i?.InspectionId).ToList();
 
             car.Repairs = cars.Select(c => c.Repairs.SingleOrDefault()).DistinctBy(r => r?.Id).ToList();
-
-            SupplementData.DataContext.CloseConnection(connection);
 
             return car;
         }
@@ -586,21 +824,21 @@ public class ServiceManager : ICarManager
     public Car ChooseCarFromList(List<Car> cars, int index)
     {
 
-        SupplementData.NullValidator.CheckNull(cars);
+        NullValidator.CheckNull(cars);
 
-        SupplementData.IndexValidator.ValidateIndexOfList(cars, index);
+        IndexValidator.ValidateIndexOfList(cars, index);
 
         Car car = cars[index];
 
-        SupplementData.NullValidator.CheckNull(car);
+        NullValidator.CheckNull(car);
 
         return car;
     }
 
     public Car ChooseCarFromList(List<Car> cars, string model)
     {
-        SupplementData.NullValidator.CheckNull(cars);
-        SupplementData.Validator.CheckNullEmpty(model);
+        NullValidator.CheckNull(cars);
+        Validator.CheckNullEmpty(model);
 
         try
         {
@@ -623,46 +861,24 @@ public class ServiceManager : ICarManager
 
     public Car ChooseCarFromList(List<Car> cars, Guid guid)
     {
-        SupplementData.NullValidator.CheckNull(cars);
+        NullValidator.CheckNull(cars);
 
         try
         {
             return cars.Find(x => x.CarId.CompareTo(guid) == 0);
         }
-        catch (IndexOutOfRangeException exception)
+        catch (IndexOutOfRangeException)
         {
-            throw exception;
+            throw;
         }
-        catch (NullReferenceException exception)
+        catch (NullReferenceException)
         {
-            throw exception;
+            throw;
         }
-        catch (FormatException exception)
+        catch (FormatException)
         {
-            throw exception;
+            throw;
         }
-    }
-
-    public void SelectCarFromCurrentCars(int index)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        this.SelectedCar = ChooseCarFromList(CurrentCars, index);
-    }
-
-    public void SelectCarFromCurrentCars(string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        this.SelectedCar = ChooseCarFromList(CurrentCars, model);
-    }
-
-    public void SelectCarFromCurrentCars(Guid guid)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        this.SelectedCar = ChooseCarFromList(CurrentCars, guid);
     }
 
     public Car GetCarFromCurrentCars(int index)
@@ -670,126 +886,14 @@ public class ServiceManager : ICarManager
         return ChooseCarFromList(CurrentCars, index);
     }
 
-    public Car GetCarFromCurrentCars(Guid guid)
-    {
-        return ChooseCarFromList(CurrentCars, guid);
-    }
-
-    public void TakeCarFromCurrentCars(int index)
-    {
-        SelectedCar = ChooseCarFromList(CurrentCars, index);
-        CurrentCars.RemoveAt(index);
-    }
-
-    public void TakeCarFromCurrentCars(Guid guid)
-    {
-        SelectedCar = ChooseCarFromList(CurrentCars, guid);
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, guid)));
-    }
-
-    public void MoveCarFromCurrentCarsToSelected(string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-
-        Car car;
-
-        SupplementData.NullValidator.CheckNull(CurrentCars);
-
-        car = ChooseCarFromList(CurrentCars, model);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        this.SelectedCar = car;
-
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, model)));
-    }
-
-    public void MoveCarFromCurrentCarsToSelected(Guid guid)
-    {
-        Car car;
-
-        SupplementData.NullValidator.CheckNull(CurrentCars);
-
-        car = ChooseCarFromList(CurrentCars, guid);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        this.SelectedCar = car;
-
-        CurrentCars.RemoveAt(CurrentCars.IndexOf(ChooseCarFromList(CurrentCars, guid)));
-    }
-
-    public string DisplaySelectedCar()
-    {
-        try
-        {
-            return this.SelectedCar.ToString();
-        }
-        catch (ArgumentNullException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public string DisplayCarFromList(List<Car> cars, int index)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-
-        return ChooseCarFromList(cars, index).ToString();
-    }
-
-    public string DisplayCarFromList(List<Car> cars, string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-        SupplementData.NullValidator.CheckNull(cars);
-
-        return ChooseCarFromList(cars, model).ToString();
-    }
-
-    public string DisplayCarFromList(List<Car> cars, Guid guid)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-
-        return ChooseCarFromList(cars, guid).ToString();
-    }
-
-    public string DisplayCarFromCurrentCars(int index)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        return ChooseCarFromList(this.CurrentCars, index).ToString();
-    }
-
-    public string DisplayCarFromCurrentCars(string model)
-    {
-        SupplementData.Validator.CheckNullEmpty(model);
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        return ChooseCarFromList(this.CurrentCars, model).ToString();
-    }
-
-    public string DisplayCarFromCurrentCars(Guid guid)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        return ChooseCarFromList(this.CurrentCars, guid).ToString();
-    }
-
     public string DisplayCar(Car car)
     {
-        SupplementData.NullValidator.CheckNull(car);
+        NullValidator.CheckNull(car);
 
         return $"{nameof(car)} | {car.ToString()}";
     }
 
-    // TO DISPLAY LIST OF CARS IN TABLE
-    // //
-    // // ~THIS METHOD ADDED AND EDITED NOT BY YPARKHOMENKO~
-    // //
-    // // ADVICE BY YPARKHOMENKO: DO NOT USE STRING CONCATINATION IN LOOPS, USE StringBuilder-CLASS FUNCTIONALITY INSTEAD.
-    // // BETTER TO USE STRING OUTPUT RATHER THAN THE CONSOLE OUTPUT.
-    // //
-
+    // O KARMANSKYI
     public void DisplayCarsInTable(IOutputManager outputManager)
     {
         // ADD NULL CHECK-UP
@@ -816,7 +920,7 @@ public class ServiceManager : ICarManager
     {
         _carsInfo.Clear();
 
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
+        NullValidator.CheckNull(this.CurrentCars);
 
         foreach (Car car in CurrentCars)
         {
@@ -826,95 +930,79 @@ public class ServiceManager : ICarManager
         return _carsInfo.ToString();
     }
 
-    public string ShowMileage(Car car)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        return car.Mileage.ToString();
-    }
-
-    public string ShowMileageSelectedCar()
-    {
-        return ShowMileage(this.SelectedCar);
-    }
-
-    public string ShowDeal(Car car)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        return $"{car.Engagement.ToString()}";
-    }
-
-    public string RetriveCurrentCarsInfo()
-    {
-        return RetriveCarsInfoFromList(CurrentCars);
-    }
-
-    public string RetriveCarsInfoFromList(List<Car> cars)
-    {
-        _carsInfo.Clear();
-
-        foreach (Car car in cars)
-        {
-            _carsInfo.Append(car.ToString());    
-        }
-
-        return _carsInfo.ToString();
-    }
-
     // UPDATE
 
-    public async ValueTask<bool> ChangeCarStatusIdAsync(Guid carGuid, TransportStatus? status, string connectionString)
+    public async Task<BuyCarDto> UpdateBuyCar(string connectionString, string carId, string customerId, string dealId, int statusId)
     {
-        try
+        var sqlProcedureUpdate = "UpdateCarCustomerDealStatus";
+
+        var argumentsUpdate = new
         {
-            bool resultStatus = false;
+            carId,
+            customerId,
+            dealId,
+            statusId
+        };
 
-            int? statusId = (int?)status;
+        var sqlProcedureSelect = "GetBuyCar";
 
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            string carId = carGuid.ToString().ToUpper();
-
-            var arguments = new
-            {
-                statusId = statusId,
-                carId = carId
-            };
-
-            string sqlStatement = 
-            @"
-                UPDATE Cars
-                    SET StatusId = @statusId
-                    WHERE CarId = @carId;
-            ";
-
-            await connection.ExecuteAsync(sqlStatement, arguments);
-
-            SupplementData.DataContext.CloseConnection(connection);
-
-            resultStatus = true;
-
-            return resultStatus;
-        }
-        catch (SqlException)
+        var argumentsSelect = new
         {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-        catch (AggregateException)
-        {
-            throw;
-        }
-        catch (Exception)
-        {
-            // SOME LOGGING LOGIC
+            carId
+        };
 
-            throw;
-        }
+        SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+        await connection.ExecuteAsync(sqlProcedureUpdate, argumentsUpdate);
+
+        IEnumerable<BuyCarDto> cars = await connection.QueryAsync<BuyCarDto>(sqlProcedureSelect, argumentsSelect);
+
+        DataContext.CloseConnection(connection);
+
+        BuyCarDto car = cars.SingleOrDefault();
+
+        return car;
+    }
+
+    public async Task<SimpleCarDto> UpdateNumberPlatePriceSimpleCar(string connectionString, string carId, string numberPlate, int price)
+    {
+        var sqlProcedureUpdate = "UpdateNumberPlatePriceCar";
+
+        var argumentsUpdate = new
+        {
+            carId,
+            numberPlate,
+            price
+        };
+
+        var sqlProcedureSelect = "GetSimpleCar";
+
+        var argumentsSelect = new
+        {
+            carId
+        };
+
+        SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+        await connection.ExecuteAsync(sqlProcedureUpdate, argumentsUpdate);
+
+        IEnumerable<Car> cars = await connection.QueryAsync<Car>(sqlProcedureSelect, argumentsSelect);
+
+        DataContext.CloseConnection(connection);
+
+        Car car = cars.SingleOrDefault();
+
+        var simpleCarDto = new SimpleCarDto
+        {
+            CarId = car.CarId.ToString().ToUpper(),
+            VinCode = car.VinCode,
+            NumberPlate = car.NumberPlate,
+            Brand = car.Brand,
+            Model = car.Model,
+            Price = car.Price
+        };
+
+        return simpleCarDto;
     }
 
     public async ValueTask<bool> ChangeCarIsFitForUseAsync(Guid carGuid, bool isFitForUse, string connectionString)
@@ -922,8 +1010,6 @@ public class ServiceManager : ICarManager
         try
         {
             bool resultIsFit = false;
-
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
 
             string carId = carGuid.ToString().ToUpper();
 
@@ -935,9 +1021,11 @@ public class ServiceManager : ICarManager
 
             string sqlStatement = @"UpdateCarIsFitForUse";
 
+            SqlConnection connection = DataContext.OpenConnection(connectionString);
+
             await connection.ExecuteAsync(sqlStatement, arguments);
 
-            SupplementData.DataContext.CloseConnection(connection);
+            DataContext.CloseConnection(connection);
 
             resultIsFit = true;
 
@@ -963,323 +1051,15 @@ public class ServiceManager : ICarManager
         }
     }
 
-    public async ValueTask<bool> ChangeCarDealshipInDatabaseAsync(Guid carGuid, Guid dealId, string connectionString)
-    {
-        try
-        {
-            bool resultDealship = false;
-
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            string id = dealId.ToString().ToUpper();
-
-            string carId = carGuid.ToString().ToUpper();
-
-            var arguments = new
-            {
-                id = id,
-                carId = carId
-            };
-
-            string sqlStatement =
-            @"
-                UPDATE Cars
-                    SET DealId = @id
-                    WHERE CarId = @carId;
-            ";
-
-            await connection.ExecuteAsync(sqlStatement, arguments);
-
-            SupplementData.DataContext.CloseConnection(connection);
-
-            resultDealship = true;
-
-            return resultDealship;
-        }
-        catch (SqlException)
-        {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-        catch (AggregateException)
-        {
-            throw;
-        }
-        catch (Exception)
-        {
-            // SOME LOGGING LOGIC
-
-            throw;
-        }
-    }
-
-    public async ValueTask<bool> ChangeCarOwnershipInDatabaseAsync(Guid carGuid, string customerId, string connectionString)
-    {
-        try
-        {
-            bool isUpdateOwnership = false;
-
-            SqlConnection connection = SupplementData.DataContext.OpenConnection(connectionString);
-
-            string id = customerId.ToUpper();
-
-            string carId = carGuid.ToString().ToUpper();
-
-            var arguments = new
-            {
-                id = id,
-                carId = carId
-            };
-
-            string sqlStatement =
-            @"
-                UPDATE Cars
-                    SET CustomerId = @id
-                    WHERE CarId = @carId;
-            ";
-
-            await connection.ExecuteAsync(sqlStatement, arguments);
-
-            SupplementData.DataContext.CloseConnection(connection);
-
-            isUpdateOwnership = true;
-
-            return isUpdateOwnership;
-        }
-        catch (SqlException)
-        {
-            throw;
-        }
-        catch (InvalidOperationException)
-        {
-            throw;
-        }
-        catch(AggregateException)
-        {
-            throw;
-        }
-        catch (Exception)
-        {
-            // SOME LOGGING LOGIC
-
-            throw;
-        }
-    }
-
-    public void ChangeEngine (Car car, string engine)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(engine);
-
-        car.Engine = engine;
-    }
-
-    public void ChangeTransmission(Car car, string transmission)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(transmission);
-
-        car.Transmission = transmission;
-    }
-
-    public void ChangeInterior(Car car, string interior)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(interior);
-
-        car.Interior = interior;
-    }
-
-    public void ChangeWheels(Car car, string wheels)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(wheels);
-
-        car.Wheels = wheels;
-    }
-
-    public void ChangeLights(Car car, string lights)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(lights);
-
-        car.Lights = lights;
-    }
-
-    public void ChangeSignal(Car car, string signal)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(signal);
-
-        car.Signal = signal;
-    }
-
-    public void ChangeColor(Car car, KnownColor color)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckType(color);
-
-        car.Color = color;
-    }
-
-    public void ChangePrice(Car car, int price)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckPrice(price);
-
-        car.Price = price;
-    }
-
-    public void ChangeNumberPlate(Car car, string numberPlate)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.NullValidator.CheckNull(numberPlate);
-
-        car.NumberPlate = numberPlate;
-    }
-
-    public void ChangeNumberOfSeats(Car car, int number)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(number);
-
-        car.NumberOfSeats = number;
-    }
-
-    public void ChangeNumberDoors(Car car, int number)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(number);
-
-        car.NumberOfDoors = number;
-    }
-
-    public void ChangeMileage(Car car, float mileage)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(mileage);
-
-        car.Mileage = mileage;
-    }
-
-    public void ChangeMaxFuelCapacity(Car car, int capacity)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(capacity);
-
-        car.MaxFuelCapacity = capacity;
-    }
-
-    public void ChangeCurrentFuel(Car car, float capacity)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-        SupplementData.Validator.CheckZeroNegative(capacity);
-
-        car.CurrentFuel = capacity;
-    }
-
-    public void ChangeFitForUse(Car car, bool isUse)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        car.IsFitForUse = isUse;
-    }
-
-    public void ChangeCarStatus(Car car, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType(status);
-
-        car.Status = status;
-    }
-
-    public void ChangeCarStatus(Car car, int status)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType((TransportStatus)status);
-
-        car.Status = (TransportStatus)status;
-    }
-
-    public void ChangeCurrentCarStatus(int index, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        Car car = ChooseCarFromList(CurrentCars, index);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType(status);
-
-        CurrentCars[index].Status = status;
-    }
-
-    public void ChangeCurrentCarStatus(Guid guid, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        Car car = ChooseCarFromList(CurrentCars, guid);
-
-        SupplementData.NullValidator.CheckNull(car);
-
-        SupplementData.Validator.CheckType(status);
-
-        // THIS IS A REFEREBCE TYPE, THE CHANGE WILL AFFECT CAR INSTANCE IN THE LIST.
-        car.Status = status;
-    }
-
-    public void ChangeCarsStatus(List<Car> cars, TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-        SupplementData.Validator.CheckType(status);
-        
-        foreach(Car car in cars)
-        {
-            car.Status = status;
-        }
-    }
-
-    public void ChangeCurrentCarsStatus(TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.CurrentCars);
-
-        SupplementData.Validator.CheckType(status);
-
-        foreach (Car car in CurrentCars)
-        {
-            car.Status = status;
-        }
-    }
-
-    public void ChangeSelectedCarStatus(TransportStatus status)
-    {
-        SupplementData.NullValidator.CheckNull(this.SelectedCar);
-        SupplementData.Validator.CheckType(status);
-
-        this.SelectedCar.Status = status;
-    }
-
-    public void ChangerOwner(Car car, Customer owner)
-    {
-        SupplementData.NullValidator.CheckNull(car);
-
-        car.Owner = owner;
-    }
-
     public async Task RepairAsync(Car car, Mechanic mechanic, string connectionString)
     {
         try
         {
-            SupplementData.NullValidator.CheckNull(car);
+            NullValidator.CheckNull(car);
 
             bool isSuccessfull;
 
-            SupplementData.NullValidator.CheckNull(car.IsFitForUse);
+            NullValidator.CheckNull(car.IsFitForUse);
 
             bool isFitForUse = (bool)car.IsFitForUse;
 
@@ -1347,81 +1127,80 @@ public class ServiceManager : ICarManager
 
     public async Task InscribeRepairAsync(Car car, Mechanic mechanic, bool isSuccessfull, string connectionString)
     {
-        Repair repair = await SupplementData.JunkRepairManager.GetNewRepairAsync(car, mechanic, isSuccessfull, connectionString);
+        RepairDto? repairDto = await JunkRepairManager.GetNewRepairAsync(car, mechanic, isSuccessfull, connectionString);
+
+        var repair = new Repair
+        {
+            Id = repairDto.Id,
+            Date = repairDto.Date,
+            CarId = repairDto.CarId,
+            CarBrand = car.Brand,
+            CarModel = car.Model,
+            MechanicName = mechanic.Name,
+            MechanicId = mechanic.Id,
+            TechnicalInfo = repairDto.TechnicalInfo,
+            IsSuccessfull = repairDto.IsSuccessfull,
+            TotalCost = repairDto.TotalCost
+        };
 
         AddRepairInToCar(car, repair);
 
-        SupplementData.JunkRepairManager.AddRepairInToList(SupplementData.JunkRepairManager.Repairs, repair);
+        JunkRepairManager.AddRepairInToList(JunkRepairManager.Repairs, repair);
 
-        SupplementData.MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
+        MechanicalManager.AddRepairInToMechanicList(mechanic, repair);
     }
 
     public void AddRepairInToCar(Car car, Repair repair)
     {
-        SupplementData.NullValidator.CheckNull(car);
+        NullValidator.CheckNull(car);
 
-        SupplementData.JunkRepairManager.AddRepairInToList(car.Repairs, repair);
+        JunkRepairManager.AddRepairInToList(car.Repairs, repair);
     }
 
     public void AddDealToCar(Car car, Deal deal)
     {
-        SupplementData.NullValidator.CheckNull(car);
+        NullValidator.CheckNull(car);
 
         car.Engagement = deal;
     }
 
     // DELETE
 
+    public async ValueTask<bool> DeleteSimpleCar(string connectionString, string carId)
+    {
+        var sqlProcedureDelete = "DeleteSimpleCar";
+
+        var arguments = new
+        {
+            carId
+        };
+
+        var sqlProcedureCheck = "CheckIfCarExist";
+
+        SqlConnection connection = DataContext.OpenConnection(connectionString);
+
+        await connection.ExecuteAsync(sqlProcedureDelete, arguments);
+
+        IEnumerable<bool> bits = await connection.QueryAsync<bool>(sqlProcedureCheck, arguments);
+
+        DataContext.CloseConnection(connection);
+
+        bool isExist = bits.SingleOrDefault();
+
+        bool isSuccessful = !isExist;
+
+        return isSuccessful;
+    }
+
     public void DeleteCarFromList(List<Car> list, int index)
     {
         try
         {
-            SupplementData.NullValidator.CheckNull(list);
+            NullValidator.CheckNull(list);
 
             list.RemoveAt(index);
         }
         catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public void DeleteCarFromList(List<Car> cars, string model)
-    {
-        try
-        {
-            SupplementData.Validator.CheckNullEmpty(model);
-            SupplementData.NullValidator.CheckNull(cars);
-
-            cars.RemoveAt(cars.IndexOf(ChooseCarFromList(cars, model)));
-        }
-        catch (KeyNotFoundException exception)
-        {
-            throw exception;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-    }
-
-    public void DeleteCarFromList(List<Car> cars, Guid guid)
-    {
-        try
-        {
-            SupplementData.NullValidator.CheckNull(cars);
-
-            cars.RemoveAt(cars.IndexOf(ChooseCarFromList(cars, guid)));
-        }
-        catch (KeyNotFoundException exception)
-        {
-            throw exception;
-        }
-        catch (IndexOutOfRangeException exception)
-        {
-            throw exception;
-        }
-        catch (Exception exception)
         {
             throw exception;
         }
@@ -1432,28 +1211,6 @@ public class ServiceManager : ICarManager
         DeleteCarFromList(this.CurrentCars, index);
     }
 
-    public void DeleteCarFromCurrentCars(string model)
-    {
-        DeleteCarFromList(this.CurrentCars, model);
-    }
-
-    public void DeleteCarFromCurrentCars(Guid guid)
-    {
-        DeleteCarFromList(this.CurrentCars, guid);
-    }
-
-    public void DeleteAllCarsFromList(List<Car> cars)
-    {
-        SupplementData.NullValidator.CheckNull(cars);
-
-        cars.Clear();
-    }
-
-    public void DeleteAllCarsFromCurrentCars()
-    {
-        DeleteAllCarsFromList(this.CurrentCars);
-    }
-
     // METHODS
     // // INITIALIZATION
 
@@ -1461,7 +1218,7 @@ public class ServiceManager : ICarManager
     {
         try
         {
-            SupplementDataInitializator dataInit = new SupplementDataInitializator();
+            var dataInit = new SupplementDataInitializator();
 
             this.SupplementData = new ServiceManagerSupplements
             {
@@ -1482,5 +1239,11 @@ public class ServiceManager : ICarManager
         {
             throw exception;
         }
+    }
+
+    public void ConfigureOrm()
+    {
+        DapperConfigs.ConfigureGuidToStringMapping();
+        DapperConfigs.SetCustomMappingForEntities();
     }
 }

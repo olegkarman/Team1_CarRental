@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models.Automobile.RecordTypes;
+﻿using CarRental.Data.Models.Automobile.RecordTypes;
 
 namespace CarRental.Data.Models
 {
@@ -12,7 +7,7 @@ namespace CarRental.Data.Models
         // FIELDS
 
         private const string _noInfo = "NO INFORMATION";
-        
+
         // PROPERTIES
 
         public Guid Id { get; init; }

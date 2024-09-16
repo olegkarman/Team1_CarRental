@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Interfaces;
+﻿using System.Drawing;
+using CarRental.BussinessLayer.Interfaces;
 using CarRental.Data.Enums;
-using System.Drawing;
-using System.Runtime.ConstrainedExecution;
 
 namespace CarRental.BussinessLayer.Validators
 {
-    public class VehicleValidation
+    public class VehicleValidation : IVehicleValidation
     {
         // METHODS
 
@@ -22,30 +15,6 @@ namespace CarRental.BussinessLayer.Validators
                 throw new ArgumentNullException(nameof(model));
             }
         }
-
-        //public void CheckNull(Car car)
-        //{
-        //    if (car == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(car));
-        //    }
-        //}
-
-        //public void CheckNull(bool? isFitForUse)
-        //{
-        //    if (isFitForUse == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(isFitForUse));
-        //    }
-        //}
-
-        //public void CheckNull(string tupleEntry)
-        //{
-        //    if (tupleEntry == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(tupleEntry));
-        //    }
-        //}
 
         public void CheckNull(string vinCode, string model, string brand, string numberPlate)
         {
@@ -74,14 +43,6 @@ namespace CarRental.BussinessLayer.Validators
                 throw new ArgumentNullException(nameof(models));
             }
         }
-
-        //public void CheckNull(List<Car> cars)
-        //{
-        //    if (cars == null)
-        //    {
-        //        throw new ArgumentNullException(nameof(cars));
-        //    }
-        //}
 
         public void CheckNullEmpty(string model)
         {

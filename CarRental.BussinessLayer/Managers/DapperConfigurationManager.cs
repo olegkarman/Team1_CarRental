@@ -1,22 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using CarRental.Data.Dapper;
+using CarRental.Data.Models;
 using CarRental.Data.Models.Automobile;
+using CarRental.Data.Models.Automobile.RecordTypes;
 using CarRental.Data.Models.Checkup;
 using CarRental.Data.Models.RecordTypes;
-using CarRental.Data.Models;
+using CarRental.BussinessLayer.Interfaces;
 using Dapper;
-using CarRental.Data.Models.Automobile.RecordTypes;
 
-namespace CarRental.Data.Managers
+namespace CarRental.BussinessLayer.Managers
 {
-    public class DapperConfigurationManager
+    public class DapperConfigurationManager : IDapperConfiguration
     {
         // METHODS
+
+        public string GetCachedAndFormat(int maxCach, object value)
+        {
+            string formatString = DateTime.Now.ToString();
+
+            List<Tuple<string, string, int>> sqls = Dapper.SqlMapper.GetCachedSQL(maxCach).ToList();
+
+            string result = sqls[0].Item1 + formatString;
+
+            return result;
+        }
 
         public void ConfigureGuidToStringMapping()
         {

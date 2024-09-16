@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+﻿using FluentMigrator.Runner;
 using Microsoft.Extensions.DependencyInjection;
-using FluentMigrator.Runner;
-using static System.Formats.Asn1.AsnWriter;
-using CarRental.Data.Migrations;
+using Microsoft.Extensions.Hosting;
 
-namespace CarRental.Data.Managers;
+namespace CarRental.BussinessLayer.Managers;
 
 public static class MigrationManager
 {

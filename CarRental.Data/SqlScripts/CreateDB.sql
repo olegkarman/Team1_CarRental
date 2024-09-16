@@ -2033,3 +2033,331 @@ EXECUTE
 -- END OF CREATE SECTION
 
 ------------------------------------------------ T-SQL ALREADY EXECUTED NINTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED TENTH START ------------------------------------------------
+
+-- CREATE SECTION
+-- 28-AUG-24
+
+EXECUTE
+('
+	CREATE PROCEDURE GetSimpleCar (@carId NVARCHAR(100))
+		AS
+			SELECT CarId,
+					VinCode,
+					NumberPlate,
+					Brand,
+					Model,
+					Price
+				FROM Cars
+				WHERE CarId = @carId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE CreateSimpleCar
+	(
+		@carId NVARCHAR(100),
+		@vinCode NVARCHAR(100),
+		@numberPlate NVARCHAR(50),
+		@brand NVARCHAR(500),
+		@model NVARCHAR(500),
+		@price INT
+	)
+		AS
+			BEGIN
+				INSERT INTO Cars
+				(
+					CarId,
+					VinCode,
+					NumberPlate,
+					Brand,
+					Model,
+					Price
+				)
+				VALUES
+				(
+					@carId,
+					@vinCode,
+					@numberPlate,
+					@brand,
+					@model,
+					@price
+				);
+			END
+');
+
+-- END OF CREATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED TENTH END ------------------------------------------------
+
+------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH START ------------------------------------------------
+
+-- START OF CREATE SECTION
+-- 05-SEPT-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE CheckIfCarExist (@carId NVARCHAR(100))
+	AS
+		BEGIN
+			DECLARE @isExist BIT
+
+			IF EXISTS
+			(
+				SELECT CarId
+					FROM Cars
+					WHERE CarId = @carId
+			)
+				BEGIN
+					SET @isExist = 1;
+				END
+			ELSE
+				BEGIN
+					SET @isExist = 0;
+				END
+
+			SELECT @isExist AS isExist;
+		END
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE DeleteSimpleCar (@carId NVARCHAR(100))
+		AS
+			BEGIN
+				DELETE
+					FROM Repairs
+					WHERE CarId = @carId;
+
+				DELETE
+					FROM Inspections
+					WHERE CarId = @carId;
+			
+				DELETE
+					FROM Cars
+					WHERE CarId = @carId;
+			END
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE UpdateNumberPlatePriceCar
+	(
+		@carId NVARCHAR(100),
+		@numberPlate NVARCHAR(50),
+		@price INT
+	)
+	AS
+		UPDATE Cars
+			SET NumberPlate = @numberPlate,
+				Price = @price
+			WHERE CarId = @carId;
+');
+
+-- START OF UPDATE SECTION
+-- 2024-SEP-05
+
+UPDATE Deals
+	SET CustomerId = '7D8752F4-E040-4B2D-9422-32A4C0C10789'
+	WHERE Id = 'A9FEA928-1EB9-4657-51F8-C687CAB0C2B8';
+
+-- END OF UPDATE SECTION
+
+-- START OF CREATE SECTION
+-- 09-SEP-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetCustomer
+	(
+		@customerId NVARCHAR(100),
+		@customerCategory NVARCHAR(50) = ''Customer''
+	)
+	AS
+		SELECT Users.IdNumber AS userIdNumber,
+				Users.FirstName AS userFirstName,
+				Users.LastName AS userLastName,
+				Users.DateOfBirth AS userDateOfBirth,
+				Users.UserName AS userUserName,
+				Users.Password AS userPassword,
+				Users.PassportNumber AS userPassportNumber,
+				Users.DrivingLicenseNumber AS userDrivingLicenseNumber,
+				Users.BasicDiscount AS userBasicDiscount,
+				Users.Category AS userCategory,
+				Cars.CarId AS carCarId,
+				Cars.VinCode AS carVinCode,
+				Cars.NumberPlate AS carNumberPlate,
+				Cars.Brand AS carBrand,
+				Cars.Model AS carModel,
+				Cars.Price AS carPrice,
+				Cars.NumberOfSeats AS carNumberOfSeats,
+				Cars.NumberOfDoors AS carNumberOfDoors,
+				Cars.Mileage AS carMileage,
+				Cars.MaxFuelCapacity AS carMaxFuelCapacity,
+				Cars.CurrentFuel AS carCurrentFuel,
+				Cars.Year AS carYear,
+				Cars.IsFitForUse AS carIsFitForUse,
+				Cars.Engine AS carEngine,
+				Cars.Transmission AS carTransmission,
+				Cars.Interior AS carInterior,
+				Cars.Wheels AS carWheels,
+				Cars.Lights AS carLights,
+				Cars.Signal AS carSignal,
+				Cars.Color AS carColor,
+				Cars.StatusId AS carStatusId,
+				Deals.Id AS dealId,
+				Deals.CarId AS dealCarId,
+				Deals.VinCode AS dealVinCode,
+				Deals.CustomerId AS dealCustomerId,
+				Deals.Price AS dealPrice,
+				Deals.DealType dealDealType,
+				Deals.Name AS dealName,
+				Inspections.InspectionId AS inspectionInspectionId,
+				Inspections.CarId AS inspectionCarId,
+				Inspections.VinCode AS inspectionVinCode,
+				Inspections.InspectorId AS inspectionInspectorId,
+				Inspections.InspectionDate AS inspectionInspectionDate,
+				Inspections.StatusId AS inspectionStatusId,
+				Repairs.Id AS repairId,
+				Repairs.Date AS repairDate,
+				Repairs.CarId repairCarId,
+				Repairs.VinCode AS repairVinCode,
+				Repairs.MechanicId AS repairMechanicId,
+				Repairs.IsSuccessfull AS repairIsSuccessfull,
+				Repairs.TotalCost AS repairTotalCost,
+				Repairs.TechnicalInfo AS repairTechnicalInfo
+		FROM Users
+		LEFT JOIN Cars
+			ON Users.IdNumber = Cars.CustomerId 
+		LEFT JOIN Deals
+			ON Deals.CarId = Cars.CarId 
+		LEFT JOIN Inspections
+			ON Inspections.CarId = Cars.CarId 
+		LEFT JOIN Repairs
+			ON Repairs.CarId = Cars.CarId 
+		WHERE Users.IdNumber = @customerId
+			AND Users.Category = @customerCategory;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE GetSimpleCustomer (@idNumber NVARCHAR(100), @category NVARCHAR(50))
+	AS
+		SELECT IdNumber,
+				FirstName,
+				LastName,
+				DateOfBirth,
+				Password,
+				UserName,
+				BasicDiscount,
+				PassportNumber,
+				DrivingLicenseNumber,
+				Category
+		FROM Users
+		WHERE IdNumber = @idNumber
+			AND Category = @category;
+');
+
+-- END OF CREATE SECTION
+
+-- START OF CREATE SECTION
+-- 15-SEP-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetRepair (@repairId NVARCHAR(500))
+	AS
+		SELECT Id,
+				Date,
+				CarId,
+				VinCode,
+				MechanicId,
+				TechnicalInfo,
+				IsSuccessfull,
+				TotalCost
+		FROM Repairs
+		WHERE Id = @repairId;
+');
+
+-- END OF CREATE SECTION
+
+-- START OF CREATE SECTION
+-- 16-SEP-2024
+
+EXECUTE
+('
+	CREATE PROCEDURE GetCredentialsOfCustomer (@customerId NVARCHAR(100))
+	AS
+		SELECT UserName, Password
+			FROM Users
+			WHERE IdNumber = @customerId
+				AND Category = ''Customer'';
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE UpdateCarCustomerDealStatus
+	(
+		@carId NVARCHAR(100),
+		@customerId NVARCHAR(100),
+		@dealId NVARCHAR(100),
+		@statusId INT
+	)
+	AS
+		UPDATE Cars
+			SET CustomerId = @customerId,
+				DealId = @dealId,
+				StatusId = @StatusId
+			WHERE CarId = @carId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE GetBuyCar (@carId NVARCHAR(100))
+	AS
+		SELECT CarId,
+				VinCode,
+				CustomerId,
+				NumberPlate,
+				Brand,
+				Model,
+				Price,
+				NumberOfSeats,
+				NumberOfDoors,
+				Mileage,
+				MaxFuelCapacity,
+				CurrentFuel,
+				Year,
+				IsFitForUse,
+				Engine,
+				Transmission,
+				Interior,
+				Wheels,
+				Lights,
+				Signal,
+				Color,
+				DealId,
+				StatusId
+			FROM Cars
+			WHERE CarId = @carId;
+');
+
+EXECUTE
+('
+	CREATE PROCEDURE GetDeal (@dealId NVARCHAR(100))
+	AS
+		SELECT Id,
+				CarId,
+				VinCode,
+				CustomerId,
+				Price,
+				DealType,
+				Name
+			FROM Deals
+			WHERE Id = @dealId;
+');
+
+-- END OF CREATE SECTION
+
+------------------------------------------------ T-SQL ALREADY EXECUTED ELEVENTH END ------------------------------------------------

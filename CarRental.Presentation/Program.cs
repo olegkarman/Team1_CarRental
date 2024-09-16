@@ -1,21 +1,11 @@
 ﻿using CarRental.BussinessLayer.Managers;
-// WHY WE CALL CONSTRUCTORS FROM DATA-LAYER IN PRESENTATION?
-using CarRental.Data.Models.Login;
+using CarRental.Presentation.Managers;
 using CarRental.Data.Models.Gateway;
-using CarRental.Data.Managers;
+using CarRental.Data.Models.Login;
 using CarRental.Presentation.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
-using CarRental.Presentation.Managers;
-using CarRental.Data.Models.Automobile;
-using CarRental.Data.Models.Checkup;
-using CarRental.Data.Models.RecordTypes;
-using CarRental.Data.Dapper;
-using CarRental.Data.Models.Automobile.RecordTypes;
-
-
-
 namespace CarRental.Presentation;
 
 class CarRentalPortal
@@ -33,7 +23,7 @@ class CarRentalPortal
             .Build();
 
         //string connectionString = configurations.GetConnectionString("MDzivinska");
-        //string connectionString = configurations.GetConnectionString("ConnectionStringTest");
+        //string connectionString = configurations.GetConnectionString("LocalTest");
         string connectionString = configurations.GetConnectionString("ConnectionStringCloudClusters");
 
         bool isBulkInsertAllowed = configurations.GetValue<bool>("BulkInsertFlag");

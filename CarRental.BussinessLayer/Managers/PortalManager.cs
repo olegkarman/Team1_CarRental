@@ -1,16 +1,12 @@
-﻿using CarRental.Data.Models.Gateway;
-using CarRental.Data.Models;
+﻿using System.Text.RegularExpressions;
 using CarRental.BussinessLayer.Interfaces;
-using System;
-using System.Text;
-using CarRental.Data.Models.RecordTypes;
-using CarRental.Data.Models.Automobile;
+using CarRental.BussinessLayer.Services;
 using CarRental.BussinessLayer.Validators;
-using System.Drawing;
-using System.Globalization;
-using System.Reflection;
-using System.Text.RegularExpressions;
+using CarRental.Data.Models;
+using CarRental.Data.Models.Automobile;
 using CarRental.Data.Models.Automobile.RecordTypes;
+using CarRental.Data.Models.Gateway;
+using CarRental.Data.Models.RecordTypes;
 
 namespace CarRental.BussinessLayer.Managers
 {
@@ -34,16 +30,45 @@ namespace CarRental.BussinessLayer.Managers
         {
             _portalInstance = portal;
             _outputManager = outputManager;
-            _carServiceManager = new ServiceManager();
+            _carServiceManager = new ServiceManager
+            (
+                new RandomCarGeneration(),
+                new VehicleValidation(),
+                new IndexOfListValidation(),
+                new PatternCharMapsDto(),
+                new MechanicManager
+                (
+                    new UpdatedNameValidator(),
+                    new TextProcessingService(),
+                    new AgeValidator(),
+                    new NullValidation(),
+                    new IndexOfListValidation(),
+                    new DatabaseContextDapper()
+                ),
+
+                new RepairManager
+                (
+                    new NullValidation(),
+                    new IndexOfListValidation(),
+                    new DatabaseContextDapper()
+                ),
+
+                new NullValidation(),
+                new DatabaseContextDapper(),
+                new DapperConfigurationManager(),
+                new FileDataManager(),
+                new TextProcessingService()
+            );
+
             _inspectorCars = new InspectorCars();
-            _customerManager = new CustomerManager();
+            _customerManager = new CustomerManager(new DatabaseContextDapper());
             _inspectionsManager = new InspectionsManager();
 
             _dealManager = new DealManager
             {
-                _indexValidator = new IndexOfListValidation(),
-                _nameValidator = new UpdatedNameValidator(),
-                _validator = new NullValidation()
+                IndexValidator = new IndexOfListValidation(),
+                NameValidator = new UpdatedNameValidator(),
+                Validator = new NullValidation()
             };
 
             _brandManager = new BrandManager
@@ -57,11 +82,14 @@ namespace CarRental.BussinessLayer.Managers
 
         public async Task StartMainMenuAsync(string connectionString, bool bulkInsertFlag)
         {
-            _carServiceManager.InitializeManagment();
-
             // TO CONFIGURE ORM FOR Car-CLASS.
-            _carServiceManager.SupplementData.DapperConfigs.ConfigureGuidToStringMapping();
-            _carServiceManager.SupplementData.DapperConfigs.SetCustomMappingForEntities();
+            _carServiceManager.DapperConfigs.ConfigureGuidToStringMapping();
+            _carServiceManager.DapperConfigs.SetCustomMappingForEntities();
+
+            using (var initializator = new SupplementDataInitializator())
+            {
+                initializator.ConfigureRandomGeneration(_carServiceManager.RandomCarGenerator);
+            }   
 
             // IF CUSTOMER IS NOT EXISTS IN A DATABSE, ADD IT THEN.
             if (_portalInstance.IsCustomer)
@@ -423,7 +451,7 @@ namespace CarRental.BussinessLayer.Managers
 
             string inputInfo = manager.ShowCars(customer, _carServiceManager);
 
-            string[] carsInfo = inputInfo.Split(delimiterToSplit); 
+            string[] carsInfo = inputInfo.Split(delimiterToSplit);
 
             for (int index = 0; index < carsInfo.Length; index = index + 1)
             {
@@ -475,7 +503,7 @@ namespace CarRental.BussinessLayer.Managers
 
             int mechanicSelector = random.Next(0, 5);
 
-            switch(mechanicSelector)
+            switch (mechanicSelector)
             {
                 case 0:
                     selectedMechanic = yaroslav;
@@ -497,7 +525,7 @@ namespace CarRental.BussinessLayer.Managers
                     break;
             }
 
-            Mechanic mechanic = await _carServiceManager.SupplementData.MechanicalManager.GetMechanicFromDatabaseAsync(selectedMechanic, connectionString);
+            Mechanic mechanic = await _carServiceManager.MechanicalManager.GetMechanicFromDatabaseAsync(selectedMechanic, connectionString);
 
             // DUE IT IS THE REFERENCE TYPE, THIS OPERATION SHOULD AFFECT THE INSTANCE IN customer.Cars LIST.
             await _carServiceManager.RepairAsync(car, mechanic, connectionString);
@@ -521,7 +549,7 @@ namespace CarRental.BussinessLayer.Managers
                         continue;
                     }
 
-                    _outputManager.PrintMessage(_carServiceManager.SupplementData.JunkRepairManager.ShowRepairInfo(repair));
+                    _outputManager.PrintMessage(_carServiceManager.JunkRepairManager.ShowRepairInfo(repair));
                 }
 
                 _outputManager.PrintMessage("");

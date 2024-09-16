@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
+using CarRental.BussinessLayer.Interfaces;
 
 namespace CarRental.BussinessLayer.Validators
 {
-    internal class UpdatedNameValidator
+    public class UpdatedNameValidator : INameValidation
     {
         // FIELDS
 
@@ -15,7 +11,7 @@ namespace CarRental.BussinessLayer.Validators
         private const int _defaultTimeSpan = 500;
         private Regex _regExpr;
         private string _pattern;
-        
+
 
         // PROPERTIES
 
@@ -23,7 +19,7 @@ namespace CarRental.BussinessLayer.Validators
 
         public UpdatedNameValidator()
         {
-        
+
         }
 
         public UpdatedNameValidator(string pattern)
@@ -50,7 +46,7 @@ namespace CarRental.BussinessLayer.Validators
 
         public bool CheckNullEmpty(string name)
         {
-            if(string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
                 return true;
             }

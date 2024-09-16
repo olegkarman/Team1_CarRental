@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
 using FluentMigrator.Runner;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using CarRental.BussinessLayer.Interfaces;
 
+namespace CarRental.BussinessLayer.Managers;
 
-namespace CarRental.Presentation.Managers;
-
-public class HostManager
+public class HostManager : IHostManager
 {
     // METHODS
 
@@ -23,19 +18,19 @@ public class HostManager
     public IHostBuilder ConfigureSqlServer2012FluentMigrator(IHostBuilder hostBuilder, Assembly assembly, string connectionString)
     {
         hostBuilder.ConfigureServices
-            (
-                (context, services) =>
-                {
-                    services.AddLogging(c => c.AddFluentMigratorConsole())
-                    .AddFluentMigratorCore()
-                    .ConfigureRunner
-                    (
-                        c => c.AddSqlServer2012()
-                        .WithGlobalConnectionString(connectionString)
-                        .ScanIn(assembly).For.Migrations()
-                    );
-                }
-            );
+        (
+            (context, services) =>
+            {
+                services.AddLogging(c => c.AddFluentMigratorConsole())
+                .AddFluentMigratorCore()
+                .ConfigureRunner
+                (
+                    c => c.AddSqlServer2012()
+                    .WithGlobalConnectionString(connectionString)
+                    .ScanIn(assembly).For.Migrations()
+                );
+            }
+        );
 
         return hostBuilder;
     }
@@ -43,7 +38,7 @@ public class HostManager
     public IHost BuildHost(IHostBuilder hostBuilder)
     {
         IHost host = hostBuilder.Build();
-        
+
         return host;
     }
 }
